@@ -1,4 +1,6 @@
 
+import { Facebook, Instagram, Phone, Mail } from 'lucide-react';
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-12 border-t border-gold/20">
@@ -14,9 +16,10 @@ const Footer = () => {
             <p className="font-montserrat text-gray-400 mb-6">
               Expertly stitched with care - Your trusted tailoring service for all ladies' and girls' suits.
             </p>
-            <p className="font-montserrat text-gold">
-              Call: 03070125273
-            </p>
+            <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2 hover:text-gold-light transition-colors">
+              <Phone className="h-4 w-4" />
+              WhatsApp: 03070125273
+            </a>
           </div>
           
           <div>
@@ -28,6 +31,16 @@ const Footer = () => {
               <li><a href="#gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</a></li>
               <li><a href="#contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</a></li>
             </ul>
+            
+            <h3 className="text-lg font-playfair font-bold text-gold mb-2 mt-6">Follow Us</h3>
+            <div className="flex space-x-4">
+              <a href="https://www.facebook.com/profile.php?id=100067160730050" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors">
+                <Facebook className="h-6 w-6" />
+              </a>
+              <a href="https://www.instagram.com/matailor1994/" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors">
+                <Instagram className="h-6 w-6" />
+              </a>
+            </div>
           </div>
           
           <div>
@@ -54,6 +67,14 @@ const Footer = () => {
               Address: Mahmoodabad No 04, Karachi
             </p>
           </div>
+        </div>
+        
+        <div className="mt-6 text-center">
+          <p className="text-xs text-gray-600">
+            Made with ♥ by{' '}
+            <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
+            <a href="https://www.fiverr.com/users/alimajid0302198" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Fiverr</a>
+          </p>
         </div>
       </div>
     </footer>

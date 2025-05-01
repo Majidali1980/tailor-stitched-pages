@@ -4,9 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from 'emailjs-com';
+import { Phone, Mail, Facebook, Instagram } from 'lucide-react';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,18 +24,43 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    toast({
-      title: "Message Sent",
-      description: "Thank you for contacting us. We'll get back to you soon!",
-      duration: 5000,
-    });
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    });
+    setIsSubmitting(true);
+    
+    // EmailJS configuration
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      phone_number: formData.phone,
+      message: formData.message
+    };
+    
+    emailjs.send('service_kqtecnn', 'template_tv45p3s', templateParams, 'H357zAP8V__yP5H8e')
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+        toast({
+          title: "Message Sent",
+          description: "Thank you for contacting us. We'll get back to you soon!",
+          duration: 5000,
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: ''
+        });
+      })
+      .catch((error) => {
+        console.error('Email error:', error);
+        toast({
+          title: "Failed to Send",
+          description: "There was an error sending your message. Please try again later.",
+          variant: "destructive",
+          duration: 5000,
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -60,7 +88,21 @@ const Contact = () => {
                 
                 <div>
                   <h4 className="text-lg font-playfair font-semibold text-white mb-2">Phone</h4>
-                  <p className="font-montserrat text-gold">03070125273</p>
+                  <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2">
+                    <Phone className="h-4 w-4" /> 03070125273
+                  </a>
+                </div>
+                
+                <div>
+                  <h4 className="text-lg font-playfair font-semibold text-white mb-2">Follow Us</h4>
+                  <div className="flex gap-4">
+                    <a href="https://www.facebook.com/profile.php?id=100067160730050" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors">
+                      <Facebook className="h-6 w-6" />
+                    </a>
+                    <a href="https://www.instagram.com/matailor1994/" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors">
+                      <Instagram className="h-6 w-6" />
+                    </a>
+                  </div>
                 </div>
                 
                 <div>
@@ -134,8 +176,12 @@ const Contact = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full bg-gold hover:bg-gold-dark text-black font-montserrat">
-                  Send Message
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gold hover:bg-gold-dark text-black font-montserrat"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
               </div>
             </form>

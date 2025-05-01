@@ -1,7 +1,10 @@
 
 import { Button } from '@/components/ui/button';
+import { Phone } from 'lucide-react';
 
 const Hero = () => {
+  const whatsappLink = "https://wa.me/923070125273";
+
   return (
     <section id="home" className="pt-24 min-h-screen bg-black text-white relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
@@ -24,9 +27,11 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat text-lg py-6 px-8">
-                Book Appointment
-              </Button>
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat text-lg py-6 px-8 flex items-center gap-2">
+                  <Phone className="h-5 w-5" /> Book Appointment
+                </Button>
+              </a>
               <Button variant="outline" className="border-gold text-gold hover:bg-gold/10 font-montserrat text-lg py-6 px-8">
                 View Services
               </Button>
@@ -48,10 +53,10 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="relative fancy-border bg-black rounded-lg overflow-hidden">
+          <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale">
             <img 
-              src="/lovable-uploads/07795914-75b9-4825-b121-eb93d5bac256.png" 
-              alt="MA Tailor Logo" 
+              src="https://github.com/Majidali1980/lmages/blob/main/WhatsApp%20Image%202025-05-01%20at%209.10.08%20AM.jpeg?raw=true" 
+              alt="MA Tailor Design" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
