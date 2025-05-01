@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,6 +25,11 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				gold: {
+					DEFAULT: '#D4AF37',
+					light: '#F0E68C',
+					dark: '#B8860B',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -63,6 +69,14 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			backgroundImage: {
+				'gold-gradient': 'linear-gradient(to right, #D4AF37, #F0E68C, #B8860B)',
+				'gold-curve': 'linear-gradient(135deg, #000 60%, #D4AF37 60%)',
+			},
+			fontFamily: {
+				'playfair': ['"Playfair Display"', 'serif'],
+				'montserrat': ['Montserrat', 'sans-serif'],
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -84,11 +98,16 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				shimmer: {
+					'0%': { backgroundPosition: '-40rem 0' },
+					'100%': { backgroundPosition: '40rem 0' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				shimmer: 'shimmer 2s linear infinite',
 			}
 		}
 	},
