@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone } from 'lucide-react';
+import BusinessCard from './BusinessCard';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +31,7 @@ const Navbar: React.FC = () => {
             <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors">About</a>
             <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors">Gallery</a>
             <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors">Contact</a>
+            <BusinessCard />
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2">
                 <Phone className="h-4 w-4" /> Book Now
@@ -53,6 +55,9 @@ const Navbar: React.FC = () => {
             <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
             <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</a>
             <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <div onClick={() => setIsMenuOpen(false)}>
+              <BusinessCard />
+            </div>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => setIsMenuOpen(false)}>
               <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat w-full flex items-center justify-center gap-2">
                 <Phone className="h-4 w-4" /> Book Now

@@ -1,37 +1,109 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Phone } from 'lucide-react';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   
-  // Placeholder images for demonstration
+  // Updated gallery items with the uploaded designs
   const galleryItems = [
     {
       id: 1,
       category: "party",
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&w=500&h=600",
-      title: "Party Wear Collection",
+      image: "/lovable-uploads/fa345f39-9ffe-49e0-8db2-02481f207f21.png",
+      title: "Patterned Suit Set",
     },
     {
       id: 2,
       category: "casual",
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=500&h=600",
-      title: "Casual Outfit",
+      image: "/lovable-uploads/2289ae98-4c91-4c97-8db8-e0d64be8ad1c.png",
+      title: "Pink Kids Outfit",
     },
     {
       id: 3,
       category: "bridal",
-      image: "https://images.unsplash.com/photo-1486718448742-163732cd1544?auto=format&fit=crop&w=500&h=600",
-      title: "Bridal Collection",
+      image: "/lovable-uploads/f9034e3c-903a-44e5-8dad-0538f66b3d1d.png",
+      title: "Floral Kurta Design",
     },
     {
       id: 4,
+      category: "casual",
+      image: "/lovable-uploads/93220827-794c-4d63-9bca-d25648548586.png",
+      title: "Black Block Print",
+    },
+    {
+      id: 5,
+      category: "casual",
+      image: "/lovable-uploads/0ce58cf7-8cd5-4fbb-b76a-9f210383e17b.png",
+      title: "Solid Color Set",
+    },
+    {
+      id: 6,
       category: "party",
-      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&w=500&h=600",
-      title: "Evening Gown",
+      image: "/lovable-uploads/a3edc439-ccb6-4b44-9e3e-db7149e5b5b9.png",
+      title: "Blue Floral Print",
+    },
+    {
+      id: 7,
+      category: "casual",
+      image: "/lovable-uploads/d1b4577c-1ba8-4bcc-b2df-c9bce312eab2.png",
+      title: "Mint Green Pattern",
+    },
+    {
+      id: 8,
+      category: "party",
+      image: "/lovable-uploads/f890c6b4-0e51-466a-be2b-241170f492f2.png",
+      title: "Yellow Stripe Set",
+    },
+    {
+      id: 9,
+      category: "party",
+      image: "/lovable-uploads/58027903-d301-44f4-9473-b464c8acefdf.png",
+      title: "Black & White Design",
+    },
+    {
+      id: 10,
+      category: "party",
+      image: "/lovable-uploads/93b6d47b-984c-4750-a420-903230fc55f8.png",
+      title: "Teal Pattern Set",
+    },
+    {
+      id: 11,
+      category: "bridal",
+      image: "/lovable-uploads/fe510a4f-cd1b-4815-a92d-b3fa4fdae000.png",
+      title: "Pink & Teal Design",
+    },
+    {
+      id: 12,
+      category: "casual",
+      image: "/lovable-uploads/a7c44e30-0f4b-403a-a08e-919aee496313.png",
+      title: "Light Blue Floral",
+    },
+    {
+      id: 13,
+      category: "casual",
+      image: "/lovable-uploads/ea5d124b-d56e-48fd-a55a-90390b4e0842.png",
+      title: "Black & Red Floral",
+    },
+    {
+      id: 14,
+      category: "bridal",
+      image: "/lovable-uploads/bfc1884a-a116-4a37-accf-d38f9e3588ba.png",
+      title: "Pink Floral Outfit",
+    },
+    {
+      id: 15,
+      category: "party",
+      image: "/lovable-uploads/28b72969-255a-4ce8-9089-4ef64c3a9fe6.png",
+      title: "Purple Floral Design",
+    },
+    {
+      id: 16,
+      category: "casual",
+      image: "/lovable-uploads/d2adeaf8-b268-49ad-9774-52a4c38bb8b0.png",
+      title: "Blue & Orange Print",
     },
   ];
 
@@ -45,6 +117,8 @@ const Gallery = () => {
   const filteredItems = activeCategory === "all" 
     ? galleryItems 
     : galleryItems.filter(item => item.category === activeCategory);
+
+  const whatsappLink = "https://wa.me/923070125273";
 
   return (
     <section id="gallery" className="py-24 bg-black text-white">
@@ -98,9 +172,11 @@ const Gallery = () => {
         </Tabs>
         
         <div className="text-center mt-12">
-          <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat">
-            View All Projects
-          </Button>
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2">
+              <Phone className="h-4 w-4" /> Book Your Design Now
+            </Button>
+          </a>
         </div>
       </div>
     </section>
