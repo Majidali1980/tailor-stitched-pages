@@ -9,9 +9,9 @@ const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with new shalwar kameez images
+  // Updated gallery items with new shalwar kameez and neck design images
   const galleryItems = [
-    // Shalwar Kameez with new uploaded images
+    // Shalwar Kameez with uploaded images
     {
       id: 1,
       category: "shalwar",
@@ -93,60 +93,60 @@ const Gallery = () => {
       title: "Stylish Summer Shirt",
     },
     
-    // Neck Design (keeping the existing ones)
+    // Neck Design with new uploaded images
     {
       id: 14,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(1).png?raw=true",
-      title: "Elegant Neck Design",
+      image: "public/lovable-uploads/d10a28b8-686d-4d59-983d-f77ff1b14833.png",
+      title: "Floral Red Embellished Neck",
     },
     {
       id: 15,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(2).png?raw=true",
-      title: "Traditional Embroidery",
+      image: "public/lovable-uploads/0332b418-3387-4ae2-934a-87db86c854c5.png",
+      title: "Magenta Button Detail Neck",
     },
     {
       id: 16,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(3).png?raw=true",
-      title: "Modern Neck Pattern",
+      image: "public/lovable-uploads/8358ec5e-9b7f-494f-b895-43ee164412cd.png",
+      title: "Patterned Geometric Neck Design",
     },
     {
       id: 17,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(4).png?raw=true",
-      title: "Floral Neck Design",
+      image: "public/lovable-uploads/0a51992b-0ee6-4788-b58a-2a46624f3c47.png",
+      title: "Black Snowflake Pattern Neck",
     },
     {
       id: 18,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(5).png?raw=true",
-      title: "Intricate Threadwork",
+      image: "public/lovable-uploads/ec49d525-ae3d-4c93-aeb4-428033d340d5.png",
+      title: "Pink Striped Embroidered Neck",
     },
     {
       id: 19,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(6).png?raw=true",
-      title: "Designer Neck Pattern",
+      image: "public/lovable-uploads/c705b7f5-fb01-4b56-b7a6-e57bf4524241.png",
+      title: "Purple Beaded Elegant Neck",
     },
     {
       id: 20,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(7).png?raw=true",
-      title: "Artistic Neck Design",
+      image: "public/lovable-uploads/49c3a4ff-daa5-443a-ac54-2093a6b06713.png",
+      title: "Traditional Patterned Neck Design",
     },
     {
       id: 21,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(8).png?raw=true",
-      title: "Royal Neck Pattern",
+      image: "public/lovable-uploads/3d66c70c-3d5b-476c-a6df-a3ae9d21754e.png",
+      title: "Mint Floral Embroidered Neck",
     },
     {
       id: 22,
       category: "neck",
-      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(9).png?raw=true",
-      title: "Elegant Embroidery Work",
+      image: "public/lovable-uploads/2a3b37b4-7bf8-4eb0-9c9d-9bea838f94b8.png",
+      title: "Green Geometric Pattern Neck",
     },
     
     // Kids Collection (keeping the existing ones)
