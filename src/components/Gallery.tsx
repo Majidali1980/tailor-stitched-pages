@@ -9,9 +9,9 @@ const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with new shalwar kameez and neck design images
+  // Updated gallery items with new kids collection images
   const galleryItems = [
-    // Shalwar Kameez with uploaded images
+    // Shalwar Kameez (keeping the existing ones)
     {
       id: 1,
       category: "shalwar",
@@ -93,7 +93,7 @@ const Gallery = () => {
       title: "Stylish Summer Shirt",
     },
     
-    // Neck Design with new uploaded images
+    // Neck Design (keeping the existing ones)
     {
       id: 14,
       category: "neck",
@@ -149,48 +149,48 @@ const Gallery = () => {
       title: "Green Geometric Pattern Neck",
     },
     
-    // Kids Collection (keeping the existing ones)
+    // Kids Collection with new uploaded images
     {
       id: 23,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(1).png?raw=true",
-      title: "Colorful Kids Outfit",
+      image: "public/lovable-uploads/564b04ff-47b7-422f-b90e-de9f276cb32b.png",
+      title: "Floral Print Kids Frock",
     },
     {
       id: 24,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(2).png?raw=true",
-      title: "Cute Summer Collection",
+      image: "public/lovable-uploads/af404edc-a28e-4fdd-ba8f-cc314303003b.png",
+      title: "Pink Floral Kids Dress",
     },
     {
       id: 25,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(3).png?raw=true",
-      title: "Children's Party Wear",
+      image: "public/lovable-uploads/0c022880-a73b-4b8b-a775-914f15d6978f.png",
+      title: "Magenta Patterned Kids Set",
     },
     {
       id: 26,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(4).png?raw=true",
-      title: "Traditional Kids Design",
+      image: "public/lovable-uploads/ee6abd02-52c8-4c33-8cf8-c3359cfd160b.png",
+      title: "Red Traditional Kids Outfit",
     },
     {
       id: 27,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(5).png?raw=true",
-      title: "Playful Kids Collection",
+      image: "public/lovable-uploads/c85693f8-65ae-4ba7-9505-ca462eabc455.png",
+      title: "Magenta Gold Trim Kids Dress",
     },
     {
       id: 28,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(6).png?raw=true",
-      title: "Modern Kids Outfit",
+      image: "public/lovable-uploads/128ef175-83c6-4201-86d6-26f65c30cfb6.png",
+      title: "Pink Patterned Kids Frock",
     },
     {
       id: 29,
       category: "kids",
-      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(7).png?raw=true",
-      title: "Stylish Children's Wear",
+      image: "public/lovable-uploads/4e74ef1c-0a6c-4a06-9133-c8a563654241.png",
+      title: "Orange Embroidered Kids Set",
     },
   ];
 
