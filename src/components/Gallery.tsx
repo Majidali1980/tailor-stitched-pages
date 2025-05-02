@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, WhatsApp, ZoomIn, X } from 'lucide-react';
+import { Phone, MessageCircle, ZoomIn, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 
 const Gallery = () => {
@@ -266,7 +266,7 @@ const Gallery = () => {
                                 }}
                                 className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors"
                               >
-                                <WhatsApp className="h-4 w-4 text-white" />
+                                <MessageCircle className="h-4 w-4 text-white" />
                               </button>
                               <button 
                                 onClick={(e) => {
@@ -318,7 +318,7 @@ const Gallery = () => {
                     onClick={() => shareOnWhatsApp(selectedImage.title)}
                     className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors flex items-center gap-2"
                   >
-                    <WhatsApp className="h-4 w-4 text-white" />
+                    <MessageCircle className="h-4 w-4 text-white" />
                     <span className="text-white">Share</span>
                   </button>
                 </div>
