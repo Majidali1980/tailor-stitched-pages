@@ -57,11 +57,11 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale max-w-md mx-auto">
+          <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale max-w-md mx-auto h-[500px]">
             <img 
               src="https://github.com/Majidali1980/lmages/blob/main/WhatsApp%20Image%202025-05-01%20at%209.10.08%20AM.jpeg?raw=true" 
               alt="MA Tailor Design" 
-              className="w-full h-80 object-cover"
+              className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
               <div className="text-center p-6 bg-black bg-opacity-70 rounded-lg">
