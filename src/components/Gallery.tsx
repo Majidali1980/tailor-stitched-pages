@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,41 +9,41 @@ const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with new categories and images
+  // Updated gallery items with new shalwar kameez images
   const galleryItems = [
-    // Shalwar Kameez (previously party)
+    // Shalwar Kameez with new uploaded images
     {
       id: 1,
       category: "shalwar",
-      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(1).png?raw=true",
-      title: "Elegant Shalwar Design",
+      image: "public/lovable-uploads/ccacbf2c-4ee7-4e8a-9cee-209886fcec9e.png",
+      title: "Black Floral Shalwar Kameez",
     },
     {
       id: 2,
       category: "shalwar",
-      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(2).png?raw=true",
-      title: "Floral Pattern Kameez",
+      image: "public/lovable-uploads/7c6a51ba-c81f-456b-91d6-ecccfbd7b98c.png",
+      title: "Black and Red Embroidered Suit",
     },
     {
       id: 3,
       category: "shalwar",
-      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(3).png?raw=true",
-      title: "Embroidered Shalwar Set",
+      image: "public/lovable-uploads/2a6f7e47-abd2-4384-8aa3-6641ef6fe3a8.png",
+      title: "Traditional Pattern Shalwar Set",
     },
     {
       id: 4,
       category: "shalwar",
-      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(4).png?raw=true",
-      title: "Traditional Shalwar Design",
+      image: "public/lovable-uploads/399354ff-9e39-4bef-aa8d-f0beb7ba4cb0.png",
+      title: "Navy Patterned Shalwar Kameez",
     },
     {
       id: 5,
       category: "shalwar",
-      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(5).png?raw=true",
-      title: "Modern Kameez Collection",
+      image: "public/lovable-uploads/f5a0800b-72f9-4836-9d3e-a0906dc72984.png",
+      title: "White Floral Shalwar Design",
     },
     
-    // Shirts (previously casual)
+    // Shirts (keeping the existing ones)
     {
       id: 6,
       category: "shirts",
@@ -94,7 +93,7 @@ const Gallery = () => {
       title: "Stylish Summer Shirt",
     },
     
-    // Neck Design (previously bridal)
+    // Neck Design (keeping the existing ones)
     {
       id: 14,
       category: "neck",
@@ -150,7 +149,7 @@ const Gallery = () => {
       title: "Elegant Embroidery Work",
     },
     
-    // Kids Collection (new category)
+    // Kids Collection (keeping the existing ones)
     {
       id: 23,
       category: "kids",
