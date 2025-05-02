@@ -1,117 +1,206 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone } from 'lucide-react';
+import { Phone, WhatsApp, ZoomIn, X } from 'lucide-react';
+import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with the uploaded designs
+  // Updated gallery items with new categories and images
   const galleryItems = [
+    // Shalwar Kameez (previously party)
     {
       id: 1,
-      category: "party",
-      image: "/lovable-uploads/fa345f39-9ffe-49e0-8db2-02481f207f21.png",
-      title: "Patterned Suit Set",
+      category: "shalwar",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(1).png?raw=true",
+      title: "Elegant Shalwar Design",
     },
     {
       id: 2,
-      category: "casual",
-      image: "/lovable-uploads/2289ae98-4c91-4c97-8db8-e0d64be8ad1c.png",
-      title: "Pink Kids Outfit",
+      category: "shalwar",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(2).png?raw=true",
+      title: "Floral Pattern Kameez",
     },
     {
       id: 3,
-      category: "bridal",
-      image: "/lovable-uploads/f9034e3c-903a-44e5-8dad-0538f66b3d1d.png",
-      title: "Floral Kurta Design",
+      category: "shalwar",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(3).png?raw=true",
+      title: "Embroidered Shalwar Set",
     },
     {
       id: 4,
-      category: "casual",
-      image: "/lovable-uploads/93220827-794c-4d63-9bca-d25648548586.png",
-      title: "Black Block Print",
+      category: "shalwar",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(4).png?raw=true",
+      title: "Traditional Shalwar Design",
     },
     {
       id: 5,
-      category: "casual",
-      image: "/lovable-uploads/0ce58cf7-8cd5-4fbb-b76a-9f210383e17b.png",
-      title: "Solid Color Set",
+      category: "shalwar",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shalwar%20kameez1%20(5).png?raw=true",
+      title: "Modern Kameez Collection",
     },
+    
+    // Shirts (previously casual)
     {
       id: 6,
-      category: "party",
-      image: "/lovable-uploads/a3edc439-ccb6-4b44-9e3e-db7149e5b5b9.png",
-      title: "Blue Floral Print",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(1).png?raw=true",
+      title: "Classic Shirt Design",
     },
     {
       id: 7,
-      category: "casual",
-      image: "/lovable-uploads/d1b4577c-1ba8-4bcc-b2df-c9bce312eab2.png",
-      title: "Mint Green Pattern",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(2).png?raw=true",
+      title: "Floral Pattern Shirt",
     },
     {
       id: 8,
-      category: "party",
-      image: "/lovable-uploads/f890c6b4-0e51-466a-be2b-241170f492f2.png",
-      title: "Yellow Stripe Set",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(3).png?raw=true",
+      title: "Casual Summer Shirt",
     },
     {
       id: 9,
-      category: "party",
-      image: "/lovable-uploads/58027903-d301-44f4-9473-b464c8acefdf.png",
-      title: "Black & White Design",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(4).png?raw=true",
+      title: "Embroidered Shirt",
     },
     {
       id: 10,
-      category: "party",
-      image: "/lovable-uploads/93b6d47b-984c-4750-a420-903230fc55f8.png",
-      title: "Teal Pattern Set",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(5).png?raw=true",
+      title: "Modern Pattern Shirt",
     },
     {
       id: 11,
-      category: "bridal",
-      image: "/lovable-uploads/fe510a4f-cd1b-4815-a92d-b3fa4fdae000.png",
-      title: "Pink & Teal Design",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(6).png?raw=true",
+      title: "Designer Shirt Collection",
     },
     {
       id: 12,
-      category: "casual",
-      image: "/lovable-uploads/a7c44e30-0f4b-403a-a08e-919aee496313.png",
-      title: "Light Blue Floral",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(7).png?raw=true",
+      title: "Printed Casual Shirt",
     },
     {
       id: 13,
-      category: "casual",
-      image: "/lovable-uploads/ea5d124b-d56e-48fd-a55a-90390b4e0842.png",
-      title: "Black & Red Floral",
+      category: "shirts",
+      image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(8).png?raw=true",
+      title: "Stylish Summer Shirt",
     },
+    
+    // Neck Design (previously bridal)
     {
       id: 14,
-      category: "bridal",
-      image: "/lovable-uploads/bfc1884a-a116-4a37-accf-d38f9e3588ba.png",
-      title: "Pink Floral Outfit",
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(1).png?raw=true",
+      title: "Elegant Neck Design",
     },
     {
       id: 15,
-      category: "party",
-      image: "/lovable-uploads/28b72969-255a-4ce8-9089-4ef64c3a9fe6.png",
-      title: "Purple Floral Design",
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(2).png?raw=true",
+      title: "Traditional Embroidery",
     },
     {
       id: 16,
-      category: "casual",
-      image: "/lovable-uploads/d2adeaf8-b268-49ad-9774-52a4c38bb8b0.png",
-      title: "Blue & Orange Print",
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(3).png?raw=true",
+      title: "Modern Neck Pattern",
+    },
+    {
+      id: 17,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(4).png?raw=true",
+      title: "Floral Neck Design",
+    },
+    {
+      id: 18,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(5).png?raw=true",
+      title: "Intricate Threadwork",
+    },
+    {
+      id: 19,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(6).png?raw=true",
+      title: "Designer Neck Pattern",
+    },
+    {
+      id: 20,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(7).png?raw=true",
+      title: "Artistic Neck Design",
+    },
+    {
+      id: 21,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(8).png?raw=true",
+      title: "Royal Neck Pattern",
+    },
+    {
+      id: 22,
+      category: "neck",
+      image: "https://github.com/Majidali1980/lmages/blob/main/neck1%20(9).png?raw=true",
+      title: "Elegant Embroidery Work",
+    },
+    
+    // Kids Collection (new category)
+    {
+      id: 23,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(1).png?raw=true",
+      title: "Colorful Kids Outfit",
+    },
+    {
+      id: 24,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(2).png?raw=true",
+      title: "Cute Summer Collection",
+    },
+    {
+      id: 25,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(3).png?raw=true",
+      title: "Children's Party Wear",
+    },
+    {
+      id: 26,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(4).png?raw=true",
+      title: "Traditional Kids Design",
+    },
+    {
+      id: 27,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(5).png?raw=true",
+      title: "Playful Kids Collection",
+    },
+    {
+      id: 28,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(6).png?raw=true",
+      title: "Modern Kids Outfit",
+    },
+    {
+      id: 29,
+      category: "kids",
+      image: "https://github.com/Majidali1980/lmages/blob/main/kids1%20(7).png?raw=true",
+      title: "Stylish Children's Wear",
     },
   ];
 
   const categories = [
     { value: "all", label: "All" },
-    { value: "party", label: "Party Wear" },
-    { value: "casual", label: "Casual Wear" },
-    { value: "bridal", label: "Bridal Wear" },
+    { value: "shalwar", label: "Shalwar Kameez" },
+    { value: "shirts", label: "Shirts" },
+    { value: "neck", label: "Neck Design" },
+    { value: "kids", label: "Kids Collection" },
   ];
 
   const filteredItems = activeCategory === "all" 
@@ -119,6 +208,12 @@ const Gallery = () => {
     : galleryItems.filter(item => item.category === activeCategory);
 
   const whatsappLink = "https://wa.me/923070125273";
+  
+  const shareOnWhatsApp = (title: string) => {
+    const text = `Check out this amazing design: ${title} from MA Tailor`;
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+  };
 
   return (
     <section id="gallery" className="py-24 bg-black text-white">
@@ -133,7 +228,7 @@ const Gallery = () => {
         </div>
         
         <Tabs defaultValue="all" className="w-full" onValueChange={setActiveCategory}>
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-12 overflow-x-auto">
             <TabsList className="bg-gray-900 p-1">
               {categories.map((category) => (
                 <TabsTrigger 
@@ -156,11 +251,34 @@ const Gallery = () => {
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-80 object-cover"
+                        className="w-full h-80 object-cover cursor-pointer"
+                        onClick={() => setSelectedImage(item)}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                         <div className="w-full p-4 bg-gradient-to-t from-black to-transparent">
-                          <h3 className="text-lg font-playfair font-bold text-white">{item.title}</h3>
+                          <div className="flex justify-between items-center">
+                            <h3 className="text-lg font-playfair font-bold text-white">{item.title}</h3>
+                            <div className="flex gap-2">
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  shareOnWhatsApp(item.title);
+                                }}
+                                className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors"
+                              >
+                                <WhatsApp className="h-4 w-4 text-white" />
+                              </button>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedImage(item);
+                                }}
+                                className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+                              >
+                                <ZoomIn className="h-4 w-4 text-white" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -179,6 +297,36 @@ const Gallery = () => {
           </a>
         </div>
       </div>
+      
+      {/* Image Zoom Dialog */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="sm:max-w-3xl bg-black/95 border border-gold">
+          <div className="relative">
+            <DialogClose className="absolute right-2 top-2 z-10 p-2 bg-black/60 rounded-full hover:bg-black/80 transition-colors">
+              <X className="h-5 w-5 text-white" />
+            </DialogClose>
+            {selectedImage && (
+              <div className="flex flex-col gap-4">
+                <img 
+                  src={selectedImage.image} 
+                  alt={selectedImage.title} 
+                  className="w-full h-auto max-h-[70vh] object-contain"
+                />
+                <div className="flex justify-between items-center">
+                  <h3 className="text-xl font-playfair font-bold text-gold">{selectedImage.title}</h3>
+                  <button 
+                    onClick={() => shareOnWhatsApp(selectedImage.title)}
+                    className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors flex items-center gap-2"
+                  >
+                    <WhatsApp className="h-4 w-4 text-white" />
+                    <span className="text-white">Share</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
