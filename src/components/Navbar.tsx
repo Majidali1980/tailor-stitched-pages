@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, ExternalLink } from 'lucide-react';
 import BusinessCard from './BusinessCard';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const whatsappLink = "https://wa.me/923070125273";
+  const vercelSiteLink = "https://matailor-xi.vercel.app/";
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-black bg-opacity-95 text-white z-50 px-4 lg:px-8">
@@ -31,6 +32,9 @@ const Navbar: React.FC = () => {
             <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors">About</a>
             <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors">Gallery</a>
             <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors">Contact</a>
+            <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1">
+              <ExternalLink className="h-3 w-3" /> More Designs
+            </a>
             <BusinessCard />
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2">
@@ -55,6 +59,9 @@ const Navbar: React.FC = () => {
             <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
             <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</a>
             <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1" onClick={() => setIsMenuOpen(false)}>
+              <ExternalLink className="h-3 w-3" /> More Designs
+            </a>
             <div onClick={() => setIsMenuOpen(false)}>
               <BusinessCard />
             </div>

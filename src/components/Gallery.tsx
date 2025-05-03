@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, MessageCircle, ZoomIn, X, Share2 } from 'lucide-react';
+import { Phone, MessageCircle, ZoomIn, X, Share2, ExternalLink } from 'lucide-react';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 
 const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with correct image paths
-  const galleryItems = [
+  // Full gallery items list
+  const allGalleryItems = [
     // Shalwar Kameez
     {
       id: 1,
@@ -202,11 +202,26 @@ const Gallery = () => {
     { value: "kids", label: "Kids Collection" },
   ];
 
-  const filteredItems = activeCategory === "all" 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === activeCategory);
+  // Limit items to 3 per category
+  const limitedItems = (category: string) => {
+    if (category === "all") {
+      // For "all" category, get 3 items from each category
+      const result = [];
+      for (const cat of ["shalwar", "shirts", "neck", "kids"]) {
+        const categoryItems = allGalleryItems.filter(item => item.category === cat).slice(0, 3);
+        result.push(...categoryItems);
+      }
+      return result;
+    } else {
+      // For specific categories, get only first 3 items
+      return allGalleryItems.filter(item => item.category === category).slice(0, 3);
+    }
+  };
+
+  const filteredItems = limitedItems(activeCategory);
 
   const whatsappLink = "https://wa.me/923070125273";
+  const vercelSiteLink = "https://matailor-xi.vercel.app/";
   
   const shareOnWhatsApp = (title: string, imageUrl: string) => {
     const text = `Check out this amazing design: ${title} from MA Tailor`;
@@ -260,7 +275,7 @@ const Gallery = () => {
           </div>
 
           <TabsContent value={activeCategory} className="mt-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredItems.map((item) => (
                 <div key={item.id} className="fancy-border">
                   <Card className="bg-gray-900 overflow-hidden border-none h-full group hover:transform hover:scale-[1.02] transition-transform duration-300">
@@ -318,12 +333,21 @@ const Gallery = () => {
           </TabsContent>
         </Tabs>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 space-y-6">
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2">
               <Phone className="h-4 w-4" /> Book Your Design Now
             </Button>
           </a>
+          
+          <div className="pt-8">
+            <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer">
+              <Button className="bg-gradient-to-r from-gold to-gold-dark hover:opacity-90 text-black font-montserrat text-lg py-6 px-8 flex items-center gap-2">
+                <ExternalLink className="h-5 w-5" /> View More Designs
+              </Button>
+            </a>
+            <p className="text-gold-light mt-2">Visit our full collection website for hundreds more designs</p>
+          </div>
         </div>
       </div>
       
