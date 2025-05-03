@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,37 +10,37 @@ const Gallery = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<{image: string; title: string} | null>(null);
   
-  // Updated gallery items with new kids collection images
+  // Updated gallery items with correct image paths
   const galleryItems = [
-    // Shalwar Kameez (keeping the existing ones)
+    // Shalwar Kameez
     {
       id: 1,
       category: "shalwar",
-      image: "public/lovable-uploads/ccacbf2c-4ee7-4e8a-9cee-209886fcec9e.png",
+      image: "/lovable-uploads/ccacbf2c-4ee7-4e8a-9cee-209886fcec9e.png",
       title: "Black Floral Shalwar Kameez",
     },
     {
       id: 2,
       category: "shalwar",
-      image: "public/lovable-uploads/7c6a51ba-c81f-456b-91d6-ecccfbd7b98c.png",
+      image: "/lovable-uploads/7c6a51ba-c81f-456b-91d6-ecccfbd7b98c.png",
       title: "Black and Red Embroidered Suit",
     },
     {
       id: 3,
       category: "shalwar",
-      image: "public/lovable-uploads/2a6f7e47-abd2-4384-8aa3-6641ef6fe3a8.png",
+      image: "/lovable-uploads/2a6f7e47-abd2-4384-8aa3-6641ef6fe3a8.png",
       title: "Traditional Pattern Shalwar Set",
     },
     {
       id: 4,
       category: "shalwar",
-      image: "public/lovable-uploads/399354ff-9e39-4bef-aa8d-f0beb7ba4cb0.png",
+      image: "/lovable-uploads/399354ff-9e39-4bef-aa8d-f0beb7ba4cb0.png",
       title: "Navy Patterned Shalwar Kameez",
     },
     {
       id: 5,
       category: "shalwar",
-      image: "public/lovable-uploads/f5a0800b-72f9-4836-9d3e-a0906dc72984.png",
+      image: "/lovable-uploads/f5a0800b-72f9-4836-9d3e-a0906dc72984.png",
       title: "White Floral Shalwar Design",
     },
     
@@ -93,103 +94,103 @@ const Gallery = () => {
       title: "Stylish Summer Shirt",
     },
     
-    // Neck Design (keeping the existing ones)
+    // Neck Design
     {
       id: 14,
       category: "neck",
-      image: "public/lovable-uploads/d10a28b8-686d-4d59-983d-f77ff1b14833.png",
+      image: "/lovable-uploads/d10a28b8-686d-4d59-983d-f77ff1b14833.png",
       title: "Floral Red Embellished Neck",
     },
     {
       id: 15,
       category: "neck",
-      image: "public/lovable-uploads/0332b418-3387-4ae2-934a-87db86c854c5.png",
+      image: "/lovable-uploads/0332b418-3387-4ae2-934a-87db86c854c5.png",
       title: "Magenta Button Detail Neck",
     },
     {
       id: 16,
       category: "neck",
-      image: "public/lovable-uploads/8358ec5e-9b7f-494f-b895-43ee164412cd.png",
+      image: "/lovable-uploads/8358ec5e-9b7f-494f-b895-43ee164412cd.png",
       title: "Patterned Geometric Neck Design",
     },
     {
       id: 17,
       category: "neck",
-      image: "public/lovable-uploads/0a51992b-0ee6-4788-b58a-2a46624f3c47.png",
+      image: "/lovable-uploads/0a51992b-0ee6-4788-b58a-2a46624f3c47.png",
       title: "Black Snowflake Pattern Neck",
     },
     {
       id: 18,
       category: "neck",
-      image: "public/lovable-uploads/ec49d525-ae3d-4c93-aeb4-428033d340d5.png",
+      image: "/lovable-uploads/ec49d525-ae3d-4c93-aeb4-428033d340d5.png",
       title: "Pink Striped Embroidered Neck",
     },
     {
       id: 19,
       category: "neck",
-      image: "public/lovable-uploads/c705b7f5-fb01-4b56-b7a6-e57bf4524241.png",
+      image: "/lovable-uploads/c705b7f5-fb01-4b56-b7a6-e57bf4524241.png",
       title: "Purple Beaded Elegant Neck",
     },
     {
       id: 20,
       category: "neck",
-      image: "public/lovable-uploads/49c3a4ff-daa5-443a-ac54-2093a6b06713.png",
+      image: "/lovable-uploads/49c3a4ff-daa5-443a-ac54-2093a6b06713.png",
       title: "Traditional Patterned Neck Design",
     },
     {
       id: 21,
       category: "neck",
-      image: "public/lovable-uploads/3d66c70c-3d5b-476c-a6df-a3ae9d21754e.png",
+      image: "/lovable-uploads/3d66c70c-3d5b-476c-a6df-a3ae9d21754e.png",
       title: "Mint Floral Embroidered Neck",
     },
     {
       id: 22,
       category: "neck",
-      image: "public/lovable-uploads/2a3b37b4-7bf8-4eb0-9c9d-9bea838f94b8.png",
+      image: "/lovable-uploads/2a3b37b4-7bf8-4eb0-9c9d-9bea838f94b8.png",
       title: "Green Geometric Pattern Neck",
     },
     
-    // Kids Collection with new uploaded images
+    // Kids Collection
     {
       id: 23,
       category: "kids",
-      image: "public/lovable-uploads/564b04ff-47b7-422f-b90e-de9f276cb32b.png",
+      image: "/lovable-uploads/564b04ff-47b7-422f-b90e-de9f276cb32b.png",
       title: "Floral Print Kids Frock",
     },
     {
       id: 24,
       category: "kids",
-      image: "public/lovable-uploads/af404edc-a28e-4fdd-ba8f-cc314303003b.png",
+      image: "/lovable-uploads/af404edc-a28e-4fdd-ba8f-cc314303003b.png",
       title: "Pink Floral Kids Dress",
     },
     {
       id: 25,
       category: "kids",
-      image: "public/lovable-uploads/0c022880-a73b-4b8b-a775-914f15d6978f.png",
+      image: "/lovable-uploads/0c022880-a73b-4b8b-a775-914f15d6978f.png",
       title: "Magenta Patterned Kids Set",
     },
     {
       id: 26,
       category: "kids",
-      image: "public/lovable-uploads/ee6abd02-52c8-4c33-8cf8-c3359cfd160b.png",
+      image: "/lovable-uploads/ee6abd02-52c8-4c33-8cf8-c3359cfd160b.png",
       title: "Red Traditional Kids Outfit",
     },
     {
       id: 27,
       category: "kids",
-      image: "public/lovable-uploads/c85693f8-65ae-4ba7-9505-ca462eabc455.png",
+      image: "/lovable-uploads/c85693f8-65ae-4ba7-9505-ca462eabc455.png",
       title: "Magenta Gold Trim Kids Dress",
     },
     {
       id: 28,
       category: "kids",
-      image: "public/lovable-uploads/128ef175-83c6-4201-86d6-26f65c30cfb6.png",
+      image: "/lovable-uploads/128ef175-83c6-4201-86d6-26f65c30cfb6.png",
       title: "Pink Patterned Kids Frock",
     },
     {
       id: 29,
       category: "kids",
-      image: "public/lovable-uploads/4e74ef1c-0a6c-4a06-9133-c8a563654241.png",
+      image: "/lovable-uploads/4e74ef1c-0a6c-4a06-9133-c8a563654241.png",
       title: "Orange Embroidered Kids Set",
     },
   ];
