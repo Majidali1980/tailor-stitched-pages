@@ -9,7 +9,7 @@ const BusinessCard = () => {
   
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger className="font-montserrat text-sm hover:text-gold transition-colors">
+      <SheetTrigger className="font-montserrat text-sm hover:text-gold transition-colors cursor-pointer">
         Visiting Card
       </SheetTrigger>
       <SheetContent side="right" className="bg-black border-gold border">
@@ -19,11 +19,14 @@ const BusinessCard = () => {
               src="https://github.com/Majidali1980/lmages/blob/main/visiting%20card%20updated.png?raw=true" 
               alt="MA Tailor Visiting Card" 
               className="w-full h-auto rounded mb-4"
+              loading="eager"
             />
             
             <div className="mt-4">
               <a 
                 href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full border border-gold text-gold hover:bg-gold/10 rounded py-2 transition-colors"
               >
                 <Phone className="h-4 w-4" /> Book Appointment

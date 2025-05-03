@@ -1,9 +1,8 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Phone, MessageCircle, ZoomIn, X } from 'lucide-react';
+import { Phone, MessageCircle, ZoomIn, X, Share2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 
 const Gallery = () => {
@@ -209,10 +208,28 @@ const Gallery = () => {
 
   const whatsappLink = "https://wa.me/923070125273";
   
-  const shareOnWhatsApp = (title: string) => {
+  const shareOnWhatsApp = (title: string, imageUrl: string) => {
     const text = `Check out this amazing design: ${title} from MA Tailor`;
-    const encodedText = encodeURIComponent(text);
+    const fullUrl = window.location.origin + imageUrl;
+    const encodedText = encodeURIComponent(text + '\n' + fullUrl);
     window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+  };
+
+  const shareImage = async (title: string, imageUrl: string) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `MA Tailor - ${title}`,
+          text: `Check out this amazing design: ${title} from MA Tailor`,
+          url: window.location.origin + imageUrl,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      shareOnWhatsApp(title, imageUrl);
+    }
   };
 
   return (
@@ -262,11 +279,22 @@ const Gallery = () => {
                               <button 
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  shareOnWhatsApp(item.title);
+                                  shareOnWhatsApp(item.title, item.image);
                                 }}
                                 className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors"
+                                aria-label="Share on WhatsApp"
                               >
                                 <MessageCircle className="h-4 w-4 text-white" />
+                              </button>
+                              <button 
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  shareImage(item.title, item.image);
+                                }}
+                                className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
+                                aria-label="Share"
+                              >
+                                <Share2 className="h-4 w-4 text-white" />
                               </button>
                               <button 
                                 onClick={(e) => {
@@ -274,6 +302,7 @@ const Gallery = () => {
                                   setSelectedImage(item);
                                 }}
                                 className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+                                aria-label="Zoom"
                               >
                                 <ZoomIn className="h-4 w-4 text-white" />
                               </button>
@@ -314,13 +343,22 @@ const Gallery = () => {
                 />
                 <div className="flex justify-between items-center">
                   <h3 className="text-xl font-playfair font-bold text-gold">{selectedImage.title}</h3>
-                  <button 
-                    onClick={() => shareOnWhatsApp(selectedImage.title)}
-                    className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors flex items-center gap-2"
-                  >
-                    <MessageCircle className="h-4 w-4 text-white" />
-                    <span className="text-white">Share</span>
-                  </button>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => shareOnWhatsApp(selectedImage.title, selectedImage.image)}
+                      className="p-2 bg-green-600 rounded-full hover:bg-green-700 transition-colors flex items-center gap-2"
+                    >
+                      <MessageCircle className="h-4 w-4 text-white" />
+                      <span className="text-white">WhatsApp</span>
+                    </button>
+                    <button 
+                      onClick={() => shareImage(selectedImage.title, selectedImage.image)}
+                      className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors flex items-center gap-2"
+                    >
+                      <Share2 className="h-4 w-4 text-white" />
+                      <span className="text-white">Share</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
