@@ -1,6 +1,7 @@
 
-import { Scissors, Ruler, Tag } from 'lucide-react';
+import { Scissors, Ruler, Tag, Phone } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const Services = () => {
   const services = [
@@ -20,6 +21,8 @@ const Services = () => {
       description: "Convenient pick-up and delivery service for all your tailoring needs."
     },
   ];
+  
+  const whatsappLink = "https://wa.me/923070125273";
 
   return (
     <section id="services" className="py-24 bg-black text-white">
@@ -65,11 +68,15 @@ const Services = () => {
               </ul>
             </div>
             <div className="flex items-center justify-center">
-              <div className="px-6 py-4 bg-gold text-black rounded-lg text-center">
-                <p className="text-lg font-playfair font-bold">Book Your</p>
-                <p className="text-2xl font-playfair font-bold">Appointment</p>
-                <p className="font-montserrat mt-2">Call: 03070125273</p>
-              </div>
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full">
+                <div className="px-6 py-4 bg-gold text-black rounded-lg text-center cursor-pointer hover:bg-gold-dark transition-colors">
+                  <p className="text-lg font-playfair font-bold">Book Your</p>
+                  <p className="text-2xl font-playfair font-bold">Appointment</p>
+                  <p className="font-montserrat mt-2 flex items-center justify-center gap-1">
+                    <Phone className="h-4 w-4" /> WhatsApp Now
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
         </div>

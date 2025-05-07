@@ -1,7 +1,11 @@
 
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import AboutDetails from './AboutDetails';
 
 const About = () => {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
     <section id="about" className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
@@ -10,7 +14,7 @@ const About = () => {
             <div className="fancy-border p-1">
               <div className="bg-black p-6 rounded-lg relative overflow-hidden">
                 <img 
-                  src="/lovable-uploads/b4b5b7a6-0749-4067-8cc8-1fbb7ea04d6d.png" 
+                  src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
                   alt="MA Tailor Business Card" 
                   className="w-full h-auto rounded-lg shadow-xl"
                 />
@@ -47,12 +51,17 @@ const About = () => {
               </div>
             </div>
             
-            <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat">
+            <Button 
+              className="bg-gold hover:bg-gold-dark text-black font-montserrat"
+              onClick={() => setShowDetails(true)}
+            >
               Learn More
             </Button>
           </div>
         </div>
       </div>
+      
+      <AboutDetails open={showDetails} onClose={() => setShowDetails(false)} />
     </section>
   );
 };

@@ -35,6 +35,11 @@ const Footer = () => {
                   <ExternalLink className="h-3 w-3" /> More Designs
                 </a>
               </li>
+              <li>
+                <a href="https://ma-tailorclasses.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                  <ExternalLink className="h-3 w-3" /> Stitching Classes
+                </a>
+              </li>
             </ul>
             
             <h3 className="text-lg font-playfair font-bold text-gold mb-2 mt-6">Follow Us</h3>

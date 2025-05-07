@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -340,13 +341,13 @@ const Gallery = () => {
             </Button>
           </a>
           
-          <div className="pt-8">
-            <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer">
+          <div className="flex flex-col items-center justify-center pt-8">
+            <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="mb-2">
               <Button className="bg-gradient-to-r from-gold to-gold-dark hover:opacity-90 text-black font-montserrat text-lg py-6 px-8 flex items-center gap-2">
                 <ExternalLink className="h-5 w-5" /> View More Designs
               </Button>
             </a>
-            <p className="text-gold-light mt-2">Visit our full collection website for hundreds more designs</p>
+            <p className="text-gold-light">Visit our full collection website for hundreds more designs</p>
           </div>
         </div>
       </div>
