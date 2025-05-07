@@ -14,7 +14,7 @@ const About = () => {
             <div className="fancy-border p-1">
               <div className="bg-black p-6 rounded-lg relative overflow-hidden">
                 <img 
-                  src="https://cdn.gpteng.co/user-content/1715102503580-photo-1618160702438-9b02ab6515c9.jpg" 
+                  src="/lovable-uploads/4c6c652a-5b93-408d-8892-2ac96138beb4.png" 
                   alt="MA Tailor Business Card" 
                   className="w-full h-auto rounded-lg shadow-xl"
                 />

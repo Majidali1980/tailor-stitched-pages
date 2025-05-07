@@ -16,8 +16,8 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/4c6c652a-5b93-408d-8892-2ac96138beb4.png" 
-              alt="MA Tailor Visiting Card" 
+              src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
+              alt="MA Tailor Logo" 
               className="h-12 w-auto"
             />
             <div>
