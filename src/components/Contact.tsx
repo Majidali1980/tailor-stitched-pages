@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -165,69 +164,102 @@ const Contact = () => {
             </div>
           </div>
           
-          <div className="fancy-border p-1">
-            <form onSubmit={handleSubmit} className="bg-black p-8 rounded-lg">
-              <h3 className="text-2xl font-playfair font-bold text-gold mb-6">Send a Message</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block font-montserrat text-sm mb-1">Name</label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="bg-gray-800 border-gray-700 focus:border-gold"
-                    required
-                  />
-                </div>
+          <div className="space-y-8">
+            <div className="fancy-border p-1">
+              <form onSubmit={handleSubmit} className="bg-black p-8 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold text-gold mb-6">Send a Message</h3>
                 
-                <div>
-                  <label htmlFor="email" className="block font-montserrat text-sm mb-1">Email</label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="bg-gray-800 border-gray-700 focus:border-gold"
-                    required
-                  />
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block font-montserrat text-sm mb-1">Name</label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="bg-gray-800 border-gray-700 focus:border-gold"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block font-montserrat text-sm mb-1">Email</label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="bg-gray-800 border-gray-700 focus:border-gold"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="phone" className="block font-montserrat text-sm mb-1">Phone</label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="bg-gray-800 border-gray-700 focus:border-gold"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block font-montserrat text-sm mb-1">Message</label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="bg-gray-800 border-gray-700 focus:border-gold min-h-32"
+                      required
+                    />
+                  </div>
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gold hover:bg-gold-dark text-black font-montserrat"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </Button>
                 </div>
-                
-                <div>
-                  <label htmlFor="phone" className="block font-montserrat text-sm mb-1">Phone</label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="bg-gray-800 border-gray-700 focus:border-gold"
-                    required
-                  />
+              </form>
+            </div>
+
+            {/* Google Maps Embed */}
+            <div className="fancy-border p-1">
+              <div className="bg-black p-8 rounded-lg">
+                <h3 className="text-2xl font-playfair font-bold text-gold mb-6">Find Us</h3>
+                <div className="w-full h-80 rounded-lg overflow-hidden">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.991736285845!2d67.05721271547486!3d24.930107784019773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f90c5c3c6b7%3A0x1234567890abcdef!2sMahmoodabad%2C%20Karachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-lg"
+                  ></iframe>
                 </div>
-                
-                <div>
-                  <label htmlFor="message" className="block font-montserrat text-sm mb-1">Message</label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="bg-gray-800 border-gray-700 focus:border-gold min-h-32"
-                    required
-                  />
+                <div className="mt-4 text-center">
+                  <a 
+                    href={googleMapsLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 text-gold hover:text-gold-light transition-colors font-montserrat"
+                  >
+                    <MapPin className="h-4 w-4" /> 
+                    Open in Google Maps
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
                 </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gold hover:bg-gold-dark text-black font-montserrat"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </Button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
