@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import emailjs from 'emailjs-com';
-import { Phone, Mail, Facebook, Instagram } from 'lucide-react';
+import { Phone, Mail, Facebook, Instagram, MapPin, Star, ExternalLink } from 'lucide-react';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -16,6 +16,9 @@ const Contact = () => {
     phone: '',
     message: ''
   });
+
+  const googleMapsLink = "https://maps.app.goo.gl/kJYzENwt7nVDXmvz8?g_st=aw";
+  const googleReviewLink = "https://g.page/r/YOUR_PLACE_ID/review"; // You'll need to replace with actual place ID
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -63,6 +66,15 @@ const Contact = () => {
       });
   };
 
+  const handleGoogleReview = () => {
+    window.open(googleReviewLink, '_blank');
+    toast({
+      title: "Review Page Opened",
+      description: "Thank you for taking the time to review us on Google!",
+      duration: 3000,
+    });
+  };
+
   return (
     <section id="contact" className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
@@ -83,7 +95,15 @@ const Contact = () => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg font-playfair font-semibold text-white mb-2">Location</h4>
-                  <p className="font-montserrat text-gray-300">Mahmoodabad No 04, Karachi</p>
+                  <p className="font-montserrat text-gray-300 mb-2">Mahmoodabad No 04, Karachi</p>
+                  <a 
+                    href={googleMapsLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="font-montserrat text-gold hover:text-gold-light transition-colors flex items-center gap-2"
+                  >
+                    <MapPin className="h-4 w-4" /> View on Google Maps
+                  </a>
                 </div>
                 
                 <div>
@@ -109,6 +129,29 @@ const Contact = () => {
                   <h4 className="text-lg font-playfair font-semibold text-white mb-2">Working Hours</h4>
                   <p className="font-montserrat text-gray-300">Monday - Saturday: 10:00 AM - 8:00 PM</p>
                   <p className="font-montserrat text-gray-300">Sunday: Closed</p>
+                </div>
+
+                {/* Google Reviews Section */}
+                <div className="border-t border-gold/20 pt-6">
+                  <h4 className="text-lg font-playfair font-semibold text-white mb-3">Customer Reviews</h4>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex text-gold">
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                      <Star className="h-5 w-5 fill-current" />
+                    </div>
+                    <span className="font-montserrat text-white">5.0 rating</span>
+                  </div>
+                  <Button
+                    onClick={handleGoogleReview}
+                    className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2 w-full"
+                  >
+                    <Star className="h-4 w-4" />
+                    Leave a Google Review
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
               
