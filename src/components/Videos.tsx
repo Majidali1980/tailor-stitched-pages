@@ -1,0 +1,82 @@
+
+import { Play, Video } from 'lucide-react';
+
+const Videos = () => {
+  return (
+    <section id="videos" className="py-24 bg-black text-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
+            Our <span className="text-gold">Videos</span>
+          </h2>
+          <p className="text-lg font-montserrat text-gray-300 max-w-2xl mx-auto">
+            Watch our latest work and behind-the-scenes moments from MA Tailor.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-[357/476] w-full rounded-lg overflow-hidden mb-4">
+                <iframe
+                  src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1354046195683019%2F&show_text=false&width=357&t=0"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Latest Work Showcase</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  See our latest tailoring work and craftsmanship in action.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Placeholder for more videos */}
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-[357/476] w-full rounded-lg bg-gray-800 flex items-center justify-center mb-4">
+                <div className="text-center">
+                  <Video className="h-16 w-16 text-gold mx-auto mb-4" />
+                  <p className="text-gray-400 font-montserrat">More videos coming soon...</p>
+                </div>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Coming Soon</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  Stay tuned for more behind-the-scenes content.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-[357/476] w-full rounded-lg bg-gray-800 flex items-center justify-center mb-4">
+                <div className="text-center">
+                  <Play className="h-16 w-16 text-gold mx-auto mb-4" />
+                  <p className="text-gray-400 font-montserrat">More videos coming soon...</p>
+                </div>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Coming Soon</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  Follow us on social media for the latest updates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Videos;

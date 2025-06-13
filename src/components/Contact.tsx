@@ -16,7 +16,7 @@ const Contact = () => {
     message: ''
   });
 
-  const googleMapsLink = "https://maps.app.goo.gl/kJYzENwt7nVDXmvz8?g_st=aw";
+  const googleMapsLink = "https://maps.app.goo.gl/gmVRTLBE8aCzyBAX6";
   const googleReviewLink = "https://g.page/r/YOUR_PLACE_ID/review"; // You'll need to replace with actual place ID
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -240,7 +240,7 @@ const Contact = () => {
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
-                    allowFullScreen=""
+                    allowFullScreen={true}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="rounded-lg"
