@@ -1,7 +1,10 @@
 
-import { Star, Users, Award } from 'lucide-react';
+import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
+import { useState } from 'react';
 
 const Reviews = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  
   const bestCustomers = [
     "Defense Phase 1",
     "Defense Phase 2", 
@@ -42,12 +45,19 @@ const Reviews = () => {
             {reviewImages.map((image, index) => (
               <div key={index} className="fancy-border p-1">
                 <div className="bg-black p-4 rounded-lg">
-                  <div className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4">
+                  <div className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer">
                     <img
                       src={image}
                       alt={`Customer review ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onClick={() => setSelectedImage(image)}
                     />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                      <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-montserrat font-bold">
+                      Click to zoom
+                    </div>
                   </div>
                   <div className="flex justify-center mb-2">
                     <div className="flex text-gold">
@@ -107,6 +117,28 @@ const Reviews = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl max-h-[90vh] w-full">
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gold transition-colors"
+            >
+              <X className="h-8 w-8" />
+            </button>
+            <img
+              src={selectedImage}
+              alt="Zoomed review"
+              className="w-full h-full object-contain rounded-lg"
+            />
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-lg">
+              <p className="font-montserrat text-sm">Click outside to close</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
