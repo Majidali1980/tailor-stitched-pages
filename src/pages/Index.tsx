@@ -5,6 +5,7 @@ import Services from '@/components/Services';
 import About from '@/components/About';
 import Gallery from '@/components/Gallery';
 import Videos from '@/components/Videos';
+import Reviews from '@/components/Reviews';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
@@ -33,6 +34,7 @@ const Index = () => {
       <About />
       <Gallery />
       <Videos />
+      <Reviews />
       <AnimatedDesignPromo />
       <Contact />
       <Footer />
