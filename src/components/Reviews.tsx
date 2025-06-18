@@ -1,4 +1,3 @@
-
 import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
@@ -23,6 +22,20 @@ const Reviews = () => {
     "https://i.postimg.cc/7GvpWCZM/Whats-App-Image-2025-06-18-at-4-53-33-PM.jpg",
     "https://i.postimg.cc/S2WwFyX0/Whats-App-Image-2025-06-18-at-4-53-33-PM-1.jpg"
   ];
+
+  const handleImageClick = (image: string) => {
+    setSelectedImage(image);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setSelectedImage(null);
+    }
+  };
 
   return (
     <section id="reviews" className="py-24 bg-gray-900 text-white">
@@ -50,7 +63,7 @@ const Reviews = () => {
                       src={image}
                       alt={`Customer review ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      onClick={() => setSelectedImage(image)}
+                      onClick={() => handleImageClick(image)}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                       <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -120,18 +133,22 @@ const Reviews = () => {
 
       {/* Image Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4">
-          <div className="relative max-w-4xl max-h-[90vh] w-full">
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+          onClick={handleBackdropClick}
+        >
+          <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center">
             <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-gold transition-colors"
+              onClick={handleCloseModal}
+              className="absolute -top-12 right-0 text-white hover:text-gold transition-colors z-10"
             >
               <X className="h-8 w-8" />
             </button>
             <img
               src={selectedImage}
               alt="Zoomed review"
-              className="w-full h-full object-contain rounded-lg"
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
             />
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-lg">
               <p className="font-montserrat text-sm">Click outside to close</p>
