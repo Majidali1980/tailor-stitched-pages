@@ -15,7 +15,7 @@ const Reviews = () => {
     "KAECHS",
     "PECHS Block 6"
   ];
-
+  
   const reviewImages = [
     "https://i.postimg.cc/SYd3RD7D/Whats-App-Image-2025-06-18-at-4-46-42-PM.jpg",
     "https://i.postimg.cc/5QbDfZvX/Whats-App-Image-2025-06-18-at-4-53-32-PM.jpg", 
@@ -134,24 +134,24 @@ const Reviews = () => {
       {/* Image Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
           onClick={handleBackdropClick}
         >
-          <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center">
             <button
               onClick={handleCloseModal}
-              className="absolute -top-12 right-0 text-white hover:text-gold transition-colors z-10"
+              className="absolute top-4 right-4 text-white hover:text-gold transition-colors z-10 bg-black bg-opacity-50 rounded-full p-2"
             >
-              <X className="h-8 w-8" />
+              <X className="h-6 w-6" />
             </button>
             <img
               src={selectedImage}
               alt="Zoomed review"
-              className="max-w-full max-h-full object-contain rounded-lg"
+              className="max-w-[95%] max-h-[95%] object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-lg">
-              <p className="font-montserrat text-sm">Click outside to close</p>
+              <p className="font-montserrat text-sm">Click outside image to close • Press ESC to close</p>
             </div>
           </div>
         </div>
