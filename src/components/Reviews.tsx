@@ -15,9 +15,10 @@ const Reviews = () => {
   ];
 
   const reviewImages = [
-    "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=600&fit=crop", 
-    "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=600&fit=crop"
+    "https://i.postimg.cc/SYd3RD7D/Whats-App-Image-2025-06-18-at-4-46-42-PM.jpg",
+    "https://i.postimg.cc/5QbDfZvX/Whats-App-Image-2025-06-18-at-4-53-32-PM.jpg", 
+    "https://i.postimg.cc/7GvpWCZM/Whats-App-Image-2025-06-18-at-4-53-33-PM.jpg",
+    "https://i.postimg.cc/S2WwFyX0/Whats-App-Image-2025-06-18-at-4-53-33-PM-1.jpg"
   ];
 
   return (
@@ -37,7 +38,7 @@ const Reviews = () => {
           <h3 className="text-2xl font-playfair font-bold text-center mb-8 text-gold">
             WhatsApp Reviews
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {reviewImages.map((image, index) => (
               <div key={index} className="fancy-border p-1">
                 <div className="bg-black p-4 rounded-lg">
