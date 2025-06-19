@@ -35,6 +35,7 @@ const VisitorCounter = () => {
       <div className="flex items-center justify-center gap-2 mb-2">
         <Eye className="h-5 w-5 text-gold" />
         <h4 className="font-playfair font-bold text-gold">Live Visitor Stats</h4>
+        <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full">DEMO</span>
       </div>
       
       <div className="text-center space-y-2">
@@ -50,6 +51,12 @@ const VisitorCounter = () => {
             <span className="font-montserrat text-green-400 font-bold">{onlineNow}</span>
           </div>
         </div>
+      </div>
+      
+      <div className="mt-3 text-center">
+        <p className="text-xs text-gray-400 italic">
+          *Simulated data for demonstration. Real tracking requires analytics integration.
+        </p>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import emailjs from 'emailjs-com';
 import { Phone, Mail, Facebook, Instagram, MapPin, Star, ExternalLink } from 'lucide-react';
+import VisitorCounter from './VisitorCounter';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -160,6 +161,11 @@ const Contact = () => {
                   We offer convenient pick and drop service for all your tailoring needs.
                   Contact us to schedule a pickup.
                 </p>
+              </div>
+
+              {/* Visitor Counter placed below Pick & Drop Service */}
+              <div className="mt-6">
+                <VisitorCounter />
               </div>
             </div>
           </div>

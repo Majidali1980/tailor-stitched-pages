@@ -1,6 +1,4 @@
-
 import { Facebook, Instagram, Phone, Mail, ExternalLink } from 'lucide-react';
-import VisitorCounter from './VisitorCounter';
 
 const Footer = () => {
   return (
@@ -67,11 +65,6 @@ const Footer = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Visitor Counter Section */}
-        <div className="mt-12 flex justify-center">
-          <VisitorCounter />
         </div>
         
         <div className="border-t border-gold/10 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
