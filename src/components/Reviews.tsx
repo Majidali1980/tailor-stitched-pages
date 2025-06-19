@@ -1,3 +1,4 @@
+
 import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
@@ -37,6 +38,21 @@ const Reviews = () => {
     }
   };
 
+  // Add keyboard event listener for ESC key
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setSelectedImage(null);
+    }
+  };
+
+  // Add event listener when modal is open
+  useState(() => {
+    if (selectedImage) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  });
+
   return (
     <section id="reviews" className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
@@ -64,6 +80,10 @@ const Reviews = () => {
                       alt={`Customer review ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       onClick={() => handleImageClick(image)}
+                      onError={(e) => {
+                        console.log(`Failed to load image ${index + 1}:`, image);
+                        e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkN1c3RvbWVyIFJldmlldyAke2luZGV4ICsgMX08L3RleHQ+PC9zdmc+';
+                      }}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                       <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -131,27 +151,40 @@ const Reviews = () => {
         </div>
       </div>
 
-      {/* Image Modal */}
+      {/* Enhanced Image Modal with Scroll */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-98 flex items-center justify-center z-50"
           onClick={handleBackdropClick}
         >
-          <div className="relative w-full h-full flex items-center justify-center">
-            <button
-              onClick={handleCloseModal}
-              className="absolute top-4 right-4 text-white hover:text-gold transition-colors z-10 bg-black bg-opacity-50 rounded-full p-2"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <img
-              src={selectedImage}
-              alt="Zoomed review"
-              className="max-w-[95%] max-h-[95%] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-75 text-white px-4 py-2 rounded-lg">
-              <p className="font-montserrat text-sm">Click outside image to close • Press ESC to close</p>
+          <div className="relative w-full h-full max-w-4xl mx-auto p-4 flex flex-col">
+            {/* Header with close button */}
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-white font-montserrat text-lg">Customer Review - Click and scroll to read clearly</h3>
+              <button
+                onClick={handleCloseModal}
+                className="text-white hover:text-gold transition-colors bg-black bg-opacity-50 rounded-full p-3"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            {/* Scrollable Image Container */}
+            <div className="flex-1 overflow-auto bg-white rounded-lg p-2">
+              <img
+                src={selectedImage}
+                alt="Customer review - zoomed"
+                className="w-full h-auto object-contain cursor-grab active:cursor-grabbing"
+                onClick={(e) => e.stopPropagation()}
+                style={{ minHeight: '100%' }}
+              />
+            </div>
+            
+            {/* Footer instructions */}
+            <div className="mt-4 text-center">
+              <p className="font-montserrat text-sm text-gray-300">
+                Scroll up/down to read the complete review • Click outside to close • Press ESC to close
+              </p>
             </div>
           </div>
         </div>
