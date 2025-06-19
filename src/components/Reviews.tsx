@@ -1,6 +1,5 @@
-
 import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Reviews = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -38,20 +37,19 @@ const Reviews = () => {
     }
   };
 
-  // Add keyboard event listener for ESC key
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      setSelectedImage(null);
-    }
-  };
+  // Fixed keyboard event listener with useEffect
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
 
-  // Add event listener when modal is open
-  useState(() => {
     if (selectedImage) {
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
     }
-  });
+  }, [selectedImage]);
 
   return (
     <section id="reviews" className="py-24 bg-gray-900 text-white">
@@ -151,39 +149,38 @@ const Reviews = () => {
         </div>
       </div>
 
-      {/* Enhanced Image Modal with Scroll */}
+      {/* Fixed Image Modal with Better Zoom */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-98 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
           onClick={handleBackdropClick}
         >
-          <div className="relative w-full h-full max-w-4xl mx-auto p-4 flex flex-col">
-            {/* Header with close button */}
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-white font-montserrat text-lg">Customer Review - Click and scroll to read clearly</h3>
+          <div className="relative max-w-6xl max-h-full w-full h-full flex flex-col">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-4 px-4">
+              <h3 className="text-white font-montserrat text-lg">Customer Review - Scroll to read clearly</h3>
               <button
                 onClick={handleCloseModal}
-                className="text-white hover:text-gold transition-colors bg-black bg-opacity-50 rounded-full p-3"
+                className="text-white hover:text-gold transition-colors bg-black bg-opacity-70 rounded-full p-3"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
             
             {/* Scrollable Image Container */}
-            <div className="flex-1 overflow-auto bg-white rounded-lg p-2">
+            <div className="flex-1 overflow-auto bg-gray-100 rounded-lg">
               <img
                 src={selectedImage}
-                alt="Customer review - zoomed"
-                className="w-full h-auto object-contain cursor-grab active:cursor-grabbing"
+                alt="Customer review - full size"
+                className="w-full h-auto min-h-full object-contain"
                 onClick={(e) => e.stopPropagation()}
-                style={{ minHeight: '100%' }}
               />
             </div>
             
-            {/* Footer instructions */}
-            <div className="mt-4 text-center">
+            {/* Footer */}
+            <div className="mt-4 text-center px-4">
               <p className="font-montserrat text-sm text-gray-300">
-                Scroll up/down to read the complete review • Click outside to close • Press ESC to close
+                Scroll to read the complete review • Click outside to close • Press ESC to close
               </p>
             </div>
           </div>
