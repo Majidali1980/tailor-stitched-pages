@@ -1,7 +1,24 @@
 
 import { Play, Video } from 'lucide-react';
+import { useEffect } from 'react';
 
 const Videos = () => {
+  useEffect(() => {
+    // Load TikTok embed script
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup script on unmount
+      const existingScript = document.querySelector('script[src="https://www.tiktok.com/embed.js"]');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
+    };
+  }, []);
+
   return (
     <section id="videos" className="py-24 bg-black text-white">
       <div className="container mx-auto px-4">
@@ -39,24 +56,43 @@ const Videos = () => {
             </div>
           </div>
           
-          {/* Placeholder for more videos */}
+          {/* TikTok Video */}
           <div className="fancy-border p-1">
             <div className="bg-gray-900 p-4 rounded-lg">
-              <div className="aspect-[357/476] w-full rounded-lg bg-gray-800 flex items-center justify-center mb-4">
-                <div className="text-center">
-                  <Video className="h-16 w-16 text-gold mx-auto mb-4" />
-                  <p className="text-gray-400 font-montserrat">More videos coming soon...</p>
-                </div>
+              <div className="w-full rounded-lg overflow-hidden mb-4 flex justify-center">
+                <blockquote 
+                  className="tiktok-embed" 
+                  cite="https://www.tiktok.com/@matailor1234/video/7526305743679540487" 
+                  data-video-id="7526305743679540487" 
+                  style={{ maxWidth: '100%', minWidth: '280px', width: '100%' }}
+                >
+                  <section>
+                    <a target="_blank" title="@matailor1234" href="https://www.tiktok.com/@matailor1234?refer=embed">
+                      @matailor1234
+                    </a> 
+                    MA TAILOR Ladies Online Stitching Shop{' '}
+                    <a title="tailor" target="_blank" href="https://www.tiktok.com/tag/tailor?refer=embed">
+                      #tailor
+                    </a>{' '}
+                    <a title="matailor" target="_blank" href="https://www.tiktok.com/tag/matailor?refer=embed">
+                      #matailor
+                    </a>{' '}
+                    <a target="_blank" title="♬ original sound - MA TAILOR" href="https://www.tiktok.com/music/original-sound-7526305834784115473?refer=embed">
+                      ♬ original sound - MA TAILOR
+                    </a>
+                  </section>
+                </blockquote>
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Coming Soon</h3>
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">TikTok Showcase</h3>
                 <p className="font-montserrat text-gray-300 text-sm">
-                  Stay tuned for more behind-the-scenes content.
+                  Follow us on TikTok for quick tailoring tips and showcases.
                 </p>
               </div>
             </div>
           </div>
           
+          {/* Placeholder for more videos */}
           <div className="fancy-border p-1">
             <div className="bg-gray-900 p-4 rounded-lg">
               <div className="aspect-[357/476] w-full rounded-lg bg-gray-800 flex items-center justify-center mb-4">
