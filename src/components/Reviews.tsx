@@ -1,4 +1,3 @@
-
 import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -83,8 +82,7 @@ const Reviews = () => {
                       alt={`Customer review ${index + 1}`}
                       className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
                       style={{ 
-                        imageRendering: 'crisp-edges',
-                        imageResolution: 'from-image'
+                        imageRendering: 'crisp-edges'
                       }}
                       onClick={() => handleImageClick(image)}
                       loading="lazy"
@@ -190,9 +188,8 @@ const Reviews = () => {
                   alt="Customer review - full size"
                   className="max-w-none h-auto min-w-full object-contain cursor-grab active:cursor-grabbing"
                   style={{ 
-                    imageRendering: 'high-quality',
-                    imageResolution: 'from-image 300dpi',
-                    filter: 'contrast(1.1) brightness(1.05) sharpen(1px)'
+                    imageRendering: 'crisp-edges',
+                    filter: 'contrast(1.1) brightness(1.05) saturate(1.1)'
                   }}
                   onClick={(e) => e.stopPropagation()}
                   draggable={false}
