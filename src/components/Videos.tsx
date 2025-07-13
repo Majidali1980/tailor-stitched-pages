@@ -56,7 +56,7 @@ const Videos = () => {
             </div>
           </div>
           
-          {/* TikTok Video */}
+          {/* TikTok Video 1 */}
           <div className="fancy-border p-1">
             <div className="bg-gray-900 p-4 rounded-lg">
               <div className="w-full rounded-lg overflow-hidden mb-4 flex justify-center">
@@ -92,19 +92,34 @@ const Videos = () => {
             </div>
           </div>
           
-          {/* Placeholder for more videos */}
+          {/* TikTok Photo/Video 2 */}
           <div className="fancy-border p-1">
             <div className="bg-gray-900 p-4 rounded-lg">
-              <div className="aspect-[357/476] w-full rounded-lg bg-gray-800 flex items-center justify-center mb-4">
-                <div className="text-center">
-                  <Play className="h-16 w-16 text-gold mx-auto mb-4" />
-                  <p className="text-gray-400 font-montserrat">More videos coming soon...</p>
-                </div>
+              <div className="w-full rounded-lg overflow-hidden mb-4 flex justify-center">
+                <blockquote 
+                  className="tiktok-embed" 
+                  cite="https://www.tiktok.com/@matailor1234/photo/7526444149067746578" 
+                  data-video-id="7526444149067746578" 
+                  style={{ maxWidth: '100%', minWidth: '280px', width: '100%' }}
+                >
+                  <section>
+                    <a target="_blank" title="@matailor1234" href="https://www.tiktok.com/@matailor1234?refer=embed">
+                      @matailor1234
+                    </a> 
+                    Latest Pakistani Dress Collection{' '}
+                    <a title="pakistanidress" target="_blank" href="https://www.tiktok.com/tag/pakistanidress?refer=embed">
+                      #pakistanidress
+                    </a>{' '}
+                    <a title="matailor" target="_blank" href="https://www.tiktok.com/tag/matailor?refer=embed">
+                      #matailor
+                    </a>
+                  </section>
+                </blockquote>
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Coming Soon</h3>
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Latest Collection</h3>
                 <p className="font-montserrat text-gray-300 text-sm">
-                  Follow us on social media for the latest updates.
+                  Browse our latest Pakistani dress designs and styles.
                 </p>
               </div>
             </div>

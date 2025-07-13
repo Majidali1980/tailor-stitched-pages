@@ -17,14 +17,12 @@ const Hero = () => {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
-                <span className="block">Expert</span>
-                <span className="gold-gradient-text">Stitching Services</span>
+                <span className="block">Online Pakistani</span>
+                <span className="gold-gradient-text">Dress Tailor</span>
                 <span className="block">For Ladies</span>
               </h1>
               <p className="text-lg md:text-xl font-montserrat text-gray-300 mt-6">
-                <a href={whatsappLink} className="hover:text-gold transition-colors">
-                  EXPERT IN ALL TYPES OF STITCHING
-                </a> with care for all your tailoring needs.
+                MA Tailor offers online stitching of Pakistani and Indian ladies' dresses including <strong className="text-gold">Shalwar Kameez, Kurtis, and Maxis</strong>. We deliver stitched outfits to customers in the <strong className="text-gold">USA, UK, Canada, UAE and more</strong> within 15–17 days.
               </p>
             </div>
             
@@ -51,8 +49,8 @@ const Hero = () => {
                 <span className="text-sm font-montserrat text-gray-300">Satisfied Clients</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-3xl font-playfair font-bold text-gold">100%</span>
-                <span className="text-sm font-montserrat text-gray-300">Quality Guarantee</span>
+                <span className="text-3xl font-playfair font-bold text-gold">15-17</span>
+                <span className="text-sm font-montserrat text-gray-300">Days Delivery</span>
               </div>
             </div>
           </div>
@@ -60,13 +58,13 @@ const Hero = () => {
           <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale max-w-md mx-auto h-[500px]">
             <img 
               src="https://github.com/Majidali1980/lmages/blob/main/WhatsApp%20Image%202025-05-01%20at%209.10.08%20AM.jpeg?raw=true" 
-              alt="MA Tailor Design" 
+              alt="MA Tailor Pakistani Dress Design" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
               <div className="text-center p-6 bg-black bg-opacity-70 rounded-lg">
                 <h2 className="text-xl font-playfair font-bold text-gold mb-1">Expertly Stitched With Care</h2>
-                <p className="text-md font-montserrat text-white">Elegant & Professional</p>
+                <p className="text-md font-montserrat text-white">International Delivery Available</p>
               </div>
             </div>
           </div>
