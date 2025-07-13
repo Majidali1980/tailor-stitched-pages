@@ -1,9 +1,140 @@
 
-import { Package, Users, CheckCircle, Phone, Shirt } from 'lucide-react';
+import { useState } from 'react';
+import { Package, Users, CheckCircle, Phone, Shirt, X } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
 
 const BulkOrders = () => {
-  const sizes = ["20", "22", "24", "26", "28", "30", "32"];
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const sizes = ["22", "24", "26", "28", "30", "32"];
+  
+  const sizeDetails = {
+    "22": {
+      shirt: {
+        length: '22"',
+        shoulder: '10"',
+        armHole: '6"',
+        sleevesL: '10"',
+        chest: '12.5"',
+        waist: '11.5"',
+        hip: '13.5"',
+        cuff: '4"'
+      },
+      trouser: {
+        length: '22"',
+        waist: '19"',
+        hip: '20"',
+        aasan: '10"',
+        pauncha: '4.5"',
+        elastic: '15" / 15.5"'
+      }
+    },
+    "24": {
+      shirt: {
+        length: '24"',
+        shoulder: '11"',
+        armHole: '6"',
+        sleevesL: '11"',
+        chest: '13"',
+        waist: '12"',
+        hip: '14"',
+        cuff: '4"',
+        neckLength: '',
+        chalk: ''
+      },
+      trouser: {
+        length: '24"',
+        waist: '20"',
+        hip: '20"',
+        aasan: '10"',
+        pauncha: '5"',
+        elastic: '16" / 18"'
+      }
+    },
+    "26": {
+      shirt: {
+        length: '26"',
+        shoulder: '11.5"',
+        armHole: '6.25"',
+        sleevesL: '13"',
+        chest: '12.5"',
+        waist: '11.5"',
+        hip: '14.5"'
+      },
+      trouser: {
+        length: '26"',
+        waist: '21"',
+        hip: '22"',
+        aasan: '10"',
+        pauncha: '5"'
+      }
+    },
+    "28": {
+      shirt: {
+        length: '28"',
+        shoulder: '12"',
+        armHole: '6.5"',
+        sleeves: '13.5"',
+        chest: '14"',
+        waist: '13"',
+        hip: '15"',
+        cuff: '4"',
+        neckLength: '4"',
+        chalk: '12'
+      },
+      trouser: {
+        length: '28"',
+        waist: '22"',
+        hip: '23"',
+        aasan: '11"',
+        pauncha: '5.5"',
+        elastic: '19.5"'
+      }
+    },
+    "30": {
+      shirt: {
+        length: '30"',
+        shoulder: '12.5"',
+        armHole: '6.75"',
+        sleevesL: '14" + 1/2"',
+        chest: '14" + 1"',
+        waist: '13" + 1"',
+        hip: '15" + 1"',
+        cuff: '4.5"'
+      },
+      trouser: {
+        length: '30"',
+        waist: '22" + 1/2"',
+        hip: '23" + 1/2"',
+        aasan: '10" + 1/2"',
+        pauncha: '6"',
+        elastic: '19" / 19.5"'
+      }
+    },
+    "32": {
+      shirt: {
+        length: '32"',
+        shoulder: '13"',
+        armHole: '7"',
+        sleevesL: '15" + 1/2"',
+        chest: '15" + 1"',
+        waist: '14" + 1"',
+        hip: '16" + 1"',
+        cuff: '5"'
+      },
+      trouser: {
+        length: '32"',
+        waist: '23" + 1/2"',
+        hip: '24" + 1/2"',
+        aasan: '11" + 1/2"',
+        pauncha: '6.5"',
+        elastic: '21" / 21.5"'
+      }
+    }
+  };
+
   const features = [
     {
       icon: <Package className="h-6 w-6 text-gold" />,
@@ -29,6 +160,21 @@ const BulkOrders = () => {
 
   const whatsappLink = "https://wa.me/923070125273";
 
+  const handleSizeClick = (size: string) => {
+    setSelectedSize(size);
+    setIsDialogOpen(true);
+  };
+
+  const renderMeasurementRow = (label: string, value: string | undefined) => {
+    if (!value) return null;
+    return (
+      <div className="flex justify-between py-2 border-b border-gray-700">
+        <span className="font-montserrat text-gray-300 capitalize">{label.replace(/([A-Z])/g, ' $1').trim()}:</span>
+        <span className="font-playfair font-bold text-gold">{value}</span>
+      </div>
+    );
+  };
+
   return (
     <section id="bulk-orders" className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
@@ -51,15 +197,16 @@ const BulkOrders = () => {
                   Available Girls' Sizes
                 </CardTitle>
                 <CardDescription className="text-gray-300 font-montserrat">
-                  We specialize in bulk orders for these popular girls' sizes
+                  Click on any size to view detailed measurements
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                   {sizes.map((size, index) => (
                     <div 
                       key={index}
-                      className="bg-gold/10 border border-gold/30 rounded-lg p-4 text-center hover:bg-gold/20 transition-colors"
+                      className="bg-gold/10 border border-gold/30 rounded-lg p-4 text-center hover:bg-gold/20 transition-colors cursor-pointer"
+                      onClick={() => handleSizeClick(size)}
                     >
                       <span className="text-xl font-playfair font-bold text-gold">
                         {size}
@@ -105,28 +252,10 @@ const BulkOrders = () => {
             <h3 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-4">
               Ready for Your Bulk Order?
             </h3>
-            <p className="font-montserrat text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="font-montserrat text-gray-300 mb-8 max-w-2xl mx-auto">
               Contact us for exclusive bulk pricing, free samples, and quick quotes. 
-              Perfect for boutiques, retailers, and event organizers.
+              Perfect for boutiques, retailers, and event organizers. Discounts available based on order quantity and discussion.
             </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="p-4 bg-gray-900 rounded-lg">
-                <h4 className="font-playfair font-bold text-gold mb-2">10-20 Pieces</h4>
-                <p className="font-montserrat text-sm text-gray-300">15% Discount</p>
-              </div>
-              <div className="p-4 bg-gray-900 rounded-lg border-2 border-gold">
-                <h4 className="font-playfair font-bold text-gold mb-2">21-50 Pieces</h4>
-                <p className="font-montserrat text-sm text-gray-300">25% Discount</p>
-                <span className="inline-block bg-gold text-black text-xs font-bold px-2 py-1 rounded mt-1">
-                  POPULAR
-                </span>
-              </div>
-              <div className="p-4 bg-gray-900 rounded-lg">
-                <h4 className="font-playfair font-bold text-gold mb-2">50+ Pieces</h4>
-                <p className="font-montserrat text-sm text-gray-300">30% Discount</p>
-              </div>
-            </div>
 
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="inline-block">
               <div className="bg-gold text-black px-8 py-4 rounded-lg font-playfair font-bold text-lg hover:bg-gold-dark transition-colors cursor-pointer">
@@ -139,6 +268,62 @@ const BulkOrders = () => {
             </a>
           </div>
         </div>
+
+        {/* Size Details Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="bg-black border-gold/30 text-white max-w-2xl max-h-[80vh] overflow-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-playfair font-bold text-gold flex items-center justify-between">
+                Size {selectedSize} Measurements
+                <DialogClose asChild>
+                  <button className="text-gold hover:text-gold-dark">
+                    <X className="h-6 w-6" />
+                  </button>
+                </DialogClose>
+              </DialogTitle>
+            </DialogHeader>
+            
+            {selectedSize && sizeDetails[selectedSize as keyof typeof sizeDetails] && (
+              <div className="space-y-6">
+                {/* Shirt Measurements */}
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h4 className="text-xl font-playfair font-bold text-gold mb-4 flex items-center gap-2">
+                    <Shirt className="h-5 w-5" />
+                    SHIRT
+                  </h4>
+                  <div className="space-y-1">
+                    {Object.entries(sizeDetails[selectedSize as keyof typeof sizeDetails].shirt).map(([key, value]) => 
+                      renderMeasurementRow(key, value)
+                    )}
+                  </div>
+                </div>
+
+                {/* Trouser Measurements */}
+                <div className="bg-gray-900 rounded-lg p-6">
+                  <h4 className="text-xl font-playfair font-bold text-gold mb-4">
+                    TROUSER
+                  </h4>
+                  <div className="space-y-1">
+                    {Object.entries(sizeDetails[selectedSize as keyof typeof sizeDetails].trouser).map(([key, value]) => 
+                      renderMeasurementRow(key, value)
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-center pt-4">
+                  <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="inline-block">
+                    <div className="bg-gold text-black px-6 py-3 rounded-lg font-playfair font-bold hover:bg-gold-dark transition-colors cursor-pointer">
+                      <div className="flex items-center justify-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        Order Size {selectedSize}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );
