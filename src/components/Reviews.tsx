@@ -1,3 +1,4 @@
+
 import { Star, Users, Award, X, ZoomIn } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -37,7 +38,7 @@ const Reviews = () => {
     }
   };
 
-  // Fixed keyboard event listener with useEffect
+  // Enhanced keyboard event listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -47,7 +48,11 @@ const Reviews = () => {
 
     if (selectedImage) {
       document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = 'unset';
+      };
     }
   }, [selectedImage]);
 
@@ -76,17 +81,24 @@ const Reviews = () => {
                     <img
                       src={image}
                       alt={`Customer review ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover object-center transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+                      style={{ 
+                        imageRendering: 'crisp-edges',
+                        imageResolution: 'from-image'
+                      }}
                       onClick={() => handleImageClick(image)}
+                      loading="lazy"
                       onError={(e) => {
                         console.log(`Failed to load image ${index + 1}:`, image);
                         e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkN1c3RvbWVyIFJldmlldyAke2luZGV4ICsgMX08L3RleHQ+PC9zdmc+';
                       }}
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                      <ZoomIn className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                      <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+                        <ZoomIn className="h-6 w-6" />
+                      </div>
                     </div>
-                    <div className="absolute bottom-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-montserrat font-bold">
+                    <div className="absolute bottom-2 right-2 bg-gold text-black px-3 py-1 rounded-full text-xs font-montserrat font-bold shadow-lg">
                       Click to zoom
                     </div>
                   </div>
@@ -149,38 +161,51 @@ const Reviews = () => {
         </div>
       </div>
 
-      {/* Fixed Image Modal with Better Zoom */}
+      {/* Enhanced Image Modal with Better Quality */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-98 flex items-center justify-center z-50 p-4"
           onClick={handleBackdropClick}
         >
-          <div className="relative max-w-6xl max-h-full w-full h-full flex flex-col">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-4 px-4">
-              <h3 className="text-white font-montserrat text-lg">Customer Review - Scroll to read clearly</h3>
+          <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
+            {/* Enhanced Header */}
+            <div className="flex justify-between items-center mb-6 px-6 py-4 bg-black bg-opacity-80 rounded-t-lg backdrop-blur-sm">
+              <div>
+                <h3 className="text-white font-montserrat text-xl font-semibold">Customer Review</h3>
+                <p className="text-gray-300 text-sm mt-1">Click and drag to scroll • Pinch to zoom on mobile</p>
+              </div>
               <button
                 onClick={handleCloseModal}
-                className="text-white hover:text-gold transition-colors bg-black bg-opacity-70 rounded-full p-3"
+                className="text-white hover:text-gold transition-colors bg-gray-800 hover:bg-gray-700 rounded-full p-3 shadow-lg"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
             
-            {/* Scrollable Image Container */}
-            <div className="flex-1 overflow-auto bg-gray-100 rounded-lg">
-              <img
-                src={selectedImage}
-                alt="Customer review - full size"
-                className="w-full h-auto min-h-full object-contain"
-                onClick={(e) => e.stopPropagation()}
-              />
+            {/* Enhanced Scrollable Image Container */}
+            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl border-4 border-gold">
+              <div className="min-h-full flex items-start justify-center p-4">
+                <img
+                  src={selectedImage}
+                  alt="Customer review - full size"
+                  className="max-w-none h-auto min-w-full object-contain cursor-grab active:cursor-grabbing"
+                  style={{ 
+                    imageRendering: 'high-quality',
+                    imageResolution: 'from-image 300dpi',
+                    filter: 'contrast(1.1) brightness(1.05) sharpen(1px)'
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                  draggable={false}
+                />
+              </div>
             </div>
             
-            {/* Footer */}
-            <div className="mt-4 text-center px-4">
+            {/* Enhanced Footer */}
+            <div className="mt-6 text-center px-6 py-4 bg-black bg-opacity-80 rounded-b-lg backdrop-blur-sm">
               <p className="font-montserrat text-sm text-gray-300">
-                Scroll to read the complete review • Click outside to close • Press ESC to close
+                📱 <span className="text-gold font-semibold">WhatsApp Review</span> • 
+                Use scroll wheel or touch gestures to navigate • 
+                Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
               </p>
             </div>
           </div>
