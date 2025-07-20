@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import BulkOrders from '@/components/BulkOrders';
 import About from '@/components/About';
+import LittleStitch from '@/components/LittleStitch';
 import Gallery from '@/components/Gallery';
 import Videos from '@/components/Videos';
 import Reviews from '@/components/Reviews';
@@ -35,6 +36,7 @@ const Index = () => {
       <Services />
       <BulkOrders />
       <About />
+      <LittleStitch />
       <Gallery />
       <Videos />
       <Reviews />
