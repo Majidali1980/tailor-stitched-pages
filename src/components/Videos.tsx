@@ -124,6 +124,75 @@ const Videos = () => {
               </div>
             </div>
           </div>
+
+          {/* YouTube Short 1 */}
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-[9/16] w-full max-w-xs mx-auto rounded-lg overflow-hidden mb-4">
+                <iframe
+                  src="https://www.youtube.com/embed/UER1fHZudhc"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none' }}
+                  allowFullScreen={true}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">YouTube Short</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  Watch our latest YouTube shorts for quick tips and showcases.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* YouTube Video 2 */}
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-video w-full rounded-lg overflow-hidden mb-4">
+                <iframe
+                  src="https://www.youtube.com/embed/U7SpQWhw9TE"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none' }}
+                  allowFullScreen={true}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Tailoring Process</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  Get an inside look at our detailed tailoring process.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* YouTube Short 3 */}
+          <div className="fancy-border p-1">
+            <div className="bg-gray-900 p-4 rounded-lg">
+              <div className="aspect-[9/16] w-full max-w-xs mx-auto rounded-lg overflow-hidden mb-4">
+                <iframe
+                  src="https://www.youtube.com/embed/7-RqIkEsrcM"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none' }}
+                  allowFullScreen={true}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+              <div className="text-center">
+                <h3 className="text-lg font-playfair font-semibold text-gold mb-2">Design Showcase</h3>
+                <p className="font-montserrat text-gray-300 text-sm">
+                  Explore our creative design process and finished products.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
