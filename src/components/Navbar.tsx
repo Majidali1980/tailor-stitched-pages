@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, ExternalLink } from 'lucide-react';
 import BusinessCard from './BusinessCard';
+import PriceList from './PriceList';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,6 +40,7 @@ const Navbar: React.FC = () => {
             <a href={classesLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1">
               <ExternalLink className="h-3 w-3" /> Stitching Classes
             </a>
+            <PriceList />
             <BusinessCard />
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <Button className="bg-gold hover:bg-gold-dark text-black font-montserrat flex items-center gap-2">
@@ -69,6 +71,9 @@ const Navbar: React.FC = () => {
             <a href={classesLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1" onClick={() => setIsMenuOpen(false)}>
               <ExternalLink className="h-3 w-3" /> Stitching Classes
             </a>
+            <div onClick={() => setIsMenuOpen(false)}>
+              <PriceList />
+            </div>
             <div onClick={() => setIsMenuOpen(false)}>
               <BusinessCard />
             </div>
