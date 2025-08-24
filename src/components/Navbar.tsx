@@ -50,6 +50,7 @@ const Navbar: React.FC = () => {
             <button onClick={() => handleNavigation('/', 'services')} className="font-montserrat text-sm hover:text-gold transition-colors">Services</button>
             <Link to="/about" className="font-montserrat text-sm hover:text-gold transition-colors">About</Link>
             <Link to="/gallery" className="font-montserrat text-sm hover:text-gold transition-colors">Gallery</Link>
+            <Link to="/videos" className="font-montserrat text-sm hover:text-gold transition-colors">Videos</Link>
             <Link to="/contact" className="font-montserrat text-sm hover:text-gold transition-colors">Contact</Link>
             <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1">
               <ExternalLink className="h-3 w-3" /> More Designs
@@ -81,6 +82,7 @@ const Navbar: React.FC = () => {
             <button onClick={() => handleNavigation('/', 'services')} className="font-montserrat text-sm hover:text-gold transition-colors">Services</button>
             <Link to="/about" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
             <Link to="/gallery" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+            <Link to="/videos" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Videos</Link>
             <Link to="/contact" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1" onClick={() => setIsMenuOpen(false)}>
               <ExternalLink className="h-3 w-3" /> More Designs
