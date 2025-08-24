@@ -2,20 +2,37 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, ExternalLink } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import BusinessCard from './BusinessCard';
 import PriceList from './PriceList';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
   const whatsappLink = "https://wa.me/923070125273";
   const vercelSiteLink = "https://matailor-xi.vercel.app/";
   const classesLink = "https://ma-tailorclasses.vercel.app/";
+
+  // Function to handle scroll to section on home page or navigate to page
+  const handleNavigation = (path: string, sectionId?: string) => {
+    if (location.pathname === '/' && sectionId) {
+      // If we're on home page and there's a section ID, scroll to it
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (sectionId && location.pathname !== '/') {
+      // If we're not on home page but need to go to a section, go to home first
+      window.location.href = `/#${sectionId}`;
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-black bg-opacity-95 text-white z-50 px-4 lg:px-8">
       <div className="container mx-auto">
         <div className="flex items-center justify-between py-4">
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <img 
               src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
               alt="MA Tailor Logo" 
@@ -25,15 +42,15 @@ const Navbar: React.FC = () => {
               <h1 className="text-2xl font-playfair font-bold text-gold">MA <span className="text-white">TAILOR</span></h1>
               <p className="text-xs font-montserrat text-gold-light">LADIES ONLINE STITCHING SHOP</p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="font-montserrat text-sm hover:text-gold transition-colors">Home</a>
-            <a href="#services" className="font-montserrat text-sm hover:text-gold transition-colors">Services</a>
-            <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors">About</a>
-            <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors">Gallery</a>
-            <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors">Contact</a>
+            <Link to="/" className="font-montserrat text-sm hover:text-gold transition-colors">Home</Link>
+            <button onClick={() => handleNavigation('/', 'services')} className="font-montserrat text-sm hover:text-gold transition-colors">Services</button>
+            <Link to="/about" className="font-montserrat text-sm hover:text-gold transition-colors">About</Link>
+            <Link to="/gallery" className="font-montserrat text-sm hover:text-gold transition-colors">Gallery</Link>
+            <Link to="/contact" className="font-montserrat text-sm hover:text-gold transition-colors">Contact</Link>
             <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1">
               <ExternalLink className="h-3 w-3" /> More Designs
             </a>
@@ -60,11 +77,11 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 flex flex-col items-center">
-            <a href="#home" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Home</a>
-            <a href="#services" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
-            <a href="#about" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
-            <a href="#gallery" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</a>
-            <a href="#contact" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <Link to="/" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Home</Link>
+            <button onClick={() => handleNavigation('/', 'services')} className="font-montserrat text-sm hover:text-gold transition-colors">Services</button>
+            <Link to="/about" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
+            <Link to="/gallery" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+            <Link to="/contact" className="font-montserrat text-sm hover:text-gold transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <a href={vercelSiteLink} target="_blank" rel="noopener noreferrer" className="font-montserrat text-sm text-gold hover:text-gold-light transition-colors flex items-center gap-1" onClick={() => setIsMenuOpen(false)}>
               <ExternalLink className="h-3 w-3" /> More Designs
             </a>
