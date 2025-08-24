@@ -1,5 +1,5 @@
 
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles, Heart, ExternalLink } from 'lucide-react';
 
 const LittleStitch = () => {
   return (
@@ -26,7 +26,7 @@ const LittleStitch = () => {
             <div className="fancy-border p-1 max-w-md mx-auto">
               <div className="bg-black p-4 rounded-lg">
                 <img 
-                  src="https://i.postimg.cc/05nHvSwn/1.png" 
+                  src="https://i.postimg.cc/C1dK0q0T/Untitled-500-x-500-px.png" 
                   alt="Little Stitch Logo - Baby Girls Clothing" 
                   className="w-full h-auto rounded-lg"
                 />
@@ -38,16 +38,22 @@ const LittleStitch = () => {
             <div className="bg-gradient-to-r from-gold/20 to-transparent p-8 rounded-lg border border-gold/30">
               <div className="flex items-center justify-center lg:justify-start mb-4">
                 <Heart className="h-6 w-6 text-gold mr-2" />
-                <span className="text-2xl font-playfair font-bold text-gold">Coming Soon</span>
+                <span className="text-2xl font-playfair font-bold text-gold">Now Open for Orders</span>
               </div>
               
               <h3 className="text-3xl font-playfair font-bold mb-4">
-                Beautiful Stitched Outfits for Baby Girls
+                Beautiful Stitched Outfits for Little Girls
               </h3>
               
               <p className="text-lg font-montserrat text-gray-300 mb-6">
                 Get ready for our newest venture! Little Stitch will offer exquisitely crafted baby girls' clothing with the same attention to detail and quality that MA Tailor is known for.
               </p>
+
+              <div className="mb-6 p-4 bg-gold/10 rounded-lg border border-gold/20">
+                <p className="text-gold font-montserrat font-semibold text-center">
+                  Now accepting orders for little girls age 4 years to 15 years
+                </p>
+              </div>
               
               <div className="space-y-3">
                 <div className="flex items-center justify-center lg:justify-start">
@@ -65,9 +71,15 @@ const LittleStitch = () => {
               </div>
               
               <div className="mt-8 p-4 bg-gold/10 rounded-lg border border-gold/20">
-                <p className="text-gold font-montserrat font-semibold text-center">
-                  Stay tuned for the grand opening of Little Stitch!
-                </p>
+                <a 
+                  href="https://littlestitchpk.lovable.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center text-gold font-montserrat font-semibold hover:text-gold-light transition-colors"
+                >
+                  Visit Little Stitch Website
+                  <ExternalLink className="h-4 w-4 ml-2" />
+                </a>
               </div>
             </div>
           </div>
