@@ -57,7 +57,7 @@ const Hero = () => {
           
           <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale max-w-md mx-auto h-[500px]">
             <img 
-              src="https://github.com/Majidali1980/lmages/blob/main/WhatsApp%20Image%202025-05-01%20at%209.10.08%20AM.jpeg?raw=true" 
+              src="/lovable-uploads/e344a621-c848-4656-844c-f5f5548d0ab0.png" 
               alt="MA Tailor Pakistani Dress Design" 
               className="w-full h-full object-cover"
             />
