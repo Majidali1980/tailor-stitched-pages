@@ -61,12 +61,6 @@ const Hero = () => {
               alt="MA Tailor Pakistani Dress Design" 
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-              <div className="text-center p-6 bg-black bg-opacity-70 rounded-lg">
-                <h2 className="text-xl font-playfair font-bold text-gold mb-1">Expertly Stitched With Care</h2>
-                <p className="text-md font-montserrat text-white">International Delivery Available</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
