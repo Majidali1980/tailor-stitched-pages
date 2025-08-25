@@ -1,0 +1,183 @@
+
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ZoomIn, X } from 'lucide-react';
+
+interface LatestDesign {
+  id: string;
+  title: string;
+  description: string | null;
+  image_url: string;
+  display_order: number;
+}
+
+const LatestDesignsCarousel = () => {
+  const [designs, setDesigns] = useState<LatestDesign[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDesigns = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('latest_designs')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) {
+          console.error('Error fetching designs:', error);
+        } else {
+          setDesigns(data || []);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDesigns();
+  }, []);
+
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setSelectedImage(null);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [selectedImage]);
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-pulse text-gold text-lg">Loading Latest Designs...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (designs.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <section className="py-24 bg-gray-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
+              Latest <span className="text-gold">Designs</span>
+            </h2>
+            <p className="text-lg font-montserrat text-gray-300 max-w-2xl mx-auto">
+              Discover our newest collection of beautifully crafted Pakistani dresses.
+            </p>
+          </div>
+
+          <Carousel className="w-full max-w-5xl mx-auto">
+            <CarouselContent>
+              {designs.map((design) => (
+                <CarouselItem key={design.id} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="fancy-border p-1">
+                    <div className="bg-black p-4 rounded-lg">
+                      <div className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer">
+                        <img
+                          src={design.image_url}
+                          alt={design.title}
+                          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
+                          onClick={() => handleImageClick(design.image_url)}
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                          <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+                            <ZoomIn className="h-6 w-6" />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-2 right-2 bg-gold text-black px-3 py-1 rounded-full text-xs font-montserrat font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          Click to view full
+                        </div>
+                      </div>
+                      <h3 className="text-lg font-playfair font-semibold text-gold mb-2">
+                        {design.title}
+                      </h3>
+                      {design.description && (
+                        <p className="font-montserrat text-gray-300 text-sm">
+                          {design.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="text-gold border-gold hover:bg-gold hover:text-black" />
+            <CarouselNext className="text-gold border-gold hover:bg-gold hover:text-black" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Full Screen Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          onClick={handleBackdropClick}
+        >
+          <div className="relative w-full h-full max-w-4xl max-h-full flex flex-col">
+            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-80 rounded-t-lg">
+              <h3 className="text-white font-montserrat text-xl font-semibold">Design Preview</h3>
+              <button
+                onClick={handleCloseModal}
+                className="text-white hover:text-gold transition-colors bg-gray-800 hover:bg-gray-700 rounded-full p-3"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl">
+              <img
+                src={selectedImage}
+                alt="Design preview"
+                className="w-full h-auto object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            
+            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-80 rounded-b-lg">
+              <p className="font-montserrat text-sm text-gray-300">
+                Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default LatestDesignsCarousel;

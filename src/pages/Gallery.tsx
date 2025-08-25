@@ -1,13 +1,13 @@
 
 import Navbar from '@/components/Navbar';
-import Gallery from '@/components/Gallery';
+import DynamicGallery from '@/components/DynamicGallery';
 import Footer from '@/components/Footer';
 
 const GalleryPage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Navbar />
-      <Gallery />
+      <DynamicGallery />
       <Footer />
     </div>
   );

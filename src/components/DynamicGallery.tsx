@@ -1,0 +1,171 @@
+
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { ZoomIn, X } from 'lucide-react';
+
+interface GalleryItem {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  display_order: number;
+}
+
+const DynamicGallery = () => {
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchGalleryItems = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('gallery')
+          .select('*')
+          .eq('is_active', true)
+          .order('display_order', { ascending: true });
+
+        if (error) {
+          console.error('Error fetching gallery items:', error);
+        } else {
+          setGalleryItems(data || []);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGalleryItems();
+  }, []);
+
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setSelectedImage(null);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage) {
+      document.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [selectedImage]);
+
+  if (loading) {
+    return (
+      <section className="py-24 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-pulse text-gold text-lg">Loading Gallery...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <>
+      <section className="py-24 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
+              Our <span className="text-gold">Gallery</span>
+            </h2>
+            <p className="text-lg font-montserrat text-gray-300 max-w-2xl mx-auto">
+              Browse through our collection of beautifully crafted Pakistani dresses and satisfied customers.
+            </p>
+          </div>
+
+          {galleryItems.length === 0 ? (
+            <div className="text-center text-gray-400">
+              <p>No gallery items available at the moment.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {galleryItems.map((item) => (
+                <div key={item.id} className="fancy-border p-1">
+                  <div className="bg-gray-900 p-2 rounded-lg">
+                    <div className="aspect-[3/4] w-full rounded-lg overflow-hidden relative group cursor-pointer">
+                      <img
+                        src={item.image_url}
+                        alt={item.caption || 'Gallery item'}
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
+                        onClick={() => handleImageClick(item.image_url)}
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                        <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+                          <ZoomIn className="h-6 w-6" />
+                        </div>
+                      </div>
+                    </div>
+                    {item.caption && (
+                      <p className="text-center font-montserrat text-gray-300 text-sm mt-2">
+                        {item.caption}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Full Screen Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          onClick={handleBackdropClick}
+        >
+          <div className="relative w-full h-full max-w-6xl max-h-full flex flex-col">
+            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-80 rounded-t-lg">
+              <h3 className="text-white font-montserrat text-xl font-semibold">Gallery Image</h3>
+              <button
+                onClick={handleCloseModal}
+                className="text-white hover:text-gold transition-colors bg-gray-800 hover:bg-gray-700 rounded-full p-3"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl">
+              <img
+                src={selectedImage}
+                alt="Gallery image full view"
+                className="w-full h-auto object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            
+            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-80 rounded-b-lg">
+              <p className="font-montserrat text-sm text-gray-300">
+                Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default DynamicGallery;

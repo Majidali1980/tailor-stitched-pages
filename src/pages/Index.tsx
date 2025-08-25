@@ -1,6 +1,7 @@
 
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
+import DynamicHero from '@/components/DynamicHero';
+import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
 import BulkOrders from '@/components/BulkOrders';
 import LittleStitch from '@/components/LittleStitch';
@@ -26,7 +27,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Navbar />
-      <Hero />
+      <DynamicHero />
+      <LatestDesignsCarousel />
       <Services />
       <BulkOrders />
       <LittleStitch />
