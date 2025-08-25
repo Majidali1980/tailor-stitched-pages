@@ -31,16 +31,20 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 bg-black bg-opacity-95 text-white z-50 px-4 lg:px-8">
       <div className="container mx-auto">
-        <div className="flex items-center justify-between py-4">
-          <Link to="/" className="flex items-center space-x-2">
+        <div className="flex items-center justify-between py-3">
+          <Link to="/" className="flex items-center space-x-3">
             <img 
               src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
               alt="MA Tailor Logo" 
-              className="h-12 w-auto"
+              className="h-14 w-14 object-contain"
             />
-            <div>
-              <h1 className="text-2xl font-playfair font-bold text-gold">MA <span className="text-white">TAILOR</span></h1>
-              <p className="text-xs font-montserrat text-gold-light">LADIES ONLINE STITCHING SHOP</p>
+            <div className="flex flex-col">
+              <h1 className="text-2xl md:text-3xl font-playfair font-bold text-gold leading-tight">
+                MA <span className="text-white">TAILOR</span>
+              </h1>
+              <p className="text-xs md:text-sm font-montserrat text-gold-light leading-tight">
+                LADIES ONLINE STITCHING SHOP
+              </p>
             </div>
           </Link>
 

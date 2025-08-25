@@ -4,8 +4,6 @@ import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import BulkOrders from '@/components/BulkOrders';
 import LittleStitch from '@/components/LittleStitch';
-import Reviews from '@/components/Reviews';
-import FAQ from '@/components/FAQ';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import Footer from '@/components/Footer';
 import { useEffect } from 'react';
@@ -32,8 +30,6 @@ const Index = () => {
       <Services />
       <BulkOrders />
       <LittleStitch />
-      <Reviews />
-      <FAQ />
       <AnimatedDesignPromo />
       <Footer />
     </div>
