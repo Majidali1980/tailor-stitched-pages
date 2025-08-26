@@ -42,23 +42,18 @@ const LatestDesignsCarousel = () => {
     fetchDesigns();
   }, []);
 
-  const handleImageClick = (imageUrl: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleImageClick = (imageUrl: string) => {
+    console.log('Image clicked:', imageUrl);
     setSelectedImage(imageUrl);
   };
 
-  const handleCloseModal = (e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  const handleCloseModal = () => {
     setSelectedImage(null);
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      handleCloseModal(e);
+      handleCloseModal();
     }
   };
 
@@ -125,12 +120,14 @@ const LatestDesignsCarousel = () => {
                 <CarouselItem key={design.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="fancy-border p-1">
                     <div className="bg-black p-4 rounded-lg">
-                      <div className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer">
+                      <div 
+                        className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer"
+                        onClick={() => handleImageClick(design.image_url)}
+                      >
                         <img
                           src={design.image_url}
                           alt={design.title}
                           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
-                          onClick={(e) => handleImageClick(design.image_url, e)}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
@@ -183,10 +180,10 @@ const LatestDesignsCarousel = () => {
       {/* Full Screen Image Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-[9999] p-4"
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-[9999] p-4 overflow-y-auto"
           onClick={handleBackdropClick}
         >
-          <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
+          <div className="relative w-full max-w-7xl my-8">
             <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-90 rounded-t-lg">
               <h3 className="text-white font-montserrat text-xl font-semibold">Design Preview</h3>
               <button
@@ -197,12 +194,12 @@ const LatestDesignsCarousel = () => {
               </button>
             </div>
             
-            <div className="flex-1 overflow-hidden bg-white rounded-lg shadow-2xl flex items-center justify-center">
+            <div className="bg-white rounded-lg shadow-2xl flex items-center justify-center min-h-[60vh] max-h-[80vh] overflow-hidden">
               <img
                 src={selectedImage}
                 alt="Design preview"
                 className="max-w-full max-h-full object-contain"
-                onClick={(e) => e.stopPropagation()}
+                style={{ maxHeight: '80vh' }}
               />
             </div>
             
