@@ -23,7 +23,7 @@ const LatestDesignsCarousel = () => {
       try {
         const { data, error } = await supabase
           .from('latest_designs')
-          .select('*')
+          .select('id, title, description, image_url, link, display_order')
           .eq('is_active', true)
           .order('display_order', { ascending: true });
 
