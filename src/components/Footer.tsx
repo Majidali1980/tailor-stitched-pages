@@ -9,9 +9,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="h-10 w-10 rounded-full border-2 border-gold flex items-center justify-center">
-                <span className="text-lg font-playfair font-bold text-gold">MA</span>
-              </div>
+              <img 
+                src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
+                alt="MA Tailor Logo"
+                className="h-10 w-10 object-contain"
+              />
               <h3 className="text-xl font-playfair font-bold text-gold">MA TAILOR</h3>
             </div>
             <p className="font-montserrat text-gray-400 mb-6">
@@ -74,31 +76,29 @@ const Footer = () => {
           
           <div>
             <h3 className="text-lg font-playfair font-bold text-gold mb-4">Business Hours</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2 mb-6">
               <li className="font-montserrat text-gray-400">Monday - Friday: 10:00 AM - 8:00 PM</li>
               <li className="font-montserrat text-gray-400">Saturday: 10:00 AM - 6:00 PM</li>
               <li className="font-montserrat text-gray-400">Sunday: Closed</li>
             </ul>
-            <div className="mt-6">
+            <div className="mb-6">
               <p className="font-montserrat text-gray-400 italic">
                 "Quality is remembered long after the price is forgotten."
+              </p>
+            </div>
+            <div>
+              <h4 className="text-md font-playfair font-semibold text-gold mb-2">Address</h4>
+              <p className="font-montserrat text-sm text-gray-400">
+                Mahmoodabad No 04, Karachi
               </p>
             </div>
           </div>
         </div>
         
-        <div className="border-t border-gold/10 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="font-montserrat text-sm text-gray-500 mb-4 md:mb-0">
+        <div className="border-t border-gold/10 mt-12 pt-6 text-center">
+          <p className="font-montserrat text-sm text-gray-500 mb-4">
             © {new Date().getFullYear()} MA Tailor. All rights reserved.
           </p>
-          <div>
-            <p className="font-montserrat text-sm text-gray-500">
-              Address: Mahmoodabad No 04, Karachi
-            </p>
-          </div>
-        </div>
-        
-        <div className="mt-6 text-center">
           <p className="text-xs text-gray-600">
             Made with ♥ by{' '}
             <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}

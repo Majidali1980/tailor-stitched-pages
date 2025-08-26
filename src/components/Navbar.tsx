@@ -24,8 +24,11 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="relative">
-              <Scissors className="h-8 w-8 text-gold" />
-              <div className="absolute -inset-1 bg-gold/20 rounded-full blur-sm"></div>
+              <img 
+                src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
+                alt="MA Tailor Logo"
+                className="h-12 w-12 object-contain"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-2xl font-playfair font-bold text-white">

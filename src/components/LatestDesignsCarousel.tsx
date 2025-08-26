@@ -2,13 +2,14 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { ZoomIn, X } from 'lucide-react';
+import { ZoomIn, X, ExternalLink } from 'lucide-react';
 
 interface LatestDesign {
   id: string;
   title: string;
   description: string | null;
   image_url: string;
+  link: string | null;
   display_order: number;
 }
 
@@ -52,6 +53,13 @@ const LatestDesignsCarousel = () => {
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setSelectedImage(null);
+    }
+  };
+
+  const handleLinkClick = (link: string | null, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (link) {
+      window.open(link, '_blank');
     }
   };
 
@@ -101,10 +109,10 @@ const LatestDesignsCarousel = () => {
             </p>
           </div>
 
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent>
+          <Carousel className="w-full max-w-6xl mx-auto">
+            <CarouselContent className="-ml-2 md:-ml-4">
               {designs.map((design) => (
-                <CarouselItem key={design.id} className="md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={design.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="fancy-border p-1">
                     <div className="bg-black p-4 rounded-lg">
                       <div className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer">
@@ -114,7 +122,7 @@ const LatestDesignsCarousel = () => {
                           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
                           onClick={() => handleImageClick(design.image_url)}
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
                             <ZoomIn className="h-6 w-6" />
                           </div>
@@ -122,22 +130,42 @@ const LatestDesignsCarousel = () => {
                         <div className="absolute bottom-2 right-2 bg-gold text-black px-3 py-1 rounded-full text-xs font-montserrat font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           Click to view full
                         </div>
+                        {design.link && (
+                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button
+                              onClick={(e) => handleLinkClick(design.link, e)}
+                              className="bg-black bg-opacity-80 text-gold p-2 rounded-full hover:bg-gold hover:text-black transition-colors duration-200"
+                              title="Visit link"
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </button>
+                          </div>
+                        )}
                       </div>
                       <h3 className="text-lg font-playfair font-semibold text-gold mb-2">
                         {design.title}
                       </h3>
                       {design.description && (
-                        <p className="font-montserrat text-gray-300 text-sm">
+                        <p className="font-montserrat text-gray-300 text-sm mb-2">
                           {design.description}
                         </p>
+                      )}
+                      {design.link && (
+                        <button
+                          onClick={(e) => handleLinkClick(design.link, e)}
+                          className="text-gold hover:text-gold-light text-sm font-montserrat underline transition-colors duration-200 flex items-center gap-1"
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                          View Details
+                        </button>
                       )}
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="text-gold border-gold hover:bg-gold hover:text-black" />
-            <CarouselNext className="text-gold border-gold hover:bg-gold hover:text-black" />
+            <CarouselPrevious className="text-gold border-gold hover:bg-gold hover:text-black -left-4 md:-left-12" />
+            <CarouselNext className="text-gold border-gold hover:bg-gold hover:text-black -right-4 md:-right-12" />
           </Carousel>
         </div>
       </section>

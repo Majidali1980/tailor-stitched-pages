@@ -1,84 +1,91 @@
 
-import { Scissors, Ruler, Tag, Phone } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Scissors, Star, Clock, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   const services = [
     {
-      icon: <Scissors className="h-10 w-10 text-gold" />,
-      title: "Custom Tailoring",
-      description: "Expert stitching services for all types of ladies' and girls' suits with precision and care."
+      icon: <Scissors className="h-8 w-8" />,
+      title: "Custom Stitching",
+      description: "Tailored Pakistani dresses crafted to your exact measurements and preferences.",
+      features: ["Perfect fit guarantee", "Premium fabrics", "Custom designs"]
     },
     {
-      icon: <Ruler className="h-10 w-10 text-gold" />,
-      title: "Alterations",
-      description: "Professional alterations to ensure the perfect fit for your existing garments."
+      icon: <Star className="h-8 w-8" />,
+      title: "Premium Alterations",
+      description: "Expert alterations to ensure your outfits fit perfectly and look stunning.",
+      features: ["Size adjustments", "Style modifications", "Quick turnaround"]
     },
     {
-      icon: <Tag className="h-10 w-10 text-gold" />,
-      title: "Pick & Drop",
-      description: "Convenient pick-up and delivery service for all your tailoring needs."
+      icon: <Clock className="h-8 w-8" />,
+      title: "Express Service",
+      description: "Need something urgently? Our express service delivers quality work on time.",
+      features: ["24-48 hour delivery", "Rush orders", "Emergency alterations"]
     },
+    {
+      icon: <Award className="h-8 w-8" />,
+      title: "Bridal Specialists",
+      description: "Specializing in bridal wear and formal Pakistani outfits for special occasions.",
+      features: ["Wedding dresses", "Formal wear", "Special occasions"]
+    }
   ];
-  
-  const whatsappLink = "https://wa.me/923070125273";
 
   return (
-    <section id="services" className="py-24 bg-black text-white">
+    <section id="services" className="py-24 bg-gray-900 text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">Our <span className="text-gold">Services</span></h2>
+          <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
+            Our <span className="text-gold">Services</span>
+          </h2>
           <p className="text-lg font-montserrat text-gray-300 max-w-2xl mx-auto">
-            We specialize in creating beautiful, perfectly fitted garments for ladies and girls with attention to detail and quality craftsmanship.
+            Professional tailoring services with decades of experience in Pakistani dress stitching.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="fancy-border">
-              <Card className="bg-gray-900 border-none h-full hover:bg-gray-800 transition-colors">
-                <CardHeader>
-                  <div className="h-16 w-16 rounded-full bg-gold/10 flex items-center justify-center mb-4">
-                    {service.icon}
-                  </div>
-                  <CardTitle className="text-2xl font-playfair font-bold text-gold">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-300 font-montserrat text-base">
-                    {service.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-20 p-8 bg-gradient-to-r from-gray-900 to-black rounded-xl border border-gold/20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <h3 className="text-2xl font-playfair font-bold text-gold mb-4">EXPERT IN ALL TYPES OF STITCHING</h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {["Party Wear", "Casual Wear", "Bridal Wear", "Traditional Outfits", "Western Wear", "Kids Wear"].map((item, index) => (
-                  <li key={index} className="flex items-center font-montserrat">
-                    <span className="h-2 w-2 bg-gold rounded-full mr-2"></span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex items-center justify-center">
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block w-full">
-                <div className="px-6 py-4 bg-gold text-black rounded-lg text-center cursor-pointer hover:bg-gold-dark transition-colors">
-                  <p className="text-lg font-playfair font-bold">Book Your</p>
-                  <p className="text-2xl font-playfair font-bold">Appointment</p>
-                  <p className="font-montserrat mt-2 flex items-center justify-center gap-1">
-                    <Phone className="h-4 w-4" /> WhatsApp Now
-                  </p>
-                </div>
-              </a>
+
+        {/* Expert Section */}
+        <div className="text-center mb-16">
+          <div className="fancy-border p-1 max-w-4xl mx-auto">
+            <div className="bg-black p-8 rounded-lg">
+              <h3 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-4">
+                EXPERT IN ALL TYPES OF STITCHING
+              </h3>
+              <p className="text-lg font-montserrat text-gray-300 mb-6">
+                From traditional Pakistani dresses to modern designs, we bring your vision to life with precision and care.
+              </p>
+              <Link 
+                to="/booking"
+                className="inline-block bg-gold hover:bg-gold-dark text-black px-8 py-3 rounded-full font-montserrat font-semibold transition-all duration-300 hover:scale-105"
+              >
+                Book Your Appointment
+              </Link>
             </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <div key={index} className="fancy-border p-1">
+              <div className="bg-black p-6 rounded-lg h-full">
+                <div className="text-gold mb-4">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-playfair font-bold text-gold mb-3">
+                  {service.title}
+                </h3>
+                <p className="font-montserrat text-gray-300 text-sm mb-4">
+                  {service.description}
+                </p>
+                <ul className="space-y-2">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="font-montserrat text-xs text-gray-400 flex items-center">
+                      <div className="w-2 h-2 bg-gold rounded-full mr-2"></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
