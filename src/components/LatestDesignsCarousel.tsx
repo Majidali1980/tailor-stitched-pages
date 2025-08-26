@@ -42,17 +42,23 @@ const LatestDesignsCarousel = () => {
     fetchDesigns();
   }, []);
 
-  const handleImageClick = (imageUrl: string) => {
+  const handleImageClick = (imageUrl: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     setSelectedImage(imageUrl);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setSelectedImage(null);
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      setSelectedImage(null);
+      handleCloseModal(e);
     }
   };
 
@@ -65,19 +71,23 @@ const LatestDesignsCarousel = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && selectedImage) {
         setSelectedImage(null);
       }
     };
 
+    document.addEventListener('keydown', handleKeyDown);
+    
     if (selectedImage) {
-      document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-        document.body.style.overflow = 'unset';
-      };
+    } else {
+      document.body.style.overflow = 'unset';
     }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
   }, [selectedImage]);
 
   if (loading) {
@@ -120,7 +130,7 @@ const LatestDesignsCarousel = () => {
                           src={design.image_url}
                           alt={design.title}
                           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
-                          onClick={() => handleImageClick(design.image_url)}
+                          onClick={(e) => handleImageClick(design.image_url, e)}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
@@ -128,7 +138,7 @@ const LatestDesignsCarousel = () => {
                           </div>
                         </div>
                         <div className="absolute bottom-2 right-2 bg-gold text-black px-3 py-1 rounded-full text-xs font-montserrat font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          Click to view full
+                          Click to enlarge
                         </div>
                         {design.link && (
                           <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -173,11 +183,11 @@ const LatestDesignsCarousel = () => {
       {/* Full Screen Image Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-[9999] p-4"
           onClick={handleBackdropClick}
         >
-          <div className="relative w-full h-full max-w-4xl max-h-full flex flex-col">
-            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-80 rounded-t-lg">
+          <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
+            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-90 rounded-t-lg">
               <h3 className="text-white font-montserrat text-xl font-semibold">Design Preview</h3>
               <button
                 onClick={handleCloseModal}
@@ -187,16 +197,16 @@ const LatestDesignsCarousel = () => {
               </button>
             </div>
             
-            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl">
+            <div className="flex-1 overflow-hidden bg-white rounded-lg shadow-2xl flex items-center justify-center">
               <img
                 src={selectedImage}
                 alt="Design preview"
-                className="w-full h-auto object-contain"
+                className="max-w-full max-h-full object-contain"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
             
-            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-80 rounded-b-lg">
+            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-90 rounded-b-lg">
               <p className="font-montserrat text-sm text-gray-300">
                 Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
               </p>

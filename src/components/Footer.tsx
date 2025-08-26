@@ -19,41 +19,12 @@ const Footer = () => {
             <p className="font-montserrat text-gray-400 mb-6">
               Expertly stitched with care - Your trusted tailoring service for all ladies' and girls' suits.
             </p>
-            <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2 hover:text-gold-light transition-colors">
+            <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2 hover:text-gold-light transition-colors mb-4">
               <Phone className="h-4 w-4" />
               WhatsApp: 03070125273
             </a>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-playfair font-bold text-gold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link to="/" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Home</Link></li>
-              <li><a href="#services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</a></li>
-              <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
-              <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
-              <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
-              <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
-              <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
-              <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
-              <li>
-                <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> Website
-                </a>
-              </li>
-              <li>
-                <a href="https://matailor-xi.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> More Designs
-                </a>
-              </li>
-              <li>
-                <a href="https://ma-tailorclasses.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> Stitching Classes
-                </a>
-              </li>
-            </ul>
             
-            <h3 className="text-lg font-playfair font-bold text-gold mb-2 mt-6">Follow Us</h3>
+            <h4 className="text-md font-playfair font-semibold text-gold mb-3">Follow Us</h4>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/profile.php?id=100067160730050" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-light transition-colors">
                 <Facebook className="h-6 w-6" />
@@ -72,6 +43,42 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-playfair font-bold text-gold mb-4">Quick Links</h3>
+            <ul className="space-y-2 mb-6">
+              <li><Link to="/" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Home</Link></li>
+              <li><a href="#services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</a></li>
+              <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
+              <li><Link to="/booking" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Booking</Link></li>
+            </ul>
+
+            <ul className="space-y-2 mb-6">
+              <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
+              <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
+              <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
+            </ul>
+
+            <ul className="space-y-2">
+              <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
+              <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
+              <li>
+                <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                  <ExternalLink className="h-3 w-3" /> Website
+                </a>
+              </li>
+              <li>
+                <a href="https://matailor-xi.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                  <ExternalLink className="h-3 w-3" /> More Designs
+                </a>
+              </li>
+              <li>
+                <a href="https://ma-tailorclasses.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                  <ExternalLink className="h-3 w-3" /> Stitching Classes
+                </a>
+              </li>
+            </ul>
           </div>
           
           <div>
