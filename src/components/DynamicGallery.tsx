@@ -27,6 +27,7 @@ const DynamicGallery = () => {
         if (error) {
           console.error('Error fetching gallery items:', error);
         } else {
+          console.log('Gallery items fetched:', data?.length || 0, 'items');
           setGalleryItems(data || []);
         }
       } catch (error) {
@@ -105,12 +106,12 @@ const DynamicGallery = () => {
               <p>No gallery items available at the moment.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {galleryItems.map((item) => (
                 <div key={item.id} className="fancy-border p-1">
-                  <div className="bg-gray-900 p-2 rounded-lg">
+                  <div className="bg-gray-900 p-2 rounded-lg h-full flex flex-col">
                     <div 
-                      className="aspect-[3/4] w-full rounded-lg overflow-hidden relative group cursor-pointer"
+                      className="aspect-[3/4] w-full rounded-lg overflow-hidden relative group cursor-pointer flex-shrink-0"
                       onClick={() => handleImageClick(item.image_url)}
                     >
                       <img
@@ -128,7 +129,7 @@ const DynamicGallery = () => {
                       </div>
                     </div>
                     {item.caption && (
-                      <p className="text-center font-montserrat text-gray-300 text-sm mt-2">
+                      <p className="text-center font-montserrat text-gray-300 text-sm mt-2 flex-grow">
                         {item.caption}
                       </p>
                     )}
@@ -161,8 +162,8 @@ const DynamicGallery = () => {
               <img
                 src={selectedImage}
                 alt="Gallery image full view"
-                className="max-w-full max-h-full object-contain"
-                style={{ maxHeight: '80vh' }}
+                className="max-w-full max-h-full object-contain w-auto h-auto"
+                style={{ maxHeight: '80vh', maxWidth: '100%' }}
               />
             </div>
             

@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { ZoomIn, X, ExternalLink } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 interface LatestDesign {
   id: string;
@@ -114,14 +116,26 @@ const LatestDesignsCarousel = () => {
             </p>
           </div>
 
-          <Carousel className="w-full max-w-6xl mx-auto">
+          <Carousel 
+            className="w-full max-w-6xl mx-auto"
+            plugins={[
+              Autoplay({
+                delay: 3000,
+                stopOnInteraction: true,
+              }),
+            ]}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
             <CarouselContent className="-ml-2 md:-ml-4">
               {designs.map((design) => (
                 <CarouselItem key={design.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                  <div className="fancy-border p-1">
-                    <div className="bg-black p-4 rounded-lg">
+                  <div className="fancy-border p-1 h-full">
+                    <div className="bg-black p-4 rounded-lg h-full flex flex-col">
                       <div 
-                        className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer"
+                        className="aspect-[3/4] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer flex-shrink-0"
                         onClick={() => handleImageClick(design.image_url)}
                       >
                         <img
@@ -149,23 +163,25 @@ const LatestDesignsCarousel = () => {
                           </div>
                         )}
                       </div>
-                      <h3 className="text-lg font-playfair font-semibold text-gold mb-2">
-                        {design.title}
-                      </h3>
-                      {design.description && (
-                        <p className="font-montserrat text-gray-300 text-sm mb-2">
-                          {design.description}
-                        </p>
-                      )}
-                      {design.link && (
-                        <button
-                          onClick={(e) => handleLinkClick(design.link, e)}
-                          className="text-gold hover:text-gold-light text-sm font-montserrat underline transition-colors duration-200 flex items-center gap-1"
-                        >
-                          <ExternalLink className="h-3 w-3" />
-                          View Details
-                        </button>
-                      )}
+                      <div className="flex-grow flex flex-col">
+                        <h3 className="text-lg font-playfair font-semibold text-gold mb-2 line-clamp-2">
+                          {design.title}
+                        </h3>
+                        {design.description && (
+                          <p className="font-montserrat text-gray-300 text-sm mb-2 flex-grow line-clamp-3">
+                            {design.description}
+                          </p>
+                        )}
+                        {design.link && (
+                          <button
+                            onClick={(e) => handleLinkClick(design.link, e)}
+                            className="text-gold hover:text-gold-light text-sm font-montserrat underline transition-colors duration-200 flex items-center gap-1 mt-auto"
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            View Details
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
@@ -198,8 +214,8 @@ const LatestDesignsCarousel = () => {
               <img
                 src={selectedImage}
                 alt="Design preview"
-                className="max-w-full max-h-full object-contain"
-                style={{ maxHeight: '80vh' }}
+                className="max-w-full max-h-full object-contain w-auto h-auto"
+                style={{ maxHeight: '80vh', maxWidth: '100%' }}
               />
             </div>
             
