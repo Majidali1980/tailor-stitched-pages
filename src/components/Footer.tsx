@@ -47,38 +47,40 @@ const Footer = () => {
           
           <div>
             <h3 className="text-lg font-playfair font-bold text-gold mb-4">Quick Links</h3>
-            <ul className="space-y-2 mb-6">
-              <li><Link to="/" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Home</Link></li>
-              <li><a href="#services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</a></li>
-              <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
-              <li><Link to="/booking" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Booking</Link></li>
-            </ul>
+            <div className="grid grid-cols-3 gap-4">
+              <ul className="space-y-2">
+                <li><Link to="/" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Home</Link></li>
+                <li><a href="#services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</a></li>
+                <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
+                <li><Link to="/booking" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Booking</Link></li>
+              </ul>
+              
+              <ul className="space-y-2">
+                <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
+                <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
+                <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
+              </ul>
 
-            <ul className="space-y-2 mb-6">
-              <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
-              <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
-              <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
-            </ul>
-
-            <ul className="space-y-2">
-              <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
-              <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
-              <li>
-                <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> Website
-                </a>
-              </li>
-              <li>
-                <a href="https://matailor-xi.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> More Designs
-                </a>
-              </li>
-              <li>
-                <a href="https://ma-tailorclasses.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
-                  <ExternalLink className="h-3 w-3" /> Stitching Classes
-                </a>
-              </li>
-            </ul>
+              <ul className="space-y-2">
+                <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
+                <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
+                <li>
+                  <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                    <ExternalLink className="h-3 w-3" /> Website
+                  </a>
+                </li>
+                <li>
+                  <a href="https://matailor-xi.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                    <ExternalLink className="h-3 w-3" /> More Designs
+                  </a>
+                </li>
+                <li>
+                  <a href="https://ma-tailorclasses.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
+                    <ExternalLink className="h-3 w-3" /> Stitching Classes
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
           
           <div>
