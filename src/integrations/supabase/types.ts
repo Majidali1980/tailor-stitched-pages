@@ -29,6 +29,7 @@ export type Database = {
           status: string | null
           updated_at: string
           uploaded_image_url: string | null
+          uploaded_images: Json | null
         }
         Insert: {
           appointment_date: string
@@ -44,6 +45,7 @@ export type Database = {
           status?: string | null
           updated_at?: string
           uploaded_image_url?: string | null
+          uploaded_images?: Json | null
         }
         Update: {
           appointment_date?: string
@@ -59,6 +61,7 @@ export type Database = {
           status?: string | null
           updated_at?: string
           uploaded_image_url?: string | null
+          uploaded_images?: Json | null
         }
         Relationships: []
       }
