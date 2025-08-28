@@ -122,14 +122,16 @@ const DynamicReviews = () => {
                       </div>
                     </div>
 
-                    {/* Review Image */}
+                     {/* Review Image */}
                     {review.image_url && (
-                      <div className="aspect-[4/3] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer">
+                      <div 
+                        className="aspect-[4/3] w-full rounded-lg overflow-hidden mb-4 relative group cursor-pointer"
+                        onClick={() => handleImageClick(review.image_url!)}
+                      >
                         <img
                           src={review.image_url}
                           alt={`Review by ${review.name}`}
                           className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
-                          onClick={() => handleImageClick(review.image_url!)}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
@@ -163,32 +165,32 @@ const DynamicReviews = () => {
       {/* Full Screen Image Modal */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-[9999] p-4"
           onClick={handleBackdropClick}
         >
-          <div className="relative w-full h-full max-w-6xl max-h-full flex flex-col">
-            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-80 rounded-t-lg">
-              <h3 className="text-white font-montserrat text-xl font-semibold">Review Image</h3>
+          <div className="relative w-full h-full max-w-7xl max-h-full flex flex-col">
+            <div className="flex justify-between items-center mb-4 px-6 py-4 bg-black bg-opacity-90 rounded-t-lg">
+              <h3 className="text-white font-montserrat text-xl font-semibold">Customer Review</h3>
               <button
                 onClick={handleCloseModal}
-                className="text-white hover:text-gold transition-colors bg-gray-800 hover:bg-gray-700 rounded-full p-3"
+                className="text-white hover:text-gold transition-colors bg-gray-800 hover:bg-gray-700 rounded-full p-3 z-10"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
             
-            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl">
+            <div className="flex-1 overflow-auto bg-white rounded-lg shadow-2xl max-h-[80vh]">
               <img
                 src={selectedImage}
-                alt="Review image full view"
-                className="w-full h-auto object-contain"
+                alt="Customer review full view"
+                className="w-full h-auto object-contain min-h-full"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
             
-            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-80 rounded-b-lg">
+            <div className="mt-4 text-center px-6 py-4 bg-black bg-opacity-90 rounded-b-lg">
               <p className="font-montserrat text-sm text-gray-300">
-                Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
+                Scroll to read the full review • Press <kbd className="bg-gray-700 px-2 py-1 rounded text-xs">ESC</kbd> or click outside to close
               </p>
             </div>
           </div>
