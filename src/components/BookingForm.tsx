@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Upload, Calendar, Clock, User, Phone, Mail, Scissors, X, Eye, FileImage, CheckCircle } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 interface UploadedImage {
   id: string;
@@ -139,6 +140,9 @@ const BookingForm = () => {
         url: img.url
       }));
 
+      // Get the first image URL for the uploaded_image_url column
+      const firstImageUrl = uploadedImages.length > 0 ? uploadedImages[0].url : null;
+
       const { error } = await supabase
         .from('appointments')
         .insert([
@@ -151,12 +155,41 @@ const BookingForm = () => {
             service_type: formData.serviceType,
             design_size: formData.designSize || null,
             uploaded_images: imageUrls,
+            uploaded_image_url: firstImageUrl, // Save first image URL to this column
             special_requirements: formData.specialRequirements || null
           }
         ]);
 
       if (error) {
         throw error;
+      }
+
+      // Send email notification using EmailJS
+      try {
+        const templateParams = {
+          customer_name: formData.name,
+          customer_phone: formData.phone,
+          customer_email: formData.email || 'Not provided',
+          appointment_date: new Date(formData.appointmentDate).toLocaleDateString(),
+          appointment_time: formData.appointmentTime,
+          service_type: formData.serviceType,
+          design_size: formData.designSize || 'Not specified',
+          special_requirements: formData.specialRequirements || 'None',
+          images_count: uploadedImages.length,
+          to_email: 'matailors786@gmail.com' // Replace with your email
+        };
+
+        await emailjs.send(
+          'service_kqtecnn', // Service ID
+          'template_tv45p3s', // Template ID
+          templateParams,
+          'H357zAP8V__yP5H8e' // Public Key
+        );
+
+        console.log('Email notification sent successfully');
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError);
+        // Don't show error to user as booking was successful
       }
 
       toast.success('Appointment booked successfully! We will contact you soon.');
