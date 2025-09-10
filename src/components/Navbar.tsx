@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Menu, X, Scissors } from "lucide-react";
 import { Link } from "react-router-dom";
+import PriceListDialog from "./PriceListDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +59,7 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
+            <PriceListDialog />
           </div>
 
           {/* Mobile Menu Button */}
@@ -87,6 +89,9 @@ const Navbar = () => {
                   {item.name}
                 </Link>
               ))}
+              <div className="flex justify-center">
+                <PriceListDialog />
+              </div>
             </div>
           </div>
         )}

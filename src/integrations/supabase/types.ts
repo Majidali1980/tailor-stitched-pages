@@ -24,9 +24,12 @@ export type Database = {
           id: string
           name: string
           phone: string
+          pick_drop_charges: Json | null
           service_type: string
+          shirt_measurements: Json | null
           special_requirements: string | null
           status: string | null
+          trouser_measurements: Json | null
           updated_at: string
           uploaded_image_url: string | null
           uploaded_images: Json | null
@@ -40,9 +43,12 @@ export type Database = {
           id?: string
           name: string
           phone: string
+          pick_drop_charges?: Json | null
           service_type: string
+          shirt_measurements?: Json | null
           special_requirements?: string | null
           status?: string | null
+          trouser_measurements?: Json | null
           updated_at?: string
           uploaded_image_url?: string | null
           uploaded_images?: Json | null
@@ -56,12 +62,45 @@ export type Database = {
           id?: string
           name?: string
           phone?: string
+          pick_drop_charges?: Json | null
           service_type?: string
+          shirt_measurements?: Json | null
           special_requirements?: string | null
           status?: string | null
+          trouser_measurements?: Json | null
           updated_at?: string
           uploaded_image_url?: string | null
           uploaded_images?: Json | null
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          sender_email: string | null
+          sender_name: string | null
+          sender_type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          sender_email?: string | null
+          sender_name?: string | null
+          sender_type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          sender_email?: string | null
+          sender_name?: string | null
+          sender_type?: string
         }
         Relationships: []
       }
@@ -176,6 +215,39 @@ export type Database = {
         }
         Relationships: []
       }
+      price_list: {
+        Row: {
+          category: string
+          created_at: string
+          display_order: number | null
+          id: string
+          is_active: boolean
+          price: number
+          service_name: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          price: number
+          service_name: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          price?: number
+          service_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           created_at: string
@@ -208,6 +280,36 @@ export type Database = {
           name?: string
           rating?: number | null
           review_text?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_charges: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          is_active: boolean
+          service_name: string
+          service_type: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          service_name: string
+          service_type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          service_name?: string
+          service_type?: string
           updated_at?: string
         }
         Relationships: []
