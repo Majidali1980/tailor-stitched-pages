@@ -26,7 +26,7 @@ const LittleStitch = () => {
             <div className="fancy-border p-1 max-w-md mx-auto">
               <div className="bg-black p-4 rounded-lg">
                 <img 
-                  src="https://i.postimg.cc/C1dK0q0T/Untitled-500-x-500-px.png" 
+                  src="https://littlestitchadminpanel.lovable.app/assets/logo-B3rprBha.png" 
                   alt="Little Stitch Logo - Baby Girls Clothing" 
                   className="w-full h-auto rounded-lg"
                 />
