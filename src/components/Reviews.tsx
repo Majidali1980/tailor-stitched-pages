@@ -17,10 +17,12 @@ const Reviews = () => {
   ];
   
   const reviewImages = [
-    "https://i.postimg.cc/SYd3RD7D/Whats-App-Image-2025-06-18-at-4-46-42-PM.jpg",
-    "https://i.postimg.cc/5QbDfZvX/Whats-App-Image-2025-06-18-at-4-53-32-PM.jpg", 
-    "https://i.postimg.cc/7GvpWCZM/Whats-App-Image-2025-06-18-at-4-53-33-PM.jpg",
-    "https://i.postimg.cc/S2WwFyX0/Whats-App-Image-2025-06-18-at-4-53-33-PM-1.jpg"
+    "https://i.postimg.cc/SsfPJQPP/Untitled-design.png",
+    "https://i.postimg.cc/MT5szPM2/Untitled-design-1.png",
+    "https://i.postimg.cc/SQZZ5Pbc/Untitled-design-2.png",
+    "https://i.postimg.cc/MG8tV21J/Untitled-design-3.png",
+    "https://i.postimg.cc/3x2FKSVS/Untitled-design-4.png",
+    "https://i.postimg.cc/zDMCTY12/Untitled-design-5.png"
   ];
 
   const handleImageClick = (image: string) => {
