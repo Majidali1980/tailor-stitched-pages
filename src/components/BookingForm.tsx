@@ -167,6 +167,7 @@ const BookingForm = () => {
       // Send email notification using EmailJS
       try {
         const templateParams = {
+          subject: 'New Appointment for Stitching Received',
           customer_name: formData.name,
           customer_phone: formData.phone,
           customer_email: formData.email || 'Not provided',
@@ -176,7 +177,27 @@ const BookingForm = () => {
           design_size: formData.designSize || 'Not specified',
           special_requirements: formData.specialRequirements || 'None',
           images_count: uploadedImages.length,
-          to_email: 'matailors786@gmail.com' // Replace with your email
+          to_email: 'matailors786@gmail.com',
+          message_body: `
+            New appointment booking details:
+            
+            Customer Information:
+            - Full Name: ${formData.name}
+            - Phone Number: ${formData.phone}
+            - Email: ${formData.email || 'Not provided'}
+            
+            Appointment Details:
+            - Date: ${new Date(formData.appointmentDate).toLocaleDateString()}
+            - Time: ${formData.appointmentTime}
+            - Service Type: ${formData.serviceType}
+            - Design Size: ${formData.designSize || 'Not specified'}
+            - Uploaded Images: ${uploadedImages.length} file(s)
+            
+            Special Requirements:
+            ${formData.specialRequirements || 'None'}
+            
+            Please contact the customer to confirm the appointment.
+          `
         };
 
         await emailjs.send(
