@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Star, ZoomIn, X } from 'lucide-react';
+import ReviewSubmissionForm from './ReviewSubmissionForm';
+import StitchedDressCarousel from './StitchedDressCarousel';
 
 interface ReviewItem {
   id: string;
@@ -161,6 +163,12 @@ const DynamicReviews = () => {
           )}
         </div>
       </section>
+
+      {/* Review Submission Form */}
+      <ReviewSubmissionForm />
+
+      {/* Stitched Dress Carousel */}
+      <StitchedDressCarousel />
 
       {/* Full Screen Image Modal */}
       {selectedImage && (
