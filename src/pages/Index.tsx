@@ -7,6 +7,7 @@ import BulkOrders from '@/components/BulkOrders';
 import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
+import SocialMediaButtons from '@/components/SocialMediaButtons';
 import Footer from '@/components/Footer';
 import { useEffect } from 'react';
 
@@ -35,6 +36,7 @@ const Index = () => {
       <BulkOrders />
       <LittleStitch />
       <AnimatedDesignPromo />
+      <SocialMediaButtons />
       <Footer />
     </div>
   );
