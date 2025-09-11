@@ -1,9 +1,8 @@
-
+// Dynamic Reviews Component
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Star, ZoomIn, X } from 'lucide-react';
 import ReviewSubmissionForm from './ReviewSubmissionForm';
-
 
 interface ReviewItem {
   id: string;
