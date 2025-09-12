@@ -3,11 +3,13 @@ import Navbar from '@/components/Navbar';
 import DynamicHero from '@/components/DynamicHero';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
+import DiscountOffers from '@/components/DiscountOffers';
 import BulkOrders from '@/components/BulkOrders';
 import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import SocialMediaButtons from '@/components/SocialMediaButtons';
+import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import { useEffect } from 'react';
 
@@ -32,11 +34,13 @@ const Index = () => {
       <DynamicHero />
       <LatestDesignsCarousel />
       <Services />
+      <DiscountOffers />
       <StitchedDressCarousel />
       <BulkOrders />
       <LittleStitch />
       <AnimatedDesignPromo />
       <SocialMediaButtons />
+      <NewsletterSubscription />
       <Footer />
     </div>
   );

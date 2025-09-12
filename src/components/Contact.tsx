@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import emailjs from 'emailjs-com';
 import { Phone, Mail, Facebook, Instagram, MapPin, Star, ExternalLink } from 'lucide-react';
 import VisitorCounter from './VisitorCounter';
@@ -14,6 +15,7 @@ const Contact = () => {
     name: '',
     email: '',
     phone: '',
+    subject: '',
     message: ''
   });
 
@@ -25,45 +27,62 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // EmailJS configuration
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      phone_number: formData.phone,
-      message: formData.message
-    };
-    
-    emailjs.send('service_kqtecnn', 'template_tv45p3s', templateParams, 'H357zAP8V__yP5H8e')
-      .then((response) => {
-        console.log('Email sent successfully:', response);
-        toast({
-          title: "Message Sent",
-          description: "Thank you for contacting us. We'll get back to you soon!",
-          duration: 5000,
-        });
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-      })
-      .catch((error) => {
-        console.error('Email error:', error);
-        toast({
-          title: "Failed to Send",
-          description: "There was an error sending your message. Please try again later.",
-          variant: "destructive",
-          duration: 5000,
-        });
-      })
-      .finally(() => {
-        setIsSubmitting(false);
+
+    try {
+      // Save to database first
+      const { error: dbError } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || null,
+            subject: formData.subject || null,
+            message: formData.message,
+          }
+        ]);
+
+      if (dbError) throw dbError;
+
+      // EmailJS configuration
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        phone_number: formData.phone,
+        subject: formData.subject,
+        message: formData.message
+      };
+      
+      // Send email notification
+      await emailjs.send('service_kqtecnn', 'template_tv45p3s', templateParams, 'H357zAP8V__yP5H8e');
+      
+      toast({
+        title: "Message Sent",
+        description: "Thank you for contacting us. We'll get back to you soon!",
+        duration: 5000,
       });
+      
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast({
+        title: "Failed to Send",
+        description: "There was an error sending your message. Please try again later.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleGoogleReview = () => {
@@ -219,7 +238,18 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className="bg-gray-800 border-gray-700 focus:border-gold"
-                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block font-montserrat text-sm mb-1">Subject</label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="bg-gray-800 border-gray-700 focus:border-gold"
+                      placeholder="What can we help you with?"
                     />
                   </div>
                   
