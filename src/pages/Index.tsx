@@ -11,6 +11,7 @@ import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import SocialMediaButtons from '@/components/SocialMediaButtons';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -42,6 +43,7 @@ const Index = () => {
       <SocialMediaButtons />
       <NewsletterSubscription />
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };
