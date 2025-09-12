@@ -32,9 +32,9 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Navbar />
       <DynamicHero />
+      <DiscountOffers />
       <LatestDesignsCarousel />
       <Services />
-      <DiscountOffers />
       <StitchedDressCarousel />
       <BulkOrders />
       <LittleStitch />
