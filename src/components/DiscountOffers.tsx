@@ -11,7 +11,6 @@ interface DiscountOffer {
   description: string;
   discount_percentage: number;
   discount_amount: number;
-  code: string;
   valid_from: string;
   valid_until: string;
   is_active: boolean;
@@ -48,13 +47,6 @@ const DiscountOffers = () => {
     }
   };
 
-  const copyCode = (code: string) => {
-    navigator.clipboard.writeText(code);
-    toast({
-      title: "Code Copied!",
-      description: `Discount code "${code}" copied to clipboard`,
-    });
-  };
 
   if (loading) {
     return (
@@ -121,20 +113,6 @@ const DiscountOffers = () => {
                   </p>
                 )}
                 
-                {offer.code && (
-                  <div className="space-y-2">
-                    <p className="text-sm text-gray-400 font-montserrat">Use Code:</p>
-                    <div 
-                      onClick={() => copyCode(offer.code)}
-                      className="bg-gray-700 border border-gray-600 rounded-lg p-3 cursor-pointer hover:bg-gray-600 transition-colors"
-                    >
-                      <code className="text-gold font-bold text-lg tracking-wider">
-                        {offer.code}
-                      </code>
-                    </div>
-                    <p className="text-xs text-gray-500 font-montserrat">Click to copy</p>
-                  </div>
-                )}
                 
                 {(offer.valid_from || offer.valid_until) && (
                   <div className="space-y-1 text-sm text-gray-400 font-montserrat">
