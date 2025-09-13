@@ -47,7 +47,7 @@ const DynamicHero = () => {
 
   if (loading) {
     return (
-      <section id="home" className="pt-24 min-h-[85vh] bg-black text-white relative overflow-hidden">
+      <section id="home" className="pt-32 min-h-[85vh] bg-black text-white relative overflow-hidden">
         <div className="container mx-auto px-4 py-16 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-pulse text-gold text-lg">Loading...</div>
@@ -59,7 +59,7 @@ const DynamicHero = () => {
 
   if (!heroData) {
     return (
-      <section id="home" className="pt-24 min-h-[85vh] bg-black text-white relative overflow-hidden">
+      <section id="home" className="pt-32 min-h-[85vh] bg-black text-white relative overflow-hidden">
         <div className="container mx-auto px-4 py-16 flex items-center justify-center">
           <div className="text-center">
             <div className="text-red-400">Failed to load content</div>
@@ -70,7 +70,7 @@ const DynamicHero = () => {
   }
 
   return (
-    <section id="home" className="pt-24 min-h-[85vh] bg-black text-white relative overflow-hidden">
+    <section id="home" className="pt-32 min-h-[85vh] bg-black text-white relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-0 right-0 w-3/4 h-full bg-gold-gradient opacity-5"></div>
         <div className="absolute bottom-0 left-0 w-3/4 h-1/2 bg-gold-gradient opacity-5 transform rotate-180"></div>

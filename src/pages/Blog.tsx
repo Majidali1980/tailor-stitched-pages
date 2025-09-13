@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, User, Tag, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -24,10 +25,15 @@ interface BlogPost {
 }
 
 const Blog = () => {
+  const navigate = useNavigate();
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const { toast } = useToast();
+
+  const handlePostClick = (slug: string) => {
+    navigate(`/blog/${slug}`);
+  };
 
   useEffect(() => {
     fetchBlogPosts();
@@ -80,7 +86,7 @@ const Blog = () => {
     return (
       <div className="min-h-screen bg-black text-white font-montserrat">
         <Navbar />
-        <div className="pt-32 pb-16">
+        <div className="pt-36 pb-16">
           <div className="container mx-auto px-4 text-center">
             <div className="animate-pulse">
               <div className="h-8 bg-gray-700 rounded w-48 mx-auto mb-4"></div>
@@ -99,7 +105,7 @@ const Blog = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-gray-900 to-black">
+      <section className="pt-36 pb-16 bg-gradient-to-b from-gray-900 to-black">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-6">
             Fashion <span className="text-gold">Blog</span>
@@ -119,7 +125,11 @@ const Blog = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredPosts.slice(0, 3).map((post) => (
-                <Card key={post.id} className="bg-black border-gold/20 hover:border-gold/40 transition-colors cursor-pointer">
+                <Card 
+                  key={post.id} 
+                  className="bg-black border-gold/20 hover:border-gold/40 transition-colors cursor-pointer"
+                  onClick={() => handlePostClick(post.slug)}
+                >
                   {post.featured_image_url && (
                     <div className="relative h-48 overflow-hidden rounded-t-lg">
                       <img 
@@ -208,7 +218,11 @@ const Blog = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map((post) => (
-                <Card key={post.id} className="bg-gray-900 border-gray-700 hover:border-gold/40 transition-colors cursor-pointer">
+                <Card 
+                  key={post.id} 
+                  className="bg-gray-900 border-gray-700 hover:border-gold/40 transition-colors cursor-pointer"
+                  onClick={() => handlePostClick(post.slug)}
+                >
                   {post.featured_image_url && (
                     <div className="relative h-48 overflow-hidden rounded-t-lg">
                       <img 
