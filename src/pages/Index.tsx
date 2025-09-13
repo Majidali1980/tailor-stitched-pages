@@ -4,7 +4,7 @@ import DynamicHero from '@/components/DynamicHero';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
 import DiscountOffers from '@/components/DiscountOffers';
-import BulkOrders from '@/components/BulkOrders';
+
 import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
@@ -37,7 +37,7 @@ const Index = () => {
       <LatestDesignsCarousel />
       <Services />
       <StitchedDressCarousel />
-      <BulkOrders />
+      
       <LittleStitch />
       <AnimatedDesignPromo />
       <SocialMediaButtons />

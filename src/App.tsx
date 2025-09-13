@@ -11,6 +11,8 @@ import Videos from "./pages/Videos";
 import Reviews from "./pages/Reviews";
 import FAQ from "./pages/FAQ";
 import Booking from "./pages/Booking";
+import BulkOrders from "./pages/BulkOrders";
+import Blog from "./pages/Blog";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/bulk-orders" element={<BulkOrders />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

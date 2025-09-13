@@ -15,6 +15,8 @@ const Navbar = () => {
     { name: "Reviews", href: "/reviews" },
     { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "/contact" },
+    { name: "Bulk Orders", href: "/bulk-orders" },
+    { name: "Blog", href: "/blog" },
     { name: "Book Appointment", href: "/booking", isButton: true },
   ];
 
