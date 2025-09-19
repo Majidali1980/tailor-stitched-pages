@@ -14,6 +14,7 @@ import SocialMediaFeed from '@/components/SocialMediaFeed';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import AIImageDisclaimer from '@/components/AIImageDisclaimer';
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -37,6 +38,7 @@ const Index = () => {
       <DynamicHero />
       <DiscountOffers />
       <HeroCarousel />
+      <AIImageDisclaimer />
       <LatestDesignsCarousel />
       <Services />
       <StitchedDressCarousel />
