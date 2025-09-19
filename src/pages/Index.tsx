@@ -9,6 +9,7 @@ import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import SocialMediaButtons from '@/components/SocialMediaButtons';
+import SocialMediaFeed from '@/components/SocialMediaFeed';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
@@ -41,6 +42,7 @@ const Index = () => {
       <LittleStitch />
       <AnimatedDesignPromo />
       <SocialMediaButtons />
+      <SocialMediaFeed />
       <NewsletterSubscription />
       <Footer />
       <WhatsAppFloat />
