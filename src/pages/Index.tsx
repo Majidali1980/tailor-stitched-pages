@@ -1,6 +1,7 @@
 
 import Navbar from '@/components/Navbar';
 import DynamicHero from '@/components/DynamicHero';
+import HeroCarousel from '@/components/HeroCarousel';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
 import DiscountOffers from '@/components/DiscountOffers';
@@ -35,6 +36,7 @@ const Index = () => {
       <Navbar />
       <DynamicHero />
       <DiscountOffers />
+      <HeroCarousel />
       <LatestDesignsCarousel />
       <Services />
       <StitchedDressCarousel />
