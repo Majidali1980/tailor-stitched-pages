@@ -1,6 +1,7 @@
 
 import { Facebook, Instagram, Phone, Mail, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import AIImageDisclaimer from './AIImageDisclaimer';
 
 const Footer = () => {
   return (
@@ -108,6 +109,9 @@ const Footer = () => {
           <p className="font-montserrat text-sm text-gray-500 mb-4">
             © {new Date().getFullYear()} MA Tailor. All rights reserved.
           </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            <AIImageDisclaimer />
+          </div>
           <p className="text-xs text-gray-600">
             Made with ♥ by{' '}
             <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
