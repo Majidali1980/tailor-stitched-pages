@@ -1,14 +1,13 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Upload, Calendar, Clock, User, Phone, Mail, Scissors, X, Eye, FileImage, CheckCircle } from 'lucide-react';
+import { Upload, Calendar, Clock, User, Phone, Mail, Scissors, X, Eye, FileImage, CheckCircle, ShoppingCart } from 'lucide-react';
 import emailjs from 'emailjs-com';
 
 interface UploadedImage {
@@ -18,47 +17,153 @@ interface UploadedImage {
   file: File;
 }
 
+interface ServiceItem {
+  id: string;
+  category: string;
+  service_name: string;
+  price: number;
+}
+
+interface FormData {
+  name: string;
+  phone: string;
+  email: string;
+  service_type: string;
+  quantity: number;
+  price: number;
+  dc_charges: number;
+  amount_summary: number;
+  appointment_date: string;
+  appointment_time: string;
+  special_requirements: string;
+  shirt_measurements: {
+    chest: string;
+    collar: string;
+    sleeves: string;
+    length: string;
+  };
+  trouser_measurements: {
+    waist: string;
+    hip: string;
+    length: string;
+    bottom: string;
+  };
+  pick_drop_charges: {
+    pick: boolean;
+    drop: boolean;
+    pick_amount: number;
+    drop_amount: number;
+  };
+}
+
 const BookingForm = () => {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [formData, setFormData] = useState({
+  const [services, setServices] = useState<ServiceItem[]>([]);
+  const [serviceCharges, setServiceCharges] = useState<any[]>([]);
+
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
     email: '',
-    appointmentDate: '',
-    appointmentTime: '',
-    serviceType: '',
-    designSize: '',
-    specialRequirements: ''
+    service_type: '',
+    quantity: 1,
+    price: 0,
+    dc_charges: 0,
+    amount_summary: 0,
+    appointment_date: '',
+    appointment_time: '',
+    special_requirements: '',
+    shirt_measurements: {
+      chest: '',
+      collar: '',
+      sleeves: '',
+      length: '',
+    },
+    trouser_measurements: {
+      waist: '',
+      hip: '',
+      length: '',
+      bottom: '',
+    },
+    pick_drop_charges: {
+      pick: false,
+      drop: false,
+      pick_amount: 250,
+      drop_amount: 250,
+    },
   });
 
-  const serviceTypes = [
-    'Shalwar Kameez',
-    'Kurti',
-    'Maxi Dress',
-    'Formal Dress',
-    'Casual Dress',
-    'Alterations',
-    'Custom Design'
-  ];
+  // Fetch services and service charges on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [servicesResponse, chargesResponse] = await Promise.all([
+          supabase.from('stitching_services').select('*').order('category', { ascending: true }),
+          supabase.from('service_charges').select('*').eq('is_active', true)
+        ]);
 
-  const designSizes = [
-    'XS (Extra Small)',
-    'S (Small)',
-    'M (Medium)',
-    'L (Large)',
-    'XL (Extra Large)',
-    'XXL (Double Extra Large)',
-    'Custom Measurements'
-  ];
+        if (servicesResponse.data) setServices(servicesResponse.data);
+        if (chargesResponse.data) setServiceCharges(chargesResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  const handleInputChange = (field: string, value: string) => {
+    fetchData();
+  }, []);
+
+  // Calculate amount when service_type, quantity, or pick/drop charges change
+  useEffect(() => {
+    if (formData.service_type && formData.quantity) {
+      const selectedService = services.find(service => 
+        `${service.category} - ${service.service_name}` === formData.service_type
+      );
+      
+      if (selectedService) {
+        const price = selectedService.price;
+        const pickCharges = formData.pick_drop_charges.pick ? formData.pick_drop_charges.pick_amount : 0;
+        const dropCharges = formData.pick_drop_charges.drop ? formData.pick_drop_charges.drop_amount : 0;
+        const dcCharges = pickCharges + dropCharges;
+        
+        setFormData(prev => ({
+          ...prev,
+          price: price,
+          dc_charges: dcCharges,
+          amount_summary: (price * formData.quantity) + dcCharges
+        }));
+      }
+    }
+  }, [formData.service_type, formData.quantity, formData.pick_drop_charges, services]);
+
+  const handleInputChange = (field: string, value: string | number | boolean) => {
+    if (field.includes('.')) {
+      const [parent, child] = field.split('.');
+      setFormData(prev => ({
+        ...prev,
+        [parent]: {
+          ...(prev[parent as keyof FormData] as any),
+          [child]: value
+        }
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    }
+  };
+
+  const handlePickDropChange = (type: 'pick' | 'drop', checked: boolean) => {
     setFormData(prev => ({
       ...prev,
-      [field]: value
+      pick_drop_charges: {
+        ...prev.pick_drop_charges,
+        [type]: checked
+      }
     }));
   };
 
@@ -103,7 +208,6 @@ const BookingForm = () => {
       toast.error('Failed to upload images. Please try again.');
     } finally {
       setUploading(false);
-      // Reset the input
       event.target.value = '';
     }
   };
@@ -140,7 +244,6 @@ const BookingForm = () => {
         url: img.url
       }));
 
-      // Get the first image URL for the uploaded_image_url column
       const firstImageUrl = uploadedImages.length > 0 ? uploadedImages[0].url : null;
 
       const { error } = await supabase
@@ -150,13 +253,19 @@ const BookingForm = () => {
             name: formData.name,
             phone: formData.phone,
             email: formData.email || null,
-            appointment_date: formData.appointmentDate,
-            appointment_time: formData.appointmentTime,
-            service_type: formData.serviceType,
-            design_size: formData.designSize || null,
+            service_type: formData.service_type,
+            quantity: formData.quantity,
+            price: formData.price,
+            dc_charges: formData.dc_charges,
+            amount_summary: formData.amount_summary,
+            appointment_date: formData.appointment_date,
+            appointment_time: formData.appointment_time,
+            special_requirements: formData.special_requirements || null,
+            shirt_measurements: formData.shirt_measurements,
+            trouser_measurements: formData.trouser_measurements,
+            pick_drop_charges: formData.pick_drop_charges,
             uploaded_images: imageUrls,
-            uploaded_image_url: firstImageUrl, // Save first image URL to this column
-            special_requirements: formData.specialRequirements || null
+            uploaded_image_url: firstImageUrl
           }
         ]);
 
@@ -171,11 +280,12 @@ const BookingForm = () => {
           customer_name: formData.name,
           customer_phone: formData.phone,
           customer_email: formData.email || 'Not provided',
-          appointment_date: new Date(formData.appointmentDate).toLocaleDateString(),
-          appointment_time: formData.appointmentTime,
-          service_type: formData.serviceType,
-          design_size: formData.designSize || 'Not specified',
-          special_requirements: formData.specialRequirements || 'None',
+          appointment_date: new Date(formData.appointment_date).toLocaleDateString(),
+          appointment_time: formData.appointment_time,
+          service_type: formData.service_type,
+          quantity: formData.quantity,
+          total_amount: formData.amount_summary,
+          special_requirements: formData.special_requirements || 'None',
           images_count: uploadedImages.length,
           to_email: 'matailors786@gmail.com',
           message_body: `
@@ -187,30 +297,30 @@ const BookingForm = () => {
             - Email: ${formData.email || 'Not provided'}
             
             Appointment Details:
-            - Date: ${new Date(formData.appointmentDate).toLocaleDateString()}
-            - Time: ${formData.appointmentTime}
-            - Service Type: ${formData.serviceType}
-            - Design Size: ${formData.designSize || 'Not specified'}
+            - Date: ${new Date(formData.appointment_date).toLocaleDateString()}
+            - Time: ${formData.appointment_time}
+            - Service Type: ${formData.service_type}
+            - Quantity: ${formData.quantity}
+            - Total Amount: ₹${formData.amount_summary}
             - Uploaded Images: ${uploadedImages.length} file(s)
             
             Special Requirements:
-            ${formData.specialRequirements || 'None'}
+            ${formData.special_requirements || 'None'}
             
             Please contact the customer to confirm the appointment.
           `
         };
 
         await emailjs.send(
-          'service_kqtecnn', // Service ID
-          'template_tv45p3s', // Template ID
+          'service_kqtecnn',
+          'template_tv45p3s',
           templateParams,
-          'H357zAP8V__yP5H8e' // Public Key
+          'H357zAP8V__yP5H8e'
         );
 
         console.log('Email notification sent successfully');
       } catch (emailError) {
         console.error('Error sending email notification:', emailError);
-        // Don't show error to user as booking was successful
       }
 
       toast.success('Appointment booked successfully! We will contact you soon.');
@@ -220,11 +330,32 @@ const BookingForm = () => {
         name: '',
         phone: '',
         email: '',
-        appointmentDate: '',
-        appointmentTime: '',
-        serviceType: '',
-        designSize: '',
-        specialRequirements: ''
+        service_type: '',
+        quantity: 1,
+        price: 0,
+        dc_charges: 0,
+        amount_summary: 0,
+        appointment_date: '',
+        appointment_time: '',
+        special_requirements: '',
+        shirt_measurements: {
+          chest: '',
+          collar: '',
+          sleeves: '',
+          length: '',
+        },
+        trouser_measurements: {
+          waist: '',
+          hip: '',
+          length: '',
+          bottom: '',
+        },
+        pick_drop_charges: {
+          pick: false,
+          drop: false,
+          pick_amount: 250,
+          drop_amount: 250,
+        },
       });
       setUploadedImages([]);
 
@@ -235,6 +366,14 @@ const BookingForm = () => {
       setLoading(false);
     }
   };
+
+  const groupedServices = services.reduce((acc, service) => {
+    if (!acc[service.category]) {
+      acc[service.category] = [];
+    }
+    acc[service.category].push(service);
+    return acc;
+  }, {} as Record<string, ServiceItem[]>);
 
   return (
     <section className="py-24 bg-black text-white">
@@ -248,148 +387,225 @@ const BookingForm = () => {
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="fancy-border p-1">
             <div className="bg-gray-900 p-8 rounded-lg">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Personal Information */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name" className="flex items-center gap-2 text-gold mb-2">
-                      <User className="h-4 w-4" />
-                      Full Name *
-                    </Label>
-                    <Input
-                      id="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      required
-                      className="bg-black border-gray-700 text-white"
-                      placeholder="Enter your full name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="phone" className="flex items-center gap-2 text-gold mb-2">
-                      <Phone className="h-4 w-4" />
-                      Phone Number *
-                    </Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      required
-                      className="bg-black border-gray-700 text-white"
-                      placeholder="Enter your phone number"
-                    />
+                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                  <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
+                    <User className="h-5 w-5" />
+                    Personal Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="name" className="text-white mb-2 block">
+                        Full Name *
+                      </Label>
+                      <Input
+                        id="name"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                        className="bg-black border-gray-600 text-white"
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="phone" className="text-white mb-2 block">
+                        Phone Number *
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        required
+                        className="bg-black border-gray-600 text-white"
+                        placeholder="Enter your phone number"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <Label htmlFor="email" className="text-white mb-2 block">
+                        Email (Optional)
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        className="bg-black border-gray-600 text-white"
+                        placeholder="Enter your email address"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="email" className="flex items-center gap-2 text-gold mb-2">
-                    <Mail className="h-4 w-4" />
-                    Email (Optional)
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="bg-black border-gray-700 text-white"
-                    placeholder="Enter your email address"
-                  />
+                {/* Service Selection */}
+                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                  <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
+                    <Scissors className="h-5 w-5" />
+                    Service Details
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-white mb-2 block">
+                        Service Type *
+                      </Label>
+                      <Select value={formData.service_type} onValueChange={(value) => handleInputChange('service_type', value)}>
+                        <SelectTrigger className="bg-black border-gray-600 text-white">
+                          <SelectValue placeholder="Select service type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(groupedServices).map(([category, categoryServices]) => (
+                            <div key={category}>
+                              <div className="px-2 py-1 text-sm font-semibold text-gray-400 bg-gray-100">
+                                {category}
+                              </div>
+                              {categoryServices.map((service) => (
+                                <SelectItem key={service.id} value={`${service.category} - ${service.service_name}`}>
+                                  {service.service_name} - ₹{service.price}
+                                </SelectItem>
+                              ))}
+                            </div>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <Label className="text-white mb-2 block">
+                        Quantity *
+                      </Label>
+                      <Input
+                        type="number"
+                        value={formData.quantity}
+                        onChange={(e) => handleInputChange('quantity', parseInt(e.target.value) || 1)}
+                        min="1"
+                        max="10"
+                        className="bg-black border-gray-600 text-white"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Pick/Drop Charges */}
+                  <div className="mt-4">
+                    <Label className="text-white mb-2 block">Pick & Drop Service</Label>
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-2 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={formData.pick_drop_charges.pick}
+                          onChange={(e) => handlePickDropChange('pick', e.target.checked)}
+                          className="rounded"
+                        />
+                        <span className="text-white">Pick-up (₹{formData.pick_drop_charges.pick_amount})</span>
+                      </label>
+                      <label className="flex items-center gap-2 text-sm">
+                        <input
+                          type="checkbox"
+                          checked={formData.pick_drop_charges.drop}
+                          onChange={(e) => handlePickDropChange('drop', e.target.checked)}
+                          className="rounded"
+                        />
+                        <span className="text-white">Drop-off (₹{formData.pick_drop_charges.drop_amount})</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Price Summary */}
+                  {formData.service_type && (
+                    <div className="mt-6 bg-black p-4 rounded-lg border border-gray-600">
+                      <h4 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
+                        <ShoppingCart className="h-5 w-5" />
+                        Price Summary
+                      </h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-300">Service Price:</span>
+                          <span className="text-white">₹{formData.price}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-300">Quantity:</span>
+                          <span className="text-white">{formData.quantity}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-300">Subtotal:</span>
+                          <span className="text-white">₹{formData.price * formData.quantity}</span>
+                        </div>
+                        {formData.dc_charges > 0 && (
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Pick/Drop Charges:</span>
+                            <span className="text-white">₹{formData.dc_charges}</span>
+                          </div>
+                        )}
+                        <div className="border-t border-gray-600 pt-2 mt-2">
+                          <div className="flex justify-between font-semibold">
+                            <span className="text-white">Total Amount:</span>
+                            <span className="text-green-400">₹{formData.amount_summary}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* Appointment Details */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="appointmentDate" className="flex items-center gap-2 text-gold mb-2">
-                      <Calendar className="h-4 w-4" />
-                      Preferred Date *
-                    </Label>
-                    <Input
-                      id="appointmentDate"
-                      type="date"
-                      value={formData.appointmentDate}
-                      onChange={(e) => handleInputChange('appointmentDate', e.target.value)}
-                      required
-                      className="bg-black border-gray-700 text-white"
-                      min={new Date().toISOString().split('T')[0]}
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="appointmentTime" className="flex items-center gap-2 text-gold mb-2">
-                      <Clock className="h-4 w-4" />
-                      Preferred Time *
-                    </Label>
-                    <Input
-                      id="appointmentTime"
-                      type="time"
-                      value={formData.appointmentTime}
-                      onChange={(e) => handleInputChange('appointmentTime', e.target.value)}
-                      required
-                      className="bg-black border-gray-700 text-white"
-                    />
-                  </div>
-                </div>
-
-                {/* Service Details */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label className="flex items-center gap-2 text-gold mb-2">
-                      <Scissors className="h-4 w-4" />
-                      Service Type *
-                    </Label>
-                    <Select value={formData.serviceType} onValueChange={(value) => handleInputChange('serviceType', value)}>
-                      <SelectTrigger className="bg-black border-gray-700 text-white">
-                        <SelectValue placeholder="Select service type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {serviceTypes.map((service) => (
-                          <SelectItem key={service} value={service}>
-                            {service}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <Label className="text-gold mb-2 block">
-                      Design Size
-                    </Label>
-                    <Select value={formData.designSize} onValueChange={(value) => handleInputChange('designSize', value)}>
-                      <SelectTrigger className="bg-black border-gray-700 text-white">
-                        <SelectValue placeholder="Select size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {designSizes.map((size) => (
-                          <SelectItem key={size} value={size}>
-                            {size}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                {/* Appointment Date & Time */}
+                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                  <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Appointment Scheduling
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="appointmentDate" className="text-white mb-2 block">
+                        Preferred Date *
+                      </Label>
+                      <Input
+                        id="appointmentDate"
+                        type="date"
+                        value={formData.appointment_date}
+                        onChange={(e) => handleInputChange('appointment_date', e.target.value)}
+                        required
+                        className="bg-black border-gray-600 text-white"
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="appointmentTime" className="text-white mb-2 block">
+                        Preferred Time *
+                      </Label>
+                      <Input
+                        id="appointmentTime"
+                        type="time"
+                        value={formData.appointment_time}
+                        onChange={(e) => handleInputChange('appointment_time', e.target.value)}
+                        required
+                        className="bg-black border-gray-600 text-white"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 {/* Image Upload */}
-                <div>
-                  <Label htmlFor="imageUpload" className="flex items-center gap-2 text-gold mb-2">
-                    <Upload className="h-4 w-4" />
-                    Upload Design Images (Optional) - Multiple images allowed
-                  </Label>
-                  <div className="border-2 border-dashed border-gray-700 rounded-lg p-6 text-center bg-black">
+                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                  <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
+                    <Upload className="h-5 w-5" />
+                    Design Images
+                  </h3>
+                  <div className="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center bg-black">
                     <input
-                      id="imageUpload"
                       type="file"
                       accept="image/*"
                       multiple
                       onChange={handleImageUpload}
                       className="hidden"
+                      id="imageUpload"
                       disabled={uploading}
                     />
                     <label htmlFor="imageUpload" className="cursor-pointer">
@@ -413,7 +629,7 @@ const BookingForm = () => {
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {uploadedImages.map((image) => (
                           <div key={image.id} className="relative group">
-                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-800 border border-gray-600">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-700 border border-gray-600">
                               <img
                                 src={image.url}
                                 alt={image.name}
@@ -451,15 +667,12 @@ const BookingForm = () => {
                 </div>
 
                 {/* Special Requirements */}
-                <div>
-                  <Label htmlFor="specialRequirements" className="text-gold mb-2 block">
-                    Special Requirements (Optional)
-                  </Label>
+                <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                  <h3 className="text-xl font-semibold text-gold mb-4">Special Requirements</h3>
                   <Textarea
-                    id="specialRequirements"
-                    value={formData.specialRequirements}
-                    onChange={(e) => handleInputChange('specialRequirements', e.target.value)}
-                    className="bg-black border-gray-700 text-white"
+                    value={formData.special_requirements}
+                    onChange={(e) => handleInputChange('special_requirements', e.target.value)}
+                    className="bg-black border-gray-600 text-white"
                     placeholder="Any special requirements or notes..."
                     rows={4}
                   />
@@ -515,7 +728,7 @@ const BookingForm = () => {
 
       {/* Review Summary Modal */}
       <Dialog open={showReviewModal} onOpenChange={setShowReviewModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 text-white border-gray-700">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-gray-900 text-white border-gray-700">
           <DialogHeader>
             <DialogTitle className="text-2xl font-playfair text-gold flex items-center gap-2">
               <CheckCircle className="h-6 w-6" />
@@ -537,6 +750,20 @@ const BookingForm = () => {
               </div>
             </div>
 
+            {/* Service Details */}
+            <div className="bg-black p-4 rounded-lg border border-gray-700">
+              <h3 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
+                <Scissors className="h-5 w-5" />
+                Service Details
+              </h3>
+              <div className="space-y-2 text-sm">
+                <p><span className="text-gray-400">Service Type:</span> <span className="text-white">{formData.service_type}</span></p>
+                <p><span className="text-gray-400">Quantity:</span> <span className="text-white">{formData.quantity}</span></p>
+                <p><span className="text-gray-400">Price per item:</span> <span className="text-white">₹{formData.price}</span></p>
+                <p><span className="text-gray-400">Total Amount:</span> <span className="text-green-400 font-semibold">₹{formData.amount_summary}</span></p>
+              </div>
+            </div>
+
             {/* Appointment Details */}
             <div className="bg-black p-4 rounded-lg border border-gray-700">
               <h3 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
@@ -544,10 +771,8 @@ const BookingForm = () => {
                 Appointment Details
               </h3>
               <div className="space-y-2 text-sm">
-                <p><span className="text-gray-400">Date:</span> <span className="text-white">{new Date(formData.appointmentDate).toLocaleDateString()}</span></p>
-                <p><span className="text-gray-400">Time:</span> <span className="text-white">{formData.appointmentTime}</span></p>
-                <p><span className="text-gray-400">Service:</span> <span className="text-white">{formData.serviceType}</span></p>
-                {formData.designSize && <p><span className="text-gray-400">Size:</span> <span className="text-white">{formData.designSize}</span></p>}
+                <p><span className="text-gray-400">Date:</span> <span className="text-white">{new Date(formData.appointment_date).toLocaleDateString()}</span></p>
+                <p><span className="text-gray-400">Time:</span> <span className="text-white">{formData.appointment_time}</span></p>
               </div>
             </div>
 
@@ -576,10 +801,10 @@ const BookingForm = () => {
             )}
 
             {/* Special Requirements */}
-            {formData.specialRequirements && (
+            {formData.special_requirements && (
               <div className="bg-black p-4 rounded-lg border border-gray-700">
                 <h3 className="text-lg font-semibold text-gold mb-3">Special Requirements</h3>
-                <p className="text-sm text-gray-300">{formData.specialRequirements}</p>
+                <p className="text-sm text-gray-300">{formData.special_requirements}</p>
               </div>
             )}
 

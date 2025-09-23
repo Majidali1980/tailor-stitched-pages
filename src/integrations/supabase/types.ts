@@ -16,15 +16,18 @@ export type Database = {
     Tables: {
       appointments: {
         Row: {
+          amount_summary: number
           appointment_date: string
           appointment_time: string
           created_at: string
-          design_size: string | null
+          dc_charges: number
           email: string | null
           id: string
           name: string
           phone: string
           pick_drop_charges: Json | null
+          price: number
+          quantity: number
           service_type: string
           shirt_measurements: Json | null
           special_requirements: string | null
@@ -35,15 +38,18 @@ export type Database = {
           uploaded_images: Json | null
         }
         Insert: {
+          amount_summary?: number
           appointment_date: string
           appointment_time: string
           created_at?: string
-          design_size?: string | null
+          dc_charges?: number
           email?: string | null
           id?: string
           name: string
           phone: string
           pick_drop_charges?: Json | null
+          price?: number
+          quantity?: number
           service_type: string
           shirt_measurements?: Json | null
           special_requirements?: string | null
@@ -54,15 +60,18 @@ export type Database = {
           uploaded_images?: Json | null
         }
         Update: {
+          amount_summary?: number
           appointment_date?: string
           appointment_time?: string
           created_at?: string
-          design_size?: string | null
+          dc_charges?: number
           email?: string | null
           id?: string
           name?: string
           phone?: string
           pick_drop_charges?: Json | null
+          price?: number
+          quantity?: number
           service_type?: string
           shirt_measurements?: Json | null
           special_requirements?: string | null
@@ -230,6 +239,42 @@ export type Database = {
           status?: string | null
           subject?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      coupons: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          discount_type: Database["public"]["Enums"]["discount_type_enum"]
+          discount_value: number
+          id: string
+          min_order: number
+          title: string
+          valid_days: string[] | null
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          discount_type: Database["public"]["Enums"]["discount_type_enum"]
+          discount_value?: number
+          id?: string
+          min_order?: number
+          title: string
+          valid_days?: string[] | null
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          discount_type?: Database["public"]["Enums"]["discount_type_enum"]
+          discount_value?: number
+          id?: string
+          min_order?: number
+          title?: string
+          valid_days?: string[] | null
         }
         Relationships: []
       }
@@ -551,6 +596,30 @@ export type Database = {
         }
         Relationships: []
       }
+      stitching_services: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          price: number
+          service_name: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          price: number
+          service_name: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          price?: number
+          service_name?: string
+        }
+        Relationships: []
+      }
       videos: {
         Row: {
           created_at: string
@@ -595,7 +664,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      discount_type_enum: "flat" | "percent" | "free_item"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -722,6 +791,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      discount_type_enum: ["flat", "percent", "free_item"],
+    },
   },
 } as const
