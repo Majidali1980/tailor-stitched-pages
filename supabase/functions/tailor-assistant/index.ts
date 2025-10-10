@@ -29,18 +29,18 @@ serve(async (req) => {
         type: "function",
         function: {
           name: "get_gallery_designs",
-          description: "Fetch design images from the gallery. Use this when users ask to see designs, dress styles, or examples.",
+          description: "Fetch design images from the gallery. Always use this at the start of conversation or when users ask about designs.",
           parameters: {
             type: "object",
             properties: {
               category: {
                 type: "string",
-                description: "Optional category filter (e.g., 'bridal', 'casual', 'formal')"
+                description: "Optional category filter"
               },
               limit: {
                 type: "number",
-                description: "Number of designs to return (default 6)",
-                default: 6
+                description: "Number of designs to return (default 8)",
+                default: 8
               }
             }
           }
@@ -50,13 +50,13 @@ serve(async (req) => {
         type: "function",
         function: {
           name: "get_stitching_prices",
-          description: "Get stitching service prices and categories. Use when users ask about pricing or service options.",
+          description: "Get stitching service prices. Use this when discussing pricing or services.",
           parameters: {
             type: "object",
             properties: {
               category: {
                 type: "string",
-                description: "Optional category filter (e.g., 'Ladies Suits', 'Shirt, Dopatta & Trouser', 'Kids')"
+                description: "Optional category filter"
               }
             }
           }
@@ -65,8 +65,19 @@ serve(async (req) => {
       {
         type: "function",
         function: {
+          name: "get_discount_offers",
+          description: "Fetch active discount offers and promotions. Use when users ask about discounts or to proactively suggest savings.",
+          parameters: {
+            type: "object",
+            properties: {}
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
           name: "create_booking",
-          description: "Create a booking appointment after collecting all required details from the customer.",
+          description: "Create an appointment booking. Only call this after collecting ALL required information.",
           parameters: {
             type: "object",
             properties: {
@@ -80,32 +91,32 @@ serve(async (req) => {
               },
               email: {
                 type: "string",
-                description: "Customer's email address (optional)"
+                description: "Customer's email (optional)"
               },
               appointment_date: {
                 type: "string",
-                description: "Appointment date in YYYY-MM-DD format"
+                description: "Date in YYYY-MM-DD format"
               },
               appointment_time: {
                 type: "string",
-                description: "Appointment time in HH:MM format"
+                description: "Time in HH:MM format (24-hour)"
               },
               service_type: {
                 type: "string",
-                description: "Type of stitching service (e.g., 'SIMPLE SUIT', 'DORI PIPING')"
+                description: "Exact service name from stitching services"
               },
               quantity: {
                 type: "number",
-                description: "Number of items to stitch",
+                description: "Number of items",
                 default: 1
               },
               price: {
                 type: "number",
-                description: "Price per item"
+                description: "Price per item in PKR"
               },
               special_requirements: {
                 type: "string",
-                description: "Any special requirements or notes"
+                description: "Special notes or requirements"
               }
             },
             required: ["name", "phone", "appointment_date", "appointment_time", "service_type", "price"]
@@ -114,25 +125,63 @@ serve(async (req) => {
       }
     ];
 
-    const systemPrompt = `You are MA Tailor's AI Assistant - a friendly, professional virtual tailor helping customers with their stitching needs.
+    const systemPrompt = `You are MA Tailor's AI Assistant - a warm, expert virtual tailor helping customers with custom stitching services.
 
-Your capabilities:
-- Show gallery designs and dress styles
-- Provide stitching service prices
-- Collect booking details
-- Calculate total costs including DC charges
-- Create confirmed bookings
+🎯 YOUR MISSION:
+Help customers explore designs, understand pricing, and book appointments seamlessly.
 
-Guidelines:
-- Be warm, professional, and helpful
-- When showing designs, describe them appealingly
-- Always confirm prices from the database
-- Collect all required booking details: name, phone, date, time, service type
-- Calculate totals clearly: (price × quantity) + DC charges
-- Confirm details before creating booking
-- Use emojis sparingly for warmth ✨
+📋 CONVERSATION FLOW:
 
-Start conversations by greeting customers and offering to help them explore designs, get pricing, or book an appointment.`;
+1. GREETING & DISCOVERY (Always start here):
+   - Warmly greet the customer
+   - Ask what brings them here: "What kind of outfit are you looking for today?"
+   - IMMEDIATELY show relevant gallery designs (call get_gallery_designs)
+   - Present options: casual, formal, bridal, party wear
+
+2. SHOW DESIGNS (Proactive):
+   - Always call get_gallery_designs early in conversation
+   - Describe 2-3 designs enthusiastically
+   - Ask: "Which style catches your eye?" or "Would you like to see more designs?"
+
+3. DISCUSS PRICING (When ready):
+   - Call get_stitching_prices to show exact services
+   - Present prices in Pakistani Rupees (PKR) format: "Rs. 1,500"
+   - Explain: "(Price × Quantity) + Rs. 250 DC Charges = Total"
+   - Call get_discount_offers to check for savings
+
+4. OFFER DISCOUNTS (Proactive):
+   - Always mention active discount offers
+   - Calculate potential savings
+   - "Great news! We have a special offer..."
+
+5. BOOKING (Only when customer is ready):
+   Ask ONE question at a time:
+   - Full name?
+   - Phone number?
+   - Preferred date? (YYYY-MM-DD format)
+   - Preferred time? (e.g., "10:00 AM" → convert to 10:00)
+   - Which service? (exact name from price list)
+   - How many pieces?
+   - Any special requirements?
+   
+   Then confirm ALL details before calling create_booking.
+
+💡 KEY RULES:
+- Use Pakistani Rupees: "Rs. 1,500 PKR" or "PKR 1,500"
+- Be conversational, not robotic
+- Ask questions to understand needs
+- Show designs and prices proactively
+- Make appointment scheduling feel optional, not pushy
+- Confirm everything before booking
+- Use emojis naturally: ✨💖🎨
+
+❌ DON'T:
+- Create bookings without confirming details
+- Skip showing gallery designs
+- Forget to mention discount offers
+- Use complex language
+
+Start every conversation by showing designs and asking what they're looking for!`;
 
     // Call Lovable AI with streaming
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -255,7 +304,23 @@ Start conversations by greeting customers and offering to help them explore desi
                       }
 
                       const { data, error } = await query;
-                      result = error ? { error: error.message } : { services: data };
+                      result = error ? { error: error.message } : { 
+                        services: data,
+                        currency: "PKR",
+                        note: "All prices in Pakistani Rupees"
+                      };
+                    }
+                    else if (functionName === "get_discount_offers") {
+                      const { data, error } = await supabase
+                        .from('discount_offers')
+                        .select('*')
+                        .eq('is_active', true)
+                        .order('display_order', { ascending: true });
+                      
+                      result = error ? { error: error.message } : { 
+                        offers: data,
+                        message: "Active discount offers available"
+                      };
                     }
                     else if (functionName === "create_booking") {
                       const { data: dcCharges } = await supabase

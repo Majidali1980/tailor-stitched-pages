@@ -46,7 +46,7 @@ export default function TailorAssistant() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xYnZsYnR2bWVzamhnc3R6bmhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwNTkzOTYsImV4cCI6MjA3MTYzNTM5Nn0.leeVdR5ijVl4uIP8Omt-suWHULG5TsWfUxqt8a6kpts`
           },
           body: JSON.stringify({
             messages: [...messages, userMessage].map(m => ({
@@ -159,14 +159,19 @@ export default function TailorAssistant() {
           {messages.length === 0 && (
             <div className="text-center text-muted-foreground py-8">
               <MessageSquare className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm">
-                Hi! I'm your MA Tailor AI Assistant. Ask me about:
+              <p className="text-sm font-medium mb-3">
+                👋 Welcome to MA Tailor AI Assistant!
               </p>
-              <ul className="text-xs mt-2 space-y-1">
-                <li>✨ View our latest designs</li>
-                <li>💰 Get pricing information</li>
-                <li>📅 Book an appointment</li>
-              </ul>
+              <div className="text-xs space-y-2 max-w-[250px] mx-auto">
+                <p className="text-left">I can help you with:</p>
+                <ul className="text-left space-y-1">
+                  <li>✨ Explore our beautiful designs</li>
+                  <li>💰 Check stitching prices (in PKR)</li>
+                  <li>🎁 Find special discount offers</li>
+                  <li>📅 Book your appointment</li>
+                </ul>
+                <p className="text-xs opacity-75 mt-3">Just say hi to get started!</p>
+              </div>
             </div>
           )}
           
