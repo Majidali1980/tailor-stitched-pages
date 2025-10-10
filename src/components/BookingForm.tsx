@@ -301,7 +301,7 @@ const BookingForm = () => {
             - Time: ${formData.appointment_time}
             - Service Type: ${formData.service_type}
             - Quantity: ${formData.quantity}
-            - Total Amount: ₹${formData.amount_summary}
+            - Total Amount: Rs. ${formData.amount_summary}
             - Uploaded Images: ${uploadedImages.length} file(s)
             
             Special Requirements:
@@ -466,8 +466,8 @@ const BookingForm = () => {
                                 {category}
                               </div>
                               {categoryServices.map((service) => (
-                                <SelectItem key={service.id} value={`${service.category} - ${service.service_name}`}>
-                                  {service.service_name} - ₹{service.price}
+                                 <SelectItem key={service.id} value={`${service.category} - ${service.service_name}`}>
+                                  {service.service_name} - Rs. {service.price}
                                 </SelectItem>
                               ))}
                             </div>
@@ -503,7 +503,7 @@ const BookingForm = () => {
                           onChange={(e) => handlePickDropChange('pick', e.target.checked)}
                           className="rounded"
                         />
-                        <span className="text-white">Pick-up (₹{formData.pick_drop_charges.pick_amount})</span>
+                        <span className="text-white">Pick-up (Rs. {formData.pick_drop_charges.pick_amount})</span>
                       </label>
                       <label className="flex items-center gap-2 text-sm">
                         <input
@@ -512,7 +512,7 @@ const BookingForm = () => {
                           onChange={(e) => handlePickDropChange('drop', e.target.checked)}
                           className="rounded"
                         />
-                        <span className="text-white">Drop-off (₹{formData.pick_drop_charges.drop_amount})</span>
+                        <span className="text-white">Drop-off (Rs. {formData.pick_drop_charges.drop_amount})</span>
                       </label>
                     </div>
                   </div>
@@ -527,7 +527,7 @@ const BookingForm = () => {
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span className="text-gray-300">Service Price:</span>
-                          <span className="text-white">₹{formData.price}</span>
+                          <span className="text-white">Rs. {formData.price}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-300">Quantity:</span>
@@ -535,18 +535,18 @@ const BookingForm = () => {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-300">Subtotal:</span>
-                          <span className="text-white">₹{formData.price * formData.quantity}</span>
+                          <span className="text-white">Rs. {formData.price * formData.quantity}</span>
                         </div>
                         {formData.dc_charges > 0 && (
                           <div className="flex justify-between">
                             <span className="text-gray-300">Pick/Drop Charges:</span>
-                            <span className="text-white">₹{formData.dc_charges}</span>
+                            <span className="text-white">Rs. {formData.dc_charges}</span>
                           </div>
                         )}
                         <div className="border-t border-gray-600 pt-2 mt-2">
                           <div className="flex justify-between font-semibold">
                             <span className="text-white">Total Amount:</span>
-                            <span className="text-green-400">₹{formData.amount_summary}</span>
+                            <span className="text-green-400">Rs. {formData.amount_summary}</span>
                           </div>
                         </div>
                       </div>
@@ -759,8 +759,8 @@ const BookingForm = () => {
               <div className="space-y-2 text-sm">
                 <p><span className="text-gray-400">Service Type:</span> <span className="text-white">{formData.service_type}</span></p>
                 <p><span className="text-gray-400">Quantity:</span> <span className="text-white">{formData.quantity}</span></p>
-                <p><span className="text-gray-400">Price per item:</span> <span className="text-white">₹{formData.price}</span></p>
-                <p><span className="text-gray-400">Total Amount:</span> <span className="text-green-400 font-semibold">₹{formData.amount_summary}</span></p>
+                <p><span className="text-gray-400">Price per item:</span> <span className="text-white">Rs. {formData.price}</span></p>
+                <p><span className="text-gray-400">Total Amount:</span> <span className="text-green-400 font-semibold">Rs. {formData.amount_summary}</span></p>
               </div>
             </div>
 
