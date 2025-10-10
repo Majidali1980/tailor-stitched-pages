@@ -14,6 +14,7 @@ import SocialMediaFeed from '@/components/SocialMediaFeed';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import TailorAssistant from '@/components/TailorAssistant';
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -48,6 +49,7 @@ const Index = () => {
       <NewsletterSubscription />
       <Footer />
       <WhatsAppFloat />
+      <TailorAssistant />
     </div>
   );
 };

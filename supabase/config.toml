@@ -1,1 +1,7 @@
 project_id = "nqbvlbtvmesjhgstznhe"
+
+[functions.send-contact-email]
+verify_jwt = false
+
+[functions.tailor-assistant]
+verify_jwt = false
