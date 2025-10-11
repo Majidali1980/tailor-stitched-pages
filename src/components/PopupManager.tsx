@@ -26,24 +26,40 @@ const PopupManager = () => {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const location = useLocation();
 
+  // Helper to check if popup was already shown
+  const wasPopupShown = (popupName: string) => {
+    return localStorage.getItem(`ma_tailor_popup_${popupName}`) === 'shown';
+  };
+
+  // Helper to mark popup as shown
+  const markPopupAsShown = (popupName: string) => {
+    localStorage.setItem(`ma_tailor_popup_${popupName}`, 'shown');
+  };
+
   useEffect(() => {
     // Check if first visit
     const hasVisited = localStorage.getItem('ma_tailor_visited');
-    if (!hasVisited) {
+    if (!hasVisited && !wasPopupShown('welcome')) {
       setIsFirstVisit(true);
       localStorage.setItem('ma_tailor_visited', 'true');
-      setTimeout(() => setActivePopup('welcome'), 2000);
+      setTimeout(() => {
+        setActivePopup('welcome');
+        markPopupAsShown('welcome');
+      }, 2000);
     }
 
     // Set last active time
     localStorage.setItem('ma_tailor_last_active', Date.now().toString());
 
-    // Idle timer for callback popup (30 seconds)
+    // Idle timer for callback popup (30 seconds) - only show once
     let idleTimer: NodeJS.Timeout;
     const resetIdleTimer = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
-        if (!activePopup) setActivePopup('callback');
+        if (!activePopup && !wasPopupShown('callback')) {
+          setActivePopup('callback');
+          markPopupAsShown('callback');
+        }
       }, 30000);
     };
 
@@ -51,10 +67,11 @@ const PopupManager = () => {
     window.addEventListener('keypress', resetIdleTimer);
     resetIdleTimer();
 
-    // Exit intent detection
+    // Exit intent detection - only show once
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && !activePopup) {
+      if (e.clientY <= 0 && !activePopup && !wasPopupShown('exit-intent')) {
         setActivePopup('exit-intent');
+        markPopupAsShown('exit-intent');
       }
     };
     document.addEventListener('mouseleave', handleMouseLeave);
@@ -68,36 +85,46 @@ const PopupManager = () => {
   }, [activePopup]);
 
   useEffect(() => {
-    // Route-specific popups
-    if (location.pathname === '/gallery') {
+    // Route-specific popups - only show once
+    if (location.pathname === '/gallery' && !wasPopupShown('design-suggestion')) {
       setTimeout(() => {
-        if (!activePopup && !isFirstVisit) setActivePopup('design-suggestion');
+        if (!activePopup && !isFirstVisit) {
+          setActivePopup('design-suggestion');
+          markPopupAsShown('design-suggestion');
+        }
       }, 5000);
     }
 
-    if (location.pathname === '/booking') {
+    if (location.pathname === '/booking' && !wasPopupShown('discount-offer')) {
       setTimeout(() => {
-        if (!activePopup && !isFirstVisit) setActivePopup('discount-offer');
+        if (!activePopup && !isFirstVisit) {
+          setActivePopup('discount-offer');
+          markPopupAsShown('discount-offer');
+        }
       }, 8000);
     }
 
-    // Returning visitor feedback (after 3 visits)
+    // Returning visitor feedback (after 3 visits) - only show once
     const visitCount = parseInt(localStorage.getItem('ma_tailor_visit_count') || '0') + 1;
     localStorage.setItem('ma_tailor_visit_count', visitCount.toString());
     
-    if (visitCount === 3 && !isFirstVisit) {
+    if (visitCount === 3 && !isFirstVisit && !wasPopupShown('feedback')) {
       setTimeout(() => {
-        if (!activePopup) setActivePopup('feedback');
+        if (!activePopup) {
+          setActivePopup('feedback');
+          markPopupAsShown('feedback');
+        }
       }, 10000);
     }
 
     // Seasonal occasion popup (check if not shown today)
     const lastOccasionPopup = localStorage.getItem('ma_tailor_last_occasion_popup');
     const today = new Date().toDateString();
-    if (lastOccasionPopup !== today && !isFirstVisit) {
+    if (lastOccasionPopup !== today && !isFirstVisit && !wasPopupShown('occasion')) {
       setTimeout(() => {
         if (!activePopup) {
           setActivePopup('occasion');
+          markPopupAsShown('occasion');
           localStorage.setItem('ma_tailor_last_occasion_popup', today);
         }
       }, 15000);

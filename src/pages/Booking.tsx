@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import BookingForm from '@/components/BookingForm';
 import Footer from '@/components/Footer';
+import TailorAssistant from '@/components/TailorAssistant';
 
 const BookingPage = () => {
   return (
@@ -69,6 +70,7 @@ const BookingPage = () => {
       <div className="min-h-screen bg-black text-white font-montserrat">
         <Navbar />
         <BookingForm />
+        <TailorAssistant />
         <Footer />
       </div>
     </>
