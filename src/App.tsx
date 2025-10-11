@@ -25,8 +25,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <WhatsAppFloat />
-      <PopupManager />
       <BrowserRouter>
+        <PopupManager />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
