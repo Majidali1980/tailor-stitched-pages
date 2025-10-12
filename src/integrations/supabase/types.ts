@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_gallery: {
+        Row: {
+          description: string | null
+          display_order: number | null
+          id: string
+          image_url: string
+          is_active: boolean | null
+          timestamp: string
+          title: string
+        }
+        Insert: {
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean | null
+          timestamp?: string
+          title: string
+        }
+        Update: {
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean | null
+          timestamp?: string
+          title?: string
+        }
+        Relationships: []
+      }
       appointments: {
         Row: {
           amount_summary: number
@@ -275,6 +305,51 @@ export type Database = {
           min_order?: number
           title?: string
           valid_days?: string[] | null
+        }
+        Relationships: []
+      }
+      design_requests: {
+        Row: {
+          additional_notes: string | null
+          bottom_style: string | null
+          dress_type: string | null
+          fabric_type: string | null
+          generated_image_url: string | null
+          id: string
+          neck_design: string | null
+          prompt: string
+          sleeve_design: string | null
+          suggestions: string | null
+          timestamp: string
+          user_id: string | null
+        }
+        Insert: {
+          additional_notes?: string | null
+          bottom_style?: string | null
+          dress_type?: string | null
+          fabric_type?: string | null
+          generated_image_url?: string | null
+          id?: string
+          neck_design?: string | null
+          prompt: string
+          sleeve_design?: string | null
+          suggestions?: string | null
+          timestamp?: string
+          user_id?: string | null
+        }
+        Update: {
+          additional_notes?: string | null
+          bottom_style?: string | null
+          dress_type?: string | null
+          fabric_type?: string | null
+          generated_image_url?: string | null
+          id?: string
+          neck_design?: string | null
+          prompt?: string
+          sleeve_design?: string | null
+          suggestions?: string | null
+          timestamp?: string
+          user_id?: string | null
         }
         Relationships: []
       }

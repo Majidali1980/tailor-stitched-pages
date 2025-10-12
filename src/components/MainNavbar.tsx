@@ -9,6 +9,7 @@ const MainNavbar = () => {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Gallery", href: "/gallery" },
+    { name: "AI Design Studio", href: "/ai-design-studio" },
     { name: "Videos", href: "/videos" },
     { name: "Reviews", href: "/reviews" },
     { name: "FAQ", href: "/faq" },

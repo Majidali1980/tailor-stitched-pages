@@ -16,6 +16,7 @@ import Booking from "./pages/Booking";
 import BulkOrders from "./pages/BulkOrders";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import AIDesignStudio from "./pages/AIDesignStudio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/bulk-orders" element={<BulkOrders />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/ai-design-studio" element={<AIDesignStudio />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
