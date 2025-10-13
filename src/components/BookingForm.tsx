@@ -24,13 +24,18 @@ interface ServiceItem {
   price: number;
 }
 
+interface ServiceDetail {
+  id: string;
+  service_type: string;
+  quantity: number;
+  price: number;
+}
+
 interface FormData {
   name: string;
   phone: string;
   email: string;
-  service_type: string;
-  quantity: number;
-  price: number;
+  services: ServiceDetail[];
   dc_charges: number;
   amount_summary: number;
   appointment_date: string;
@@ -69,9 +74,7 @@ const BookingForm = () => {
     name: '',
     phone: '',
     email: '',
-    service_type: '',
-    quantity: 1,
-    price: 0,
+    services: [],
     dc_charges: 0,
     amount_summary: 0,
     appointment_date: '',
@@ -116,28 +119,22 @@ const BookingForm = () => {
     fetchData();
   }, []);
 
-  // Calculate amount when service_type, quantity, or pick/drop charges change
+  // Calculate amount when services or pick/drop charges change
   useEffect(() => {
-    if (formData.service_type && formData.quantity) {
-      const selectedService = services.find(service => 
-        `${service.category} - ${service.service_name}` === formData.service_type
-      );
-      
-      if (selectedService) {
-        const price = selectedService.price;
-        const pickCharges = formData.pick_drop_charges.pick ? formData.pick_drop_charges.pick_amount : 0;
-        const dropCharges = formData.pick_drop_charges.drop ? formData.pick_drop_charges.drop_amount : 0;
-        const dcCharges = pickCharges + dropCharges;
-        
-        setFormData(prev => ({
-          ...prev,
-          price: price,
-          dc_charges: dcCharges,
-          amount_summary: (price * formData.quantity) + dcCharges
-        }));
-      }
-    }
-  }, [formData.service_type, formData.quantity, formData.pick_drop_charges, services]);
+    const servicesTotal = formData.services.reduce((sum, service) => {
+      return sum + (service.price * service.quantity);
+    }, 0);
+    
+    const pickCharges = formData.pick_drop_charges.pick ? formData.pick_drop_charges.pick_amount : 0;
+    const dropCharges = formData.pick_drop_charges.drop ? formData.pick_drop_charges.drop_amount : 0;
+    const dcCharges = pickCharges + dropCharges;
+    
+    setFormData(prev => ({
+      ...prev,
+      dc_charges: dcCharges,
+      amount_summary: servicesTotal + dcCharges
+    }));
+  }, [formData.services, formData.pick_drop_charges]);
 
   const handleInputChange = (field: string, value: string | number | boolean) => {
     if (field.includes('.')) {
@@ -164,6 +161,50 @@ const BookingForm = () => {
         ...prev.pick_drop_charges,
         [type]: checked
       }
+    }));
+  };
+
+  const addService = () => {
+    setFormData(prev => ({
+      ...prev,
+      services: [
+        ...prev.services,
+        {
+          id: Math.random().toString(),
+          service_type: '',
+          quantity: 1,
+          price: 0
+        }
+      ]
+    }));
+  };
+
+  const removeService = (serviceId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      services: prev.services.filter(s => s.id !== serviceId)
+    }));
+  };
+
+  const updateService = (serviceId: string, field: keyof ServiceDetail, value: any) => {
+    setFormData(prev => ({
+      ...prev,
+      services: prev.services.map(s => {
+        if (s.id === serviceId) {
+          if (field === 'service_type') {
+            const selectedService = services.find(service => 
+              `${service.category} - ${service.service_name}` === value
+            );
+            return {
+              ...s,
+              [field]: value,
+              price: selectedService?.price || 0
+            };
+          }
+          return { ...s, [field]: value };
+        }
+        return s;
+      })
     }));
   };
 
@@ -246,31 +287,33 @@ const BookingForm = () => {
 
       const firstImageUrl = uploadedImages.length > 0 ? uploadedImages[0].url : null;
 
-      const { error } = await supabase
-        .from('appointments')
-        .insert([
-          {
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email || null,
-            service_type: formData.service_type,
-            quantity: formData.quantity,
-            price: formData.price,
-            dc_charges: formData.dc_charges,
-            amount_summary: formData.amount_summary,
-            appointment_date: formData.appointment_date,
-            appointment_time: formData.appointment_time,
-            special_requirements: formData.special_requirements || null,
-            shirt_measurements: formData.shirt_measurements,
-            trouser_measurements: formData.trouser_measurements,
-            pick_drop_charges: formData.pick_drop_charges,
-            uploaded_images: imageUrls,
-            uploaded_image_url: firstImageUrl
-          }
-        ]);
+      // Create booking for each service
+      const bookingPromises = formData.services.map(service => 
+        supabase.from('appointments').insert([{
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email || null,
+          service_type: service.service_type,
+          quantity: service.quantity,
+          price: service.price,
+          dc_charges: formData.dc_charges / formData.services.length, // Split DC charges
+          amount_summary: (service.price * service.quantity) + (formData.dc_charges / formData.services.length),
+          appointment_date: formData.appointment_date || null,
+          appointment_time: formData.appointment_time || null,
+          special_requirements: formData.special_requirements || null,
+          shirt_measurements: formData.shirt_measurements,
+          trouser_measurements: formData.trouser_measurements,
+          pick_drop_charges: formData.pick_drop_charges,
+          uploaded_images: imageUrls,
+          uploaded_image_url: firstImageUrl
+        }])
+      );
 
-      if (error) {
-        throw error;
+      const results = await Promise.all(bookingPromises);
+      const hasError = results.some(r => r.error);
+      
+      if (hasError) {
+        throw new Error('Failed to create one or more bookings');
       }
 
       // Send email notification using EmailJS
@@ -280,10 +323,10 @@ const BookingForm = () => {
           customer_name: formData.name,
           customer_phone: formData.phone,
           customer_email: formData.email || 'Not provided',
-          appointment_date: new Date(formData.appointment_date).toLocaleDateString(),
-          appointment_time: formData.appointment_time,
-          service_type: formData.service_type,
-          quantity: formData.quantity,
+          appointment_date: formData.appointment_date ? new Date(formData.appointment_date).toLocaleDateString() : 'Not scheduled',
+          appointment_time: formData.appointment_time || 'Not scheduled',
+          service_type: formData.services.map(s => s.service_type).join(', '),
+          quantity: formData.services.reduce((sum, s) => sum + s.quantity, 0),
           total_amount: formData.amount_summary,
           special_requirements: formData.special_requirements || 'None',
           images_count: uploadedImages.length,
@@ -297,10 +340,9 @@ const BookingForm = () => {
             - Email: ${formData.email || 'Not provided'}
             
             Appointment Details:
-            - Date: ${new Date(formData.appointment_date).toLocaleDateString()}
-            - Time: ${formData.appointment_time}
-            - Service Type: ${formData.service_type}
-            - Quantity: ${formData.quantity}
+            - Date: ${formData.appointment_date ? new Date(formData.appointment_date).toLocaleDateString() : 'Not scheduled'}
+            - Time: ${formData.appointment_time || 'Not scheduled'}
+            - Services: ${formData.services.map(s => `${s.service_type} (Qty: ${s.quantity})`).join(', ')}
             - Total Amount: Rs. ${formData.amount_summary}
             - Uploaded Images: ${uploadedImages.length} file(s)
             
@@ -330,9 +372,7 @@ const BookingForm = () => {
         name: '',
         phone: '',
         email: '',
-        service_type: '',
-        quantity: 1,
-        price: 0,
+        services: [],
         dc_charges: 0,
         amount_summary: 0,
         appointment_date: '',
@@ -446,50 +486,99 @@ const BookingForm = () => {
 
                 {/* Service Selection */}
                 <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                  <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
-                    <Scissors className="h-5 w-5" />
-                    Service Details
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-white mb-2 block">
-                        Service Type *
-                      </Label>
-                      <Select value={formData.service_type} onValueChange={(value) => handleInputChange('service_type', value)}>
-                        <SelectTrigger className="bg-black border-gray-600 text-white">
-                          <SelectValue placeholder="Select service type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.entries(groupedServices).map(([category, categoryServices]) => (
-                            <div key={category}>
-                              <div className="px-2 py-1 text-sm font-semibold text-gray-400 bg-gray-100">
-                                {category}
-                              </div>
-                              {categoryServices.map((service) => (
-                                 <SelectItem key={service.id} value={`${service.category} - ${service.service_name}`}>
-                                  {service.service_name} - Rs. {service.price}
-                                </SelectItem>
-                              ))}
-                            </div>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-semibold text-gold flex items-center gap-2">
+                      <Scissors className="h-5 w-5" />
+                      Service Details
+                    </h3>
+                    <Button
+                      type="button"
+                      onClick={addService}
+                      className="bg-gold hover:bg-gold-dark text-black text-sm"
+                    >
+                      + Add Service
+                    </Button>
+                  </div>
+                  
+                  {formData.services.length === 0 && (
+                    <div className="text-center py-8 border-2 border-dashed border-gray-600 rounded-lg">
+                      <p className="text-gray-400 mb-2">No services added yet</p>
+                      <Button
+                        type="button"
+                        onClick={addService}
+                        className="bg-gold hover:bg-gold-dark text-black"
+                      >
+                        Add Your First Service
+                      </Button>
                     </div>
-                    
-                    <div>
-                      <Label className="text-white mb-2 block">
-                        Quantity *
-                      </Label>
-                      <Input
-                        type="number"
-                        value={formData.quantity}
-                        onChange={(e) => handleInputChange('quantity', parseInt(e.target.value) || 1)}
-                        min="1"
-                        max="10"
-                        className="bg-black border-gray-600 text-white"
-                        required
-                      />
-                    </div>
+                  )}
+
+                  <div className="space-y-4">
+                    {formData.services.map((service, index) => (
+                      <div key={service.id} className="bg-black p-4 rounded-lg border border-gray-600">
+                        <div className="flex justify-between items-center mb-3">
+                          <h4 className="text-white font-medium">Service {index + 1}</h4>
+                          {formData.services.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeService(service.id)}
+                              className="text-red-400 hover:text-red-300"
+                            >
+                              <X className="h-5 w-5" />
+                            </button>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label className="text-white mb-2 block">
+                              Service Type *
+                            </Label>
+                            <Select 
+                              value={service.service_type} 
+                              onValueChange={(value) => updateService(service.id, 'service_type', value)}
+                            >
+                              <SelectTrigger className="bg-gray-900 border-gray-600 text-white">
+                                <SelectValue placeholder="Select service type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {Object.entries(groupedServices).map(([category, categoryServices]) => (
+                                  <div key={category}>
+                                    <div className="px-2 py-1 text-sm font-semibold text-gray-400 bg-gray-100">
+                                      {category}
+                                    </div>
+                                    {categoryServices.map((svc) => (
+                                      <SelectItem key={svc.id} value={`${svc.category} - ${svc.service_name}`}>
+                                        {svc.service_name} - Rs. {svc.price}
+                                      </SelectItem>
+                                    ))}
+                                  </div>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          
+                          <div>
+                            <Label className="text-white mb-2 block">
+                              Quantity *
+                            </Label>
+                            <Input
+                              type="number"
+                              value={service.quantity}
+                              onChange={(e) => updateService(service.id, 'quantity', parseInt(e.target.value) || 1)}
+                              min="1"
+                              max="10"
+                              className="bg-gray-900 border-gray-600 text-white"
+                              required
+                            />
+                          </div>
+                        </div>
+                        {service.service_type && (
+                          <div className="mt-2 text-sm text-gray-300">
+                            Subtotal: Rs. {service.price * service.quantity}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
 
                   {/* Pick/Drop Charges */}
@@ -518,24 +607,22 @@ const BookingForm = () => {
                   </div>
 
                   {/* Price Summary */}
-                  {formData.service_type && (
+                  {formData.services.length > 0 && (
                     <div className="mt-6 bg-black p-4 rounded-lg border border-gray-600">
                       <h4 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
                         <ShoppingCart className="h-5 w-5" />
                         Price Summary
                       </h4>
                       <div className="space-y-2 text-sm">
+                        {formData.services.map((service, index) => (
+                          <div key={service.id} className="flex justify-between">
+                            <span className="text-gray-300">Service {index + 1}:</span>
+                            <span className="text-white">Rs. {service.price * service.quantity}</span>
+                          </div>
+                        ))}
                         <div className="flex justify-between">
-                          <span className="text-gray-300">Service Price:</span>
-                          <span className="text-white">Rs. {formData.price}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-300">Quantity:</span>
-                          <span className="text-white">{formData.quantity}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-300">Subtotal:</span>
-                          <span className="text-white">Rs. {formData.price * formData.quantity}</span>
+                          <span className="text-gray-300">Services Subtotal:</span>
+                          <span className="text-white">Rs. {formData.services.reduce((sum, s) => sum + (s.price * s.quantity), 0)}</span>
                         </div>
                         {formData.dc_charges > 0 && (
                           <div className="flex justify-between">
@@ -554,23 +641,25 @@ const BookingForm = () => {
                   )}
                 </div>
 
-                {/* Appointment Date & Time */}
+                {/* Appointment Date & Time - OPTIONAL */}
                 <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
                   <h3 className="text-xl font-semibold text-gold mb-4 flex items-center gap-2">
                     <Calendar className="h-5 w-5" />
-                    Appointment Scheduling
+                    Appointment Scheduling (Optional)
                   </h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    Schedule an appointment or skip this step - we'll contact you to arrange timing.
+                  </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="appointmentDate" className="text-white mb-2 block">
-                        Preferred Date *
+                        Preferred Date (Optional)
                       </Label>
                       <Input
                         id="appointmentDate"
                         type="date"
                         value={formData.appointment_date}
                         onChange={(e) => handleInputChange('appointment_date', e.target.value)}
-                        required
                         className="bg-black border-gray-600 text-white"
                         min={new Date().toISOString().split('T')[0]}
                       />
@@ -578,14 +667,13 @@ const BookingForm = () => {
                     
                     <div>
                       <Label htmlFor="appointmentTime" className="text-white mb-2 block">
-                        Preferred Time *
+                        Preferred Time (Optional)
                       </Label>
                       <Input
                         id="appointmentTime"
                         type="time"
                         value={formData.appointment_time}
                         onChange={(e) => handleInputChange('appointment_time', e.target.value)}
-                        required
                         className="bg-black border-gray-600 text-white"
                       />
                     </div>
@@ -680,10 +768,10 @@ const BookingForm = () => {
 
                 <Button
                   type="submit"
-                  disabled={loading || uploading}
+                  disabled={loading || uploading || formData.services.length === 0}
                   className="w-full bg-gold hover:bg-gold-dark text-black font-montserrat text-lg py-6"
                 >
-                  {loading ? 'Booking...' : uploading ? 'Uploading Images...' : 'Review & Book Appointment'}
+                  {loading ? 'Booking...' : uploading ? 'Uploading Images...' : formData.services.length === 0 ? 'Add Services to Continue' : 'Review & Book Appointment'}
                 </Button>
               </form>
             </div>
@@ -756,25 +844,32 @@ const BookingForm = () => {
                 <Scissors className="h-5 w-5" />
                 Service Details
               </h3>
-              <div className="space-y-2 text-sm">
-                <p><span className="text-gray-400">Service Type:</span> <span className="text-white">{formData.service_type}</span></p>
-                <p><span className="text-gray-400">Quantity:</span> <span className="text-white">{formData.quantity}</span></p>
-                <p><span className="text-gray-400">Price per item:</span> <span className="text-white">Rs. {formData.price}</span></p>
-                <p><span className="text-gray-400">Total Amount:</span> <span className="text-green-400 font-semibold">Rs. {formData.amount_summary}</span></p>
+              <div className="space-y-3 text-sm">
+                {formData.services.map((service, index) => (
+                  <div key={service.id} className="border-b border-gray-700 pb-2 last:border-0">
+                    <p className="font-medium text-white mb-1">Service {index + 1}</p>
+                    <p><span className="text-gray-400">Type:</span> <span className="text-white">{service.service_type}</span></p>
+                    <p><span className="text-gray-400">Quantity:</span> <span className="text-white">{service.quantity}</span></p>
+                    <p><span className="text-gray-400">Subtotal:</span> <span className="text-white">Rs. {service.price * service.quantity}</span></p>
+                  </div>
+                ))}
+                <p className="pt-2"><span className="text-gray-400">Total Amount:</span> <span className="text-green-400 font-semibold">Rs. {formData.amount_summary}</span></p>
               </div>
             </div>
 
             {/* Appointment Details */}
-            <div className="bg-black p-4 rounded-lg border border-gray-700">
-              <h3 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                Appointment Details
-              </h3>
-              <div className="space-y-2 text-sm">
-                <p><span className="text-gray-400">Date:</span> <span className="text-white">{new Date(formData.appointment_date).toLocaleDateString()}</span></p>
-                <p><span className="text-gray-400">Time:</span> <span className="text-white">{formData.appointment_time}</span></p>
+            {(formData.appointment_date || formData.appointment_time) && (
+              <div className="bg-black p-4 rounded-lg border border-gray-700">
+                <h3 className="text-lg font-semibold text-gold mb-3 flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Appointment Details
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <p><span className="text-gray-400">Date:</span> <span className="text-white">{formData.appointment_date ? new Date(formData.appointment_date).toLocaleDateString() : 'Not scheduled'}</span></p>
+                  <p><span className="text-gray-400">Time:</span> <span className="text-white">{formData.appointment_time || 'Not scheduled'}</span></p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Uploaded Images */}
             {uploadedImages.length > 0 && (

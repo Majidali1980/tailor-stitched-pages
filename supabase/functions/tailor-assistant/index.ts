@@ -77,7 +77,7 @@ serve(async (req) => {
         type: "function",
         function: {
           name: "create_booking",
-          description: "Create an appointment booking. Only call this after collecting ALL required information.",
+          description: "Create an appointment booking. Only call this after collecting ALL required information. Appointment date/time are optional.",
           parameters: {
             type: "object",
             properties: {
@@ -95,11 +95,11 @@ serve(async (req) => {
               },
               appointment_date: {
                 type: "string",
-                description: "Date in YYYY-MM-DD format"
+                description: "Date in YYYY-MM-DD format (optional)"
               },
               appointment_time: {
                 type: "string",
-                description: "Time in HH:MM format (24-hour)"
+                description: "Time in HH:MM format 24-hour (optional)"
               },
               service_type: {
                 type: "string",
@@ -119,7 +119,7 @@ serve(async (req) => {
                 description: "Special notes or requirements"
               }
             },
-            required: ["name", "phone", "appointment_date", "appointment_time", "service_type", "price"]
+            required: ["name", "phone", "service_type", "price"]
           }
         }
       }
@@ -158,20 +158,23 @@ Help customers explore designs, understand pricing, and book appointments seamle
    Ask ONE question at a time:
    - Full name?
    - Phone number?
-   - Preferred date? (YYYY-MM-DD format)
-   - Preferred time? (e.g., "10:00 AM" → convert to 10:00)
+   - Preferred date? (OPTIONAL - if they want to schedule)
+   - Preferred time? (OPTIONAL - if they provided a date)
    - Which service? (exact name from price list)
    - How many pieces?
+   - Do they want to add more services?
    - Any special requirements?
    
    Then confirm ALL details before calling create_booking.
+   NOTE: Appointment scheduling is OPTIONAL - customers can skip it.
 
 💡 KEY RULES:
 - Use Pakistani Rupees: "Rs. 1,500 PKR" or "PKR 1,500"
 - Be conversational, not robotic
 - Ask questions to understand needs
 - Show designs and prices proactively
-- Make appointment scheduling feel optional, not pushy
+- Appointment scheduling is OPTIONAL - customer can book without scheduling
+- Allow multiple services in one booking
 - Confirm everything before booking
 - Use emojis naturally: ✨💖🎨
 
@@ -338,8 +341,8 @@ Start every conversation by showing designs and asking what they're looking for!
                           name: functionArgs.name,
                           phone: functionArgs.phone,
                           email: functionArgs.email || null,
-                          appointment_date: functionArgs.appointment_date,
-                          appointment_time: functionArgs.appointment_time,
+                          appointment_date: functionArgs.appointment_date || null,
+                          appointment_time: functionArgs.appointment_time || null,
                           service_type: functionArgs.service_type,
                           quantity: functionArgs.quantity,
                           price: functionArgs.price,
