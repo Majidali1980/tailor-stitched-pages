@@ -12,195 +12,195 @@ const Gallery = () => {
   
   // Full gallery items list
   const allGalleryItems = [
-    // Shalwar Kameez
+    // Ladies Suits
     {
       id: 1,
-      category: "shalwar",
+      category: "ladies-suits",
       image: "/lovable-uploads/ccacbf2c-4ee7-4e8a-9cee-209886fcec9e.png",
-      title: "Black Floral Shalwar Kameez",
+      title: "Black Floral Ladies Suit",
     },
     {
       id: 2,
-      category: "shalwar",
+      category: "ladies-suits",
       image: "/lovable-uploads/7c6a51ba-c81f-456b-91d6-ecccfbd7b98c.png",
       title: "Black and Red Embroidered Suit",
     },
     {
       id: 3,
-      category: "shalwar",
+      category: "ladies-suits",
       image: "/lovable-uploads/2a6f7e47-abd2-4384-8aa3-6641ef6fe3a8.png",
-      title: "Traditional Pattern Shalwar Set",
+      title: "Traditional Pattern Ladies Suit",
     },
     {
       id: 4,
-      category: "shalwar",
+      category: "ladies-suits",
       image: "/lovable-uploads/399354ff-9e39-4bef-aa8d-f0beb7ba4cb0.png",
-      title: "Navy Patterned Shalwar Kameez",
+      title: "Navy Patterned Ladies Suit",
     },
     {
       id: 5,
-      category: "shalwar",
+      category: "ladies-suits",
       image: "/lovable-uploads/f5a0800b-72f9-4836-9d3e-a0906dc72984.png",
-      title: "White Floral Shalwar Design",
+      title: "White Floral Ladies Suit",
     },
     
-    // Shirts (keeping the existing ones)
+    // Shirt - Dopatta - Trouser
     {
       id: 6,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(1).png?raw=true",
-      title: "Classic Shirt Design",
+      title: "Simple Shirt Design",
     },
     {
       id: 7,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(2).png?raw=true",
       title: "Floral Pattern Shirt",
     },
     {
       id: 8,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(3).png?raw=true",
       title: "Casual Summer Shirt",
     },
     {
       id: 9,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(4).png?raw=true",
       title: "Embroidered Shirt",
     },
     {
       id: 10,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(5).png?raw=true",
       title: "Modern Pattern Shirt",
     },
     {
       id: 11,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(6).png?raw=true",
-      title: "Designer Shirt Collection",
+      title: "Designer Shirt with Dopatta",
     },
     {
       id: 12,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(7).png?raw=true",
       title: "Printed Casual Shirt",
     },
     {
       id: 13,
-      category: "shirts",
+      category: "shirt-dopatta-trouser",
       image: "https://github.com/Majidali1980/lmages/blob/main/shirt1%20(8).png?raw=true",
       title: "Stylish Summer Shirt",
     },
     
-    // Neck Design
+    // Dori Piping Lace / Neck Design
     {
       id: 14,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/d10a28b8-686d-4d59-983d-f77ff1b14833.png",
-      title: "Floral Red Embellished Neck",
+      title: "Floral Red Embellished Neck with Lace",
     },
     {
       id: 15,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/0332b418-3387-4ae2-934a-87db86c854c5.png",
-      title: "Magenta Button Detail Neck",
+      title: "Magenta Button Detail with Dori Piping",
     },
     {
       id: 16,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/8358ec5e-9b7f-494f-b895-43ee164412cd.png",
-      title: "Patterned Geometric Neck Design",
+      title: "Patterned Geometric Lace Design",
     },
     {
       id: 17,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/0a51992b-0ee6-4788-b58a-2a46624f3c47.png",
-      title: "Black Snowflake Pattern Neck",
+      title: "Black Snowflake Dori Piping",
     },
     {
       id: 18,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/ec49d525-ae3d-4c93-aeb4-428033d340d5.png",
-      title: "Pink Striped Embroidered Neck",
+      title: "Pink Striped Embroidered Lace",
     },
     {
       id: 19,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/c705b7f5-fb01-4b56-b7a6-e57bf4524241.png",
-      title: "Purple Beaded Elegant Neck",
+      title: "Purple Beaded Lace Design",
     },
     {
       id: 20,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/49c3a4ff-daa5-443a-ac54-2093a6b06713.png",
-      title: "Traditional Patterned Neck Design",
+      title: "Traditional Patterned Lace",
     },
     {
       id: 21,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/3d66c70c-3d5b-476c-a6df-a3ae9d21754e.png",
-      title: "Mint Floral Embroidered Neck",
+      title: "Mint Floral Embroidered Lace",
     },
     {
       id: 22,
-      category: "neck",
+      category: "dori-piping-lace",
       image: "/lovable-uploads/2a3b37b4-7bf8-4eb0-9c9d-9bea838f94b8.png",
-      title: "Green Geometric Pattern Neck",
+      title: "Green Geometric Lace Pattern",
     },
     
-    // Kids Collection
+    // Kids Suits
     {
       id: 23,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/564b04ff-47b7-422f-b90e-de9f276cb32b.png",
-      title: "Floral Print Kids Frock",
+      title: "Floral Print Kids Suit",
     },
     {
       id: 24,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/af404edc-a28e-4fdd-ba8f-cc314303003b.png",
-      title: "Pink Floral Kids Dress",
+      title: "Pink Floral Kids Suit",
     },
     {
       id: 25,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/0c022880-a73b-4b8b-a775-914f15d6978f.png",
-      title: "Magenta Patterned Kids Set",
+      title: "Magenta Patterned Kids Suit",
     },
     {
       id: 26,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/ee6abd02-52c8-4c33-8cf8-c3359cfd160b.png",
-      title: "Red Traditional Kids Outfit",
+      title: "Red Traditional Kids Suit",
     },
     {
       id: 27,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/c85693f8-65ae-4ba7-9505-ca462eabc455.png",
-      title: "Magenta Gold Trim Kids Dress",
+      title: "Magenta Gold Trim Kids Suit",
     },
     {
       id: 28,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/128ef175-83c6-4201-86d6-26f65c30cfb6.png",
-      title: "Pink Patterned Kids Frock",
+      title: "Pink Patterned Kids Suit",
     },
     {
       id: 29,
-      category: "kids",
+      category: "kids-suits",
       image: "/lovable-uploads/4e74ef1c-0a6c-4a06-9133-c8a563654241.png",
-      title: "Orange Embroidered Kids Set",
+      title: "Orange Embroidered Kids Suit",
     },
   ];
 
   const categories = [
     { value: "all", label: "All" },
-    { value: "shalwar", label: "Shalwar Kameez" },
-    { value: "shirts", label: "Shirts" },
-    { value: "neck", label: "Neck Design" },
-    { value: "kids", label: "Kids Collection" },
+    { value: "ladies-suits", label: "Ladies Suits" },
+    { value: "shirt-dopatta-trouser", label: "Shirt Dopatta Trouser" },
+    { value: "dori-piping-lace", label: "Dori Piping Lace" },
+    { value: "kids-suits", label: "Kids Suits" },
   ];
 
   // Limit items to 3 per category
@@ -208,7 +208,7 @@ const Gallery = () => {
     if (category === "all") {
       // For "all" category, get 3 items from each category
       const result = [];
-      for (const cat of ["shalwar", "shirts", "neck", "kids"]) {
+      for (const cat of ["ladies-suits", "shirt-dopatta-trouser", "dori-piping-lace", "kids-suits"]) {
         const categoryItems = allGalleryItems.filter(item => item.category === cat).slice(0, 3);
         result.push(...categoryItems);
       }
