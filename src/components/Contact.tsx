@@ -20,7 +20,7 @@ const Contact = () => {
   });
 
   const googleMapsLink = "https://maps.app.goo.gl/gmVRTLBE8aCzyBAX6";
-  const googleReviewLink = "https://g.page/r/YOUR_PLACE_ID/review"; // You'll need to replace with actual place ID
+  const googleReviewLink = "https://maps.app.goo.gl/yL4Jsfvqzk5gW1aX7";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

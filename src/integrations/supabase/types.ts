@@ -47,8 +47,8 @@ export type Database = {
       appointments: {
         Row: {
           amount_summary: number
-          appointment_date: string
-          appointment_time: string
+          appointment_date: string | null
+          appointment_time: string | null
           created_at: string
           dc_charges: number
           email: string | null
@@ -69,8 +69,8 @@ export type Database = {
         }
         Insert: {
           amount_summary?: number
-          appointment_date: string
-          appointment_time: string
+          appointment_date?: string | null
+          appointment_time?: string | null
           created_at?: string
           dc_charges?: number
           email?: string | null
@@ -91,8 +91,8 @@ export type Database = {
         }
         Update: {
           amount_summary?: number
-          appointment_date?: string
-          appointment_time?: string
+          appointment_date?: string | null
+          appointment_time?: string | null
           created_at?: string
           dc_charges?: number
           email?: string | null
