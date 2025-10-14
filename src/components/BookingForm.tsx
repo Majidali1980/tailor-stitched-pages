@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Upload, Calendar, Clock, User, Phone, Mail, Scissors, X, Eye, FileImage, CheckCircle, ShoppingCart } from 'lucide-react';
 import emailjs from 'emailjs-com';
+import { GoogleReviewPopup } from './popups/GoogleReviewPopup';
 
 interface UploadedImage {
   id: string;
@@ -67,6 +68,7 @@ const BookingForm = () => {
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showGoogleReviewPopup, setShowGoogleReviewPopup] = useState(false);
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [serviceCharges, setServiceCharges] = useState<any[]>([]);
 
@@ -366,6 +368,13 @@ const BookingForm = () => {
       }
 
       toast.success('Appointment booked successfully! We will contact you soon.');
+      
+      // Show Google review popup only once
+      const hasShownReviewPopup = localStorage.getItem('googleReviewPopupShown');
+      if (!hasShownReviewPopup) {
+        setShowGoogleReviewPopup(true);
+        localStorage.setItem('googleReviewPopupShown', 'true');
+      }
       
       // Reset form
       setFormData({
@@ -925,6 +934,12 @@ const BookingForm = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Google Review Popup */}
+      <GoogleReviewPopup 
+        isOpen={showGoogleReviewPopup} 
+        onClose={() => setShowGoogleReviewPopup(false)} 
+      />
     </section>
   );
 };
