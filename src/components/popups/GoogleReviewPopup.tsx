@@ -8,7 +8,7 @@ interface GoogleReviewPopupProps {
 }
 
 export const GoogleReviewPopup = ({ isOpen, onClose }: GoogleReviewPopupProps) => {
-  const googleReviewLink = "https://maps.app.goo.gl/yL4Jsfvqzk5gW1aX7";
+  const googleReviewLink = "https://maps.app.goo.gl/oGtcRRMGdRDi6z2z6";
 
   const handleReviewClick = () => {
     window.open(googleReviewLink, '_blank');
