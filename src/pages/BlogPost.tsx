@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Calendar, User, Tag, ArrowLeft } from 'lucide-react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Calendar, User, Tag, ArrowLeft, BookOpen, Phone, Image } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
@@ -223,15 +223,39 @@ const BlogPost = () => {
             dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
           />
 
-          {/* Back to Blog Button */}
+          {/* Action Buttons */}
           <div className="mt-12 pt-8 border-t border-gray-700">
-            <Button 
-              onClick={() => navigate('/blog')}
-              className="bg-gold hover:bg-gold-dark text-black"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Blog
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+              <Button 
+                onClick={() => navigate('/blog')}
+                variant="outline"
+                className="text-gold border-gold hover:bg-gold hover:text-black w-full sm:w-auto"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Blog
+              </Button>
+              
+              <div className="flex flex-wrap gap-3 justify-center">
+                <Link to="/booking">
+                  <Button className="bg-gold hover:bg-gold-dark text-black">
+                    <BookOpen className="h-4 w-4 mr-2" />
+                    Book Appointment
+                  </Button>
+                </Link>
+                <Link to="/contact">
+                  <Button variant="outline" className="text-gold border-gold hover:bg-gold hover:text-black">
+                    <Phone className="h-4 w-4 mr-2" />
+                    Contact Us
+                  </Button>
+                </Link>
+                <Link to="/gallery">
+                  <Button variant="outline" className="text-gold border-gold hover:bg-gold hover:text-black">
+                    <Image className="h-4 w-4 mr-2" />
+                    View Gallery
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </article>

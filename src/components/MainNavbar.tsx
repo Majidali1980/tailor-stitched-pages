@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const MainNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,31 +38,28 @@ const MainNavbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-white hover:text-gold transition-colors ml-auto"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <button className="lg:hidden text-white hover:text-gold transition-colors ml-auto">
+                <Menu className="h-6 w-6" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="bg-gray-900 border-gold/20 w-[280px]">
+              <nav className="flex flex-col space-y-4 mt-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-white hover:text-gold font-montserrat font-medium py-3 px-4 rounded-lg transition-colors duration-300 hover:bg-gold/10"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden py-4 border-t border-gold/20">
-            <div className="flex flex-col space-y-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="text-white hover:text-gold font-montserrat font-medium py-2 transition-colors duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );
