@@ -571,6 +571,7 @@ export type Database = {
       }
       reviews: {
         Row: {
+          approved_at: string | null
           created_at: string
           display_order: number | null
           id: string
@@ -579,9 +580,11 @@ export type Database = {
           name: string
           rating: number | null
           review_text: string
+          status: string | null
           updated_at: string
         }
         Insert: {
+          approved_at?: string | null
           created_at?: string
           display_order?: number | null
           id?: string
@@ -590,9 +593,11 @@ export type Database = {
           name: string
           rating?: number | null
           review_text: string
+          status?: string | null
           updated_at?: string
         }
         Update: {
+          approved_at?: string | null
           created_at?: string
           display_order?: number | null
           id?: string
@@ -601,6 +606,7 @@ export type Database = {
           name?: string
           rating?: number | null
           review_text?: string
+          status?: string | null
           updated_at?: string
         }
         Relationships: []

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Star, ZoomIn, X, ExternalLink } from 'lucide-react';
-import ReviewSubmissionForm from './ReviewSubmissionForm';
+import { ReviewPopup } from './popups/ReviewPopup';
 import { Button } from './ui/button';
 
 interface ReviewItem {
@@ -18,6 +18,7 @@ const DynamicReviews = () => {
   const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -110,21 +111,28 @@ const DynamicReviews = () => {
             {/* Review Buttons */}
             <div className="flex flex-wrap gap-4 justify-center mt-8">
               <Button 
-                onClick={() => window.open('https://maps.app.goo.gl/oGtcRRMGdRDi6z2z6', '_blank')}
-                className="bg-gold hover:bg-gold-dark text-black"
+                onClick={() => setIsReviewPopupOpen(true)}
+                className="bg-gold hover:bg-gold/90 text-black font-semibold"
               >
                 <Star className="h-4 w-4 mr-2 fill-current" />
-                Leave Google Review
+                Leave a Review
+              </Button>
+              <Button 
+                onClick={() => window.open('https://maps.app.goo.gl/oGtcRRMGdRDi6z2z6', '_blank')}
+                variant="outline"
+              >
+                <Star className="h-4 w-4 mr-2" />
+                Google Review
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
               <Button 
                 onClick={() => window.open('https://www.facebook.com/profile.php?id=100067160730050&sk=reviews', '_blank')}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                variant="outline"
               >
                 <svg className="h-4 w-4 mr-2 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
-                Leave Facebook Review
+                Facebook Review
                 <ExternalLink className="h-4 w-4 ml-2" />
               </Button>
             </div>
@@ -186,8 +194,11 @@ const DynamicReviews = () => {
         </div>
       </section>
 
-      {/* Review Submission Form */}
-      <ReviewSubmissionForm />
+      {/* Review Popup */}
+      <ReviewPopup 
+        isOpen={isReviewPopupOpen} 
+        onClose={() => setIsReviewPopupOpen(false)} 
+      />
 
       {/* Full Screen Image Modal */}
       {selectedImage && (
