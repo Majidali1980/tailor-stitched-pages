@@ -17,6 +17,8 @@ import BulkOrders from "./pages/BulkOrders";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import AIDesignStudio from "./pages/AIDesignStudio";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,8 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/ai-design-studio" element={<AIDesignStudio />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-use" element={<TermsOfUse />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

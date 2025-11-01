@@ -65,6 +65,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
                 <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
+                <li><Link to="/bulk-orders" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Bulk Orders</Link></li>
                 <li>
                   <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
                     <ExternalLink className="h-3 w-3" /> Website
@@ -105,19 +106,33 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-gold/10 mt-12 pt-6 text-center">
-          <p className="font-montserrat text-sm text-gray-500 mb-4">
-            © {new Date().getFullYear()} MA Tailor. All rights reserved.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-            <AIImageDisclaimer />
+        <div className="border-t border-gold/10 mt-12 pt-6">
+          <div className="bg-gray-900/50 border border-gold/20 rounded-lg p-6 mb-6">
+            <h3 className="text-lg font-playfair font-bold text-gold mb-3 text-center">Disclaimer</h3>
+            <p className="font-montserrat text-sm text-gray-400 text-center max-w-3xl mx-auto">
+              All model images displayed on this website are AI-generated and used only to showcase outfit designs and stitching concepts. 
+              The actual garments we create are handcrafted by our skilled tailors according to your measurements and preferences.
+            </p>
           </div>
-          <p className="text-xs text-gray-600">
-            Made with ♥ by{' '}
-            <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
-            <a href="https://www.fiverr.com/users/alimajid0302198" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Fiverr</a> | {' '}
-            <a href="https://preview--ma-digital-hub-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">MA Digital Hub</a>
-          </p>
+          
+          <div className="text-center">
+            <p className="font-montserrat text-sm text-gray-500 mb-4">
+              © {new Date().getFullYear()} MA Tailor. All rights reserved.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-sm">
+              <Link to="/privacy-policy" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Privacy Policy</Link>
+              <span className="text-gray-600">|</span>
+              <Link to="/terms-of-use" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Terms of Use</Link>
+              <span className="text-gray-600">|</span>
+              <AIImageDisclaimer />
+            </div>
+            <p className="text-xs text-gray-600">
+              Made with ♥ by{' '}
+              <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
+              <a href="https://www.fiverr.com/users/alimajid0302198" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Fiverr</a> | {' '}
+              <a href="https://preview--ma-digital-hub-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">MA Digital Hub</a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

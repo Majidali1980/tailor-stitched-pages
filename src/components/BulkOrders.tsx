@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { Package, Users, CheckCircle, Phone, Shirt, X } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import BulkOrderCarousel from './BulkOrderCarousel';
 
 const BulkOrders = () => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -143,8 +143,8 @@ const BulkOrders = () => {
     },
     {
       icon: <Shirt className="h-6 w-6 text-gold" />,
-      title: "Free Samples",
-      description: "Get samples before placing your bulk order"
+      title: "Sampling Available",
+      description: "Samples available at nominal charge. Delivery charges (DC) apply."
     },
     {
       icon: <Users className="h-6 w-6 text-gold" />,
@@ -186,6 +186,9 @@ const BulkOrders = () => {
             Exclusive bulk order services for girls' clothing with competitive rates and quality assurance.
           </p>
         </div>
+
+        {/* Bulk Order Carousel */}
+        <BulkOrderCarousel />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Available Sizes */}
@@ -253,7 +256,7 @@ const BulkOrders = () => {
               Ready for Your Bulk Order?
             </h3>
             <p className="font-montserrat text-gray-300 mb-8 max-w-2xl mx-auto">
-              Contact us for exclusive bulk pricing, free samples, and quick quotes. 
+              Contact us for exclusive bulk pricing, sampling options, and quick quotes. 
               Perfect for boutiques, retailers, and event organizers. Discounts available based on order quantity and discussion.
             </p>
 

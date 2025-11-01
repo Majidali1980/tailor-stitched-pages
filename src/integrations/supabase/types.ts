@@ -170,6 +170,42 @@ export type Database = {
         }
         Relationships: []
       }
+      bulkorder_carousel: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number | null
+          id: string
+          image_url: string
+          is_active: boolean
+          link: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean
+          link?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          link?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       carousel: {
         Row: {
           created_at: string
@@ -473,6 +509,42 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_carousel: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number | null
+          id: string
+          image_url: string
+          is_active: boolean
+          link: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean
+          link?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          link?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       latest_designs: {
         Row: {
           created_at: string
@@ -533,6 +605,33 @@ export type Database = {
           name?: string | null
           subscribed_at?: string
           unsubscribed_at?: string | null
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          is_active: boolean
+          message: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          message: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          message?: string
+          updated_at?: string
         }
         Relationships: []
       }

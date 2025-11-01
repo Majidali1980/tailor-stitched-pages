@@ -45,4 +45,17 @@
     background: linear-gradient(45deg, #D4AF37, #F0E68C, #B8860B);
     border-radius: 0.5rem;
   }
+
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }

@@ -2,6 +2,8 @@
 import Navbar from '@/components/Navbar';
 import DynamicHero from '@/components/DynamicHero';
 import HeroCarousel from '@/components/HeroCarousel';
+import HomepageCarousel from '@/components/HomepageCarousel';
+import NotificationBar from '@/components/NotificationBar';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
 import DiscountOffers from '@/components/DiscountOffers';
@@ -38,6 +40,8 @@ const Index = () => {
       <DynamicHero />
       <DiscountOffers />
       <HeroCarousel />
+      <HomepageCarousel />
+      <NotificationBar />
       <LatestDesignsCarousel />
       <Services />
       <StitchedDressCarousel />
