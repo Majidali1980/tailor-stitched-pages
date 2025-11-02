@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import PopupManager from "./components/PopupManager";
-import { AIAssistantIcon } from "./components/AIAssistantIcon";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -30,7 +29,6 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <WhatsAppFloat />
-      <AIAssistantIcon />
       <BrowserRouter>
         <PopupManager />
         <Routes>

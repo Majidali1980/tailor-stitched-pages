@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Briefcase, MapPin, Clock, DollarSign } from 'lucide-react';
+import { Briefcase, MapPin, Clock, DollarSign, Share2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -48,6 +48,31 @@ const Career = () => {
     } else {
       setJobs(data || []);
     }
+  };
+
+  const handleShare = (job: Job) => {
+    const shareUrl = `${window.location.origin}/career`;
+    const shareText = `Check out this job opportunity: ${job.title} at MA Tailor`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: job.title,
+        text: shareText,
+        url: shareUrl,
+      }).catch(() => {
+        copyToClipboard(shareUrl);
+      });
+    } else {
+      copyToClipboard(shareUrl);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Link Copied",
+      description: "Job link has been copied to clipboard!"
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -104,7 +129,17 @@ const Career = () => {
               <div className="grid md:grid-cols-2 gap-8">
                 {jobs.map((job) => (
                   <Card key={job.id} className="p-6 hover:shadow-lg transition-shadow">
-                    <h3 className="text-2xl font-playfair font-bold mb-4">{job.title}</h3>
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-playfair font-bold">{job.title}</h3>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleShare(job)}
+                        className="shrink-0"
+                      >
+                        <Share2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                     
                     <div className="space-y-2 mb-4">
                       {job.location && (
@@ -127,15 +162,36 @@ const Career = () => {
                       )}
                     </div>
 
-                    <p className="text-muted-foreground mb-4 line-clamp-3">{job.description}</p>
+                    <div className="mb-4 space-y-3">
+                      <div>
+                        <h4 className="font-semibold mb-2">Description:</h4>
+                        <p className="text-muted-foreground whitespace-pre-wrap">{job.description}</p>
+                      </div>
+                      
+                      {job.requirements && (
+                        <div>
+                          <h4 className="font-semibold mb-2">Requirements:</h4>
+                          <p className="text-muted-foreground whitespace-pre-wrap">{job.requirements}</p>
+                        </div>
+                      )}
+                    </div>
                     
-                    <Button 
-                      onClick={() => setSelectedJob(job)}
-                      className="w-full"
-                    >
-                      <Briefcase className="h-4 w-4 mr-2" />
-                      Apply Now
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button 
+                        onClick={() => setSelectedJob(job)}
+                        className="flex-1"
+                      >
+                        <Briefcase className="h-4 w-4 mr-2" />
+                        Apply Now
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => handleShare(job)}
+                      >
+                        <Share2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </Card>
                 ))}
               </div>

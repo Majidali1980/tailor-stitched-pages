@@ -19,6 +19,7 @@ import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import TailorAssistant from '@/components/TailorAssistant';
 import { SubscribePopup } from '@/components/SubscribePopup';
+import { LatestJobListings } from '@/components/LatestJobListings';
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -51,6 +52,7 @@ const Index = () => {
       
       <LittleStitch />
       <HeroSectionLittleStitch />
+      <LatestJobListings />
       <AnimatedDesignPromo />
       <SocialMediaButtons />
       <SocialMediaFeed />
