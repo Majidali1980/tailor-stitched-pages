@@ -206,6 +206,51 @@ export type Database = {
         }
         Relationships: []
       }
+      career_jobs: {
+        Row: {
+          created_at: string
+          description: string
+          display_order: number | null
+          id: string
+          is_active: boolean
+          job_type: string | null
+          location: string | null
+          posted_at: string
+          requirements: string | null
+          salary_range: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          job_type?: string | null
+          location?: string | null
+          posted_at?: string
+          requirements?: string | null
+          salary_range?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          job_type?: string | null
+          location?: string | null
+          posted_at?: string
+          requirements?: string | null
+          salary_range?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       carousel: {
         Row: {
           created_at: string
@@ -439,6 +484,7 @@ export type Database = {
           caption: string | null
           category: string | null
           created_at: string
+          disclaimer: string | null
           display_order: number | null
           id: string
           image_url: string
@@ -449,6 +495,7 @@ export type Database = {
           caption?: string | null
           category?: string | null
           created_at?: string
+          disclaimer?: string | null
           display_order?: number | null
           id?: string
           image_url: string
@@ -459,6 +506,7 @@ export type Database = {
           caption?: string | null
           category?: string | null
           created_at?: string
+          disclaimer?: string | null
           display_order?: number | null
           id?: string
           image_url?: string
@@ -509,6 +557,66 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_section_little_stitch: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          image_url: string
+          is_active: boolean
+          link: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean
+          link?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          link?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      hero_section_services: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          image_url: string
+          is_active: boolean
+          link: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean
+          link?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          link?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       homepage_carousel: {
         Row: {
           created_at: string
@@ -545,10 +653,61 @@ export type Database = {
         }
         Relationships: []
       }
+      job_applications: {
+        Row: {
+          applicant_name: string
+          applied_at: string
+          cover_letter: string | null
+          created_at: string
+          email: string
+          id: string
+          job_id: string | null
+          phone: string
+          resume_url: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          applicant_name: string
+          applied_at?: string
+          cover_letter?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          job_id?: string | null
+          phone: string
+          resume_url?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          applicant_name?: string
+          applied_at?: string
+          cover_letter?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          job_id?: string | null
+          phone?: string
+          resume_url?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "career_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       latest_designs: {
         Row: {
           created_at: string
           description: string | null
+          Disclaimer: string | null
           display_order: number | null
           id: string
           image_url: string
@@ -560,6 +719,7 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
+          Disclaimer?: string | null
           display_order?: number | null
           id?: string
           image_url: string
@@ -571,6 +731,7 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
+          Disclaimer?: string | null
           display_order?: number | null
           id?: string
           image_url?: string

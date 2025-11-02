@@ -60,6 +60,7 @@ const Footer = () => {
                 <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
                 <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
                 <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
+                <li><Link to="/career" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Career</Link></li>
               </ul>
 
               <ul className="space-y-2">

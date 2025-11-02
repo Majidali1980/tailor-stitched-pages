@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import PopupManager from "./components/PopupManager";
+import { AIAssistantIcon } from "./components/AIAssistantIcon";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -19,6 +20,7 @@ import BlogPost from "./pages/BlogPost";
 import AIDesignStudio from "./pages/AIDesignStudio";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
+import Career from "./pages/Career";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <WhatsAppFloat />
+      <AIAssistantIcon />
       <BrowserRouter>
         <PopupManager />
         <Routes>
@@ -45,6 +48,7 @@ const App = () => (
           <Route path="/ai-design-studio" element={<AIDesignStudio />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-use" element={<TermsOfUse />} />
+          <Route path="/career" element={<Career />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

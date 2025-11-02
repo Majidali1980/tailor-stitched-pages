@@ -7,9 +7,10 @@ import NotificationBar from '@/components/NotificationBar';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
 import Services from '@/components/Services';
 import DiscountOffers from '@/components/DiscountOffers';
-
+import { HeroSectionServices } from '@/components/HeroSectionServices';
 import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
+import { HeroSectionLittleStitch } from '@/components/HeroSectionLittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
 import SocialMediaButtons from '@/components/SocialMediaButtons';
 import SocialMediaFeed from '@/components/SocialMediaFeed';
@@ -17,6 +18,7 @@ import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import TailorAssistant from '@/components/TailorAssistant';
+import { SubscribePopup } from '@/components/SubscribePopup';
 import { useEffect } from 'react';
 
 const Index = () => {
@@ -44,9 +46,11 @@ const Index = () => {
       <NotificationBar />
       <LatestDesignsCarousel />
       <Services />
+      <HeroSectionServices />
       <StitchedDressCarousel />
       
       <LittleStitch />
+      <HeroSectionLittleStitch />
       <AnimatedDesignPromo />
       <SocialMediaButtons />
       <SocialMediaFeed />
@@ -54,6 +58,7 @@ const Index = () => {
       <Footer />
       <WhatsAppFloat />
       <TailorAssistant />
+      <SubscribePopup />
     </div>
   );
 };
