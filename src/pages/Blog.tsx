@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Helmet } from 'react-helmet-async';
 
 interface BlogPost {
   id: string;
@@ -82,27 +83,68 @@ const Blog = () => {
     return text.substring(0, maxLength) + '...';
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Ma Tailor Blog",
+    "description": "Fashion tips, stitching trends, and custom tailoring advice for Pakistani girls",
+    "url": "https://matailor.lovable.app/blog",
+    "blogPost": blogPosts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt || truncateText(post.content, 150),
+      "datePublished": post.published_at || post.created_at,
+      "author": {
+        "@type": "Person",
+        "name": post.author_name || "Ma Tailor"
+      }
+    }))
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-black text-white font-montserrat">
-        <Navbar />
-        <div className="pt-36 pb-16">
-          <div className="container mx-auto px-4 text-center">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-700 rounded w-48 mx-auto mb-4"></div>
-              <div className="h-4 bg-gray-700 rounded w-96 mx-auto mb-8"></div>
+      <>
+        <Helmet>
+          <title>Ma Tailor Blog – Fashion Tips & Stitching Trends 2025</title>
+        </Helmet>
+        <div className="min-h-screen bg-black text-white font-montserrat">
+          <Navbar />
+          <div className="pt-36 pb-16">
+            <div className="container mx-auto px-4 text-center">
+              <div className="animate-pulse">
+                <div className="h-8 bg-gray-700 rounded w-48 mx-auto mb-4"></div>
+                <div className="h-4 bg-gray-700 rounded w-96 mx-auto mb-8"></div>
+              </div>
             </div>
           </div>
+          <Footer />
+          <WhatsAppFloat />
         </div>
-        <Footer />
-        <WhatsAppFloat />
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white font-montserrat">
-      <Navbar />
+    <>
+      <Helmet>
+        <title>Ma Tailor Blog – Fashion Tips & Stitching Trends 2025</title>
+        <meta name="description" content="Discover girls stitching trends 2025, custom tailoring tips, and Pakistani stitched fashion ideas on Ma Tailor blog." />
+        <meta name="keywords" content="girls stitching trends 2025, custom tailoring tips, Pakistani stitched fashion ideas, dress design trends, tailoring advice Pakistan" />
+        <link rel="canonical" href="https://matailor.lovable.app/blog" />
+        
+        <meta property="og:title" content="Ma Tailor Blog – Fashion Tips & Stitching Trends" />
+        <meta property="og:description" content="Fashion tips, stitching trends, and custom tailoring advice" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://matailor.lovable.app/blog" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+      
+      <div className="min-h-screen bg-black text-white font-montserrat">
+        <h1 className="sr-only">Ma Tailor Blog - Fashion Tips & Stitching Trends 2025</h1>
+        <Navbar />
       
       {/* Hero Section */}
       <section className="pt-36 pb-16 bg-gradient-to-b from-gray-900 to-black">
@@ -279,7 +321,8 @@ const Blog = () => {
 
       <Footer />
       <WhatsAppFloat />
-    </div>
+      </div>
+    </>
   );
 };
 

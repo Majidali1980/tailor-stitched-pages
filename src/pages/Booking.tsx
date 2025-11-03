@@ -6,68 +6,43 @@ import Footer from '@/components/Footer';
 import TailorAssistant from '@/components/TailorAssistant';
 
 const BookingPage = () => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Online Stitching Appointment",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Ma Tailor",
+      "telephone": "+92-307-0125273",
+      "url": "https://matailor.lovable.app"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Pakistan"
+    },
+    "description": "Book your online stitching appointment with Ma Tailor. Custom tailoring for girls with fast delivery and expert fitting."
+  };
+
   return (
     <>
       <Helmet>
-        <title>Book Appointment - MA Tailor | Premium Pakistani Dress Stitching</title>
-        <meta name="description" content="Schedule your consultation with MA Tailor for premium Pakistani dress stitching services. Expert tailoring for Shalwar Kameez, Kurti, Maxi Dress, and custom designs. Book your appointment today!" />
-        <meta name="keywords" content="MA Tailor appointment, Pakistani dress stitching, Shalwar Kameez tailoring, Kurti stitching, custom dress design, Massachusetts tailor booking" />
-        <meta property="og:title" content="Book Appointment - MA Tailor | Premium Pakistani Dress Stitching" />
-        <meta property="og:description" content="Schedule your consultation with MA Tailor for premium Pakistani dress stitching services. Expert tailoring for traditional and modern Pakistani clothing." />
+        <title>Book Online Stitching Appointment – Ma Tailor Pakistan</title>
+        <meta name="description" content="Book your stitching appointment online with Ma Tailor. Custom tailoring for girls with fast delivery and expert fitting." />
+        <meta name="keywords" content="book stitching appointment online, online tailor Pakistan, custom tailoring service booking, ladies tailor appointment, girls stitching booking" />
+        <link rel="canonical" href="https://matailor.lovable.app/booking" />
+        
+        <meta property="og:title" content="Book Online Stitching Appointment – Ma Tailor Pakistan" />
+        <meta property="og:description" content="Book your stitching appointment online. Custom tailoring with fast delivery." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ma-tailor.com/booking" />
-        <link rel="canonical" href="https://ma-tailor.com/booking" />
+        <meta property="og:url" content="https://matailor.lovable.app/booking" />
+        
         <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "MA Tailor Appointment Booking",
-            "description": "Premium Pakistani dress stitching and tailoring services",
-            "provider": {
-              "@type": "Organization",
-              "name": "MA Tailor",
-              "url": "https://ma-tailor.com"
-            },
-            "serviceType": "Tailoring and Dress Making",
-            "areaServed": "Massachusetts, USA",
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Tailoring Services",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Shalwar Kameez Stitching"
-                  }
-                },
-                {
-                  "@type": "Offer", 
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Kurti Tailoring"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service", 
-                    "name": "Maxi Dress Design"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Custom Dress Design"
-                  }
-                }
-              ]
-            }
-          })}
+          {JSON.stringify(structuredData)}
         </script>
       </Helmet>
+      
       <div className="min-h-screen bg-black text-white font-montserrat">
+        <h1 className="sr-only">Book Your Online Stitching Appointment - Ma Tailor</h1>
         <Navbar />
         <BookingForm />
         <TailorAssistant />
