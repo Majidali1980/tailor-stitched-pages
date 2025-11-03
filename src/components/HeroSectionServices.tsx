@@ -26,12 +26,12 @@ export const HeroSectionServices = () => {
   };
   if (heroItems.length === 0) return null;
   return <section className="py-8">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mx-[20px] my-[20px]">
-          {heroItems.map(item => <div key={item.id} className="relative overflow-hidden rounded-lg shadow-lg group px-0 py-0 mx-0">
+      <div className="w-full px-0">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0">
+          {heroItems.map(item => <div key={item.id} className="relative overflow-hidden group">
               {item.link ? <Link to={item.link} className="block">
-                  <img src={item.image_url} alt="Hero section" className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
-                </Link> : <img src={item.image_url} alt="Hero section" className="w-full h-full " />}
+                  <img src={item.image_url} alt="Hero section" className="w-full h-96 object-cover transition-transform duration-300 group-hover:scale-105" />
+                </Link> : <img src={item.image_url} alt="Hero section" className="w-full h-96 object-cover" />}
             </div>)}
         </div>
       </div>

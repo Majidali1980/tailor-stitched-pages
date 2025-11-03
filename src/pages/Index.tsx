@@ -5,7 +5,6 @@ import HeroCarousel from '@/components/HeroCarousel';
 import HomepageCarousel from '@/components/HomepageCarousel';
 import NotificationBar from '@/components/NotificationBar';
 import LatestDesignsCarousel from '@/components/LatestDesignsCarousel';
-import Services from '@/components/Services';
 import DiscountOffers from '@/components/DiscountOffers';
 import { HeroSectionServices } from '@/components/HeroSectionServices';
 import StitchedDressCarousel from '@/components/StitchedDressCarousel';
@@ -46,7 +45,6 @@ const Index = () => {
       <HomepageCarousel />
       <NotificationBar />
       <LatestDesignsCarousel />
-      <Services />
       <HeroSectionServices />
       <StitchedDressCarousel />
       

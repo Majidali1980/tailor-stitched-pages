@@ -13,6 +13,7 @@ interface LatestDesign {
   image_url: string;
   link: string | null;
   display_order: number;
+  Disclaimer: string | null;
 }
 
 const LatestDesignsCarousel = () => {
@@ -25,7 +26,7 @@ const LatestDesignsCarousel = () => {
       try {
         const { data, error } = await supabase
           .from('latest_designs')
-          .select('id, title, description, image_url, link, display_order')
+          .select('id, title, description, image_url, link, display_order, Disclaimer')
           .eq('is_active', true)
           .order('display_order', { ascending: true });
 
@@ -170,6 +171,11 @@ const LatestDesignsCarousel = () => {
                         {design.description && (
                           <p className="font-montserrat text-gray-300 text-sm mb-2 flex-grow line-clamp-3">
                             {design.description}
+                          </p>
+                        )}
+                        {design.Disclaimer && (
+                          <p className="font-montserrat text-gray-400 text-xs mb-2 italic line-clamp-2">
+                            {design.Disclaimer}
                           </p>
                         )}
                         {design.link && (

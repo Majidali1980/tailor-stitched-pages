@@ -51,7 +51,7 @@ const Footer = () => {
             <div className="grid grid-cols-3 gap-4">
               <ul className="space-y-2">
                 <li><Link to="/" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Home</Link></li>
-                <li><a href="#services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</a></li>
+                <li><Link to="/services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</Link></li>
                 <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
                 <li><Link to="/booking" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Booking</Link></li>
               </ul>

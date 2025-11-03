@@ -10,6 +10,7 @@ interface GalleryItem {
   caption: string | null;
   display_order: number;
   category: string;
+  disclaimer: string | null;
 }
 
 const DynamicGallery = () => {
@@ -165,6 +166,11 @@ const DynamicGallery = () => {
                         {item.caption && (
                           <p className="text-center font-montserrat text-gray-300 text-sm mt-2 flex-grow">
                             {item.caption}
+                          </p>
+                        )}
+                        {item.disclaimer && (
+                          <p className="text-center font-montserrat text-gray-400 text-xs mt-1 italic">
+                            {item.disclaimer}
                           </p>
                         )}
                         <div className="text-center mt-2">

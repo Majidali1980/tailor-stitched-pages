@@ -9,6 +9,7 @@ const MainNavbar = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
     { name: "Gallery", href: "/gallery" },
     { name: "AI Design Studio", href: "/ai-design-studio" },
     { name: "Videos", href: "/videos" },
