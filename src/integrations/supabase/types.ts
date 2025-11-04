@@ -592,7 +592,9 @@ export type Database = {
           created_at: string
           display_order: number | null
           id: string
+          image_height: string | null
           image_url: string
+          image_width: string | null
           is_active: boolean
           link: string | null
           updated_at: string
@@ -601,7 +603,9 @@ export type Database = {
           created_at?: string
           display_order?: number | null
           id?: string
+          image_height?: string | null
           image_url: string
+          image_width?: string | null
           is_active?: boolean
           link?: string | null
           updated_at?: string
@@ -610,7 +614,9 @@ export type Database = {
           created_at?: string
           display_order?: number | null
           id?: string
+          image_height?: string | null
           image_url?: string
+          image_width?: string | null
           is_active?: boolean
           link?: string | null
           updated_at?: string

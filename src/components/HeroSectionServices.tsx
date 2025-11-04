@@ -5,6 +5,8 @@ interface HeroItem {
   id: string;
   image_url: string;
   link: string | null;
+  image_height: string;
+  image_width: string;
 }
 export const HeroSectionServices = () => {
   const [heroItems, setHeroItems] = useState<HeroItem[]>([]);
@@ -30,8 +32,18 @@ export const HeroSectionServices = () => {
         <div className="flex flex-col gap-0">
           {heroItems.map(item => <div key={item.id} className="relative w-full overflow-hidden group">
               {item.link ? <Link to={item.link} className="block w-full">
-                  <img src={item.image_url} alt="Hero section" className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105" />
-                </Link> : <img src={item.image_url} alt="Hero section" className="w-full h-40 object-cover" />}
+                  <img 
+                    src={item.image_url} 
+                    alt="Hero section" 
+                    className="object-cover transition-transform duration-300 group-hover:scale-105" 
+                    style={{ width: item.image_width, height: item.image_height }}
+                  />
+                </Link> : <img 
+                  src={item.image_url} 
+                  alt="Hero section" 
+                  className="object-cover" 
+                  style={{ width: item.image_width, height: item.image_height }}
+                />}
             </div>)}
         </div>
       </div>
