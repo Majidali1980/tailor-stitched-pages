@@ -34,9 +34,9 @@ export const BasePopup = ({ isOpen, onClose, children, autoCloseDelay = 10000 }:
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', duration: 0.5 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[90%] max-w-md max-h-[90vh] overflow-y-auto"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[90%] max-w-md"
           >
-            <div className="bg-gradient-to-br from-background via-background to-accent/5 border-2 border-primary/20 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+            <div className="bg-gradient-to-br from-background via-background to-accent/5 border-2 border-primary/20 rounded-2xl shadow-2xl p-8 relative overflow-hidden max-h-[90vh] overflow-y-auto">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-gold to-primary animate-shimmer" />
               
               <Button
