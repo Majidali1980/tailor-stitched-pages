@@ -131,7 +131,7 @@ const StitchedDressCarousel = () => {
                       <div className="bg-gray-900 rounded-lg overflow-hidden h-full flex flex-col">
                         {/* Image */}
                         <div 
-                          className="relative h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden group cursor-pointer"
+                          className="relative h-[800px] overflow-hidden group cursor-pointer"
                           onClick={() => handleImageClick(dress.image_url)}
                         >
                           <img
