@@ -129,7 +129,7 @@ const StitchedDressCarousel = () => {
                   <CarouselItem key={dress.id} className="w-full">
                     <div className="relative w-full">
                       <div 
-                        className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group cursor-pointer"
+                        className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden group cursor-pointer"
                         onClick={() => handleImageClick(dress.image_url)}
                       >
                         <img
