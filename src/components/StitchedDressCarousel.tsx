@@ -131,13 +131,13 @@ const StitchedDressCarousel = () => {
                       <div className="bg-gray-900 rounded-lg overflow-hidden h-full flex flex-col">
                         {/* Image */}
                         <div 
-                          className="relative aspect-[3/4] overflow-hidden group cursor-pointer"
+                          className="relative h-[500px] overflow-hidden group cursor-pointer"
                           onClick={() => handleImageClick(dress.image_url)}
                         >
                           <img
                             src={dress.image_url}
                             alt={dress.title}
-                            className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                            className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                           />
                           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                             <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
