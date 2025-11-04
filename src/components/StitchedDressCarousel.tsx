@@ -109,56 +109,55 @@ const StitchedDressCarousel = () => {
             </p>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full">
             <Carousel
               className="w-full"
               plugins={[
                 Autoplay({
-                  delay: 3000,
+                  delay: 4000,
                   stopOnInteraction: false,
                   stopOnMouseEnter: true,
                 }),
               ]}
               opts={{
-                align: "start",
+                align: "center",
                 loop: true,
               }}
             >
-              <CarouselContent className="-ml-2 md:-ml-4">
+              <CarouselContent>
                 {stitchedDresses.map((dress) => (
-                  <CarouselItem key={dress.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                    <div className="fancy-border p-1 h-full">
-                      <div className="bg-gray-900 rounded-lg overflow-hidden h-full flex flex-col">
-                        {/* Image */}
-                        <div 
-                          className="relative h-[800px] overflow-hidden group cursor-pointer"
-                          onClick={() => handleImageClick(dress.image_url)}
-                        >
-                          <img
-                            src={dress.image_url}
-                            alt={dress.title}
-                            className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
-                            <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
-                              <ZoomIn className="h-5 w-5" />
+                  <CarouselItem key={dress.id} className="w-full">
+                    <div className="relative w-full">
+                      <div 
+                        className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group cursor-pointer"
+                        onClick={() => handleImageClick(dress.image_url)}
+                      >
+                        <img
+                          src={dress.image_url}
+                          alt={dress.title}
+                          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <div className="bg-gold text-black p-4 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
+                              <ZoomIn className="h-6 w-6" />
                             </div>
                           </div>
                         </div>
-
-                        {/* Content */}
-                        <div className="p-6 flex-grow flex flex-col">
-                          <h3 className="font-playfair font-bold text-xl text-white mb-2">
+                        
+                        {/* Content Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-12">
+                          <h3 className="font-playfair font-bold text-2xl md:text-3xl lg:text-4xl text-white mb-3">
                             {dress.title}
                           </h3>
-                          <p className="font-montserrat text-gray-300 text-sm mb-4 flex-grow">
+                          <p className="font-montserrat text-gray-200 text-sm md:text-base mb-4 max-w-2xl">
                             {dress.description}
                           </p>
                           
                           {dress.link && dress.link !== '#' && (
                             <button
                               onClick={(e) => handleLinkClick(dress.link, e)}
-                              className="inline-flex items-center gap-2 text-gold hover:text-gold/80 transition-colors font-montserrat text-sm font-medium mt-auto"
+                              className="inline-flex items-center gap-2 bg-gold text-black px-6 py-3 rounded-lg hover:bg-gold/90 transition-colors font-montserrat text-sm font-semibold"
                             >
                               <ExternalLink className="h-4 w-4" />
                               View Details
@@ -170,8 +169,8 @@ const StitchedDressCarousel = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="hidden md:flex left-4 bg-gold text-black hover:bg-gold/90" />
-              <CarouselNext className="hidden md:flex right-4 bg-gold text-black hover:bg-gold/90" />
+              <CarouselPrevious className="left-4 bg-gold text-black hover:bg-gold/90 h-12 w-12" />
+              <CarouselNext className="right-4 bg-gold text-black hover:bg-gold/90 h-12 w-12" />
             </Carousel>
           </div>
         </div>
