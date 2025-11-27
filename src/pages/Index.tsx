@@ -16,7 +16,6 @@ import NewsletterSubscription from '@/components/NewsletterSubscription';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
 import TailorAssistant from '@/components/TailorAssistant';
-import { SubscribePopup } from '@/components/SubscribePopup';
 import { LatestJobListings } from '@/components/LatestJobListings';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -118,7 +117,6 @@ const Index = () => {
         <Footer />
         <WhatsAppFloat />
         <TailorAssistant />
-        <SubscribePopup />
       </div>
     </>
   );
