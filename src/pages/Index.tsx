@@ -19,7 +19,7 @@ import TailorAssistant from '@/components/TailorAssistant';
 import { LatestJobListings } from '@/components/LatestJobListings';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import PromotionalBanner from '@/components/PromotionalBanner';
+import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
 
 const Index = () => {
   // Add favicon dynamically
@@ -99,13 +99,7 @@ const Index = () => {
       <div className="min-h-screen bg-black text-white font-montserrat">
         <h1 className="sr-only">Online Girls Tailoring & Stitching Services in Pakistan</h1>
         <Navbar />
-        <PromotionalBanner 
-          title="🎉 Special Eid Offer - 25% Off All Stitching Services!"
-          description="Limited time only. Book your appointment today!"
-          ctaText="Book Now"
-          ctaLink="/booking"
-          variant="gradient"
-        />
+        <DynamicPromotionalBanner />
         <DynamicHero />
         <DiscountOffers />
         <HeroCarousel />
