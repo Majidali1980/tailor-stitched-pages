@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
+import { useBannerAnalytics } from '@/hooks/useBannerAnalytics';
 
 interface PromotionalBannerProps {
+  bannerId: string;
   title: string;
   description?: string;
   ctaText?: string;
@@ -14,6 +16,7 @@ interface PromotionalBannerProps {
 }
 
 const PromotionalBanner = ({
+  bannerId,
   title,
   description,
   ctaText,
@@ -23,10 +26,23 @@ const PromotionalBanner = ({
   variant = 'default'
 }: PromotionalBannerProps) => {
   const [isVisible, setIsVisible] = useState(true);
+  const { trackEvent } = useBannerAnalytics();
+
+  // Track impression when banner is shown
+  useEffect(() => {
+    trackEvent(bannerId, 'impression');
+    // Store banner ID for conversion tracking
+    sessionStorage.setItem('last_banner_id', bannerId);
+  }, [bannerId, trackEvent]);
 
   const handleClose = () => {
+    trackEvent(bannerId, 'dismissal');
     setIsVisible(false);
     onClose?.();
+  };
+
+  const handleCtaClick = () => {
+    trackEvent(bannerId, 'click');
   };
 
   if (!isVisible) return null;
@@ -52,7 +68,7 @@ const PromotionalBanner = ({
         </div>
         
         {ctaText && ctaLink && (
-          <Link to={ctaLink}>
+          <Link to={ctaLink} onClick={handleCtaClick}>
             <Button
               variant={variant === 'minimal' ? 'outline' : 'default'}
               className={`font-montserrat font-semibold ${
