@@ -113,6 +113,41 @@ export type Database = {
         }
         Relationships: []
       }
+      banner_analytics: {
+        Row: {
+          banner_id: string
+          conversion_goal: string | null
+          created_at: string
+          event_type: string
+          id: string
+          session_id: string | null
+        }
+        Insert: {
+          banner_id: string
+          conversion_goal?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          session_id?: string | null
+        }
+        Update: {
+          banner_id?: string
+          conversion_goal?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "banner_analytics_banner_id_fkey"
+            columns: ["banner_id"]
+            isOneToOne: false
+            referencedRelation: "promotional_banners"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog: {
         Row: {
           author_name: string | null

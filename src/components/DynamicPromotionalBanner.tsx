@@ -15,14 +15,14 @@ interface BannerData {
 }
 
 const DynamicPromotionalBanner = () => {
-  const [banners, setBanners] = useState<BannerData[]>([]);
+  const [selectedBanner, setSelectedBanner] = useState<BannerData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBanners();
+    fetchAndSelectBanner();
   }, []);
 
-  const fetchBanners = async () => {
+  const fetchAndSelectBanner = async () => {
     try {
       const today = new Date().toISOString().split('T')[0];
       
@@ -51,7 +51,11 @@ const DynamicPromotionalBanner = () => {
             : 'default') as 'default' | 'gradient' | 'minimal'
         }));
 
-      setBanners(activeBanners);
+      // A/B Testing: Randomly select one banner from active banners
+      if (activeBanners.length > 0) {
+        const randomIndex = Math.floor(Math.random() * activeBanners.length);
+        setSelectedBanner(activeBanners[randomIndex]);
+      }
     } catch (error) {
       console.error('Error fetching banners:', error);
     } finally {
@@ -59,24 +63,20 @@ const DynamicPromotionalBanner = () => {
     }
   };
 
-  if (loading || banners.length === 0) {
+  if (loading || !selectedBanner) {
     return null;
   }
 
   return (
-    <>
-      {banners.map(banner => (
-        <PromotionalBanner
-          key={banner.id}
-          title={banner.title}
-          description={banner.description || undefined}
-          ctaText={banner.cta_text || undefined}
-          ctaLink={banner.cta_link || undefined}
-          variant={banner.variant}
-          dismissible={banner.dismissible}
-        />
-      ))}
-    </>
+    <PromotionalBanner
+      bannerId={selectedBanner.id}
+      title={selectedBanner.title}
+      description={selectedBanner.description || undefined}
+      ctaText={selectedBanner.cta_text || undefined}
+      ctaLink={selectedBanner.cta_link || undefined}
+      variant={selectedBanner.variant}
+      dismissible={selectedBanner.dismissible}
+    />
   );
 };
 
