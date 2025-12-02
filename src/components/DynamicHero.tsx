@@ -15,12 +15,13 @@ interface HeroData {
   button2_link: string | null;
 }
 
-const ROTATION_INTERVAL = 5000; // 5 seconds
+const ROTATION_INTERVAL = 3600000; // 1 hour in milliseconds
 
 const DynamicHero = () => {
   const [heroItems, setHeroItems] = useState<HeroData[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchHeroData = async () => {
@@ -46,16 +47,29 @@ const DynamicHero = () => {
     fetchHeroData();
   }, []);
 
-  // Auto-rotate through hero sections
+  // Auto-rotate through hero sections with fade transition
   useEffect(() => {
     if (heroItems.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % heroItems.length);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % heroItems.length);
+        setIsTransitioning(false);
+      }, 500); // Match transition duration
     }, ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
   }, [heroItems.length]);
+
+  const handleIndicatorClick = (index: number) => {
+    if (index === currentIndex) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex(index);
+      setIsTransitioning(false);
+    }, 500);
+  };
 
   const heroData = heroItems[currentIndex];
 
@@ -94,7 +108,12 @@ const DynamicHero = () => {
       
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8 transition-opacity duration-500" key={heroData.id}>
+          <div 
+            className={`space-y-8 transition-all duration-500 ease-in-out ${
+              isTransitioning ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'
+            }`} 
+            key={heroData.id}
+          >
             <div>
               <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
                 <span className="gold-gradient-text">{heroData.title}</span>
@@ -139,12 +158,17 @@ const DynamicHero = () => {
             </div>
           </div>
           
-          <div className="relative fancy-border bg-black rounded-lg overflow-hidden animate-fade-in hover-scale max-w-md mx-auto h-[500px]" key={`img-${heroData.id}`}>
+          <div 
+            className={`relative fancy-border bg-black rounded-lg overflow-hidden hover-scale max-w-md mx-auto h-[500px] transition-all duration-500 ease-in-out ${
+              isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+            }`} 
+            key={`img-${heroData.id}`}
+          >
             {heroData.image_url && (
               <img 
                 src={heroData.image_url} 
                 alt="MA Tailor Pakistani Dress Design" 
-                className="w-full h-full object-cover transition-opacity duration-500"
+                className="w-full h-full object-cover"
               />
             )}
           </div>
@@ -156,7 +180,7 @@ const DynamicHero = () => {
             {heroItems.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => handleIndicatorClick(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? 'bg-gold w-8' 
