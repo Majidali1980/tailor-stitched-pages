@@ -10,6 +10,7 @@ import StitchedDressCarousel from '@/components/StitchedDressCarousel';
 import LittleStitch from '@/components/LittleStitch';
 import { HeroSectionLittleStitch } from '@/components/HeroSectionLittleStitch';
 import AnimatedDesignPromo from '@/components/AnimatedDesignPromo';
+import ProductShowcase from '@/components/ProductShowcase';
 import SocialMediaButtons from '@/components/SocialMediaButtons';
 import SocialMediaFeed from '@/components/SocialMediaFeed';
 import NewsletterSubscription from '@/components/NewsletterSubscription';
@@ -108,6 +109,7 @@ const Index = () => {
         <LatestDesignsCarousel />
         <HeroSectionServices />
         <StitchedDressCarousel />
+        <ProductShowcase />
         
         <LittleStitch />
         <HeroSectionLittleStitch />

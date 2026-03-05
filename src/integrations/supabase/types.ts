@@ -870,6 +870,54 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          available_sizes: string[] | null
+          created_at: string
+          description: string | null
+          display_order: number | null
+          fabric_type: string | null
+          id: string
+          images: Json
+          is_active: boolean
+          price_stitched: number
+          price_unstitched: number
+          stitching_details: Json | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          available_sizes?: string[] | null
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          fabric_type?: string | null
+          id?: string
+          images?: Json
+          is_active?: boolean
+          price_stitched?: number
+          price_unstitched?: number
+          stitching_details?: Json | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          available_sizes?: string[] | null
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          fabric_type?: string | null
+          id?: string
+          images?: Json
+          is_active?: boolean
+          price_stitched?: number
+          price_unstitched?: number
+          stitching_details?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       promotional_banners: {
         Row: {
           created_at: string
