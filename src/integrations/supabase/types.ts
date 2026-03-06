@@ -205,6 +205,39 @@ export type Database = {
         }
         Relationships: []
       }
+      brands: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number | null
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bulkorder_carousel: {
         Row: {
           created_at: string
@@ -511,6 +544,39 @@ export type Database = {
           updated_at?: string
           valid_from?: string | null
           valid_until?: string | null
+        }
+        Relationships: []
+      }
+      fabric_details: {
+        Row: {
+          care_instructions: string | null
+          composition: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          care_instructions?: string | null
+          composition?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          care_instructions?: string | null
+          composition?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -924,50 +990,83 @@ export type Database = {
       products: {
         Row: {
           available_sizes: string[] | null
+          brand_id: string | null
+          category: string | null
           created_at: string
           description: string | null
           display_order: number | null
+          dopatta_details: Json | null
+          fabric_detail_id: string | null
           fabric_type: string | null
           id: string
           images: Json
           is_active: boolean
           price_stitched: number
           price_unstitched: number
+          shirt_details: Json | null
           stitching_details: Json | null
           title: string
+          trouser_details: Json | null
           updated_at: string
         }
         Insert: {
           available_sizes?: string[] | null
+          brand_id?: string | null
+          category?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
+          dopatta_details?: Json | null
+          fabric_detail_id?: string | null
           fabric_type?: string | null
           id?: string
           images?: Json
           is_active?: boolean
           price_stitched?: number
           price_unstitched?: number
+          shirt_details?: Json | null
           stitching_details?: Json | null
           title: string
+          trouser_details?: Json | null
           updated_at?: string
         }
         Update: {
           available_sizes?: string[] | null
+          brand_id?: string | null
+          category?: string | null
           created_at?: string
           description?: string | null
           display_order?: number | null
+          dopatta_details?: Json | null
+          fabric_detail_id?: string | null
           fabric_type?: string | null
           id?: string
           images?: Json
           is_active?: boolean
           price_stitched?: number
           price_unstitched?: number
+          shirt_details?: Json | null
           stitching_details?: Json | null
           title?: string
+          trouser_details?: Json | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "products_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_fabric_detail_id_fkey"
+            columns: ["fabric_detail_id"]
+            isOneToOne: false
+            referencedRelation: "fabric_details"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       promotional_banners: {
         Row: {
