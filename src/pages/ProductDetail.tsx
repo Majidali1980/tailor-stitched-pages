@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ZoomIn, ChevronLeft, ChevronRight, Scissors, Truck, ShoppingCart,
   Plus, Minus, CheckCircle, ExternalLink, Share2, Star, ArrowLeft,
-  Shirt, Info, X
+  Shirt, Info, X, Package
 } from 'lucide-react';
 
 interface Product {
@@ -31,6 +31,7 @@ interface Product {
   dopatta_details: Record<string, unknown> | null;
   brand_id: string | null;
   fabric_detail_id: string | null;
+  stock_quantity: number;
 }
 
 interface Brand {
@@ -57,6 +58,8 @@ interface Review {
   created_at: string;
 }
 
+type Currency = 'PKR' | 'USD' | 'GBP';
+const CURRENCY_SYMBOLS: Record<Currency, string> = { PKR: '₨', USD: '$', GBP: '£' };
 const EXCHANGE_API = 'https://api.exchangerate-api.com/v4/latest/PKR';
 
 const ProductDetail = () => {
@@ -83,6 +86,7 @@ const ProductDetail = () => {
 
   // Currency
   const [rates, setRates] = useState<{ USD: number; GBP: number } | null>(null);
+  const [currency, setCurrency] = useState<Currency>('PKR');
 
   // Order form
   const [showCheckout, setShowCheckout] = useState(false);
@@ -114,6 +118,7 @@ const ProductDetail = () => {
         brand_id: (p as any).brand_id,
         fabric_detail_id: (p as any).fabric_detail_id,
         category: (p as any).category,
+        stock_quantity: (p as any).stock_quantity ?? 0,
       };
       setProduct(prod);
       if (prod.available_sizes?.[0]) setSelectedSize(prod.available_sizes[0]);
@@ -130,12 +135,13 @@ const ProductDetail = () => {
         if (f) setFabricDetail(f as FabricDetail);
       }
 
-      // Fetch reviews
+      // Fetch product-specific reviews only
       const { data: r } = await supabase
         .from('reviews')
         .select('*')
         .eq('is_active', true)
         .eq('status', 'approved')
+        .eq('product_id', id)
         .order('created_at', { ascending: false })
         .limit(10);
       if (r) setReviews(r as Review[]);
@@ -157,6 +163,16 @@ const ProductDetail = () => {
       })
       .catch(() => {});
   }, []);
+
+  const convertPrice = (pkrAmount: number): number => {
+    if (currency === 'PKR' || !rates) return pkrAmount;
+    return parseFloat((pkrAmount * rates[currency]).toFixed(2));
+  };
+
+  const formatPrice = (pkrAmount: number): string => {
+    const converted = convertPrice(pkrAmount);
+    return `${CURRENCY_SYMBOLS[currency]}${converted.toLocaleString()}`;
+  };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!imgRef.current) return;
@@ -200,6 +216,7 @@ const ProductDetail = () => {
       quantity,
       unit_price: unitPrice,
       shipping,
+      currency,
     }];
 
     const { data, error } = await supabase.from('orders').insert({
@@ -212,7 +229,7 @@ const ProductDetail = () => {
       subtotal,
       shipping_cost: shipping,
       total_amount: total,
-      notes: form.notes || null,
+      notes: `${form.notes || ''} [Currency: ${currency}]`.trim(),
     }).select('id').single();
 
     setSubmitting(false);
@@ -258,6 +275,7 @@ const ProductDetail = () => {
   const shipping = parseFloat(shippingCost) || 0;
   const basePrice = product.price_stitched;
   const total = (basePrice * quantity) + shipping;
+  const inStock = product.stock_quantity > 0;
 
   const renderDetails = (label: string, details: Record<string, unknown> | null, icon: React.ReactNode) => {
     if (!details || Object.keys(details).length === 0) return null;
@@ -312,6 +330,10 @@ const ProductDetail = () => {
                 <div className="absolute top-3 right-3 bg-black/60 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <ZoomIn className="w-5 h-5 text-gold" />
                 </div>
+                {/* Stock badge */}
+                <div className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold ${inStock ? 'bg-emerald-500/90 text-white' : 'bg-red-500/90 text-white'}`}>
+                  {inStock ? `In Stock (${product.stock_quantity})` : 'Out of Stock'}
+                </div>
                 {images.length > 1 && (
                   <>
                     <button onClick={() => setActiveImageIdx((i) => (i - 1 + images.length) % images.length)} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 text-white">
@@ -358,23 +380,34 @@ const ProductDetail = () => {
                 <span className="inline-block text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">{product.fabric_type}</span>
               )}
 
-              {/* ─── Price Section with Currency Converter ─── */}
+              {/* ─── Price Section with Currency Selector ─── */}
               <div className="bg-gradient-to-r from-gold/10 to-emerald-500/10 rounded-xl p-5 border border-gold/20">
-                <div className="flex items-center gap-2 mb-3">
-                  <Scissors className="w-5 h-5 text-emerald-400" />
-                  <span className="text-sm text-gray-300 font-medium">Stitched Price</span>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Scissors className="w-5 h-5 text-emerald-400" />
+                    <span className="text-sm text-gray-300 font-medium">Stitched Price</span>
+                  </div>
+                  {/* Currency Selector */}
+                  <div className="flex bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+                    {(['PKR', 'USD', 'GBP'] as Currency[]).map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setCurrency(c)}
+                        className={`px-3 py-1.5 text-xs font-medium transition-all ${currency === c ? 'bg-gold text-black' : 'text-gray-400 hover:text-white'}`}
+                      >
+                        {c === 'PKR' ? '🇵🇰 PKR' : c === 'USD' ? '🇺🇸 USD' : '🇬🇧 GBP'}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="text-3xl font-bold text-gold mb-3">₨{basePrice.toLocaleString()}</div>
-                {rates && (
-                  <div className="flex flex-wrap gap-3">
+                <div className="text-3xl font-bold text-gold">{formatPrice(basePrice)}</div>
+                {rates && currency === 'PKR' && (
+                  <div className="flex flex-wrap gap-3 mt-2">
                     <span className="text-sm bg-gray-800/80 text-gray-300 px-3 py-1.5 rounded-lg">
-                      🇺🇸 ${(basePrice * rates.USD).toFixed(2)} USD
+                      ≈ ${(basePrice * rates.USD).toFixed(2)} USD
                     </span>
                     <span className="text-sm bg-gray-800/80 text-gray-300 px-3 py-1.5 rounded-lg">
-                      🇬🇧 £{(basePrice * rates.GBP).toFixed(2)} GBP
-                    </span>
-                    <span className="text-sm bg-gray-800/80 text-gray-300 px-3 py-1.5 rounded-lg">
-                      🇵🇰 ₨{basePrice.toLocaleString()} PKR
+                      ≈ £{(basePrice * rates.GBP).toFixed(2)} GBP
                     </span>
                   </div>
                 )}
@@ -402,7 +435,7 @@ const ProductDetail = () => {
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="text-white font-bold text-lg w-8 text-center">{quantity}</span>
-                  <button onClick={() => setQuantity(q => q + 1)} className="w-10 h-10 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-center text-white hover:bg-gray-700">
+                  <button onClick={() => setQuantity(q => Math.min(product.stock_quantity || 99, q + 1))} className="w-10 h-10 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-center text-white hover:bg-gray-700">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
@@ -426,32 +459,30 @@ const ProductDetail = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-gray-300">
                     <span>Stitched x{quantity}</span>
-                    <span>₨{(basePrice * quantity).toLocaleString()}</span>
+                    <span>{formatPrice(basePrice * quantity)}</span>
                   </div>
                   {shipping > 0 && (
                     <div className="flex justify-between text-gray-300">
-                      <span>Shipping</span><span>₨{shipping.toLocaleString()}</span>
+                      <span>Shipping</span><span>{formatPrice(shipping)}</span>
                     </div>
                   )}
                   <div className="border-t border-gray-700 pt-2 flex justify-between text-white font-bold text-xl">
-                    <span>Total</span><span className="text-gold">₨{total.toLocaleString()}</span>
+                    <span>Total</span><span className="text-gold">{formatPrice(total)}</span>
                   </div>
-                  {rates && (
-                    <div className="flex gap-3 text-xs text-gray-500 pt-1">
-                      <span>≈ ${(total * rates.USD).toFixed(2)}</span>
-                      <span>≈ £{(total * rates.GBP).toFixed(2)}</span>
-                    </div>
-                  )}
                 </div>
               </div>
 
               {/* Action Buttons */}
               <div className="flex gap-3">
-                <Button onClick={() => setShowCheckout(true)} className="flex-1 bg-gold hover:bg-gold/90 text-black font-medium py-3 text-base">
-                  <ShoppingCart className="w-5 h-5 mr-2" /> Buy Now
+                <Button
+                  onClick={() => setShowCheckout(true)}
+                  disabled={!inStock}
+                  className="flex-1 bg-gold hover:bg-gold/90 text-black font-medium py-3 text-base disabled:opacity-50"
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" /> {inStock ? 'Buy Now' : 'Out of Stock'}
                 </Button>
                 <Button asChild variant="outline" className="border-emerald-500 text-emerald-400 hover:bg-emerald-500/10">
-                  <a href={`https://wa.me/923070125273?text=${encodeURIComponent(`Hi, I'm interested in "${product.title}" (Stitched) x${quantity} - ₨${total.toLocaleString()}`)}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://wa.me/923070125273?text=${encodeURIComponent(`Hi, I'm interested in "${product.title}" (Stitched) x${quantity} - ${formatPrice(total)}`)}`} target="_blank" rel="noopener noreferrer">
                     WhatsApp
                   </a>
                 </Button>
@@ -505,11 +536,11 @@ const ProductDetail = () => {
             )}
           </div>
 
-          {/* ─── REVIEWS ─── */}
+          {/* ─── PRODUCT-SPECIFIC REVIEWS ─── */}
           {reviews.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-playfair font-bold text-white mb-6 flex items-center gap-2">
-                <Star className="w-6 h-6 text-gold fill-gold" /> Customer Reviews
+                <Star className="w-6 h-6 text-gold fill-gold" /> Product Reviews
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {reviews.map((review) => (
@@ -559,11 +590,11 @@ const ProductDetail = () => {
               <div className="bg-gray-900 rounded-lg p-3 border border-gray-800 mb-4 space-y-2 text-sm">
                 <div className="flex justify-between text-gray-300">
                   <span className="truncate max-w-[60%]">{product.title} (Stitched) x{quantity}</span>
-                  <span>₨{(basePrice * quantity).toLocaleString()}</span>
+                  <span>{formatPrice(basePrice * quantity)}</span>
                 </div>
-                {shipping > 0 && <div className="flex justify-between text-gray-400"><span>Shipping</span><span>₨{shipping.toLocaleString()}</span></div>}
+                {shipping > 0 && <div className="flex justify-between text-gray-400"><span>Shipping</span><span>{formatPrice(shipping)}</span></div>}
                 <div className="flex justify-between text-white font-bold pt-2 border-t border-gray-700">
-                  <span>Total</span><span className="text-gold">₨{total.toLocaleString()}</span>
+                  <span>Total ({currency})</span><span className="text-gold">{formatPrice(total)}</span>
                 </div>
               </div>
 
@@ -575,7 +606,7 @@ const ProductDetail = () => {
                 <Input placeholder="City *" value={form.city} onChange={e => setForm(f => ({ ...f, city: e.target.value }))} className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 h-10" required />
                 <textarea placeholder="Notes (optional)" value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} className="w-full bg-gray-800 border border-gray-700 text-white placeholder:text-gray-500 rounded-md p-3 text-sm min-h-[60px] focus:outline-none focus:ring-2 focus:ring-gold/50" />
                 <Button type="submit" disabled={submitting} className="w-full bg-gold hover:bg-gold/90 text-black font-medium py-3">
-                  {submitting ? 'Placing Order...' : `Confirm Order — ₨${total.toLocaleString()}`}
+                  {submitting ? 'Placing Order...' : `Confirm Order — ${formatPrice(total)}`}
                 </Button>
               </form>
             </motion.div>
