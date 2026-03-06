@@ -1005,6 +1005,7 @@ export type Database = {
           price_unstitched: number
           shirt_details: Json | null
           stitching_details: Json | null
+          stock_quantity: number
           title: string
           trouser_details: Json | null
           updated_at: string
@@ -1026,6 +1027,7 @@ export type Database = {
           price_unstitched?: number
           shirt_details?: Json | null
           stitching_details?: Json | null
+          stock_quantity?: number
           title: string
           trouser_details?: Json | null
           updated_at?: string
@@ -1047,6 +1049,7 @@ export type Database = {
           price_unstitched?: number
           shirt_details?: Json | null
           stitching_details?: Json | null
+          stock_quantity?: number
           title?: string
           trouser_details?: Json | null
           updated_at?: string
@@ -1125,6 +1128,7 @@ export type Database = {
           image_url: string | null
           is_active: boolean | null
           name: string
+          product_id: string | null
           rating: number | null
           review_text: string
           status: string | null
@@ -1138,6 +1142,7 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean | null
           name: string
+          product_id?: string | null
           rating?: number | null
           review_text: string
           status?: string | null
@@ -1151,12 +1156,21 @@ export type Database = {
           image_url?: string | null
           is_active?: boolean | null
           name?: string
+          product_id?: string | null
           rating?: number | null
           review_text?: string
           status?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       service_charges: {
         Row: {
