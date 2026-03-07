@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   ZoomIn, ChevronLeft, ChevronRight, Scissors, Truck, ShoppingCart,
   Plus, Minus, CheckCircle, ExternalLink, Share2, Star, ArrowLeft,
-  Shirt, Info, X, Package
+  X, Package, Percent, Heart
 } from 'lucide-react';
 
 interface Product {
@@ -21,14 +21,12 @@ interface Product {
   title: string;
   description: string | null;
   price_stitched: number;
+  discount_price: number | null;
+  discount_percentage: number | null;
   images: string[];
   fabric_type: string | null;
   available_sizes: string[] | null;
-  stitching_details: Record<string, unknown> | null;
   category: string | null;
-  shirt_details: Record<string, unknown> | null;
-  trouser_details: Record<string, unknown> | null;
-  dopatta_details: Record<string, unknown> | null;
   brand_id: string | null;
   fabric_detail_id: string | null;
   stock_quantity: number;
@@ -62,6 +60,17 @@ type Currency = 'PKR' | 'USD' | 'GBP';
 const CURRENCY_SYMBOLS: Record<Currency, string> = { PKR: '₨', USD: '$', GBP: '£' };
 const EXCHANGE_API = 'https://api.exchangerate-api.com/v4/latest/PKR';
 
+// localStorage helpers for order tracking
+const ORDERS_KEY = 'ma_tailor_orders';
+const getSavedOrders = () => {
+  try { return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'); } catch { return []; }
+};
+const saveOrder = (order: any) => {
+  const orders = getSavedOrders();
+  orders.unshift(order);
+  localStorage.setItem(ORDERS_KEY, JSON.stringify(orders.slice(0, 50)));
+};
+
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -71,6 +80,7 @@ const ProductDetail = () => {
   const [brand, setBrand] = useState<Brand | null>(null);
   const [fabricDetail, setFabricDetail] = useState<FabricDetail | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Image gallery
@@ -109,15 +119,18 @@ const ProductDetail = () => {
       if (!p) { setLoading(false); return; }
 
       const prod: Product = {
-        ...p,
+        id: p.id,
+        title: p.title,
+        description: p.description,
+        price_stitched: p.price_stitched,
+        discount_price: (p as any).discount_price ?? null,
+        discount_percentage: (p as any).discount_percentage ?? null,
         images: Array.isArray(p.images) ? p.images as string[] : [],
-        stitching_details: p.stitching_details as Record<string, unknown> | null,
-        shirt_details: (p as any).shirt_details as Record<string, unknown> | null,
-        trouser_details: (p as any).trouser_details as Record<string, unknown> | null,
-        dopatta_details: (p as any).dopatta_details as Record<string, unknown> | null,
+        fabric_type: p.fabric_type,
+        available_sizes: p.available_sizes,
+        category: (p as any).category,
         brand_id: (p as any).brand_id,
         fabric_detail_id: (p as any).fabric_detail_id,
-        category: (p as any).category,
         stock_quantity: (p as any).stock_quantity ?? 0,
       };
       setProduct(prod);
@@ -135,7 +148,7 @@ const ProductDetail = () => {
         if (f) setFabricDetail(f as FabricDetail);
       }
 
-      // Fetch product-specific reviews only
+      // Fetch product-specific reviews
       const { data: r } = await supabase
         .from('reviews')
         .select('*')
@@ -146,10 +159,28 @@ const ProductDetail = () => {
         .limit(10);
       if (r) setReviews(r as Review[]);
 
+      // Fetch "You May Also Like" products
+      const { data: related } = await supabase
+        .from('products')
+        .select('id, title, price_stitched, images, fabric_type, stock_quantity, category, brand_id, fabric_detail_id, available_sizes, description, discount_price, discount_percentage')
+        .eq('is_active', true)
+        .neq('id', id)
+        .limit(6);
+      if (related) {
+        setRelatedProducts(related.map((rp: any) => ({
+          ...rp,
+          images: Array.isArray(rp.images) ? rp.images : [],
+          stock_quantity: rp.stock_quantity ?? 0,
+          discount_price: rp.discount_price ?? null,
+          discount_percentage: rp.discount_percentage ?? null,
+        })));
+      }
+
       setLoading(false);
     };
 
     fetchAll();
+    window.scrollTo(0, 0);
   }, [id]);
 
   // Fetch exchange rates
@@ -157,9 +188,7 @@ const ProductDetail = () => {
     fetch(EXCHANGE_API)
       .then(r => r.json())
       .then(data => {
-        if (data.rates) {
-          setRates({ USD: data.rates.USD, GBP: data.rates.GBP });
-        }
+        if (data.rates) setRates({ USD: data.rates.USD, GBP: data.rates.GBP });
       })
       .catch(() => {});
   }, []);
@@ -186,9 +215,7 @@ const ProductDetail = () => {
   const handleShare = async () => {
     const url = window.location.href;
     if (navigator.share) {
-      try {
-        await navigator.share({ title: product?.title, text: product?.description || '', url });
-      } catch {}
+      try { await navigator.share({ title: product?.title, text: product?.description || '', url }); } catch {}
     } else {
       await navigator.clipboard.writeText(url);
       toast({ title: 'Link Copied!', description: 'Product link copied to clipboard.' });
@@ -204,14 +231,13 @@ const ProductDetail = () => {
 
     setSubmitting(true);
     const shipping = parseFloat(shippingCost) || 0;
-    const unitPrice = product.price_stitched;
+    const unitPrice = effectivePrice;
     const subtotal = unitPrice * quantity;
     const total = subtotal + shipping;
 
     const items = [{
       product_id: product.id,
       title: product.title,
-      stitch_option: 'stitched',
       size: selectedSize || null,
       quantity,
       unit_price: unitPrice,
@@ -239,6 +265,16 @@ const ProductDetail = () => {
       toast({ title: 'Order Failed', description: error.message || 'Something went wrong.', variant: 'destructive' });
       return;
     }
+
+    // Save to localStorage for tracking
+    saveOrder({
+      id: data.id,
+      date: new Date().toISOString(),
+      product_title: product.title,
+      total,
+      currency,
+      status: 'pending',
+    });
 
     setConfirmedOrderId(data.id);
     setOrderConfirmed(true);
@@ -273,26 +309,11 @@ const ProductDetail = () => {
 
   const images = product.images.length > 0 ? product.images : ['/placeholder.svg'];
   const shipping = parseFloat(shippingCost) || 0;
-  const basePrice = product.price_stitched;
-  const total = (basePrice * quantity) + shipping;
+  const hasDiscount = product.discount_price !== null && product.discount_price > 0 && product.discount_price < product.price_stitched;
+  const effectivePrice = hasDiscount ? product.discount_price! : product.price_stitched;
+  const discountPct = product.discount_percentage || (hasDiscount ? Math.round(((product.price_stitched - product.discount_price!) / product.price_stitched) * 100) : 0);
+  const total = (effectivePrice * quantity) + shipping;
   const inStock = product.stock_quantity > 0;
-
-  const renderDetails = (label: string, details: Record<string, unknown> | null, icon: React.ReactNode) => {
-    if (!details || Object.keys(details).length === 0) return null;
-    return (
-      <div className="bg-gray-900/60 rounded-xl p-5 border border-gray-800">
-        <h3 className="text-lg font-playfair font-semibold text-white mb-3 flex items-center gap-2">{icon} {label}</h3>
-        <div className="grid grid-cols-2 gap-2">
-          {Object.entries(details).map(([key, val]) => (
-            <div key={key} className="bg-gray-800/50 rounded-md px-3 py-2">
-              <span className="text-xs text-gray-500 capitalize">{key.replace(/_/g, ' ')}</span>
-              <p className="text-sm text-white">{String(val)}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -334,6 +355,12 @@ const ProductDetail = () => {
                 <div className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold ${inStock ? 'bg-emerald-500/90 text-white' : 'bg-red-500/90 text-white'}`}>
                   {inStock ? `In Stock (${product.stock_quantity})` : 'Out of Stock'}
                 </div>
+                {/* Discount badge */}
+                {hasDiscount && discountPct > 0 && (
+                  <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <Percent className="w-3 h-3" /> {discountPct}% OFF
+                  </div>
+                )}
                 {images.length > 1 && (
                   <>
                     <button onClick={() => setActiveImageIdx((i) => (i - 1 + images.length) % images.length)} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 text-white">
@@ -375,19 +402,17 @@ const ProductDetail = () => {
 
               {product.description && <p className="text-gray-400 leading-relaxed">{product.description}</p>}
 
-              {/* Fabric Type */}
               {product.fabric_type && (
                 <span className="inline-block text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">{product.fabric_type}</span>
               )}
 
-              {/* ─── Price Section with Currency Selector ─── */}
+              {/* ─── Price Section with Discount & Currency Selector ─── */}
               <div className="bg-gradient-to-r from-gold/10 to-emerald-500/10 rounded-xl p-5 border border-gold/20">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Scissors className="w-5 h-5 text-emerald-400" />
-                    <span className="text-sm text-gray-300 font-medium">Stitched Price</span>
+                    <span className="text-sm text-gray-300 font-medium">Price</span>
                   </div>
-                  {/* Currency Selector */}
                   <div className="flex bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
                     {(['PKR', 'USD', 'GBP'] as Currency[]).map((c) => (
                       <button
@@ -400,14 +425,22 @@ const ProductDetail = () => {
                     ))}
                   </div>
                 </div>
-                <div className="text-3xl font-bold text-gold">{formatPrice(basePrice)}</div>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl font-bold text-gold">{formatPrice(effectivePrice)}</span>
+                  {hasDiscount && (
+                    <>
+                      <span className="text-xl text-gray-500 line-through">{formatPrice(product.price_stitched)}</span>
+                      <span className="bg-red-500/20 text-red-400 text-sm font-bold px-2.5 py-1 rounded-full">-{discountPct}%</span>
+                    </>
+                  )}
+                </div>
                 {rates && currency === 'PKR' && (
                   <div className="flex flex-wrap gap-3 mt-2">
                     <span className="text-sm bg-gray-800/80 text-gray-300 px-3 py-1.5 rounded-lg">
-                      ≈ ${(basePrice * rates.USD).toFixed(2)} USD
+                      ≈ ${(effectivePrice * rates.USD).toFixed(2)} USD
                     </span>
                     <span className="text-sm bg-gray-800/80 text-gray-300 px-3 py-1.5 rounded-lg">
-                      ≈ £{(basePrice * rates.GBP).toFixed(2)} GBP
+                      ≈ £{(effectivePrice * rates.GBP).toFixed(2)} GBP
                     </span>
                   </div>
                 )}
@@ -458,9 +491,15 @@ const ProductDetail = () => {
               <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between text-gray-300">
-                    <span>Stitched x{quantity}</span>
-                    <span>{formatPrice(basePrice * quantity)}</span>
+                    <span>Price x{quantity}</span>
+                    <span>{formatPrice(effectivePrice * quantity)}</span>
                   </div>
+                  {hasDiscount && (
+                    <div className="flex justify-between text-emerald-400 text-xs">
+                      <span>You save</span>
+                      <span>-{formatPrice((product.price_stitched - effectivePrice) * quantity)}</span>
+                    </div>
+                  )}
                   {shipping > 0 && (
                     <div className="flex justify-between text-gray-300">
                       <span>Shipping</span><span>{formatPrice(shipping)}</span>
@@ -482,7 +521,7 @@ const ProductDetail = () => {
                   <ShoppingCart className="w-5 h-5 mr-2" /> {inStock ? 'Buy Now' : 'Out of Stock'}
                 </Button>
                 <Button asChild variant="outline" className="border-emerald-500 text-emerald-400 hover:bg-emerald-500/10">
-                  <a href={`https://wa.me/923070125273?text=${encodeURIComponent(`Hi, I'm interested in "${product.title}" (Stitched) x${quantity} - ${formatPrice(total)}`)}`} target="_blank" rel="noopener noreferrer">
+                  <a href={`https://wa.me/923070125273?text=${encodeURIComponent(`Hi, I'm interested in "${product.title}" x${quantity} - ${formatPrice(total)}`)}`} target="_blank" rel="noopener noreferrer">
                     WhatsApp
                   </a>
                 </Button>
@@ -490,17 +529,16 @@ const ProductDetail = () => {
                   <Share2 className="w-5 h-5" />
                 </Button>
               </div>
+
+              {/* Track Orders Link */}
+              <button onClick={() => navigate('/track-order')} className="text-xs text-gold hover:text-gold/80 underline underline-offset-2 transition-colors">
+                Track Your Orders →
+              </button>
             </div>
           </div>
 
-          {/* ─── DETAILS SECTIONS ─── */}
+          {/* ─── DETAILS SECTIONS (Brand & Fabric only) ─── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-            {renderDetails('Shirt Details', product.shirt_details, <Shirt className="w-5 h-5 text-gold" />)}
-            {renderDetails('Trouser Details', product.trouser_details, <Info className="w-5 h-5 text-emerald-400" />)}
-            {renderDetails('Dopatta Details', product.dopatta_details, <Info className="w-5 h-5 text-pink-400" />)}
-            {renderDetails('Stitching Details', product.stitching_details as Record<string, unknown> | null, <Scissors className="w-5 h-5 text-blue-400" />)}
-
-            {/* Brand Info */}
             {brand && (
               <div className="bg-gray-900/60 rounded-xl p-5 border border-gray-800">
                 <h3 className="text-lg font-playfair font-semibold text-white mb-3">Brand</h3>
@@ -513,8 +551,6 @@ const ProductDetail = () => {
                 </div>
               </div>
             )}
-
-            {/* Fabric Info */}
             {fabricDetail && (
               <div className="bg-gray-900/60 rounded-xl p-5 border border-gray-800">
                 <h3 className="text-lg font-playfair font-semibold text-white mb-3">Fabric Details</h3>
@@ -540,7 +576,7 @@ const ProductDetail = () => {
           {reviews.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-playfair font-bold text-white mb-6 flex items-center gap-2">
-                <Star className="w-6 h-6 text-gold fill-gold" /> Product Reviews
+                <Star className="w-6 h-6 text-gold fill-gold" /> Customer Reviews ({reviews.length})
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {reviews.map((review) => (
@@ -571,6 +607,47 @@ const ProductDetail = () => {
               </div>
             </div>
           )}
+
+          {/* ─── YOU MAY ALSO LIKE ─── */}
+          {relatedProducts.length > 0 && (
+            <div className="mt-16">
+              <h2 className="text-2xl font-playfair font-bold text-white mb-6 flex items-center gap-2">
+                <Heart className="w-6 h-6 text-pink-400" /> You May Also Like
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {relatedProducts.map((rp) => {
+                  const rpHasDiscount = rp.discount_price !== null && rp.discount_price > 0 && rp.discount_price < rp.price_stitched;
+                  const rpEffective = rpHasDiscount ? rp.discount_price! : rp.price_stitched;
+                  const rpDiscPct = rp.discount_percentage || (rpHasDiscount ? Math.round(((rp.price_stitched - rp.discount_price!) / rp.price_stitched) * 100) : 0);
+                  return (
+                    <motion.div
+                      key={rp.id}
+                      whileHover={{ y: -4 }}
+                      className="group bg-gray-900/60 border border-gray-800 rounded-xl overflow-hidden cursor-pointer hover:border-gold/40 transition-colors"
+                      onClick={() => navigate(`/product/${rp.id}`)}
+                    >
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        <img src={rp.images[0] || '/placeholder.svg'} alt={rp.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                        {rpHasDiscount && rpDiscPct > 0 && (
+                          <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold">-{rpDiscPct}%</div>
+                        )}
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <h3 className="font-playfair text-sm font-semibold text-white truncate">{rp.title}</h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-emerald-400 text-sm font-bold">{formatPrice(rpEffective)}</span>
+                            {rpHasDiscount && (
+                              <span className="text-gray-500 text-xs line-through">{formatPrice(rp.price_stitched)}</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ─── CHECKOUT OVERLAY ─── */}
@@ -586,12 +663,16 @@ const ProductDetail = () => {
                 <button onClick={() => setShowCheckout(false)} className="text-gray-400 hover:text-white"><X className="w-5 h-5" /></button>
               </div>
 
-              {/* Summary */}
               <div className="bg-gray-900 rounded-lg p-3 border border-gray-800 mb-4 space-y-2 text-sm">
                 <div className="flex justify-between text-gray-300">
-                  <span className="truncate max-w-[60%]">{product.title} (Stitched) x{quantity}</span>
-                  <span>{formatPrice(basePrice * quantity)}</span>
+                  <span className="truncate max-w-[60%]">{product.title} x{quantity}</span>
+                  <span>{formatPrice(effectivePrice * quantity)}</span>
                 </div>
+                {hasDiscount && (
+                  <div className="flex justify-between text-emerald-400 text-xs">
+                    <span>Discount saved</span><span>-{formatPrice((product.price_stitched - effectivePrice) * quantity)}</span>
+                  </div>
+                )}
                 {shipping > 0 && <div className="flex justify-between text-gray-400"><span>Shipping</span><span>{formatPrice(shipping)}</span></div>}
                 <div className="flex justify-between text-white font-bold pt-2 border-t border-gray-700">
                   <span>Total ({currency})</span><span className="text-gold">{formatPrice(total)}</span>
@@ -627,9 +708,14 @@ const ProductDetail = () => {
               <p className="text-gray-400 text-sm mb-1">Your order has been placed successfully.</p>
               <p className="text-xs text-gray-500 mb-4">Order ID: <span className="text-gold font-mono">{confirmedOrderId.slice(0, 8).toUpperCase()}</span></p>
               <p className="text-xs text-gray-400 mb-4">We'll contact you on WhatsApp/Phone to confirm details.</p>
-              <Button onClick={() => { setOrderConfirmed(false); navigate('/'); }} className="w-full bg-gold hover:bg-gold/90 text-black font-medium">
-                Continue Shopping
-              </Button>
+              <div className="flex gap-3">
+                <Button onClick={() => { setOrderConfirmed(false); navigate('/track-order'); }} variant="outline" className="flex-1 border-gold text-gold hover:bg-gold/10">
+                  Track Order
+                </Button>
+                <Button onClick={() => { setOrderConfirmed(false); navigate('/'); }} className="flex-1 bg-gold hover:bg-gold/90 text-black font-medium">
+                  Continue Shopping
+                </Button>
+              </div>
             </motion.div>
           </div>
         )}

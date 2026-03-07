@@ -10,6 +10,8 @@ interface Product {
   id: string;
   title: string;
   price_stitched: number;
+  discount_price: number | null;
+  discount_percentage: number | null;
   images: string[];
   fabric_type: string | null;
   stock_quantity: number;
@@ -25,7 +27,7 @@ const ProductShowcase = () => {
     const fetchProducts = async () => {
       const { data, error } = await supabase
         .from('products')
-        .select('id, title, price_stitched, images, fabric_type, stock_quantity')
+        .select('id, title, price_stitched, images, fabric_type, stock_quantity, discount_price, discount_percentage')
         .eq('is_active', true)
         .order('display_order', { ascending: true });
 
@@ -34,6 +36,8 @@ const ProductShowcase = () => {
           ...p,
           images: Array.isArray(p.images) ? p.images : [],
           stock_quantity: p.stock_quantity ?? 0,
+          discount_price: p.discount_price ?? null,
+          discount_percentage: p.discount_percentage ?? null,
         })));
       }
       setLoading(false);
@@ -80,6 +84,9 @@ const ProductShowcase = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => {
             const inStock = product.stock_quantity > 0;
+            const hasDiscount = product.discount_price !== null && product.discount_price > 0 && product.discount_price < product.price_stitched;
+            const effectivePrice = hasDiscount ? product.discount_price! : product.price_stitched;
+            const discountPct = product.discount_percentage || (hasDiscount ? Math.round(((product.price_stitched - product.discount_price!) / product.price_stitched) * 100) : 0);
             return (
               <motion.div
                 key={product.id}
@@ -95,11 +102,20 @@ const ProductShowcase = () => {
                     <Package className="w-3 h-3" />
                     {inStock ? 'In Stock' : 'Out of Stock'}
                   </div>
+                  {/* Discount badge */}
+                  {hasDiscount && discountPct > 0 && (
+                    <div className="absolute top-3 right-3 bg-red-500 text-white px-2.5 py-1 rounded-full text-[10px] font-bold">
+                      -{discountPct}%
+                    </div>
+                  )}
                   <div className="absolute bottom-3 left-3 right-3">
                     <h3 className="font-playfair text-lg font-semibold text-white truncate">{product.title}</h3>
-                    <div className="flex items-center gap-1.5 mt-1 text-sm">
+                    <div className="flex items-center gap-2 mt-1 text-sm">
                       <Scissors className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">₨{product.price_stitched.toLocaleString()}</span>
+                      <span className="text-emerald-400 font-bold">₨{effectivePrice.toLocaleString()}</span>
+                      {hasDiscount && (
+                        <span className="text-gray-500 text-xs line-through">₨{product.price_stitched.toLocaleString()}</span>
+                      )}
                     </div>
                   </div>
                 </div>
