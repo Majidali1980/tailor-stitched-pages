@@ -941,6 +941,7 @@ export type Database = {
           customer_email: string | null
           customer_name: string
           customer_phone: string
+          estimated_delivery: string | null
           id: string
           items: Json
           notes: string | null
@@ -948,6 +949,8 @@ export type Database = {
           status: string
           subtotal: number
           total_amount: number
+          tracking_number: string | null
+          tracking_url: string | null
           updated_at: string
         }
         Insert: {
@@ -957,6 +960,7 @@ export type Database = {
           customer_email?: string | null
           customer_name: string
           customer_phone: string
+          estimated_delivery?: string | null
           id?: string
           items?: Json
           notes?: string | null
@@ -964,6 +968,8 @@ export type Database = {
           status?: string
           subtotal?: number
           total_amount?: number
+          tracking_number?: string | null
+          tracking_url?: string | null
           updated_at?: string
         }
         Update: {
@@ -973,6 +979,7 @@ export type Database = {
           customer_email?: string | null
           customer_name?: string
           customer_phone?: string
+          estimated_delivery?: string | null
           id?: string
           items?: Json
           notes?: string | null
@@ -980,6 +987,8 @@ export type Database = {
           status?: string
           subtotal?: number
           total_amount?: number
+          tracking_number?: string | null
+          tracking_url?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1024,6 +1033,8 @@ export type Database = {
           category: string | null
           created_at: string
           description: string | null
+          discount_percentage: number | null
+          discount_price: number | null
           display_order: number | null
           dopatta_details: Json | null
           fabric_detail_id: string | null
@@ -1046,6 +1057,8 @@ export type Database = {
           category?: string | null
           created_at?: string
           description?: string | null
+          discount_percentage?: number | null
+          discount_price?: number | null
           display_order?: number | null
           dopatta_details?: Json | null
           fabric_detail_id?: string | null
@@ -1068,6 +1081,8 @@ export type Database = {
           category?: string | null
           created_at?: string
           description?: string | null
+          discount_percentage?: number | null
+          discount_price?: number | null
           display_order?: number | null
           dopatta_details?: Json | null
           fabric_detail_id?: string | null
