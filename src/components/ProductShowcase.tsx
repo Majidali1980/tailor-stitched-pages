@@ -36,6 +36,8 @@ const ProductShowcase = () => {
           ...p,
           images: Array.isArray(p.images) ? p.images : [],
           stock_quantity: p.stock_quantity ?? 0,
+          discount_price: p.discount_price ?? null,
+          discount_percentage: p.discount_percentage ?? null,
         })));
       }
       setLoading(false);
