@@ -21,6 +21,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import Career from "./pages/Career";
 import Services from "./pages/Services";
 import ProductDetail from "./pages/ProductDetail";
+import TrackOrder from "./pages/TrackOrder";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
