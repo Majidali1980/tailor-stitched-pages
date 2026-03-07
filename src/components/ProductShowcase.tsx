@@ -27,7 +27,7 @@ const ProductShowcase = () => {
     const fetchProducts = async () => {
       const { data, error } = await supabase
         .from('products')
-        .select('id, title, price_stitched, images, fabric_type, stock_quantity')
+        .select('id, title, price_stitched, images, fabric_type, stock_quantity, discount_price, discount_percentage')
         .eq('is_active', true)
         .order('display_order', { ascending: true });
 
