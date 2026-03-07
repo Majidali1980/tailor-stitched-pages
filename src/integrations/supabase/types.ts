@@ -760,6 +760,36 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_sections: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          is_visible: boolean
+          section_key: string
+          section_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_visible?: boolean
+          section_key: string
+          section_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          is_visible?: boolean
+          section_key?: string
+          section_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       job_applications: {
         Row: {
           applicant_name: string
