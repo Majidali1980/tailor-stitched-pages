@@ -10,6 +10,8 @@ interface Product {
   id: string;
   title: string;
   price_stitched: number;
+  discount_price: number | null;
+  discount_percentage: number | null;
   images: string[];
   fabric_type: string | null;
   stock_quantity: number;
