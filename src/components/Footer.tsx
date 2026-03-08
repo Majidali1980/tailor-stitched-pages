@@ -11,7 +11,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true" 
+                src="/logo.png" 
                 alt="MA Tailor Logo"
                 className="h-10 w-10 object-contain"
               />
