@@ -47,7 +47,7 @@ const AnimatedDesignPromo = () => {
               <div className="md:w-1/3 relative">
                 <div className="transform transition-transform duration-1000 hover:rotate-3 animate-pulse">
                   <img 
-                    src="https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true"
+                    src="/logo.png"
                     alt="MA Tailor Logo" 
                     className="max-w-[200px] mx-auto"
                   />

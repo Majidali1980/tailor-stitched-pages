@@ -27,7 +27,7 @@ const Index = () => {
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'icon';
-    link.href = 'https://github.com/Majidali1980/lmages/blob/main/Black%20Gold%20Elegant%20Jewelry%20Logo.png?raw=true';
+    link.href = '/logo.png';
     link.type = 'image/png';
     
     document.head.appendChild(link);
