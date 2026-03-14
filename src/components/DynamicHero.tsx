@@ -9,6 +9,7 @@ interface HeroData {
   title: string;
   description: string | null;
   image_url: string | null;
+  video_url: string | null;
   button1_text: string | null;
   button1_link: string | null;
   button2_text: string | null;
