@@ -9,6 +9,7 @@ interface HeroData {
   title: string;
   description: string | null;
   image_url: string | null;
+  video_url: string | null;
   button1_text: string | null;
   button1_link: string | null;
   button2_text: string | null;
@@ -162,15 +163,26 @@ const DynamicHero = () => {
             className={`relative fancy-border bg-black rounded-lg overflow-hidden hover-scale max-w-md mx-auto h-[500px] transition-all duration-500 ease-in-out ${
               isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
             }`} 
-            key={`img-${heroData.id}`}
+            key={`media-${heroData.id}`}
           >
-            {heroData.image_url && (
+            {heroData.video_url ? (
+              <video
+                src={heroData.video_url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : heroData.image_url ? (
               <img 
                 src={heroData.image_url} 
                 alt="MA Tailor Pakistani Dress Design" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
-            )}
+            ) : null}
           </div>
         </div>
 

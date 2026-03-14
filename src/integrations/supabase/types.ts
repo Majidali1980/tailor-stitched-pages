@@ -629,6 +629,7 @@ export type Database = {
           is_active: boolean | null
           title: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           button1_link?: string | null
@@ -642,6 +643,7 @@ export type Database = {
           is_active?: boolean | null
           title: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           button1_link?: string | null
@@ -655,6 +657,7 @@ export type Database = {
           is_active?: boolean | null
           title?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }
