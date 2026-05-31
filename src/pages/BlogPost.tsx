@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Calendar, User, Tag, ArrowLeft, BookOpen, Phone, Image } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -148,8 +149,30 @@ const BlogPost = () => {
     );
   }
 
+  const canonical = `https://matailor.lovable.app/blog/${post.slug}`;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "image": post.featured_image_url ? [post.featured_image_url] : undefined,
+    "author": { "@type": "Person", "name": post.author_name || 'MA Tailor' },
+    "datePublished": post.published_at || post.created_at,
+    "mainEntityOfPage": canonical,
+  };
+
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
+      <Helmet>
+        <title>{(post.meta_title || `${post.title} | MA Tailor Blog`).slice(0, 60)}</title>
+        <meta name="description" content={(post.meta_description || post.excerpt || post.title).slice(0, 160)} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={(post.excerpt || post.title).slice(0, 160)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonical} />
+        {post.featured_image_url && <meta property="og:image" content={post.featured_image_url} />}
+        <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
+      </Helmet>
       <Navbar />
       
       <article className="pt-36 pb-16">
