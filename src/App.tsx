@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import BottomNav from "./components/BottomNav";
 import Index from "./pages/Index";
 
 // Lazy load all non-homepage routes
@@ -50,27 +51,30 @@ const App = () => (
       <WhatsAppFloat />
       <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/videos" element={<Videos />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/bulk-orders" element={<BulkOrders />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/ai-design-studio" element={<AIDesignStudio />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-use" element={<TermsOfUse />} />
-            <Route path="/career" element={<Career />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/track-order" element={<TrackOrder />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <main>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/videos" element={<Videos />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/booking" element={<Booking />} />
+              <Route path="/bulk-orders" element={<BulkOrders />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/ai-design-studio" element={<AIDesignStudio />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
+              <Route path="/career" element={<Career />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <BottomNav />
         </Suspense>
       </BrowserRouter>
     </TooltipProvider>

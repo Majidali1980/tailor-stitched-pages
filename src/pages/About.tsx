@@ -18,10 +18,8 @@ const AboutPage = () => {
         <meta property="og:image" content="https://matailor.lovable.app/logo.png" />
       </Helmet>
       <Navbar />
-      <main>
-        <h1 className="sr-only">About MA Tailor</h1>
-        <About />
-      </main>
+      <h1 className="sr-only">About MA Tailor</h1>
+      <About />
       <Footer />
       <BottomNav />
     </div>
