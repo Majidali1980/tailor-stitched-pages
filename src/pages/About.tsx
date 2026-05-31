@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
+import BottomNav from '@/components/BottomNav';
 
 const AboutPage = () => {
   return (
@@ -17,8 +18,12 @@ const AboutPage = () => {
         <meta property="og:image" content="https://matailor.lovable.app/logo.png" />
       </Helmet>
       <Navbar />
-      <About />
+      <main>
+        <h1 className="sr-only">About MA Tailor</h1>
+        <About />
+      </main>
       <Footer />
+      <BottomNav />
     </div>
   );
 };
