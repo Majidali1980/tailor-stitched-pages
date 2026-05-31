@@ -315,12 +315,34 @@ const ProductDetail = () => {
   const total = (effectivePrice * quantity) + shipping;
   const inStock = product.stock_quantity > 0;
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.description || `Buy ${product.title} from Ma Tailor`,
+    "image": images.map((img) => img.startsWith('http') ? img : `https://matailor.lovable.app${img}`),
+    "url": `https://matailor.lovable.app/product/${product.id}`,
+    "offers": {
+      "@type": "Offer",
+      "url": `https://matailor.lovable.app/product/${product.id}`,
+      "priceCurrency": "USD",
+      "price": effectivePrice,
+      "availability": inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    },
+  };
+
   return (
     <>
       <Helmet>
-        <title>{product.title} - Ma Tailor Pakistan</title>
-        <meta name="description" content={product.description || `Buy ${product.title} from Ma Tailor`} />
+        <title>{`${product.title} | Ma Tailor`.slice(0, 60)}</title>
+        <meta name="description" content={(product.description || `Buy ${product.title} from Ma Tailor — custom stitched with worldwide delivery.`).slice(0, 160)} />
         <link rel="canonical" href={`https://matailor.lovable.app/product/${product.id}`} />
+        <meta property="og:title" content={product.title} />
+        <meta property="og:description" content={(product.description || `Buy ${product.title} from Ma Tailor.`).slice(0, 160)} />
+        <meta property="og:type" content="product" />
+        <meta property="og:url" content={`https://matailor.lovable.app/product/${product.id}`} />
+        <meta property="og:image" content={images[0]?.startsWith('http') ? images[0] : `https://matailor.lovable.app${images[0]}`} />
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">

@@ -1,0 +1,26 @@
+# MA Tailor
+
+> MA Tailor is an online Pakistani ladies' dress stitching studio offering custom tailoring with international delivery to USA, UK, Canada, UAE and more.
+
+MA Tailor specializes in custom-stitched Pakistani and Indian women's outfits including shalwar kameez, kurtis, maxis, party wear, and bridal wear. Standard turnaround is 7–10 days stitching plus 15–17 days worldwide delivery. Bulk orders and free samples are available.
+
+## Pages
+
+- [Home](/): Overview of MA Tailor's custom stitching services.
+- [About](/about): Our story, craftsmanship, and quality promise.
+- [Services](/services): Custom stitching, alterations, and bulk orders.
+- [Gallery](/gallery): Photos of finished dresses and designs.
+- [Videos](/videos): Video showcase of our work and process.
+- [Blog](/blog): Articles on Pakistani fashion, stitching tips, and trends.
+- [Reviews](/reviews): Customer testimonials and ratings.
+- [Booking](/booking): Place a custom stitching order.
+- [Bulk Orders](/bulk-orders): Wholesale and bulk order information.
+- [Career](/career): Open positions and how to join our team.
+- [Track Order](/track-order): Check the status of an existing order.
+- [Contact](/contact): Get in touch with MA Tailor.
+- [FAQ](/faq): Answers about shipping, timing, and measurements.
+
+## Optional
+
+- [Privacy Policy](/privacy-policy)
+- [Terms of Use](/terms-of-use)
