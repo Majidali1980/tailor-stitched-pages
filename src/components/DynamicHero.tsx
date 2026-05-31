@@ -116,11 +116,11 @@ const DynamicHero = () => {
             key={heroData.id}
           >
             <div>
-              <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
+              <h2 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
                 <span className="gold-gradient-text">{heroData.title}</span>
-              </h1>
+              </h2>
               {heroData.description && (
-                <p className="text-lg md:text-xl font-montserrat text-gray-300 mt-6">
+                <p className="text-lg md:text-xl font-montserrat text-gray-200 mt-6">
                   {heroData.description}
                 </p>
               )}
@@ -175,10 +175,12 @@ const DynamicHero = () => {
                 className="w-full h-full object-cover"
               />
             ) : heroData.image_url ? (
-              <img 
-                src={heroData.image_url} 
-                alt="MA Tailor Pakistani Dress Design" 
-                loading="lazy"
+              <img
+                src={heroData.image_url}
+                alt="MA Tailor Pakistani Dress Design"
+                width={448}
+                height={500}
+                fetchPriority="high"
                 decoding="async"
                 className="w-full h-full object-cover"
               />

@@ -17,6 +17,7 @@ const AboutPage = () => {
         <meta property="og:image" content="https://matailor.lovable.app/logo.png" />
       </Helmet>
       <Navbar />
+      <h1 className="sr-only">About MA Tailor</h1>
       <About />
       <Footer />
     </div>

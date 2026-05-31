@@ -42,8 +42,12 @@ const MainNavbar = () => {
           {/* Mobile Menu Button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <button className="lg:hidden text-white hover:text-gold transition-colors ml-auto">
-                <Menu className="h-6 w-6" />
+              <button
+                type="button"
+                aria-label="Open menu"
+                className="lg:hidden text-white hover:text-gold transition-colors ml-auto"
+              >
+                <Menu className="h-6 w-6" aria-hidden="true" />
               </button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-gray-900 border-gold/20 w-[280px]">
