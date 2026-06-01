@@ -22,7 +22,7 @@ const MainNavbar = () => {
   ];
 
   return (
-    <nav className="fixed top-16 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-sm border-b border-gold/20">
+    <nav className="hidden lg:block fixed top-16 left-0 right-0 z-40 bg-gray-900/95 backdrop-blur-sm border-b border-gold/20">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-14">
           {/* Desktop Navigation */}
