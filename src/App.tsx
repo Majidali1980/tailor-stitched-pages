@@ -76,6 +76,9 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
+              <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
+              <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
