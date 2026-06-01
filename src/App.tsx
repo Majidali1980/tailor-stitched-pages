@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import BottomNav from "./components/BottomNav";
+import TailorAssistant from "./components/TailorAssistant";
 import Index from "./pages/Index";
 
 // Lazy load all non-homepage routes
@@ -49,6 +50,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <WhatsAppFloat />
+      <TailorAssistant />
       <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
           <main>
