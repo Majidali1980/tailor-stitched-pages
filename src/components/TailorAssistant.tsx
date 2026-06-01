@@ -133,10 +133,11 @@ export default function TailorAssistant() {
           <TooltipTrigger asChild>
             <Button
               onClick={() => setIsOpen(true)}
-              className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-50 bg-primary hover:bg-primary/90"
+              aria-label="Open AI chat assistant"
+              className="fixed right-3 bottom-20 lg:bottom-6 h-11 w-11 rounded-full shadow-lg z-[60] bg-primary hover:bg-primary/90"
               size="icon"
             >
-              <MessageSquare className="h-6 w-6" />
+              <MessageSquare className="h-5 w-5" />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="left" className="bg-primary text-primary-foreground">
@@ -148,7 +149,7 @@ export default function TailorAssistant() {
   }
 
   return (
-    <Card className="fixed bottom-6 right-6 w-96 h-[600px] flex flex-col shadow-2xl z-50 bg-background border-border">
+    <Card className="fixed right-3 left-3 sm:left-auto bottom-20 lg:bottom-6 sm:right-6 w-auto sm:w-96 h-[70vh] sm:h-[600px] max-h-[600px] flex flex-col shadow-2xl z-[60] bg-background border-border">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border bg-primary text-primary-foreground">
         <div className="flex items-center gap-2">
