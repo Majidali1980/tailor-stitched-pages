@@ -98,8 +98,6 @@ const Index = () => {
           <SocialMediaFeed />
           <NewsletterSubscription />
           <Footer />
-          <WhatsAppFloat />
-          <TailorAssistant />
         </Suspense>
       </div>
     </>
