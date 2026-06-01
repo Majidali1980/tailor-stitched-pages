@@ -27,6 +27,9 @@ const Career = lazy(() => import("./pages/Career"));
 const Services = lazy(() => import("./pages/Services"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
+const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
+const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
+const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -73,6 +76,9 @@ const App = () => (
               <Route path="/services" element={<Services />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
+              <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
+              <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
