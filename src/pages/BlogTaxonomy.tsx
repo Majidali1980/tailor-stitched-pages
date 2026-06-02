@@ -38,9 +38,9 @@ const BlogTaxonomy = ({ mode }: Props) => {
       setLoading(true);
       let query = supabase.from('blog').select('*').eq('is_published', true).order('published_at', { ascending: false });
       if (mode === 'category') {
-        query = query.ilike('category', value);
+        query = query.ilike('category', value.replace(/-/g, ' '));
       } else {
-        query = query.contains('tags', [value]);
+        query = query.contains('tags', [value.replace(/-/g, ' ')]);
       }
       const { data } = await query;
       setPosts(data || []);
