@@ -2,15 +2,16 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export interface FaqItem { q: string; a: string }
+export interface InternalLink { label: string; to: string; description?: string }
 
 export interface SeoLandingPageProps {
   slug: string;
-  title: string; // SEO meta title
+  title: string;
   metaDescription: string;
   h1: string;
   intro: string;
@@ -18,10 +19,13 @@ export interface SeoLandingPageProps {
   sections: { heading: string; body: string }[];
   faqs: FaqItem[];
   serviceName: string;
+  relatedReads?: InternalLink[];
+  relatedServices?: InternalLink[];
 }
 
 const SeoLandingPage = ({
   slug, title, metaDescription, h1, intro, highlights, sections, faqs, serviceName,
+  relatedReads = [], relatedServices = [],
 }: SeoLandingPageProps) => {
   const url = `https://matailor.lovable.app/${slug}`;
 
@@ -114,6 +118,46 @@ const SeoLandingPage = ({
           </div>
         </section>
 
+        {relatedServices.length > 0 && (
+          <section className="py-12 bg-black">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-6">Related Stitching Services</h2>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {relatedServices.map((l, i) => (
+                  <li key={i}>
+                    <Link to={l.to} className="block p-5 rounded-lg border border-gray-700 hover:border-gold/60 transition-colors">
+                      <div className="flex items-center gap-2 text-white font-semibold">
+                        {l.label} <ArrowRight className="h-4 w-4 text-gold" />
+                      </div>
+                      {l.description && <p className="text-sm text-gray-400 mt-1">{l.description}</p>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {relatedReads.length > 0 && (
+          <section className="py-12 bg-gray-900">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-6">Helpful Reads From Our Blog</h2>
+              <ul className="space-y-3">
+                {relatedReads.map((l, i) => (
+                  <li key={i}>
+                    <Link to={l.to} className="block p-4 rounded-lg border border-gray-700 hover:border-gold/60 transition-colors">
+                      <div className="flex items-center gap-2 text-white font-semibold">
+                        {l.label} <ArrowRight className="h-4 w-4 text-gold" />
+                      </div>
+                      {l.description && <p className="text-sm text-gray-400 mt-1">{l.description}</p>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         <section className="py-12 bg-black">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-6 text-center">Frequently Asked Questions</h2>
@@ -121,7 +165,7 @@ const SeoLandingPage = ({
               {faqs.map((f, i) => (
                 <AccordionItem key={i} value={`item-${i}`} className="border-gray-700">
                   <AccordionTrigger className="text-left text-white hover:text-gold">{f.q}</AccordionTrigger>
-                  <AccordionContent className="text-gray-300">{f.a}</AccordionContent>
+                  <AccordionContent className="text-gray-300 whitespace-pre-line leading-relaxed">{f.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
