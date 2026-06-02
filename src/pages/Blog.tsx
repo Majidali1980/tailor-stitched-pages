@@ -227,20 +227,37 @@ const Blog = () => {
       {/* Category Filter */}
       <section className="py-8 bg-black">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-montserrat font-medium transition-colors ${
-                  selectedCategory === category
-                    ? 'bg-gold text-black'
-                    : 'bg-gray-800 text-white hover:bg-gray-700'
-                }`}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            ))}
+          <div className="flex flex-wrap justify-center gap-3 mb-4">
+            {categories.map((category) => {
+              const isAll = category === 'all';
+              const slug = String(category).toLowerCase().replace(/\s+/g, '-');
+              const active = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-5 py-2 rounded-full font-montserrat text-sm font-medium transition-colors ${
+                    active ? 'bg-gold text-black' : 'bg-gray-800 text-white hover:bg-gray-700'
+                  }`}
+                >
+                  {String(category).charAt(0).toUpperCase() + String(category).slice(1)}
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 text-xs">
+            {categories.filter(c => c !== 'all').map((category) => {
+              const slug = String(category).toLowerCase().replace(/\s+/g, '-');
+              return (
+                <a
+                  key={`link-${category}`}
+                  href={`/blog/category/${slug}`}
+                  className="text-gold/80 hover:text-gold underline-offset-2 hover:underline"
+                >
+                  Browse {category} posts →
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>

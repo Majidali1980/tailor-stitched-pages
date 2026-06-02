@@ -30,6 +30,7 @@ const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
 const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
+const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient({
@@ -68,6 +69,8 @@ const App = () => (
               <Route path="/booking" element={<Booking />} />
               <Route path="/bulk-orders" element={<BulkOrders />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/category/:category" element={<BlogTaxonomy mode="category" />} />
+              <Route path="/blog/tag/:tag" element={<BlogTaxonomy mode="tag" />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/ai-design-studio" element={<AIDesignStudio />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
