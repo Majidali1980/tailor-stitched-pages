@@ -71,6 +71,7 @@ const SeoLandingPage = ({
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={metaDescription} />
+        {metaKeywords && <meta name="keywords" content={metaKeywords} />}
         <link rel="canonical" href={url} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
