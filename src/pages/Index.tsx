@@ -63,7 +63,7 @@ const Index = () => {
       <Helmet>
         <title>Ma Tailor – Online Girls Stitching Shop in Pakistan</title>
         <meta name="description" content="Order online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery by Ma Tailor." />
-        <meta name="keywords" content="online girls tailoring Pakistan, custom stitching for girls, ladies tailor online, Ma Tailor Pakistan, girls stitched dresses, online tailor Karachi, online tailor Lahore, online tailor Islamabad" />
+        <meta name="keywords" content="Pakistani dress tailor USA, Pakistani dress tailor UK, Pakistani dress tailor Canada, ladies stitching online USA UK Canada, shalwar kameez stitching USA, custom suits USA UK Canada, international delivery USA UK Canada, MA Tailor USA, online tailor for Pakistani clothes UK, Pakistani suit stitching Canada, Pakistani clothes tailor online USA" />
         <link rel="canonical" href="https://matailor.lovable.app/" />
         <meta property="og:title" content="Ma Tailor – Online Girls Stitching Shop in Pakistan" />
         <meta property="og:description" content="Order online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery." />

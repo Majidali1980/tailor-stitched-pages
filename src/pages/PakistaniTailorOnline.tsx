@@ -5,6 +5,7 @@ const PakistaniTailorOnline = () => (
     slug="pakistani-tailor-online"
     title="Pakistani Tailor Online – Custom Stitching Worldwide | Ma Tailor"
     metaDescription="Hire a trusted Pakistani tailor online. Custom stitched shalwar kameez, bridal & party wear with perfect fit and worldwide shipping. Order from Ma Tailor today."
+    metaKeywords="Pakistani tailor online USA, Pakistani tailor online UK, Pakistani tailor online Canada, hire Pakistani tailor USA, custom stitching UK, online Pakistani tailoring Canada, Pakistani master tailor overseas, tailor for shalwar kameez USA, Pakistani dressmaker UK, custom Pakistani outfits Canada"
     h1="Pakistani Tailor Online – Custom Stitching, Delivered Worldwide"
     serviceName="Pakistani Tailor Online"
     intro="Ma Tailor brings authentic Pakistani tailoring to your doorstep – wherever you are. Share your measurements, pick a design, and receive a perfectly stitched outfit ready to wear."

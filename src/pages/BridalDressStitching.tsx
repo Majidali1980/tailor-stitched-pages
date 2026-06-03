@@ -5,6 +5,7 @@ const BridalDressStitching = () => (
     slug="bridal-dress-stitching"
     title="Bridal Dress Stitching – Custom Pakistani Bridal Wear | Ma Tailor"
     metaDescription="Custom bridal dress stitching by Ma Tailor. Hand-finished lehengas, ghararas & maxis with perfect fit, intricate detailing and on-time delivery for your big day."
+    metaKeywords="bridal dress stitching USA, bridal dress stitching UK, bridal dress stitching Canada, Pakistani bridal lehenga USA, custom bridal wear UK, wedding gharara stitching Canada, bridal couture overseas, Pakistani wedding dress tailor USA, bridal outfit stitching UK, walima dress stitching Canada"
     h1="Bridal Dress Stitching – Crafted For Your Big Day"
     serviceName="Bridal Dress Stitching"
     intro="Your wedding outfit should fit like it was made for you – because it is. Ma Tailor specialises in custom bridal stitching for brides in Pakistan and around the world."
