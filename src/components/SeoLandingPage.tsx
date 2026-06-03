@@ -13,6 +13,7 @@ export interface SeoLandingPageProps {
   slug: string;
   title: string;
   metaDescription: string;
+  metaKeywords?: string;
   h1: string;
   intro: string;
   highlights: string[];
@@ -24,7 +25,7 @@ export interface SeoLandingPageProps {
 }
 
 const SeoLandingPage = ({
-  slug, title, metaDescription, h1, intro, highlights, sections, faqs, serviceName,
+  slug, title, metaDescription, metaKeywords, h1, intro, highlights, sections, faqs, serviceName,
   relatedReads = [], relatedServices = [],
 }: SeoLandingPageProps) => {
   const url = `https://matailor.lovable.app/${slug}`;
@@ -70,6 +71,7 @@ const SeoLandingPage = ({
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={metaDescription} />
+        {metaKeywords && <meta name="keywords" content={metaKeywords} />}
         <link rel="canonical" href={url} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
