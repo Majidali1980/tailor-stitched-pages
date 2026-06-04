@@ -165,14 +165,30 @@ const BlogPost = () => {
       <Helmet>
         <title>{(post.meta_title || `${post.title} | MA Tailor Blog`).slice(0, 60)}</title>
         <meta name="description" content={(post.meta_description || post.excerpt || post.title).slice(0, 160)} />
+        {post.tags && post.tags.length > 0 && <meta name="keywords" content={post.tags.join(', ')} />}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
         <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={(post.excerpt || post.title).slice(0, 160)} />
+        {/* Open Graph */}
+        <meta property="og:title" content={post.meta_title || post.title} />
+        <meta property="og:description" content={(post.meta_description || post.excerpt || post.title).slice(0, 160)} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonical} />
+        <meta property="og:site_name" content="MA Tailor" />
+        <meta property="og:locale" content="en_US" />
         {post.featured_image_url && <meta property="og:image" content={post.featured_image_url} />}
+        {post.featured_image_url && <meta property="og:image:alt" content={post.title} />}
+        <meta property="article:published_time" content={post.published_at || post.created_at} />
+        {post.author_name && <meta property="article:author" content={post.author_name} />}
+        {post.category && <meta property="article:section" content={post.category} />}
+        {post.tags && post.tags.map((t, i) => <meta key={i} property="article:tag" content={t} />)}
+        {/* Twitter Card */}
+        <meta name="twitter:card" content={post.featured_image_url ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={post.meta_title || post.title} />
+        <meta name="twitter:description" content={(post.meta_description || post.excerpt || post.title).slice(0, 160)} />
+        {post.featured_image_url && <meta name="twitter:image" content={post.featured_image_url} />}
         <script type="application/ld+json">{JSON.stringify(articleJsonLd)}</script>
       </Helmet>
+
       <Navbar />
       
       <article className="pt-36 pb-16">
