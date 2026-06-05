@@ -4,6 +4,7 @@ import { Calendar, User, Tag, ChevronRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import BlogAdminTools from '@/components/BlogAdminTools';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
@@ -145,6 +146,8 @@ const Blog = () => {
       <div className="min-h-screen bg-black text-white font-montserrat">
         <h1 className="sr-only">Ma Tailor Blog - Fashion Tips & Stitching Trends 2025</h1>
         <Navbar />
+        <BlogAdminTools />
+      
       
       {/* Hero Section */}
       <section className="pt-36 pb-16 bg-gradient-to-b from-gray-900 to-black">
