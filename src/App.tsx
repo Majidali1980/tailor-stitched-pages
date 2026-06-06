@@ -73,6 +73,7 @@ const App = () => (
               <Route path="/blog/category/:category" element={<BlogTaxonomy mode="category" />} />
               <Route path="/blog/tag/:tag" element={<BlogTaxonomy mode="tag" />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/admin/blog-seo-audit" element={<BlogSeoAudit />} />
               <Route path="/ai-design-studio" element={<AIDesignStudio />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
