@@ -20,6 +20,7 @@ const Booking = lazy(() => import("./pages/Booking"));
 const BulkOrders = lazy(() => import("./pages/BulkOrders"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogSeoAudit = lazy(() => import("./pages/BlogSeoAudit"));
 const AIDesignStudio = lazy(() => import("./pages/AIDesignStudio"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
