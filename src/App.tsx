@@ -20,6 +20,7 @@ const Booking = lazy(() => import("./pages/Booking"));
 const BulkOrders = lazy(() => import("./pages/BulkOrders"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogSeoAudit = lazy(() => import("./pages/BlogSeoAudit"));
 const AIDesignStudio = lazy(() => import("./pages/AIDesignStudio"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="/blog/category/:category" element={<BlogTaxonomy mode="category" />} />
               <Route path="/blog/tag/:tag" element={<BlogTaxonomy mode="tag" />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/admin/blog-seo-audit" element={<BlogSeoAudit />} />
               <Route path="/ai-design-studio" element={<AIDesignStudio />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Download, ShieldCheck } from 'lucide-react';
+import { Download, ShieldCheck, Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -108,6 +109,12 @@ const BlogAdminTools = () => {
       <div className="flex items-center justify-end gap-3 rounded-lg border border-gold/30 bg-gold/5 px-4 py-3">
         <ShieldCheck className="h-4 w-4 text-gold" />
         <span className="text-xs text-gold/80 mr-auto">Admin tools</span>
+        <Link to="/admin/blog-seo-audit">
+          <Button size="sm" variant="outline" className="text-gold border-gold/40 hover:bg-gold hover:text-black">
+            <Search className="h-4 w-4 mr-2" />
+            SEO Audit
+          </Button>
+        </Link>
         <Button
           onClick={handleDownload}
           disabled={busy}
