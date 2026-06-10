@@ -144,7 +144,6 @@ const Blog = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Ma Tailor Blog - Fashion Tips & Stitching Trends 2025</h1>
         <Navbar />
         <BlogAdminTools />
       
@@ -217,7 +216,7 @@ const Blog = () => {
                       </div>
                     )}
                     <div className="flex items-center text-gold font-semibold hover:text-gold-dark transition-colors">
-                      Read More <ChevronRight className="h-4 w-4 ml-1" />
+                      Read the full article <ChevronRight className="h-4 w-4 ml-1" />
                     </div>
                   </CardContent>
                 </Card>
@@ -329,7 +328,7 @@ const Blog = () => {
                       </div>
                     )}
                     <div className="flex items-center text-gold font-semibold hover:text-gold-dark transition-colors">
-                      Read More <ChevronRight className="h-4 w-4 ml-1" />
+                      Read the full article <ChevronRight className="h-4 w-4 ml-1" />
                     </div>
                   </CardContent>
                 </Card>

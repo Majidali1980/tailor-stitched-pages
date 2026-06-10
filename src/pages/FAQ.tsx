@@ -105,7 +105,7 @@ const FAQPage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Helmet>
-        <title>Custom Suit FAQ | MA Tailor – Bespoke Suit Questions Answered</title>
+        <title>Custom Suit FAQ | MA Tailor – Questions Answered</title>
         <meta
           name="description"
           content="Answers to common custom suit questions: process, fit & style, fabric & details, pricing, timeline, and revisions from MA Tailor."
