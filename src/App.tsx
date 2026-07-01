@@ -33,6 +33,8 @@ const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Admin = lazy(() => import("./pages/Admin"));
+const AdminLogin = lazy(() => import("./pages/admin/Login"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,6 +76,8 @@ const App = () => (
               <Route path="/blog/tag/:tag" element={<BlogTaxonomy mode="tag" />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/admin/blog-seo-audit" element={<BlogSeoAudit />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/*" element={<Admin />} />
               <Route path="/ai-design-studio" element={<AIDesignStudio />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
