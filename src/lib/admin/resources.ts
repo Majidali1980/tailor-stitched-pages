@@ -51,6 +51,7 @@ export const RESOURCES: ResourceDef[] = [
   // System
   { key: "banner-analytics", table: "banner_analytics", label: "Banner Analytics", group: "System", defaultSort: { column: "created_at", ascending: false } },
   { key: "user-roles", table: "user_roles", label: "User Roles", group: "System" },
+  { key: "audit-log", table: "admin_audit_log", label: "Audit Log", group: "System", defaultSort: { column: "created_at", ascending: false } },
 ];
 
 export const RESOURCE_GROUPS: ResourceDef["group"][] = [
