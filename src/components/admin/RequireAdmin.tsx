@@ -10,7 +10,8 @@ export default function RequireAdmin({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     let active = true;
-    (async () => {
+
+    const check = async () => {
       const { data: userData } = await supabase.auth.getUser();
       const user = userData?.user;
       if (!user) {
@@ -24,9 +25,26 @@ export default function RequireAdmin({ children }: { children: React.ReactNode }
       if (!active) return;
       if (error || !data) setState("unauthorized");
       else setState("ok");
-    })();
+    };
+
+    check();
+
+    // Re-verify on auth changes (sign out, token refresh, role revoked)
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        if (active) setState("unauthorized");
+      } else {
+        check();
+      }
+    });
+
+    // Periodic re-check every 5 minutes to catch role revocations
+    const interval = setInterval(check, 5 * 60 * 1000);
+
     return () => {
       active = false;
+      sub.subscription.unsubscribe();
+      clearInterval(interval);
     };
   }, []);
 

@@ -17,11 +17,21 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { Pencil, Trash2, Plus, Search } from "lucide-react";
 import ResourceForm from "@/components/admin/ResourceForm";
+import { logAudit } from "@/lib/admin/audit";
 
 const PAGE_SIZE = 25;
 
@@ -49,15 +59,16 @@ export default function ResourcePage() {
   const [rows, setRows] = useState<Record<string, unknown>[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
   const [editing, setEditing] = useState<Record<string, unknown> | null>(null);
   const [deleting, setDeleting] = useState<Record<string, unknown> | null>(null);
+  const [textColumns, setTextColumns] = useState<string[]>([]);
 
   const columns = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows]);
   const displayColumns = useMemo(() => {
-    // Prefer common informative fields first, cap at 6
     const preferred = ["title", "name", "email", "slug", "status", "price", "created_at"];
     const set = new Set<string>();
     for (const p of preferred) if (columns.includes(p)) set.add(p);
@@ -69,52 +80,81 @@ export default function ResourcePage() {
     return Array.from(set);
   }, [columns]);
 
+  // Debounce search input
+  useEffect(() => {
+    const t = setTimeout(() => setSearch(searchInput.trim()), 300);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
+  const detectTextColumns = async () => {
+    if (!def) return [] as string[];
+    const { data } = await supabase.from(def.table as never).select("*").limit(1);
+    const row = (data as Record<string, unknown>[] | null)?.[0];
+    if (!row) return [];
+    return Object.entries(row)
+      .filter(([, v]) => typeof v === "string" && !/^https?:\/\//.test(v as string))
+      .map(([k]) => k);
+  };
+
   const load = async () => {
     if (!def) return;
     setLoading(true);
     const sort = def.defaultSort ?? { column: "id", ascending: false };
-    const q = supabase
+    let cols = textColumns;
+    if (search && cols.length === 0) {
+      cols = await detectTextColumns();
+      setTextColumns(cols);
+    }
+    let q = supabase
       .from(def.table as never)
       .select("*", { count: "exact" })
       .order(sort.column as never, { ascending: sort.ascending })
       .range(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE - 1);
+
+    if (search && cols.length > 0) {
+      const orExpr = cols.map((c) => `${c}.ilike.%${search.replace(/[%,]/g, "")}%`).join(",");
+      q = q.or(orExpr) as typeof q;
+    }
+
     const { data, count, error } = await q;
     setLoading(false);
     if (error) {
       toast.error(error.message);
       return;
     }
-    let list = (data as Record<string, unknown>[]) ?? [];
-    if (search) {
-      const s = search.toLowerCase();
-      list = list.filter((r) =>
-        Object.values(r).some((v) => v && String(v).toLowerCase().includes(s)),
-      );
-    }
-    setRows(list);
+    setRows((data as Record<string, unknown>[]) ?? []);
     setTotal(count ?? 0);
   };
 
   useEffect(() => {
     setPage(0);
+    setSearchInput("");
     setSearch("");
+    setTextColumns([]);
   }, [resource]);
 
   useEffect(() => {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resource, page]);
+  }, [resource, page, search]);
 
   const handleDelete = async () => {
     if (!def || !deleting) return;
+    const recordId = deleting.id;
     const { error } = await supabase
       .from(def.table as never)
       .delete()
-      .eq("id", deleting.id as never);
+      .eq("id", recordId as never);
     if (error) {
       toast.error(error.message);
       return;
     }
+    await logAudit({
+      action: "delete",
+      table: def.table,
+      recordId: recordId as string | number | null,
+      changes: deleting,
+    });
     toast.success("Deleted");
     setDeleting(null);
     load();
@@ -132,12 +172,15 @@ export default function ResourcePage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Input
-            placeholder="Search on this page..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-64"
-          />
+          <div className="relative">
+            <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search all text fields..."
+              value={searchInput}
+              onChange={(e) => { setSearchInput(e.target.value); setPage(0); }}
+              className="w-64 pl-8"
+            />
+          </div>
           <Button onClick={() => load()} variant="outline">Refresh</Button>
           <Button
             onClick={() => {
@@ -175,40 +218,34 @@ export default function ResourcePage() {
                 </TableCell>
               </TableRow>
             )}
-            {rows
-              .filter((r) => {
-                if (!search) return true;
-                const s = search.toLowerCase();
-                return Object.values(r).some((v) => v && String(v).toLowerCase().includes(s));
-              })
-              .map((r) => (
-                <TableRow key={String(r.id ?? Math.random())}>
-                  {displayColumns.map((c) => (
-                    <TableCell key={c}>{formatCell(r[c])}</TableCell>
-                  ))}
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1">
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => {
-                          setEditing(r);
-                          setOpenForm(true);
-                        }}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => setDeleting(r)}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+            {rows.map((r) => (
+              <TableRow key={String(r.id ?? Math.random())}>
+                {displayColumns.map((c) => (
+                  <TableCell key={c}>{formatCell(r[c])}</TableCell>
+                ))}
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-1">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => {
+                        setEditing(r);
+                        setOpenForm(true);
+                      }}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={() => setDeleting(r)}
+                    >
+                      <Trash2 className="h-4 w-4 text-destructive" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
@@ -249,18 +286,26 @@ export default function ResourcePage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Delete this row?</DialogTitle>
-          </DialogHeader>
-          <p className="text-sm text-muted-foreground">This cannot be undone.</p>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setDeleting(null)}>Cancel</Button>
-            <Button variant="destructive" onClick={handleDelete}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this row?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the record from <code>{def.table}</code>.
+              This action cannot be undone and will be recorded in the audit log.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Delete permanently
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
