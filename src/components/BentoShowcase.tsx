@@ -21,8 +21,10 @@ const BentoShowcase = () => {
 
   return (
     <section className="w-full bg-[#0d0d0d] text-[#f0d78c]" style={{ fontFamily: 'Fira Sans, sans-serif' }}>
-      <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-5 md:h-[850px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-28">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 sm:gap-4 md:gap-5 md:h-[850px]">
+
+
 
           {/* Services */}
           <div className="md:col-span-2 md:row-span-1 group relative overflow-hidden bg-[#1a1a1a] border border-[#c9a84c]/10 p-8 md:p-10 flex flex-col justify-end min-h-[260px]">
