@@ -80,8 +80,10 @@ const Index = () => {
         <h1 className="sr-only">Online Girls Tailoring & Stitching Services in Pakistan</h1>
         <Navbar />
         <DynamicPromotionalBanner />
-        <DynamicHero />
+        <CinematicHero />
         <Suspense fallback={<SectionFallback />}>
+          <BentoShowcase />
+
           <DiscountOffers />
           <HeroCarousel />
           <HomepageCarousel />
