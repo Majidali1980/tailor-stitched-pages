@@ -74,8 +74,10 @@ export default {
 				'gold-curve': 'linear-gradient(135deg, #000 60%, #D4AF37 60%)',
 			},
 			fontFamily: {
-				'playfair': ['"Playfair Display"', 'serif'],
-				'montserrat': ['Montserrat', 'sans-serif'],
+				'playfair': ['"DM Serif Display"', '"Playfair Display"', 'serif'],
+				'serif-display': ['"DM Serif Display"', 'serif'],
+				'montserrat': ['"Fira Sans"', 'Montserrat', 'sans-serif'],
+				'sans-body': ['"Fira Sans"', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
