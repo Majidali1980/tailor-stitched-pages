@@ -1,7 +1,7 @@
 
 import { lazy, Suspense, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import DynamicHero from '@/components/DynamicHero';
+import CinematicHero from '@/components/CinematicHero';
 import { Helmet } from 'react-helmet-async';
 import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
 
