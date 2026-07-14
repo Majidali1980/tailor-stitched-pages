@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fira+Sans:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -32,17 +32,17 @@
 
 @layer utilities {
   .gold-gradient-text {
-    background: linear-gradient(to right, #D4AF37, #F0E68C, #B8860B);
+    background: linear-gradient(to right, #c9a84c, #f0d78c, #c9a84c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   .hover-scale {
     @apply transition-transform duration-300 hover:scale-105;
   }
-  
+
   .fancy-border {
-    background: linear-gradient(45deg, #D4AF37, #F0E68C, #B8860B);
+    background: linear-gradient(45deg, #c9a84c, #f0d78c, #9c7d2e);
     border-radius: 0.5rem;
   }
 
@@ -51,11 +51,24 @@
   }
 
   @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes ken-burns {
+    0%   { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.12) translate(-1%, -1%); }
+  }
+  .animate-ken-burns {
+    animation: ken-burns 12s ease-out forwards;
+  }
+
+  @keyframes slow-fade-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slow-fade-in {
+    animation: slow-fade-in 1s ease-out both;
   }
 }
+

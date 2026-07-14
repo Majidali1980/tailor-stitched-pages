@@ -1,7 +1,8 @@
 
 import { lazy, Suspense, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import DynamicHero from '@/components/DynamicHero';
+import CinematicHero from '@/components/CinematicHero';
+import BentoShowcase from '@/components/BentoShowcase';
 import { Helmet } from 'react-helmet-async';
 import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
 
@@ -80,8 +81,10 @@ const Index = () => {
         <h1 className="sr-only">Online Girls Tailoring & Stitching Services in Pakistan</h1>
         <Navbar />
         <DynamicPromotionalBanner />
-        <DynamicHero />
+        <CinematicHero />
         <Suspense fallback={<SectionFallback />}>
+          <BentoShowcase />
+
           <DiscountOffers />
           <HeroCarousel />
           <HomepageCarousel />
