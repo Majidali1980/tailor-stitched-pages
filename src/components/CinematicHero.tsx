@@ -39,7 +39,7 @@ const CinematicHero = () => {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-[#0d0d0d] pt-14 sm:pt-16 h-[60vh] min-h-[360px] sm:h-[75vh] sm:min-h-[500px] lg:h-[92vh] lg:min-h-[620px]"
+      className="relative w-full overflow-hidden bg-[#0d0d0d] pt-14 sm:pt-16 h-[55vh] min-h-[340px] sm:h-[70vh] sm:min-h-[480px] md:h-[80vh] md:min-h-[560px] lg:h-[92vh] lg:min-h-[640px]"
     >
       <div className="absolute inset-0 z-0">
         {slides.length === 0 && (

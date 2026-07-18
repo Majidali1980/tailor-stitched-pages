@@ -21,8 +21,8 @@ const BentoShowcase = () => {
 
   return (
     <section className="w-full bg-[#0d0d0d] text-[#f0d78c]" style={{ fontFamily: 'Fira Sans, sans-serif' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-28">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 sm:gap-4 md:gap-5 md:h-[850px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-20 lg:py-28">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 md:h-[720px] lg:h-[850px]">
 
 
 
