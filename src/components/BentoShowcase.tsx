@@ -117,6 +117,13 @@ const BentoShowcase = () => {
               <p className="text-sm md:text-base text-[#f0d78c]/60 leading-relaxed">
                 Consult with our master stylists for fabric selection and measurement guidance instantly.
               </p>
+              <a
+                href="tel:+923070125273"
+                className="inline-flex items-center gap-2 mt-3 md:mt-4 text-sm md:text-base font-semibold text-[#c9a84c] hover:text-[#f0d78c] transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h2.28a1 1 0 01.95.68l1.5 4.5a1 1 0 01-.5 1.21l-2.02 1.01a11 11 0 005.4 5.4l1.01-2.02a1 1 0 011.21-.5l4.5 1.5a1 1 0 01.68.95V19a2 2 0 01-2 2h-1C9.72 21 3 14.28 3 6V5z"/></svg>
+                +92 307 0125273
+              </a>
             </div>
             <a
               href={WHATSAPP_URL}
