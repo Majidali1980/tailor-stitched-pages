@@ -128,7 +128,7 @@ const Contact = () => {
                 <div>
                   <h4 className="text-lg font-playfair font-semibold text-white mb-2">Phone</h4>
                   <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2">
-                    <Phone className="h-4 w-4" /> 03070125273
+                    <Phone className="h-4 w-4" /> +92 307 0125273
                   </a>
                 </div>
                 

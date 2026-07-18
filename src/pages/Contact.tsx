@@ -29,12 +29,11 @@ const ContactPage = () => {
     <>
       <Helmet>
         <title>Contact Ma Tailor – Online Stitching Shop Pakistan</title>
-        <meta name="description" content="Contact Ma Tailor for online stitching and tailoring services in Pakistan. Call or WhatsApp 03070125273." />
-        <meta name="keywords" content="online tailor contact Pakistan, ladies tailor near me, girls stitching services Karachi, online tailor Lahore, tailoring services Islamabad" />
-        <link rel="canonical" href="https://matailor.lovable.app/contact" />
-        
-        <meta property="og:title" content="Contact Ma Tailor – Online Stitching Shop Pakistan" />
-        <meta property="og:description" content="Contact us for online stitching services. Call or WhatsApp 03070125273." />
+        <meta name="description" content="Contact Ma Tailor for online stitching and tailoring services in Pakistan. Call or WhatsApp +92 307 0125273." />
+        <meta property="og:title" content="Contact MA Tailor | Custom Stitching Services" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:description" content="Contact us for online stitching services. Call or WhatsApp +92 307 0125273." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/contact" />
         

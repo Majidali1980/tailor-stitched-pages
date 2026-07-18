@@ -123,7 +123,7 @@ const TermsOfUse = () => {
             <h2 className="text-2xl font-playfair font-bold mb-4 text-gold">Contact Information</h2>
             <p className="text-gray-300 leading-relaxed">
               For questions about these Terms of Use, please contact us via WhatsApp at{' '}
-              <a href="https://wa.me/923070125273" className="text-gold hover:underline">03070125273</a> or 
+              <a href="https://wa.me/923070125273" className="text-gold hover:underline">+92 307 0125273</a> or 
               through our <a href="/contact" className="text-gold hover:underline">contact page</a>.
             </p>
           </section>
