@@ -68,20 +68,22 @@ const BentoShowcase = () => {
             </Link>
           </div>
 
-          {/* Pricing */}
+          {/* Bespoke Quotes */}
           <div className="md:col-span-1 bg-[#151515] border border-[#c9a84c]/20 p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center group hover:border-[#c9a84c]/50 transition-colors min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
-            <div className="text-3xl sm:text-4xl font-playfair text-[#c9a84c] mb-3 sm:mb-4">PKR</div>
-            <h3 className="text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-3">Transparent Pricing</h3>
+            <div className="text-3xl sm:text-4xl font-playfair text-[#c9a84c] mb-3 sm:mb-4">✂</div>
+            <h3 className="text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-3">Bespoke Quotes</h3>
 
             <p className="text-xs text-[#f0d78c]/50 mb-8">
-              No hidden costs. Just pure craftsmanship at set rates.
+              Every outfit is priced individually. Message us for a personalized quote.
             </p>
-            <Link
-              to="/services"
+            <a
+              href="https://wa.me/923070125273?text=Hello%20MA%20Tailor%2C%20I%27d%20like%20a%20stitching%20quote."
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[10px] text-[#c9a84c] font-bold uppercase tracking-[0.3em] group-hover:text-[#f0d78c] transition-colors"
             >
-              View Rate Card
-            </Link>
+              Request Quote →
+            </a>
           </div>
 
           {/* Lookbook */}
