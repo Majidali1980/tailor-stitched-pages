@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             <a href="https://wa.me/923070125273" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gold flex items-center gap-2 hover:text-gold-light transition-colors mb-4">
               <Phone className="h-4 w-4" />
-              WhatsApp: 03070125273
+              WhatsApp: +92 307 0125273
             </a>
             
             <h4 className="text-md font-playfair font-semibold text-gold mb-3">Follow Us</h4>

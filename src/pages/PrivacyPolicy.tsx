@@ -93,7 +93,7 @@ const PrivacyPolicy = () => {
             <h2 className="text-2xl font-playfair font-bold mb-4 text-gold">Contact Us</h2>
             <p className="text-gray-300 leading-relaxed">
               If you have any questions or concerns about this Privacy Policy or your personal data, 
-              please contact us via WhatsApp at <a href="https://wa.me/923070125273" className="text-gold hover:underline">03070125273</a> or 
+              please contact us via WhatsApp at <a href="https://wa.me/923070125273" className="text-gold hover:underline">+92 307 0125273</a> or 
               through our <a href="/contact" className="text-gold hover:underline">contact page</a>.
             </p>
           </section>

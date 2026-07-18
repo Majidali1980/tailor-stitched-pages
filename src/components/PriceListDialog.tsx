@@ -125,7 +125,7 @@ const PriceListDialog = () => {
               <div className="flex items-center justify-center gap-6 text-gold mt-6">
                 <div className="flex items-center gap-2">
                   <span className="text-green-500">📱</span>
-                  <span>03070125273</span>
+                  <span>+92 307 0125273</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-blue-500">📍</span>
