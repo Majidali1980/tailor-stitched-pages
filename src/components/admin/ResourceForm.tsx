@@ -9,9 +9,29 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { logAudit } from "@/lib/admin/audit";
 
-const HIDDEN_ON_CREATE = new Set(["id", "created_at", "updated_at"]);
-const READ_ONLY = new Set(["created_at", "updated_at"]);
+const HIDDEN_FIELDS = new Set(["id", "created_at", "updated_at"]);
+const READ_ONLY = new Set<string>();
 const REQUIRED_HINT = new Set(["title", "name", "slug", "email"]);
+
+const IMAGE_SIZE_HINTS: Record<string, string> = {
+  hero_section: "Recommended: 1920 × 1080 px (16:9), JPG/WebP, under 500KB",
+  carousel: "Recommended: 1600 × 900 px (16:9), JPG/WebP, under 400KB",
+  homepage_carousel: "Recommended: 1600 × 900 px (16:9), JPG/WebP, under 400KB",
+  bulkorder_carousel: "Recommended: 1600 × 900 px (16:9), JPG/WebP, under 400KB",
+  hero_section_services: "Recommended: 1600 × 900 px (16:9), JPG/WebP, under 400KB",
+  hero_section_little_stitch: "Recommended: 1600 × 900 px (16:9), JPG/WebP, under 400KB",
+  promotional_banners: "Recommended: 1200 × 400 px (3:1), JPG/WebP, under 300KB",
+  discount_offers: "Recommended: 1200 × 800 px (3:2), JPG/WebP, under 300KB",
+  products: "Recommended: 1000 × 1250 px (4:5 portrait), JPG/WebP, under 300KB",
+  gallery: "Recommended: 1000 × 1250 px (4:5 portrait), JPG/WebP, under 300KB",
+  latest_designs: "Recommended: 1000 × 1250 px (4:5 portrait), JPG/WebP, under 300KB",
+  stitched_dress: "Recommended: 1000 × 1250 px (4:5 portrait), JPG/WebP, under 300KB",
+  ai_gallery: "Recommended: 1024 × 1024 px (1:1), JPG/WebP, under 300KB",
+  blog: "Recommended: 1200 × 630 px (1.91:1 for social sharing), JPG/WebP, under 300KB",
+  brands: "Recommended: 400 × 400 px logo (1:1, transparent PNG preferred)",
+  videos: "Thumbnail: 1280 × 720 px (16:9), JPG/WebP, under 300KB",
+  reviews: "Recommended: 800 × 800 px (1:1), JPG/WebP, under 200KB",
+};
 
 type FieldKind = "text" | "textarea" | "number" | "boolean" | "datetime" | "json" | "image" | "email" | "url";
 
