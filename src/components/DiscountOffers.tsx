@@ -82,8 +82,19 @@ const DiscountOffers = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {offers.map((offer) => (
-            <Card key={offer.id} className="bg-gray-800 border-gray-700 hover:border-gold transition-colors duration-300">
+            <Card key={offer.id} className="bg-gray-800 border-gray-700 hover:border-gold transition-colors duration-300 overflow-hidden">
+              {offer.image_url && (
+                <div className="w-full aspect-[16/9] overflow-hidden bg-black">
+                  <img
+                    src={offer.image_url}
+                    alt={offer.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
               <CardHeader className="text-center">
+
                 <div className="flex justify-center mb-4">
                   <div className="p-3 bg-gold/20 rounded-full">
                     <Gift className="h-8 w-8 text-gold" />
