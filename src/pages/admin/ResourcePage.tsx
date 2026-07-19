@@ -171,6 +171,29 @@ export default function ResourcePage() {
     load();
   };
 
+  const handleToggleActive = async (row: Record<string, unknown>) => {
+    if (!def || !activeKey) return;
+    const next = !row[activeKey];
+    // optimistic
+    setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, [activeKey]: next } : r)));
+    const { error } = await supabase
+      .from(def.table as never)
+      .update({ [activeKey]: next } as never)
+      .eq("id", row.id as never);
+    if (error) {
+      toast.error(error.message);
+      setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, [activeKey]: !next } : r)));
+      return;
+    }
+    await logAudit({
+      action: "update",
+      table: def.table,
+      recordId: row.id as string | number | null,
+      changes: { [activeKey]: next },
+    });
+    toast.success(next ? "Activated" : "Deactivated");
+  };
+
   if (!def) return <div className="p-6">Unknown resource.</div>;
 
   return (
