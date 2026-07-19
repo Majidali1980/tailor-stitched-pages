@@ -28,6 +28,7 @@ const CinematicHero = () => {
         .from('hero_section')
         .select('*')
         .eq('is_active', true)
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
       if (data && data.length) setSlides(data);
     })();
