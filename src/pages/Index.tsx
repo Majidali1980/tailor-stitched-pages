@@ -113,18 +113,18 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor</title>
-        <meta name="description" content="Looking for the best ladies tailor in Karachi? MA Tailor offers premium online stitching services, designer dresses, bridal wear, custom tailoring, and home measurement services." />
+        <title>Ladies Tailor Karachi | MA Tailor Online Stitching</title>
+        <meta name="description" content="MA Tailor: premium online ladies tailor in Karachi. Designer, bridal & custom stitching with home measurement service." />
         <meta name="keywords" content="ladies tailor Karachi, best ladies tailor Karachi, online tailoring service Karachi, designer tailor Karachi, bridal stitching Karachi, home measurement tailor Karachi, custom stitching Karachi, Pakistani dress tailor" />
         <link rel="canonical" href="https://matailor.lovable.app/" />
-        <meta property="og:title" content="Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor" />
-        <meta property="og:description" content="Premium online stitching services in Karachi — designer dresses, bridal wear, custom tailoring, and home measurement services by MA Tailor." />
+        <meta property="og:title" content="Ladies Tailor Karachi | MA Tailor Online Stitching" />
+        <meta property="og:description" content="Premium online ladies tailor in Karachi — designer, bridal & custom stitching with home measurement." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/" />
         <meta property="og:image" content="https://matailor.lovable.app/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor" />
-        <meta name="twitter:description" content="Premium online stitching services in Karachi — designer dresses, bridal wear, custom tailoring, and home measurement services by MA Tailor." />
+        <meta name="twitter:title" content="Ladies Tailor Karachi | MA Tailor Online Stitching" />
+        <meta name="twitter:description" content="Premium online ladies tailor in Karachi — designer, bridal & custom stitching with home measurement." />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
       
