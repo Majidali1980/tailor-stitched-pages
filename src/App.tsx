@@ -33,6 +33,7 @@ const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
 const SpecialDiscountOffers = lazy(() => import("./pages/SpecialDiscountOffers"));
+const SpecialDiscountOfferDetail = lazy(() => import("./pages/SpecialDiscountOfferDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
@@ -90,6 +91,7 @@ const App = () => (
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/special-discount-offers" element={<SpecialDiscountOffers />} />
+              <Route path="/special-discount-offers/:slug" element={<SpecialDiscountOfferDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

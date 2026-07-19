@@ -546,6 +546,7 @@ export type Database = {
           id: string
           image_url: string | null
           is_active: boolean | null
+          slug: string | null
           title: string
           updated_at: string
           valid_from: string | null
@@ -561,6 +562,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          slug?: string | null
           title: string
           updated_at?: string
           valid_from?: string | null
@@ -576,6 +578,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          slug?: string | null
           title?: string
           updated_at?: string
           valid_from?: string | null
