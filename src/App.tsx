@@ -26,6 +26,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
 const Career = lazy(() => import("./pages/Career"));
 const Services = lazy(() => import("./pages/Services"));
+const ServiceLanding = lazy(() => import("./pages/ServiceLanding"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
@@ -85,6 +86,7 @@ const App = () => (
               <Route path="/terms-of-use" element={<TermsOfUse />} />
               <Route path="/career" element={<Career />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/services/:slug" element={<ServiceLanding />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/track-order" element={<TrackOrder />} />
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />

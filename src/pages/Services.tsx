@@ -2,6 +2,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServicesComponent from '@/components/Services';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { serviceLandingPages } from '@/data/serviceLandingPages';
 
 const Services = () => {
   const structuredData = {
@@ -43,6 +46,31 @@ const Services = () => {
         <h1 className="sr-only">Ma Tailor Services - Custom Girls Stitching Pakistan</h1>
         <Navbar />
         <ServicesComponent />
+
+        <section className="py-16 bg-gradient-to-b from-black to-gray-900">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gold mb-3">Explore Every Stitching Service</h2>
+              <p className="text-gray-300 max-w-2xl mx-auto">Dedicated pages with pricing guidance, timelines, FAQs and past work for each stitching category.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Object.entries(serviceLandingPages).map(([slug, cfg]) => (
+                <Link
+                  key={slug}
+                  to={`/services/${slug}`}
+                  className="group block p-6 rounded-xl border border-gold/30 bg-black/50 hover:border-gold hover:bg-black/70 transition-all"
+                >
+                  <h3 className="text-lg font-semibold text-white group-hover:text-gold mb-2 flex items-center gap-2">
+                    {cfg.serviceName}
+                    <ArrowRight className="h-4 w-4 text-gold opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </h3>
+                  <p className="text-sm text-gray-400">{cfg.intro.slice(0, 120)}…</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <Footer />
       </div>
     </>
