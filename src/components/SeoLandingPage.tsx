@@ -133,6 +133,39 @@ const SeoLandingPage = ({
           </div>
         </section>
 
+        {images.length > 0 && (
+          <section className="py-12 bg-black">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-6 text-center">Recent Work</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {images.map((img, i) => (
+                  <figure key={i} className="rounded-lg overflow-hidden border border-gray-800">
+                    <img src={img.src} alt={img.alt} loading="lazy" className="w-full h-56 object-cover" />
+                    {img.caption && <figcaption className="text-xs text-gray-400 p-2">{img.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {testimonials.length > 0 && (
+          <section className="py-12 bg-gray-900">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-6 text-center">What Our Clients Say</h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                {testimonials.map((t, i) => (
+                  <blockquote key={i} className="p-5 rounded-lg border border-gold/30 bg-black/40">
+                    <div className="text-gold mb-2">{'★'.repeat(t.rating ?? 5)}</div>
+                    <p className="text-gray-200 italic mb-3">"{t.text}"</p>
+                    <footer className="text-sm text-gray-400">— {t.name}{t.location ? `, ${t.location}` : ''}</footer>
+                  </blockquote>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {relatedServices.length > 0 && (
           <section className="py-12 bg-black">
             <div className="container mx-auto px-4 max-w-4xl">
