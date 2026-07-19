@@ -201,6 +201,38 @@ export default function ResourcePage() {
     toast.success(next ? "Activated" : "Deactivated");
   };
 
+  const handleMove = async (index: number, direction: -1 | 1) => {
+    if (!def || !hasOrder) return;
+    const target = index + direction;
+    if (target < 0 || target >= rows.length) return;
+    const a = rows[index];
+    const b = rows[target];
+    const aOrder = Number(a.display_order ?? index);
+    const bOrder = Number(b.display_order ?? target);
+    // optimistic swap
+    const nextRows = [...rows];
+    nextRows[index] = { ...b, display_order: aOrder };
+    nextRows[target] = { ...a, display_order: bOrder };
+    nextRows.sort((x, y) => Number(x.display_order ?? 0) - Number(y.display_order ?? 0));
+    setRows(nextRows);
+    const [r1, r2] = await Promise.all([
+      supabase.from(def.table as never).update({ display_order: bOrder } as never).eq("id", a.id as never),
+      supabase.from(def.table as never).update({ display_order: aOrder } as never).eq("id", b.id as never),
+    ]);
+    if (r1.error || r2.error) {
+      toast.error(r1.error?.message || r2.error?.message || "Reorder failed");
+      load();
+      return;
+    }
+    await logAudit({
+      action: "update",
+      table: def.table,
+      recordId: a.id as string | number | null,
+      changes: { display_order: bOrder },
+    });
+    toast.success("Reordered");
+  };
+
   if (!def) return <div className="p-6">Unknown resource.</div>;
 
   return (
