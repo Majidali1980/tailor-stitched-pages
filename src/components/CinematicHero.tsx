@@ -90,7 +90,32 @@ const CinematicHero = () => {
               <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
             )}
             {/* subtle bottom vignette only, so image stays visible */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0d0d0d]/60 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0d0d0d]/80 to-transparent" />
+
+            {(s.button1_text || s.button2_text) && (
+              <div className="absolute inset-x-0 bottom-14 sm:bottom-20 z-10 flex flex-wrap justify-center gap-3 sm:gap-4 px-4">
+                {s.button1_text && s.button1_link && (
+                  <a
+                    href={s.button1_link}
+                    target={s.button1_link.startsWith('http') ? '_blank' : undefined}
+                    rel={s.button1_link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 bg-[#c9a84c] hover:bg-[#b89540] text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
+                  >
+                    {s.button1_text}
+                  </a>
+                )}
+                {s.button2_text && s.button2_link && (
+                  <a
+                    href={s.button2_link}
+                    target={s.button2_link.startsWith('http') ? '_blank' : undefined}
+                    rel={s.button2_link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-[#c9a84c] text-[#c9a84c] hover:bg-[#c9a84c] hover:text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-black/30"
+                  >
+                    {s.button2_text}
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         ))}
       </div>
