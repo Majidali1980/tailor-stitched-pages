@@ -11,6 +11,7 @@ export const RESOURCES: ResourceDef[] = [
   // Content
   { key: "blog", table: "blog", label: "Blog Posts", group: "Content", defaultSort: { column: "created_at", ascending: false } },
   { key: "gallery", table: "gallery", label: "Gallery", group: "Content" },
+  { key: "gallery-categories", table: "gallery_categories", label: "Gallery Categories", group: "Content", defaultSort: { column: "display_order", ascending: true } },
   { key: "ai-gallery", table: "ai_gallery", label: "AI Gallery", group: "Content" },
   { key: "videos", table: "videos", label: "Videos", group: "Content" },
   { key: "reviews", table: "reviews", label: "Reviews", group: "Content" },
