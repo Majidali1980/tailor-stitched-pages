@@ -83,6 +83,11 @@ const SeoLandingPage = ({
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
+        {heroImage?.src && <meta property="og:image" content={heroImage.src} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={metaDescription} />
+        {heroImage?.src && <meta name="twitter:image" content={heroImage.src} />}
         <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
         <script type="application/ld+json">{JSON.stringify(service)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
