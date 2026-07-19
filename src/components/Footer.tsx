@@ -67,6 +67,7 @@ const Footer = () => {
                 <li><Link to="/gallery" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Gallery</Link></li>
                 <li><Link to="/videos" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Videos</Link></li>
                 <li><Link to="/bulk-orders" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Bulk Orders</Link></li>
+                <li><Link to="/special-discount-offers" className="font-montserrat text-gold hover:text-gold-light transition-colors">Special Offers</Link></li>
                 <li>
                   <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
                     <ExternalLink className="h-3 w-3" /> Website
