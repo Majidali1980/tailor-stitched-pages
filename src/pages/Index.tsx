@@ -14,6 +14,7 @@ const LatestDesignsCarousel = lazy(() => import('@/components/LatestDesignsCarou
 const DiscountOffers = lazy(() => import('@/components/DiscountOffers'));
 const HeroSectionServices = lazy(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })));
 const StitchedDressCarousel = lazy(() => import('@/components/StitchedDressCarousel'));
+const GalleryCategoriesShowcase = lazy(() => import('@/components/GalleryCategoriesShowcase'));
 
 const HeroSectionLittleStitch = lazy(() => import('@/components/HeroSectionLittleStitch').then(m => ({ default: m.HeroSectionLittleStitch })));
 const AnimatedDesignPromo = lazy(() => import('@/components/AnimatedDesignPromo'));
@@ -92,6 +93,7 @@ const Index = () => {
           <LatestDesignsCarousel />
           <HeroSectionServices />
           <StitchedDressCarousel />
+          <GalleryCategoriesShowcase />
           <ProductShowcase />
           
           <HeroSectionLittleStitch />

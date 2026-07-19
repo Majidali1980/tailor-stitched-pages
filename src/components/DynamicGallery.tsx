@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { ZoomIn, X } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,20 +15,28 @@ interface GalleryItem {
 }
 
 const DynamicGallery = () => {
+  const location = useLocation();
+  const initialCategory = new URLSearchParams(location.search).get('category') || 'all';
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   // Define categories for filtering
   const categories = [
     { value: "all", label: "All" },
     { value: "full-suit", label: "Full Suit" },
     { value: "shirt", label: "Shirts" },
+    { value: "bottom", label: "Bottoms" },
     { value: "neck-design", label: "Neck Design" },
     { value: "shalwar-kameez", label: "Shalwar Kameez" },
     { value: "girls-suits", label: "Girls Suits" },
   ];
+
+  useEffect(() => {
+    const cat = new URLSearchParams(location.search).get('category') || 'all';
+    setActiveCategory(cat);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
@@ -120,7 +129,7 @@ const DynamicGallery = () => {
             </p>
           </div>
 
-          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveCategory}>
+          <Tabs value={activeCategory} className="w-full" onValueChange={setActiveCategory}>
             <div className="flex justify-center mb-12 overflow-x-auto">
               <TabsList className="bg-gray-900 p-1">
                 {categories.map((category) => (
