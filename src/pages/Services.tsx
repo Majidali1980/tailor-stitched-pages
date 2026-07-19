@@ -9,6 +9,35 @@ import { serviceLandingPages } from '@/data/serviceLandingPages';
 import { supabase } from '@/integrations/supabase/client';
 
 const Services = () => {
+  const [dbPages, setDbPages] = useState<{ slug: string; service_name: string | null; intro: string | null }[] | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from('service_pages')
+      .select('slug,service_name,intro,display_order,is_active')
+      .eq('is_active', true)
+      .order('display_order', { ascending: true })
+      .then(({ data }) => setDbPages((data as any) ?? []));
+  }, []);
+
+  const entries = (() => {
+    if (!dbPages) {
+      return Object.entries(serviceLandingPages).map(([slug, cfg]) => ({
+        slug,
+        name: cfg.serviceName,
+        intro: cfg.intro,
+      }));
+    }
+    return dbPages.map((r) => {
+      const fb = serviceLandingPages[r.slug];
+      return {
+        slug: r.slug,
+        name: r.service_name || fb?.serviceName || r.slug,
+        intro: r.intro || fb?.intro || '',
+      };
+    });
+  })();
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
