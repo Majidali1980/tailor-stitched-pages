@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { logAudit } from "@/lib/admin/audit";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const HIDDEN_FIELDS = new Set(["id", "created_at", "updated_at"]);
 const READ_ONLY = new Set<string>();
@@ -111,6 +112,22 @@ export default function ResourceForm({
   const [values, setValues] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [galleryCategories, setGalleryCategories] = useState<{ slug: string; label: string }[]>([]);
+
+  useEffect(() => {
+    if (table !== "gallery") return;
+    supabase
+      .from("gallery_categories")
+      .select("slug,label,is_active,display_order")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        setGalleryCategories(
+          (data ?? [])
+            .filter((c: any) => c.is_active !== false)
+            .map((c: any) => ({ slug: c.slug, label: c.label })),
+        );
+      });
+  }, [table]);
 
   const source = initial || sampleRow || {};
   const fieldNames = Object.keys(source).filter((n) => !HIDDEN_FIELDS.has(n));
@@ -228,7 +245,24 @@ export default function ResourceForm({
             <Label htmlFor={name} className="text-xs uppercase tracking-wide text-muted-foreground">
               {name}{isRequired && <span className="text-destructive ml-0.5">*</span>}
             </Label>
-            {kind === "boolean" ? (
+            {table === "gallery" && name === "category" ? (
+              <div className="space-y-1">
+                <Select value={(value as string) || ""} onValueChange={(v) => setField(name, v)} disabled={readOnly}>
+                  <SelectTrigger id={name} aria-invalid={!!err}>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {galleryCategories.length === 0 && (
+                      <SelectItem value="__none__" disabled>No categories — create some in Gallery Categories</SelectItem>
+                    )}
+                    {galleryCategories.map((c) => (
+                      <SelectItem key={c.slug} value={c.slug}>{c.label} <span className="opacity-60 ml-1">({c.slug})</span></SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">Assign this image to a gallery category. Manage categories under Content → Gallery Categories.</p>
+              </div>
+            ) : kind === "boolean" ? (
               <div className="flex items-center gap-2">
                 <Switch id={name} checked={!!value} onCheckedChange={(v) => setField(name, v)} disabled={readOnly} />
                 <span className="text-sm">{value ? "Yes" : "No"}</span>
