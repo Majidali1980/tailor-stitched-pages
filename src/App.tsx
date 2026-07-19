@@ -32,6 +32,7 @@ const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline")
 const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
+const SpecialDiscountOffers = lazy(() => import("./pages/SpecialDiscountOffers"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
