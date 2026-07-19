@@ -86,7 +86,7 @@ const Index = () => {
         <Suspense fallback={<SectionFallback />}>
           <BentoShowcase />
 
-          <DiscountOffers />
+          
           <HeroCarousel />
           <HomepageCarousel />
           <NotificationBar />
