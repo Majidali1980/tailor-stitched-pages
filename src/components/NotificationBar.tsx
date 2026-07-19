@@ -14,6 +14,17 @@ const NotificationBar = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
+        const { data: section } = await supabase
+          .from('homepage_sections')
+          .select('is_visible')
+          .eq('section_key', 'notification_bar')
+          .maybeSingle();
+
+        if (section && section.is_visible === false) {
+          setNotifications([]);
+          return;
+        }
+
         const { data, error } = await supabase
           .from('notifications')
           .select('*')
@@ -35,6 +46,7 @@ const NotificationBar = () => {
 
     fetchNotifications();
   }, []);
+
 
   if (loading || notifications.length === 0) {
     return null;
