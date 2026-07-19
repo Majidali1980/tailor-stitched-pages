@@ -74,11 +74,7 @@ const CinematicHero = () => {
                   width={s.image_width ?? undefined}
                   height={s.image_height ?? undefined}
                   style={{
-                    objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover',
-                    aspectRatio:
-                      s.image_width && s.image_height
-                        ? `${s.image_width} / ${s.image_height}`
-                        : undefined,
+                    objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'contain',
                   }}
                   className={`w-full h-full max-w-full max-h-full ${i === current ? 'animate-ken-burns' : ''}`}
                   fetchPriority={i === 0 ? 'high' : 'auto'}
