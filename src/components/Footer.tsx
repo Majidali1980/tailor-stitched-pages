@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/logo.png" 
-                alt="MA Tailor Logo"
+                alt="MA Tailor - Professional Ladies Stitching Studio Karachi logo"
                 className="h-10 w-10 object-contain"
               />
               <h3 className="text-xl font-playfair font-bold text-gold">MA TAILOR</h3>
