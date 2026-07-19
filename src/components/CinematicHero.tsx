@@ -67,16 +67,24 @@ const CinematicHero = () => {
                 className="w-full h-full object-cover"
               />
             ) : s.image_url ? (
-              <img
-                src={s.image_url}
-                alt={s.title}
-                width={s.image_width ?? undefined}
-                height={s.image_height ?? undefined}
-                style={{ objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover' }}
-                className={`w-full h-full ${i === current ? 'animate-ken-burns' : ''}`}
-                fetchPriority={i === 0 ? 'high' : 'auto'}
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
+              <div className="w-full h-full flex items-center justify-center">
+                <img
+                  src={s.image_url}
+                  alt={s.title}
+                  width={s.image_width ?? undefined}
+                  height={s.image_height ?? undefined}
+                  style={{
+                    objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover',
+                    width: s.image_width ? `${s.image_width}px` : '100%',
+                    height: s.image_height ? `${s.image_height}px` : '100%',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                  }}
+                  className={i === current ? 'animate-ken-burns' : ''}
+                  fetchPriority={i === 0 ? 'high' : 'auto'}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </div>
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
             )}
