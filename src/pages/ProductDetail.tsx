@@ -325,7 +325,7 @@ const ProductDetail = () => {
     "offers": {
       "@type": "Offer",
       "url": `https://matailor.lovable.app/product/${product.id}`,
-      "priceCurrency": "USD",
+      "priceCurrency": "PKR",
       "price": effectivePrice,
       "availability": inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     },

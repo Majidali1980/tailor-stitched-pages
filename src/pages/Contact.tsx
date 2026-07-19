@@ -14,12 +14,13 @@ const ContactPage = () => {
     "url": "https://matailor.lovable.app",
     "address": {
       "@type": "PostalAddress",
+      "addressLocality": "Karachi",
       "addressCountry": "PK"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "31.5204",
-      "longitude": "74.3587"
+      "latitude": "24.8607",
+      "longitude": "67.0011"
     },
     "openingHours": "Mo-Su 09:00-21:00",
     "priceRange": "$$"

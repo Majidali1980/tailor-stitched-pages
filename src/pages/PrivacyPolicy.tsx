@@ -1,10 +1,20 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import { Helmet } from 'react-helmet-async';
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
+      <Helmet>
+        <title>Privacy Policy | MA Tailor Karachi</title>
+        <meta name="description" content="How MA Tailor collects, uses, and protects your personal data when using our online stitching services." />
+        <link rel="canonical" href="https://matailor.lovable.app/privacy-policy" />
+        <meta property="og:title" content="Privacy Policy | MA Tailor" />
+        <meta property="og:description" content="How MA Tailor collects, uses, and protects your personal data." />
+        <meta property="og:url" content="https://matailor.lovable.app/privacy-policy" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 text-gold">
