@@ -55,7 +55,7 @@ const About = () => {
               className="bg-gold hover:bg-gold-dark text-black font-montserrat"
               onClick={() => setShowDetails(true)}
             >
-              Learn More
+              Learn More About MA Tailor
             </Button>
           </div>
         </div>
