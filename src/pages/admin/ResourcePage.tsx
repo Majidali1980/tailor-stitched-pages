@@ -28,12 +28,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, Search } from "lucide-react";
 import ResourceForm from "@/components/admin/ResourceForm";
 import { logAudit } from "@/lib/admin/audit";
 
 const PAGE_SIZE = 25;
+const HIDDEN_COLUMNS = new Set(["id", "created_at", "updated_at"]);
+const ACTIVE_KEYS = ["is_active", "active", "published", "is_published", "enabled"];
+
+function pickActiveKey(row: Record<string, unknown> | undefined): string | null {
+  if (!row) return null;
+  for (const k of ACTIVE_KEYS) if (k in row && typeof row[k] === "boolean") return k;
+  return null;
+}
 
 function formatCell(v: unknown): React.ReactNode {
   if (v === null || v === undefined) return <span className="text-muted-foreground">—</span>;
@@ -68,17 +77,19 @@ export default function ResourcePage() {
   const [textColumns, setTextColumns] = useState<string[]>([]);
 
   const columns = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows]);
+  const activeKey = useMemo(() => pickActiveKey(rows[0]), [rows]);
   const displayColumns = useMemo(() => {
-    const preferred = ["title", "name", "email", "slug", "status", "price", "created_at"];
+    const preferred = ["title", "name", "email", "slug", "status", "price"];
     const set = new Set<string>();
     for (const p of preferred) if (columns.includes(p)) set.add(p);
     for (const c of columns) {
       if (set.size >= 6) break;
-      if (c === "id") continue;
+      if (HIDDEN_COLUMNS.has(c)) continue;
+      if (activeKey && c === activeKey) continue;
       set.add(c);
     }
     return Array.from(set);
-  }, [columns]);
+  }, [columns, activeKey]);
 
   // Debounce search input
   useEffect(() => {
@@ -160,6 +171,29 @@ export default function ResourcePage() {
     load();
   };
 
+  const handleToggleActive = async (row: Record<string, unknown>) => {
+    if (!def || !activeKey) return;
+    const next = !row[activeKey];
+    // optimistic
+    setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, [activeKey]: next } : r)));
+    const { error } = await supabase
+      .from(def.table as never)
+      .update({ [activeKey]: next } as never)
+      .eq("id", row.id as never);
+    if (error) {
+      toast.error(error.message);
+      setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, [activeKey]: !next } : r)));
+      return;
+    }
+    await logAudit({
+      action: "update",
+      table: def.table,
+      recordId: row.id as string | number | null,
+      changes: { [activeKey]: next },
+    });
+    toast.success(next ? "Activated" : "Deactivated");
+  };
+
   if (!def) return <div className="p-6">Unknown resource.</div>;
 
   return (
@@ -200,20 +234,21 @@ export default function ResourcePage() {
               {displayColumns.map((c) => (
                 <TableHead key={c}>{c}</TableHead>
               ))}
+              {activeKey && <TableHead className="w-24">Active</TableHead>}
               <TableHead className="w-24 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {loading && (
               <TableRow>
-                <TableCell colSpan={displayColumns.length + 1} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={displayColumns.length + 1 + (activeKey ? 1 : 0)} className="text-center py-8 text-muted-foreground">
                   Loading...
                 </TableCell>
               </TableRow>
             )}
             {!loading && rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={displayColumns.length + 1} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={displayColumns.length + 1 + (activeKey ? 1 : 0)} className="text-center py-8 text-muted-foreground">
                   No rows
                 </TableCell>
               </TableRow>
@@ -223,6 +258,15 @@ export default function ResourcePage() {
                 {displayColumns.map((c) => (
                   <TableCell key={c}>{formatCell(r[c])}</TableCell>
                 ))}
+                {activeKey && (
+                  <TableCell>
+                    <Switch
+                      checked={!!r[activeKey]}
+                      onCheckedChange={() => handleToggleActive(r)}
+                      aria-label="Toggle active"
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
                     <Button
