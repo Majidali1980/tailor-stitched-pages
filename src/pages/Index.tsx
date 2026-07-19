@@ -129,7 +129,7 @@ const Index = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Online Girls Tailoring & Stitching Services in Pakistan</h1>
+        <h1 className="sr-only">Best Ladies Tailor in Karachi — Online Stitching Services by MA Tailor</h1>
         <Navbar />
         <DynamicPromotionalBanner />
         <CinematicHero />
