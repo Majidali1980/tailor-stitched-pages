@@ -96,7 +96,7 @@ const HeroCarousel = () => {
                           rel="noopener noreferrer"
                           className="inline-block bg-gold text-black px-8 py-3 rounded-lg font-montserrat font-semibold hover:bg-gold-light transition-colors duration-300"
                         >
-                          Learn More
+                          Explore {item.title || 'Our Services'}
                         </a>
                       )}
                     </div>
