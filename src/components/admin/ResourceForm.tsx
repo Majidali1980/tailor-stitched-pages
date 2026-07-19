@@ -241,6 +241,9 @@ export default function ResourceForm({
               <div className="space-y-2">
                 <Input id={name} value={(value as string) ?? ""} onChange={(e) => setField(name, e.target.value)} placeholder="https://..." aria-invalid={!!err} />
                 <Input type="file" accept="image/*" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadImage(name, f); }} />
+                {IMAGE_SIZE_HINTS[table] && (
+                  <p className="text-xs text-muted-foreground">💡 {IMAGE_SIZE_HINTS[table]}</p>
+                )}
                 {typeof value === "string" && value && (
                   <img src={value} alt="preview" className="h-20 w-20 object-cover rounded border" />
                 )}
