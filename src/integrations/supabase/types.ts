@@ -544,6 +544,7 @@ export type Database = {
           discount_percentage: number | null
           display_order: number | null
           id: string
+          image_url: string | null
           is_active: boolean | null
           title: string
           updated_at: string
@@ -558,6 +559,7 @@ export type Database = {
           discount_percentage?: number | null
           display_order?: number | null
           id?: string
+          image_url?: string | null
           is_active?: boolean | null
           title: string
           updated_at?: string
@@ -572,6 +574,7 @@ export type Database = {
           discount_percentage?: number | null
           display_order?: number | null
           id?: string
+          image_url?: string | null
           is_active?: boolean | null
           title?: string
           updated_at?: string

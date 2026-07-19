@@ -75,16 +75,17 @@ const CinematicHero = () => {
                   height={s.image_height ?? undefined}
                   style={{
                     objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover',
-                    width: s.image_width ? `${s.image_width}px` : '100%',
-                    height: s.image_height ? `${s.image_height}px` : '100%',
-                    maxWidth: '100%',
-                    maxHeight: '100%',
+                    aspectRatio:
+                      s.image_width && s.image_height
+                        ? `${s.image_width} / ${s.image_height}`
+                        : undefined,
                   }}
-                  className={i === current ? 'animate-ken-burns' : ''}
+                  className={`w-full h-full max-w-full max-h-full ${i === current ? 'animate-ken-burns' : ''}`}
                   fetchPriority={i === 0 ? 'high' : 'auto'}
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
               </div>
+
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
             )}
