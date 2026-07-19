@@ -111,25 +111,30 @@ export default function ResourcePage() {
   const load = async () => {
     if (!def) return;
     setLoading(true);
-    const hasDO = rows[0] ? "display_order" in rows[0] : false;
-    const sort = def.defaultSort ?? (hasDO ? { column: "display_order", ascending: true } : { column: "id", ascending: false });
+    let sort = def.defaultSort ?? { column: "display_order", ascending: true };
     let cols = textColumns;
     if (search && cols.length === 0) {
       cols = await detectTextColumns();
       setTextColumns(cols);
     }
-    let q = supabase
-      .from(def.table as never)
-      .select("*", { count: "exact" })
-      .order(sort.column as never, { ascending: sort.ascending })
-      .range(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE - 1);
+    const runQuery = (sortCol: string, ascending: boolean) => {
+      let q = supabase
+        .from(def.table as never)
+        .select("*", { count: "exact" })
+        .order(sortCol as never, { ascending })
+        .range(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE - 1);
+      if (search && cols.length > 0) {
+        const orExpr = cols.map((c) => `${c}.ilike.%${search.replace(/[%,]/g, "")}%`).join(",");
+        q = q.or(orExpr) as typeof q;
+      }
+      return q;
+    };
 
-    if (search && cols.length > 0) {
-      const orExpr = cols.map((c) => `${c}.ilike.%${search.replace(/[%,]/g, "")}%`).join(",");
-      q = q.or(orExpr) as typeof q;
+    let { data, count, error } = await runQuery(sort.column, sort.ascending);
+    if (error && !def.defaultSort && sort.column === "display_order") {
+      sort = { column: "id", ascending: false };
+      ({ data, count, error } = await runQuery(sort.column, sort.ascending));
     }
-
-    const { data, count, error } = await q;
     setLoading(false);
     if (error) {
       toast.error(error.message);
