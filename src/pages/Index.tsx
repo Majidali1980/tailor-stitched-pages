@@ -97,7 +97,7 @@ const Index = () => {
           <ProductShowcase />
           
           <HeroSectionLittleStitch />
-          <LatestJobListings />
+          
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
