@@ -91,6 +91,7 @@ const App = () => (
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/special-discount-offers" element={<SpecialDiscountOffers />} />
+              <Route path="/special-discount-offers/:slug" element={<SpecialDiscountOfferDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
