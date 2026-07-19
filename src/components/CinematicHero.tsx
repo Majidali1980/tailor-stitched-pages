@@ -70,7 +70,10 @@ const CinematicHero = () => {
               <img
                 src={s.image_url}
                 alt={s.title}
-                className={`w-full h-full object-cover ${i === current ? 'animate-ken-burns' : ''}`}
+                width={s.image_width ?? undefined}
+                height={s.image_height ?? undefined}
+                style={{ objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover' }}
+                className={`w-full h-full ${i === current ? 'animate-ken-burns' : ''}`}
                 fetchPriority={i === 0 ? 'high' : 'auto'}
                 loading={i === 0 ? 'eager' : 'lazy'}
               />
