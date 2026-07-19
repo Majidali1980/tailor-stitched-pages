@@ -14,6 +14,7 @@ interface DiscountOffer {
   valid_from: string;
   valid_until: string;
   is_active: boolean;
+  image_url?: string | null;
 }
 
 const DiscountOffers = () => {
