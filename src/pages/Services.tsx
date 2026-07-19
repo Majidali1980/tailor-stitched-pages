@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServicesComponent from '@/components/Services';
@@ -5,8 +6,38 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { serviceLandingPages } from '@/data/serviceLandingPages';
+import { supabase } from '@/integrations/supabase/client';
 
 const Services = () => {
+  const [dbPages, setDbPages] = useState<{ slug: string; service_name: string | null; intro: string | null }[] | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from('service_pages')
+      .select('slug,service_name,intro,display_order,is_active')
+      .eq('is_active', true)
+      .order('display_order', { ascending: true })
+      .then(({ data }) => setDbPages((data as any) ?? []));
+  }, []);
+
+  const entries = (() => {
+    if (!dbPages) {
+      return Object.entries(serviceLandingPages).map(([slug, cfg]) => ({
+        slug,
+        name: cfg.serviceName,
+        intro: cfg.intro,
+      }));
+    }
+    return dbPages.map((r) => {
+      const fb = serviceLandingPages[r.slug];
+      return {
+        slug: r.slug,
+        name: r.service_name || fb?.serviceName || r.slug,
+        intro: r.intro || fb?.intro || '',
+      };
+    });
+  })();
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -54,17 +85,17 @@ const Services = () => {
               <p className="text-gray-300 max-w-2xl mx-auto">Dedicated pages with pricing guidance, timelines, FAQs and past work for each stitching category.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.entries(serviceLandingPages).map(([slug, cfg]) => (
+              {entries.map((e) => (
                 <Link
-                  key={slug}
-                  to={`/services/${slug}`}
+                  key={e.slug}
+                  to={`/services/${e.slug}`}
                   className="group block p-6 rounded-xl border border-gold/30 bg-black/50 hover:border-gold hover:bg-black/70 transition-all"
                 >
                   <h3 className="text-lg font-semibold text-white group-hover:text-gold mb-2 flex items-center gap-2">
-                    {cfg.serviceName}
+                    {e.name}
                     <ArrowRight className="h-4 w-4 text-gold opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
-                  <p className="text-sm text-gray-400">{cfg.intro.slice(0, 120)}…</p>
+                  <p className="text-sm text-gray-400">{e.intro ? `${e.intro.slice(0, 120)}…` : ''}</p>
                 </Link>
               ))}
             </div>
