@@ -91,20 +91,21 @@ const Index = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Ma Tailor",
-    "description": "Online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery.",
+    "name": "MA Tailor",
+    "description": "Best ladies tailor in Karachi offering premium online stitching services, designer dresses, bridal wear, custom tailoring, and home measurement services.",
     "url": "https://matailor.lovable.app",
     "telephone": "+92-307-0125273",
-    "address": { "@type": "PostalAddress", "addressCountry": "PK", "addressRegion": "Punjab" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressCountry": "PK", "addressRegion": "Sindh" },
+    "areaServed": { "@type": "City", "name": "Karachi" },
     "priceRange": "$$",
     "image": "https://matailor.lovable.app/og-image.jpg",
     "sameAs": ["https://www.facebook.com/matailor", "https://www.instagram.com/matailor"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Tailoring Services",
+      "name": "Ladies Tailoring Services Karachi",
       "itemListElement": [{
         "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Custom Girls Stitching", "description": "Premium custom tailoring services for girls with perfect fit" }
+        "itemOffered": { "@type": "Service", "name": "Ladies Tailor Karachi", "description": "Online ladies tailoring service in Karachi — designer dresses, bridal wear, custom stitching, and home measurement." }
       }]
     }
   };
@@ -112,23 +113,23 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Ma Tailor – Online Girls Stitching Shop in Pakistan</title>
-        <meta name="description" content="Order online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery by Ma Tailor." />
-        <meta name="keywords" content="Pakistani dress tailor USA, Pakistani dress tailor UK, Pakistani dress tailor Canada, ladies stitching online USA UK Canada, shalwar kameez stitching USA, custom suits USA UK Canada, international delivery USA UK Canada, MA Tailor USA, online tailor for Pakistani clothes UK, Pakistani suit stitching Canada, Pakistani clothes tailor online USA" />
+        <title>Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor</title>
+        <meta name="description" content="Looking for the best ladies tailor in Karachi? MA Tailor offers premium online stitching services, designer dresses, bridal wear, custom tailoring, and home measurement services." />
+        <meta name="keywords" content="ladies tailor Karachi, best ladies tailor Karachi, online tailoring service Karachi, designer tailor Karachi, bridal stitching Karachi, home measurement tailor Karachi, custom stitching Karachi, Pakistani dress tailor" />
         <link rel="canonical" href="https://matailor.lovable.app/" />
-        <meta property="og:title" content="Ma Tailor – Online Girls Stitching Shop in Pakistan" />
-        <meta property="og:description" content="Order online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery." />
+        <meta property="og:title" content="Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor" />
+        <meta property="og:description" content="Premium online stitching services in Karachi — designer dresses, bridal wear, custom tailoring, and home measurement services by MA Tailor." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/" />
         <meta property="og:image" content="https://matailor.lovable.app/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ma Tailor – Online Girls Stitching Shop in Pakistan" />
-        <meta name="twitter:description" content="Order online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery." />
+        <meta name="twitter:title" content="Best Ladies Tailor in Karachi | Online Stitching Services | MA Tailor" />
+        <meta name="twitter:description" content="Premium online stitching services in Karachi — designer dresses, bridal wear, custom tailoring, and home measurement services by MA Tailor." />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Online Girls Tailoring & Stitching Services in Pakistan</h1>
+        <h1 className="sr-only">Best Ladies Tailor in Karachi — Online Stitching Services by MA Tailor</h1>
         <Navbar />
         <DynamicPromotionalBanner />
         <CinematicHero />
