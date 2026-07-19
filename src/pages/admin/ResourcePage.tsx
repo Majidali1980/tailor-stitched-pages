@@ -78,6 +78,7 @@ export default function ResourcePage() {
 
   const columns = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows]);
   const activeKey = useMemo(() => pickActiveKey(rows[0]), [rows]);
+  const hasOrder = useMemo(() => columns.includes("display_order"), [columns]);
   const displayColumns = useMemo(() => {
     const preferred = ["title", "name", "email", "slug", "status", "price"];
     const set = new Set<string>();
