@@ -11,7 +11,7 @@ const HeroCarousel = lazy(() => import('@/components/HeroCarousel'));
 const HomepageCarousel = lazy(() => import('@/components/HomepageCarousel'));
 const NotificationBar = lazy(() => import('@/components/NotificationBar'));
 const LatestDesignsCarousel = lazy(() => import('@/components/LatestDesignsCarousel'));
-const DiscountOffers = lazy(() => import('@/components/DiscountOffers'));
+
 const HeroSectionServices = lazy(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })));
 const StitchedDressCarousel = lazy(() => import('@/components/StitchedDressCarousel'));
 const GalleryCategoriesShowcase = lazy(() => import('@/components/GalleryCategoriesShowcase'));
