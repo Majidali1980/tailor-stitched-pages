@@ -112,6 +112,22 @@ export default function ResourceForm({
   const [values, setValues] = useState<Record<string, unknown>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [galleryCategories, setGalleryCategories] = useState<{ slug: string; label: string }[]>([]);
+
+  useEffect(() => {
+    if (table !== "gallery") return;
+    supabase
+      .from("gallery_categories")
+      .select("slug,label,is_active,display_order")
+      .order("display_order", { ascending: true })
+      .then(({ data }) => {
+        setGalleryCategories(
+          (data ?? [])
+            .filter((c: any) => c.is_active !== false)
+            .map((c: any) => ({ slug: c.slug, label: c.label })),
+        );
+      });
+  }, [table]);
 
   const source = initial || sampleRow || {};
   const fieldNames = Object.keys(source).filter((n) => !HIDDEN_FIELDS.has(n));
