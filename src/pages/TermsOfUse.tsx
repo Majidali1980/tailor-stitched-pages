@@ -1,10 +1,20 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppFloat from '@/components/WhatsAppFloat';
+import { Helmet } from 'react-helmet-async';
 
 const TermsOfUse = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
+      <Helmet>
+        <title>Terms of Use | MA Tailor Karachi</title>
+        <meta name="description" content="Terms and conditions governing use of MA Tailor's online stitching website, orders, and services." />
+        <link rel="canonical" href="https://matailor.lovable.app/terms-of-use" />
+        <meta property="og:title" content="Terms of Use | MA Tailor" />
+        <meta property="og:description" content="Terms and conditions for using MA Tailor services." />
+        <meta property="og:url" content="https://matailor.lovable.app/terms-of-use" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Navbar />
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl md:text-5xl font-playfair font-bold text-center mb-8 text-gold">
