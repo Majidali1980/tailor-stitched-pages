@@ -77,17 +77,19 @@ export default function ResourcePage() {
   const [textColumns, setTextColumns] = useState<string[]>([]);
 
   const columns = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows]);
+  const activeKey = useMemo(() => pickActiveKey(rows[0]), [rows]);
   const displayColumns = useMemo(() => {
-    const preferred = ["title", "name", "email", "slug", "status", "price", "created_at"];
+    const preferred = ["title", "name", "email", "slug", "status", "price"];
     const set = new Set<string>();
     for (const p of preferred) if (columns.includes(p)) set.add(p);
     for (const c of columns) {
       if (set.size >= 6) break;
-      if (c === "id") continue;
+      if (HIDDEN_COLUMNS.has(c)) continue;
+      if (activeKey && c === activeKey) continue;
       set.add(c);
     }
     return Array.from(set);
-  }, [columns]);
+  }, [columns, activeKey]);
 
   // Debounce search input
   useEffect(() => {
