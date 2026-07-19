@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { Pencil, Trash2, Plus, Search } from "lucide-react";
+import { Pencil, Trash2, Plus, Search, ArrowUp, ArrowDown } from "lucide-react";
 import ResourceForm from "@/components/admin/ResourceForm";
 import { logAudit } from "@/lib/admin/audit";
 
@@ -78,6 +78,7 @@ export default function ResourcePage() {
 
   const columns = useMemo(() => (rows[0] ? Object.keys(rows[0]) : []), [rows]);
   const activeKey = useMemo(() => pickActiveKey(rows[0]), [rows]);
+  const hasOrder = useMemo(() => columns.includes("display_order"), [columns]);
   const displayColumns = useMemo(() => {
     const preferred = ["title", "name", "email", "slug", "status", "price"];
     const set = new Set<string>();
@@ -110,24 +111,30 @@ export default function ResourcePage() {
   const load = async () => {
     if (!def) return;
     setLoading(true);
-    const sort = def.defaultSort ?? { column: "id", ascending: false };
+    let sort = def.defaultSort ?? { column: "display_order", ascending: true };
     let cols = textColumns;
     if (search && cols.length === 0) {
       cols = await detectTextColumns();
       setTextColumns(cols);
     }
-    let q = supabase
-      .from(def.table as never)
-      .select("*", { count: "exact" })
-      .order(sort.column as never, { ascending: sort.ascending })
-      .range(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE - 1);
+    const runQuery = (sortCol: string, ascending: boolean) => {
+      let q = supabase
+        .from(def.table as never)
+        .select("*", { count: "exact" })
+        .order(sortCol as never, { ascending })
+        .range(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE - 1);
+      if (search && cols.length > 0) {
+        const orExpr = cols.map((c) => `${c}.ilike.%${search.replace(/[%,]/g, "")}%`).join(",");
+        q = q.or(orExpr) as typeof q;
+      }
+      return q;
+    };
 
-    if (search && cols.length > 0) {
-      const orExpr = cols.map((c) => `${c}.ilike.%${search.replace(/[%,]/g, "")}%`).join(",");
-      q = q.or(orExpr) as typeof q;
+    let { data, count, error } = await runQuery(sort.column, sort.ascending);
+    if (error && !def.defaultSort && sort.column === "display_order") {
+      sort = { column: "id", ascending: false };
+      ({ data, count, error } = await runQuery(sort.column, sort.ascending));
     }
-
-    const { data, count, error } = await q;
     setLoading(false);
     if (error) {
       toast.error(error.message);
@@ -194,6 +201,38 @@ export default function ResourcePage() {
     toast.success(next ? "Activated" : "Deactivated");
   };
 
+  const handleMove = async (index: number, direction: -1 | 1) => {
+    if (!def || !hasOrder) return;
+    const target = index + direction;
+    if (target < 0 || target >= rows.length) return;
+    const a = rows[index];
+    const b = rows[target];
+    const aOrder = Number(a.display_order ?? index);
+    const bOrder = Number(b.display_order ?? target);
+    // optimistic swap
+    const nextRows = [...rows];
+    nextRows[index] = { ...b, display_order: aOrder };
+    nextRows[target] = { ...a, display_order: bOrder };
+    nextRows.sort((x, y) => Number(x.display_order ?? 0) - Number(y.display_order ?? 0));
+    setRows(nextRows);
+    const [r1, r2] = await Promise.all([
+      supabase.from(def.table as never).update({ display_order: bOrder } as never).eq("id", a.id as never),
+      supabase.from(def.table as never).update({ display_order: aOrder } as never).eq("id", b.id as never),
+    ]);
+    if (r1.error || r2.error) {
+      toast.error(r1.error?.message || r2.error?.message || "Reorder failed");
+      load();
+      return;
+    }
+    await logAudit({
+      action: "update",
+      table: def.table,
+      recordId: a.id as string | number | null,
+      changes: { display_order: bOrder },
+    });
+    toast.success("Reordered");
+  };
+
   if (!def) return <div className="p-6">Unknown resource.</div>;
 
   return (
@@ -253,7 +292,7 @@ export default function ResourcePage() {
                 </TableCell>
               </TableRow>
             )}
-            {rows.map((r) => (
+            {rows.map((r, idx) => (
               <TableRow key={String(r.id ?? Math.random())}>
                 {displayColumns.map((c) => (
                   <TableCell key={c}>{formatCell(r[c])}</TableCell>
@@ -269,6 +308,16 @@ export default function ResourcePage() {
                 )}
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
+                    {hasOrder && (
+                      <>
+                        <Button size="icon" variant="ghost" disabled={idx === 0} onClick={() => handleMove(idx, -1)} aria-label="Move up">
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button size="icon" variant="ghost" disabled={idx === rows.length - 1} onClick={() => handleMove(idx, 1)} aria-label="Move down">
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
                     <Button
                       size="icon"
                       variant="ghost"

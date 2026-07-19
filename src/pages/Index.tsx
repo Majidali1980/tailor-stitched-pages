@@ -1,10 +1,11 @@
 
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import CinematicHero from '@/components/CinematicHero';
 import BentoShowcase from '@/components/BentoShowcase';
 import { Helmet } from 'react-helmet-async';
 import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
+import { supabase } from '@/integrations/supabase/client';
 
 // Lazy load below-fold components
 const HeroCarousel = lazy(() => import('@/components/HeroCarousel'));
@@ -29,7 +30,34 @@ const TailorAssistant = lazy(() => import('@/components/TailorAssistant'));
 
 const SectionFallback = () => <div className="min-h-[100px]" />;
 
+// Map admin section_key -> rendered component
+const SECTION_COMPONENTS: Record<string, React.ComponentType> = {
+  notification_bar: NotificationBar,
+  homepage_carousel: HomepageCarousel,
+  latest_designs: LatestDesignsCarousel,
+  hero_services: HeroSectionServices,
+  stitched_dress: StitchedDressCarousel,
+  gallery: GalleryCategoriesShowcase,
+  products: ProductShowcase,
+  hero_little_stitch: HeroSectionLittleStitch,
+};
+
+// Default order for keys not present in DB (or as fallback)
+const DEFAULT_ORDER = [
+  'notification_bar',
+  'homepage_carousel',
+  'latest_designs',
+  'hero_services',
+  'stitched_dress',
+  'gallery',
+  'products',
+  'hero_little_stitch',
+];
+
+
 const Index = () => {
+  const [orderedKeys, setOrderedKeys] = useState<string[]>(DEFAULT_ORDER);
+
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'icon';
@@ -38,6 +66,27 @@ const Index = () => {
     document.head.appendChild(link);
     return () => { document.head.removeChild(link); };
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from('homepage_sections')
+        .select('section_key, display_order, is_visible')
+        .order('display_order', { ascending: true });
+      if (cancelled || !data) return;
+      const visible = data
+        .filter((s: { section_key: string; is_visible: boolean }) =>
+          s.is_visible !== false && s.section_key in SECTION_COMPONENTS,
+        )
+        .map((s: { section_key: string }) => s.section_key);
+      // Append any mapped keys missing from DB so nothing disappears silently
+      for (const k of DEFAULT_ORDER) if (!visible.includes(k) && !data.some((d: { section_key: string }) => d.section_key === k)) visible.push(k);
+      setOrderedKeys(visible);
+    })();
+    return () => { cancelled = true; };
+  }, []);
+  
   
   const structuredData = {
     "@context": "https://schema.org",
@@ -85,19 +134,11 @@ const Index = () => {
         <CinematicHero />
         <Suspense fallback={<SectionFallback />}>
           <BentoShowcase />
-
-          
           <HeroCarousel />
-          <HomepageCarousel />
-          <NotificationBar />
-          <LatestDesignsCarousel />
-          <HeroSectionServices />
-          <StitchedDressCarousel />
-          <GalleryCategoriesShowcase />
-          <ProductShowcase />
-          
-          <HeroSectionLittleStitch />
-          
+          {orderedKeys.map((key) => {
+            const Comp = SECTION_COMPONENTS[key];
+            return Comp ? <Comp key={key} /> : null;
+          })}
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
