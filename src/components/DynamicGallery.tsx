@@ -21,17 +21,9 @@ const DynamicGallery = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState(initialCategory);
-
-  // Define categories for filtering
-  const categories = [
+  const [categories, setCategories] = useState<{ value: string; label: string }[]>([
     { value: "all", label: "All" },
-    { value: "full-suit", label: "Full Suit" },
-    { value: "shirt", label: "Shirts" },
-    { value: "bottom", label: "Bottoms" },
-    { value: "neck-design", label: "Neck Design" },
-    { value: "shalwar-kameez", label: "Shalwar Kameez" },
-    { value: "girls-suits", label: "Girls Suits" },
-  ];
+  ]);
 
   useEffect(() => {
     const cat = new URLSearchParams(location.search).get('category') || 'all';
@@ -39,19 +31,17 @@ const DynamicGallery = () => {
   }, [location.search]);
 
   useEffect(() => {
-    const fetchGalleryItems = async () => {
+    const fetchAll = async () => {
       try {
-        const { data, error } = await supabase
-          .from('gallery')
-          .select('*')
-          .eq('is_active', true)
-          .order('display_order', { ascending: true });
+        const [galleryRes, catRes] = await Promise.all([
+          supabase.from('gallery').select('*').eq('is_active', true).order('display_order', { ascending: true }),
+          supabase.from('gallery_categories').select('slug, label').eq('is_active', true).order('display_order', { ascending: true }),
+        ]);
+        if (galleryRes.error) console.error('Error fetching gallery items:', galleryRes.error);
+        else setGalleryItems(galleryRes.data || []);
 
-        if (error) {
-          console.error('Error fetching gallery items:', error);
-        } else {
-          console.log('Gallery items fetched:', data?.length || 0, 'items');
-          setGalleryItems(data || []);
+        if (catRes.data) {
+          setCategories([{ value: 'all', label: 'All' }, ...catRes.data.map((c) => ({ value: c.slug, label: c.label }))]);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -59,8 +49,7 @@ const DynamicGallery = () => {
         setLoading(false);
       }
     };
-
-    fetchGalleryItems();
+    fetchAll();
   }, []);
 
   // Filter items based on selected category
