@@ -269,7 +269,7 @@ export default function ResourcePage() {
       </div>
 
       <Dialog open={openForm} onOpenChange={setOpenForm}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl admin-scope">
           <DialogHeader>
             <DialogTitle>{editing ? "Edit" : "New"} · {def.label}</DialogTitle>
           </DialogHeader>
@@ -287,7 +287,7 @@ export default function ResourcePage() {
       </Dialog>
 
       <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="admin-scope">
           <AlertDialogHeader>
             <AlertDialogTitle>Delete this row?</AlertDialogTitle>
             <AlertDialogDescription>

@@ -25,7 +25,7 @@ const NewsletterSubscription = lazy(() => import('@/components/NewsletterSubscri
 const Footer = lazy(() => import('@/components/Footer'));
 const WhatsAppFloat = lazy(() => import('@/components/WhatsAppFloat'));
 const TailorAssistant = lazy(() => import('@/components/TailorAssistant'));
-const LatestJobListings = lazy(() => import('@/components/LatestJobListings').then(m => ({ default: m.LatestJobListings })));
+
 
 const SectionFallback = () => <div className="min-h-[100px]" />;
 
@@ -97,7 +97,7 @@ const Index = () => {
           <ProductShowcase />
           
           <HeroSectionLittleStitch />
-          <LatestJobListings />
+          
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />

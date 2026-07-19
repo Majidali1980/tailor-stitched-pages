@@ -16,7 +16,7 @@ const moreItems = [
   { name: "AI Design Studio", href: "/ai-design-studio" },
   { name: "Videos", href: "/videos" },
   { name: "Reviews", href: "/reviews" },
-  { name: "Career", href: "/career" },
+  
   { name: "FAQ", href: "/faq" },
   { name: "Bulk Orders", href: "/bulk-orders" },
   { name: "Blog", href: "/blog" },
