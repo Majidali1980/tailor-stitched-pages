@@ -43,6 +43,7 @@ export const RESOURCES: ResourceDef[] = [
   { key: "fabric-details", table: "fabric_details", label: "Fabric Details", group: "Site Config" },
   { key: "stitching-services", table: "stitching_services", label: "Stitching Services", group: "Site Config" },
   { key: "career-jobs", table: "career_jobs", label: "Career Jobs", group: "Site Config" },
+  { key: "service-pages", table: "service_pages", label: "Service Pages", group: "Site Config", defaultSort: { column: "display_order", ascending: true } },
 
   // Communications
   { key: "contact-messages", table: "contact_messages", label: "Contact Messages", group: "Communications", defaultSort: { column: "created_at", ascending: false } },

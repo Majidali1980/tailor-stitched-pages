@@ -1337,6 +1337,78 @@ export type Database = {
         }
         Relationships: []
       }
+      service_pages: {
+        Row: {
+          created_at: string
+          display_order: number
+          faqs: Json | null
+          h1: string | null
+          hero_image_alt: string | null
+          hero_image_url: string | null
+          highlights: Json | null
+          id: string
+          images: Json | null
+          intro: string | null
+          is_active: boolean
+          meta_description: string | null
+          meta_keywords: string | null
+          related_reads: Json | null
+          related_services: Json | null
+          sections: Json | null
+          service_name: string | null
+          slug: string
+          testimonials: Json | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          faqs?: Json | null
+          h1?: string | null
+          hero_image_alt?: string | null
+          hero_image_url?: string | null
+          highlights?: Json | null
+          id?: string
+          images?: Json | null
+          intro?: string | null
+          is_active?: boolean
+          meta_description?: string | null
+          meta_keywords?: string | null
+          related_reads?: Json | null
+          related_services?: Json | null
+          sections?: Json | null
+          service_name?: string | null
+          slug: string
+          testimonials?: Json | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          faqs?: Json | null
+          h1?: string | null
+          hero_image_alt?: string | null
+          hero_image_url?: string | null
+          highlights?: Json | null
+          id?: string
+          images?: Json | null
+          intro?: string | null
+          is_active?: boolean
+          meta_description?: string | null
+          meta_keywords?: string | null
+          related_reads?: Json | null
+          related_services?: Json | null
+          sections?: Json | null
+          service_name?: string | null
+          slug?: string
+          testimonials?: Json | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       stitched_dress: {
         Row: {
           created_at: string
