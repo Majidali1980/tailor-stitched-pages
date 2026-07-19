@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 
 interface DiscountOffer {
   id: string;
+  slug: string;
   title: string;
   description: string;
   discount_percentage: number;
@@ -16,6 +19,9 @@ interface DiscountOffer {
   is_active: boolean;
   image_url?: string | null;
 }
+
+const SITE = 'https://matailor.lovable.app';
+
 
 const DiscountOffers = () => {
   const [offers, setOffers] = useState<DiscountOffer[]>([]);
