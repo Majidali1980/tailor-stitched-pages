@@ -164,7 +164,7 @@ export default function ResourceForm({
     const payload: Record<string, unknown> = {};
     for (const { name, kind } of fieldMeta) {
       if (READ_ONLY.has(name) || (isEdit && name === "id")) continue;
-      if (!isEdit && HIDDEN_ON_CREATE.has(name)) continue;
+      if (HIDDEN_FIELDS.has(name)) continue;
       const v = values[name];
       if ((v === "" || v === undefined || v === null) && kind !== "boolean") {
         payload[name] = null;
