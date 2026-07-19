@@ -8,6 +8,8 @@ import Footer from '@/components/Footer';
 
 export interface FaqItem { q: string; a: string }
 export interface InternalLink { label: string; to: string; description?: string }
+export interface Testimonial { name: string; location?: string; text: string; rating?: number }
+export interface GalleryImage { src: string; alt: string; caption?: string }
 
 export interface SeoLandingPageProps {
   slug: string;
@@ -20,6 +22,9 @@ export interface SeoLandingPageProps {
   sections: { heading: string; body: string }[];
   faqs: FaqItem[];
   serviceName: string;
+  heroImage?: GalleryImage;
+  images?: GalleryImage[];
+  testimonials?: Testimonial[];
   relatedReads?: InternalLink[];
   relatedServices?: InternalLink[];
 }
