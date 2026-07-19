@@ -35,7 +35,7 @@ const ServiceLanding = () => {
       .select('*')
       .eq('slug', slug)
       .maybeSingle()
-      .then(({ data }) => setRow((data as DbRow | null) ?? null));
+      .then(({ data }) => setRow((data as unknown as DbRow | null) ?? null));
   }, [slug]);
 
   if (!slug) return <Navigate to="/services" replace />;
