@@ -92,13 +92,20 @@ const SeoLandingPage = ({
         <Navbar />
 
         <section className="pt-36 pb-12 bg-gradient-to-b from-gray-900 to-black">
-          <div className="container mx-auto px-4 max-w-4xl text-center">
-            <h1 className="text-3xl md:text-5xl font-playfair font-bold mb-6">{h1}</h1>
-            <p className="text-base md:text-lg text-gray-300 mb-8">{intro}</p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Link to="/booking"><Button className="bg-gold hover:bg-gold-dark text-black">Book Now</Button></Link>
-              <Link to="/gallery"><Button variant="outline" className="text-gold border-gold hover:bg-gold hover:text-black">View Designs</Button></Link>
+          <div className="container mx-auto px-4 max-w-5xl grid md:grid-cols-2 gap-8 items-center">
+            <div className="text-center md:text-left">
+              <h1 className="text-3xl md:text-5xl font-playfair font-bold mb-6">{h1}</h1>
+              <p className="text-base md:text-lg text-gray-300 mb-8">{intro}</p>
+              <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                <Link to="/booking"><Button className="bg-gold hover:bg-gold-dark text-black">Book Now</Button></Link>
+                <Link to="/gallery"><Button variant="outline" className="text-gold border-gold hover:bg-gold hover:text-black">View Designs</Button></Link>
+              </div>
             </div>
+            {heroImage && (
+              <div className="rounded-2xl overflow-hidden border border-gold/30 shadow-2xl">
+                <img src={heroImage.src} alt={heroImage.alt} loading="eager" className="w-full h-full object-cover aspect-[4/5]" />
+              </div>
+            )}
           </div>
         </section>
 
