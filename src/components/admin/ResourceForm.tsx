@@ -113,9 +113,7 @@ export default function ResourceForm({
   const [saving, setSaving] = useState(false);
 
   const source = initial || sampleRow || {};
-  const fieldNames = Object.keys(source).filter((n) =>
-    isEdit ? true : !HIDDEN_ON_CREATE.has(n),
-  );
+  const fieldNames = Object.keys(source).filter((n) => !HIDDEN_FIELDS.has(n));
 
   const fieldMeta = useMemo(
     () => fieldNames.map((n) => ({ name: n, kind: inferKind(n, (source as Record<string, unknown>)[n]) })),
