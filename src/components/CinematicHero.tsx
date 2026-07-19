@@ -7,6 +7,9 @@ interface HeroSlide {
   description: string | null;
   image_url: string | null;
   video_url: string | null;
+  image_width: number | null;
+  image_height: number | null;
+  object_fit: string | null;
   button1_text: string | null;
   button1_link: string | null;
   button2_text: string | null;
