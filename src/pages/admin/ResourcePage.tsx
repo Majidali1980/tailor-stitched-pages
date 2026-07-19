@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { Pencil, Trash2, Plus, Search } from "lucide-react";
+import { Pencil, Trash2, Plus, Search, ArrowUp, ArrowDown } from "lucide-react";
 import ResourceForm from "@/components/admin/ResourceForm";
 import { logAudit } from "@/lib/admin/audit";
 
