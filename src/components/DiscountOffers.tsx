@@ -74,8 +74,22 @@ const DiscountOffers = () => {
     return null;
   }
 
+  const itemListLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: offers.map((o, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE}/special-discount-offers/${o.slug}`,
+      name: o.title,
+    })),
+  };
+
   return (
     <section className="py-16 bg-gradient-to-b from-gray-900 to-black">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+      </Helmet>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-playfair font-bold mb-4 text-white">
@@ -88,71 +102,81 @@ const DiscountOffers = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {offers.map((offer) => (
-            <Card key={offer.id} className="bg-gray-800 border-gray-700 hover:border-gold transition-colors duration-300 overflow-hidden">
-              {offer.image_url && (
-                <div className="w-full aspect-[16/9] overflow-hidden bg-black">
-                  <img
-                    src={offer.image_url}
-                    alt={offer.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <CardHeader className="text-center">
-
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-gold/20 rounded-full">
-                    <Gift className="h-8 w-8 text-gold" />
+            <Link
+              key={offer.id}
+              to={`/special-discount-offers/${offer.slug}`}
+              className="block group"
+              aria-label={`View details for ${offer.title}`}
+            >
+              <Card className="bg-gray-800 border-gray-700 group-hover:border-gold transition-colors duration-300 overflow-hidden h-full">
+                {offer.image_url && (
+                  <div className="w-full aspect-[16/9] overflow-hidden bg-black">
+                    <img
+                      src={offer.image_url}
+                      alt={offer.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </div>
-                <CardTitle className="text-xl font-playfair text-white mb-2">
-                  {offer.title}
-                </CardTitle>
-                <div className="flex justify-center gap-2">
-                  {offer.discount_percentage && (
-                    <Badge variant="secondary" className="bg-gold text-black font-bold">
-                      <Percent className="h-4 w-4 mr-1" />
-                      {offer.discount_percentage}% OFF
-                    </Badge>
-                  )}
-                  {offer.discount_amount && (
-                    <Badge variant="secondary" className="bg-gold text-black font-bold">
-                      ${offer.discount_amount} OFF
-                    </Badge>
-                  )}
-                </div>
-              </CardHeader>
-              
-              <CardContent className="text-center space-y-4">
-                {offer.description && (
-                  <p className="text-gray-300 font-montserrat">
-                    {offer.description}
-                  </p>
                 )}
-                
-                
-                {(offer.valid_from || offer.valid_until) && (
-                  <div className="space-y-1 text-sm text-gray-400 font-montserrat">
-                    <div className="flex items-center justify-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>Valid Period</span>
+                <CardHeader className="text-center">
+                  <div className="flex justify-center mb-4">
+                    <div className="p-3 bg-gold/20 rounded-full">
+                      <Gift className="h-8 w-8 text-gold" />
                     </div>
-                    {offer.valid_from && (
-                      <p>From: {new Date(offer.valid_from).toLocaleDateString()}</p>
+                  </div>
+                  <CardTitle className="text-xl font-playfair text-white mb-2">
+                    {offer.title}
+                  </CardTitle>
+                  <div className="flex justify-center gap-2 flex-wrap">
+                    {offer.discount_percentage && (
+                      <Badge variant="secondary" className="bg-gold text-black font-bold">
+                        <Percent className="h-4 w-4 mr-1" />
+                        {offer.discount_percentage}% OFF
+                      </Badge>
                     )}
-                    {offer.valid_until && (
-                      <p>Until: {new Date(offer.valid_until).toLocaleDateString()}</p>
+                    {offer.discount_amount && (
+                      <Badge variant="secondary" className="bg-gold text-black font-bold">
+                        Rs {offer.discount_amount} OFF
+                      </Badge>
                     )}
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                </CardHeader>
+
+                <CardContent className="text-center space-y-4">
+                  {offer.description && (
+                    <p className="text-gray-300 font-montserrat line-clamp-3">
+                      {offer.description}
+                    </p>
+                  )}
+
+                  {(offer.valid_from || offer.valid_until) && (
+                    <div className="space-y-1 text-sm text-gray-400 font-montserrat">
+                      <div className="flex items-center justify-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>Valid Period</span>
+                      </div>
+                      {offer.valid_from && (
+                        <p>From: {new Date(offer.valid_from).toLocaleDateString()}</p>
+                      )}
+                      {offer.valid_until && (
+                        <p>Until: {new Date(offer.valid_until).toLocaleDateString()}</p>
+                      )}
+                    </div>
+                  )}
+
+                  <span className="inline-block text-gold text-sm font-semibold group-hover:underline">
+                    View details →
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
     </section>
   );
 };
+
 
 export default DiscountOffers;
