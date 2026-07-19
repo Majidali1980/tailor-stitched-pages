@@ -134,19 +134,11 @@ const Index = () => {
         <CinematicHero />
         <Suspense fallback={<SectionFallback />}>
           <BentoShowcase />
-
-          
           <HeroCarousel />
-          <HomepageCarousel />
-          <NotificationBar />
-          <LatestDesignsCarousel />
-          <HeroSectionServices />
-          <StitchedDressCarousel />
-          <GalleryCategoriesShowcase />
-          <ProductShowcase />
-          
-          <HeroSectionLittleStitch />
-          
+          {orderedKeys.map((key) => {
+            const Comp = SECTION_COMPONENTS[key];
+            return Comp ? <Comp key={key} /> : null;
+          })}
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
