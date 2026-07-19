@@ -5,7 +5,9 @@ interface Notification {
   id: string;
   message: string;
   display_order: number;
+  link_url?: string | null;
 }
+
 
 const NotificationBar = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
