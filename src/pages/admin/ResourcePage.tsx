@@ -234,20 +234,21 @@ export default function ResourcePage() {
               {displayColumns.map((c) => (
                 <TableHead key={c}>{c}</TableHead>
               ))}
+              {activeKey && <TableHead className="w-24">Active</TableHead>}
               <TableHead className="w-24 text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {loading && (
               <TableRow>
-                <TableCell colSpan={displayColumns.length + 1} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={displayColumns.length + 1 + (activeKey ? 1 : 0)} className="text-center py-8 text-muted-foreground">
                   Loading...
                 </TableCell>
               </TableRow>
             )}
             {!loading && rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={displayColumns.length + 1} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={displayColumns.length + 1 + (activeKey ? 1 : 0)} className="text-center py-8 text-muted-foreground">
                   No rows
                 </TableCell>
               </TableRow>
@@ -257,6 +258,15 @@ export default function ResourcePage() {
                 {displayColumns.map((c) => (
                   <TableCell key={c}>{formatCell(r[c])}</TableCell>
                 ))}
+                {activeKey && (
+                  <TableCell>
+                    <Switch
+                      checked={!!r[activeKey]}
+                      onCheckedChange={() => handleToggleActive(r)}
+                      aria-label="Toggle active"
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
                     <Button
