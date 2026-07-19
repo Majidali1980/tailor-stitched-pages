@@ -93,6 +93,7 @@ const Index = () => {
           <LatestDesignsCarousel />
           <HeroSectionServices />
           <StitchedDressCarousel />
+          <GalleryCategoriesShowcase />
           <ProductShowcase />
           
           <HeroSectionLittleStitch />
