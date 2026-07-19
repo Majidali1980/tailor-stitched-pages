@@ -81,3 +81,20 @@
   }
 }
 
+
+/* Admin panel: force white text across all children */
+.admin-scope,
+.admin-scope * {
+  color: #ffffff !important;
+}
+.admin-scope input,
+.admin-scope textarea,
+.admin-scope select {
+  color: #ffffff !important;
+}
+.admin-scope input::placeholder,
+.admin-scope textarea::placeholder {
+  color: rgba(255,255,255,0.55) !important;
+}
+/* Keep icons/svgs using currentColor white too */
+.admin-scope svg { color: #ffffff !important; }

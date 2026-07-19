@@ -16,7 +16,7 @@ function AdminShell() {
   };
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="admin-scope min-h-screen flex w-full bg-background">
         <AdminSidebar />
         <div className="flex-1 flex flex-col min-w-0">
           <header className="h-12 border-b flex items-center justify-between px-2">
