@@ -129,7 +129,7 @@ const DynamicGallery = () => {
             </p>
           </div>
 
-          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveCategory}>
+          <Tabs value={activeCategory} className="w-full" onValueChange={setActiveCategory}>
             <div className="flex justify-center mb-12 overflow-x-auto">
               <TabsList className="bg-gray-900 p-1">
                 {categories.map((category) => (
