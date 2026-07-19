@@ -5,7 +5,9 @@ interface Notification {
   id: string;
   message: string;
   display_order: number;
+  link_url?: string | null;
 }
+
 
 const NotificationBar = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -56,14 +58,29 @@ const NotificationBar = () => {
     <div className="w-full bg-gold py-3 overflow-hidden">
       <div className="animate-scroll whitespace-nowrap">
         <div className="inline-flex items-center space-x-12">
-          {[...notifications, ...notifications].map((notification, index) => (
-            <span
-              key={`${notification.id}-${index}`}
-              className="text-black font-montserrat font-semibold text-sm md:text-base"
-            >
-              {notification.message}
-            </span>
-          ))}
+          {[...notifications, ...notifications].map((notification, index) => {
+            const content = (
+              <span
+                className="text-black font-montserrat font-semibold text-sm md:text-base"
+              >
+                {notification.message}
+              </span>
+            );
+            return notification.link_url ? (
+              <a
+                key={`${notification.id}-${index}`}
+                href={notification.link_url}
+                target={notification.link_url.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {content}
+              </a>
+            ) : (
+              <span key={`${notification.id}-${index}`}>{content}</span>
+            );
+          })}
+
         </div>
       </div>
     </div>

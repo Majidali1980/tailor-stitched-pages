@@ -966,6 +966,7 @@ export type Database = {
           display_order: number | null
           id: string
           is_active: boolean
+          link_url: string | null
           message: string
           updated_at: string
         }
@@ -974,6 +975,7 @@ export type Database = {
           display_order?: number | null
           id?: string
           is_active?: boolean
+          link_url?: string | null
           message: string
           updated_at?: string
         }
@@ -982,6 +984,7 @@ export type Database = {
           display_order?: number | null
           id?: string
           is_active?: boolean
+          link_url?: string | null
           message?: string
           updated_at?: string
         }
