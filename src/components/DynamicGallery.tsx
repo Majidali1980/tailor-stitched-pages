@@ -15,20 +15,28 @@ interface GalleryItem {
 }
 
 const DynamicGallery = () => {
+  const location = useLocation();
+  const initialCategory = new URLSearchParams(location.search).get('category') || 'all';
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   // Define categories for filtering
   const categories = [
     { value: "all", label: "All" },
     { value: "full-suit", label: "Full Suit" },
     { value: "shirt", label: "Shirts" },
+    { value: "bottom", label: "Bottoms" },
     { value: "neck-design", label: "Neck Design" },
     { value: "shalwar-kameez", label: "Shalwar Kameez" },
     { value: "girls-suits", label: "Girls Suits" },
   ];
+
+  useEffect(() => {
+    const cat = new URLSearchParams(location.search).get('category') || 'all';
+    setActiveCategory(cat);
+  }, [location.search]);
 
   useEffect(() => {
     const fetchGalleryItems = async () => {
