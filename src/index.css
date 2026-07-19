@@ -98,3 +98,25 @@
 }
 /* Keep icons/svgs using currentColor white too */
 .admin-scope svg { color: #ffffff !important; }
+
+/* Admin panel: gold buttons */
+.admin-scope button,
+.admin-scope [role="button"],
+.admin-scope a.button,
+.admin-scope .btn {
+  background-color: hsl(43 74% 52%) !important;
+  color: #000000 !important;
+  border-color: hsl(43 74% 52%) !important;
+}
+.admin-scope button:hover,
+.admin-scope [role="button"]:hover {
+  background-color: hsl(43 80% 58%) !important;
+}
+.admin-scope button *,
+.admin-scope [role="button"] * {
+  color: #000000 !important;
+}
+.admin-scope button svg,
+.admin-scope [role="button"] svg {
+  color: #000000 !important;
+}
