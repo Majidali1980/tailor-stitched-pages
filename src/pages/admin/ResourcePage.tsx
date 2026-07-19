@@ -111,7 +111,8 @@ export default function ResourcePage() {
   const load = async () => {
     if (!def) return;
     setLoading(true);
-    const sort = def.defaultSort ?? { column: "id", ascending: false };
+    const hasDO = rows[0] ? "display_order" in rows[0] : false;
+    const sort = def.defaultSort ?? (hasDO ? { column: "display_order", ascending: true } : { column: "id", ascending: false });
     let cols = textColumns;
     if (search && cols.length === 0) {
       cols = await detectTextColumns();
