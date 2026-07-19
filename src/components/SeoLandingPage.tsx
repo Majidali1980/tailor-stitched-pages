@@ -31,6 +31,7 @@ export interface SeoLandingPageProps {
 
 const SeoLandingPage = ({
   slug, title, metaDescription, metaKeywords, h1, intro, highlights, sections, faqs, serviceName,
+  heroImage, images = [], testimonials = [],
   relatedReads = [], relatedServices = [],
 }: SeoLandingPageProps) => {
   const url = `https://matailor.lovable.app/${slug}`;
