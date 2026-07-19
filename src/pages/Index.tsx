@@ -91,20 +91,21 @@ const Index = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Ma Tailor",
-    "description": "Online custom stitching for girls in Pakistan. Perfect fit, elegant designs, fast delivery.",
+    "name": "MA Tailor",
+    "description": "Best ladies tailor in Karachi offering premium online stitching services, designer dresses, bridal wear, custom tailoring, and home measurement services.",
     "url": "https://matailor.lovable.app",
     "telephone": "+92-307-0125273",
-    "address": { "@type": "PostalAddress", "addressCountry": "PK", "addressRegion": "Punjab" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Karachi", "addressCountry": "PK", "addressRegion": "Sindh" },
+    "areaServed": { "@type": "City", "name": "Karachi" },
     "priceRange": "$$",
     "image": "https://matailor.lovable.app/og-image.jpg",
     "sameAs": ["https://www.facebook.com/matailor", "https://www.instagram.com/matailor"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Tailoring Services",
+      "name": "Ladies Tailoring Services Karachi",
       "itemListElement": [{
         "@type": "Offer",
-        "itemOffered": { "@type": "Service", "name": "Custom Girls Stitching", "description": "Premium custom tailoring services for girls with perfect fit" }
+        "itemOffered": { "@type": "Service", "name": "Ladies Tailor Karachi", "description": "Online ladies tailoring service in Karachi — designer dresses, bridal wear, custom stitching, and home measurement." }
       }]
     }
   };
