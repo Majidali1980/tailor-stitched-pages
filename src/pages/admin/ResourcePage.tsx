@@ -28,12 +28,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, Search } from "lucide-react";
 import ResourceForm from "@/components/admin/ResourceForm";
 import { logAudit } from "@/lib/admin/audit";
 
 const PAGE_SIZE = 25;
+const HIDDEN_COLUMNS = new Set(["id", "created_at", "updated_at"]);
+const ACTIVE_KEYS = ["is_active", "active", "published", "is_published", "enabled"];
+
+function pickActiveKey(row: Record<string, unknown> | undefined): string | null {
+  if (!row) return null;
+  for (const k of ACTIVE_KEYS) if (k in row && typeof row[k] === "boolean") return k;
+  return null;
+}
 
 function formatCell(v: unknown): React.ReactNode {
   if (v === null || v === undefined) return <span className="text-muted-foreground">—</span>;
