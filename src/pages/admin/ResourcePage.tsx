@@ -287,7 +287,7 @@ export default function ResourcePage() {
       </Dialog>
 
       <AlertDialog open={!!deleting} onOpenChange={(v) => !v && setDeleting(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="admin-scope">
           <AlertDialogHeader>
             <AlertDialogTitle>Delete this row?</AlertDialogTitle>
             <AlertDialogDescription>
