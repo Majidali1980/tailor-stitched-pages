@@ -7,6 +7,9 @@ interface HeroSlide {
   description: string | null;
   image_url: string | null;
   video_url: string | null;
+  image_width: number | null;
+  image_height: number | null;
+  object_fit: string | null;
   button1_text: string | null;
   button1_link: string | null;
   button2_text: string | null;
@@ -25,6 +28,7 @@ const CinematicHero = () => {
         .from('hero_section')
         .select('*')
         .eq('is_active', true)
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
       if (data && data.length) setSlides(data);
     })();
@@ -66,7 +70,10 @@ const CinematicHero = () => {
               <img
                 src={s.image_url}
                 alt={s.title}
-                className={`w-full h-full object-cover ${i === current ? 'animate-ken-burns' : ''}`}
+                width={s.image_width ?? undefined}
+                height={s.image_height ?? undefined}
+                style={{ objectFit: (s.object_fit as React.CSSProperties['objectFit']) || 'cover' }}
+                className={`w-full h-full ${i === current ? 'animate-ken-burns' : ''}`}
                 fetchPriority={i === 0 ? 'high' : 'auto'}
                 loading={i === 0 ? 'eager' : 'lazy'}
               />

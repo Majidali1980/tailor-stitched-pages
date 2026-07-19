@@ -657,9 +657,13 @@ export type Database = {
           button2_text: string | null
           created_at: string
           description: string | null
+          display_order: number | null
           id: string
+          image_height: number | null
           image_url: string | null
+          image_width: number | null
           is_active: boolean | null
+          object_fit: string | null
           title: string
           updated_at: string
           video_url: string | null
@@ -671,9 +675,13 @@ export type Database = {
           button2_text?: string | null
           created_at?: string
           description?: string | null
+          display_order?: number | null
           id?: string
+          image_height?: number | null
           image_url?: string | null
+          image_width?: number | null
           is_active?: boolean | null
+          object_fit?: string | null
           title: string
           updated_at?: string
           video_url?: string | null
@@ -685,9 +693,13 @@ export type Database = {
           button2_text?: string | null
           created_at?: string
           description?: string | null
+          display_order?: number | null
           id?: string
+          image_height?: number | null
           image_url?: string | null
+          image_width?: number | null
           is_active?: boolean | null
+          object_fit?: string | null
           title?: string
           updated_at?: string
           video_url?: string | null
