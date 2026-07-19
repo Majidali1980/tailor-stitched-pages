@@ -245,7 +245,24 @@ export default function ResourceForm({
             <Label htmlFor={name} className="text-xs uppercase tracking-wide text-muted-foreground">
               {name}{isRequired && <span className="text-destructive ml-0.5">*</span>}
             </Label>
-            {kind === "boolean" ? (
+            {table === "gallery" && name === "category" ? (
+              <div className="space-y-1">
+                <Select value={(value as string) || ""} onValueChange={(v) => setField(name, v)} disabled={readOnly}>
+                  <SelectTrigger id={name} aria-invalid={!!err}>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {galleryCategories.length === 0 && (
+                      <SelectItem value="__none__" disabled>No categories — create some in Gallery Categories</SelectItem>
+                    )}
+                    {galleryCategories.map((c) => (
+                      <SelectItem key={c.slug} value={c.slug}>{c.label} <span className="opacity-60 ml-1">({c.slug})</span></SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">Assign this image to a gallery category. Manage categories under Content → Gallery Categories.</p>
+              </div>
+            ) : kind === "boolean" ? (
               <div className="flex items-center gap-2">
                 <Switch id={name} checked={!!value} onCheckedChange={(v) => setField(name, v)} disabled={readOnly} />
                 <span className="text-sm">{value ? "Yes" : "No"}</span>
