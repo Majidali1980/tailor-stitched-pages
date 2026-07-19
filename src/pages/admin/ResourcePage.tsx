@@ -292,7 +292,7 @@ export default function ResourcePage() {
                 </TableCell>
               </TableRow>
             )}
-            {rows.map((r) => (
+            {rows.map((r, idx) => (
               <TableRow key={String(r.id ?? Math.random())}>
                 {displayColumns.map((c) => (
                   <TableCell key={c}>{formatCell(r[c])}</TableCell>
@@ -308,6 +308,16 @@ export default function ResourcePage() {
                 )}
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-1">
+                    {hasOrder && (
+                      <>
+                        <Button size="icon" variant="ghost" disabled={idx === 0} onClick={() => handleMove(idx, -1)} aria-label="Move up">
+                          <ArrowUp className="h-4 w-4" />
+                        </Button>
+                        <Button size="icon" variant="ghost" disabled={idx === rows.length - 1} onClick={() => handleMove(idx, 1)} aria-label="Move down">
+                          <ArrowDown className="h-4 w-4" />
+                        </Button>
+                      </>
+                    )}
                     <Button
                       size="icon"
                       variant="ghost"
