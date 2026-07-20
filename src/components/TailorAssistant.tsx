@@ -134,10 +134,11 @@ export default function TailorAssistant() {
             <Button
               onClick={() => setIsOpen(true)}
               aria-label="Open AI chat assistant"
-              className="fixed right-3 bottom-20 lg:bottom-6 h-11 w-11 rounded-full shadow-lg z-[60] bg-primary hover:bg-primary/90"
+              className="group fixed right-4 bottom-24 lg:bottom-8 h-14 w-14 sm:h-16 sm:w-16 rounded-full shadow-xl z-[60] bg-primary hover:bg-primary/90 hover:scale-110 transition-all duration-300 animate-bounce-slow"
               size="icon"
             >
-              <MessageSquare className="h-5 w-5" />
+              <span className="absolute inset-0 rounded-full bg-primary opacity-60 animate-ping-slow" aria-hidden="true" />
+              <MessageSquare className="relative h-7 w-7 sm:h-8 sm:w-8 group-hover:rotate-12 transition-transform" />
             </Button>
           </TooltipTrigger>
           <TooltipContent side="left" className="bg-primary text-primary-foreground">
