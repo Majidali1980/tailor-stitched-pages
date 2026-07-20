@@ -105,11 +105,21 @@ export default {
 					'0%': { backgroundPosition: '-40rem 0' },
 					'100%': { backgroundPosition: '40rem 0' },
 				},
+				'bounce-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-8px)' },
+				},
+				'ping-slow': {
+					'0%': { transform: 'scale(1)', opacity: '0.6' },
+					'75%, 100%': { transform: 'scale(1.6)', opacity: '0' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				shimmer: 'shimmer 2s linear infinite',
+				'bounce-slow': 'bounce-slow 2.4s ease-in-out infinite',
+				'ping-slow': 'ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
 			}
 		}
 	},

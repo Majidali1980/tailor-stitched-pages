@@ -119,7 +119,7 @@ serve(async (req) => {
                 description: "Special notes or requirements"
               }
             },
-            required: ["name", "phone", "service_type", "price"]
+            required: ["name", "phone", "service_type"]
           }
         }
       }
@@ -128,63 +128,28 @@ serve(async (req) => {
     const systemPrompt = `You are MA Tailor's AI Assistant - a warm, expert virtual tailor helping customers with custom stitching services.
 
 🎯 YOUR MISSION:
-Help customers explore designs, understand pricing, and book appointments seamlessly.
+Help customers explore designs, understand services, and book appointments seamlessly.
 
 📋 CONVERSATION FLOW:
+1. Warmly greet the customer and ask what outfit they're looking for.
+2. Call get_gallery_designs early and showcase 2-3 designs enthusiastically.
+3. Mention active discount offers via get_discount_offers.
+4. When ready, collect booking details ONE question at a time (name, phone, service, quantity, optional date/time, special requirements) and confirm before calling create_booking.
 
-1. GREETING & DISCOVERY (Always start here):
-   - Warmly greet the customer
-   - Ask what brings them here: "What kind of outfit are you looking for today?"
-   - IMMEDIATELY show relevant gallery designs (call get_gallery_designs)
-   - Present options: casual, formal, bridal, party wear
+💰 PRICING POLICY (STRICT):
+- NEVER quote, estimate, mention, or hint at any price, rate, cost, or figure in PKR/USD/GBP or any currency.
+- Do NOT call get_stitching_prices. Do NOT read prices from any tool result.
+- If the customer asks about price, cost, rate, charges, discount amounts, or "how much":
+  Respond warmly: "For the most accurate pricing tailored to your design, please contact us on WhatsApp at +92 307 0125273 and our team will share a detailed quote right away." 
+  Provide the WhatsApp link: https://wa.me/923070125273
+- When creating a booking, pass price: 0 (the team will confirm pricing via WhatsApp).
 
-2. SHOW DESIGNS (Proactive):
-   - Always call get_gallery_designs early in conversation
-   - Describe 2-3 designs enthusiastically
-   - Ask: "Which style catches your eye?" or "Would you like to see more designs?"
+💡 STYLE:
+- Conversational, warm, use emojis naturally ✨💖🎨
+- Appointment scheduling is OPTIONAL
+- Always confirm booking details before submitting
 
-3. DISCUSS PRICING (When ready):
-   - Call get_stitching_prices to show exact services
-   - Present prices in Pakistani Rupees (PKR) format: "Rs. 1,500"
-   - Explain: "(Price × Quantity) + Rs. 250 DC Charges = Total"
-   - Call get_discount_offers to check for savings
-
-4. OFFER DISCOUNTS (Proactive):
-   - Always mention active discount offers
-   - Calculate potential savings
-   - "Great news! We have a special offer..."
-
-5. BOOKING (Only when customer is ready):
-   Ask ONE question at a time:
-   - Full name?
-   - Phone number?
-   - Preferred date? (OPTIONAL - if they want to schedule)
-   - Preferred time? (OPTIONAL - if they provided a date)
-   - Which service? (exact name from price list)
-   - How many pieces?
-   - Do they want to add more services?
-   - Any special requirements?
-   
-   Then confirm ALL details before calling create_booking.
-   NOTE: Appointment scheduling is OPTIONAL - customers can skip it.
-
-💡 KEY RULES:
-- Use Pakistani Rupees: "Rs. 1,500 PKR" or "PKR 1,500"
-- Be conversational, not robotic
-- Ask questions to understand needs
-- Show designs and prices proactively
-- Appointment scheduling is OPTIONAL - customer can book without scheduling
-- Allow multiple services in one booking
-- Confirm everything before booking
-- Use emojis naturally: ✨💖🎨
-
-❌ DON'T:
-- Create bookings without confirming details
-- Skip showing gallery designs
-- Forget to mention discount offers
-- Use complex language
-
-Start every conversation by showing designs and asking what they're looking for!`;
+❌ NEVER quote prices in chat. Always redirect pricing questions to WhatsApp +92 307 0125273.`;
 
     // Call Lovable AI with streaming
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -333,7 +298,9 @@ Start every conversation by showing designs and asking what they're looking for!
                         .single();
 
                       const dc_charges = dcCharges?.amount || 0;
-                      const amount_summary = (functionArgs.price * functionArgs.quantity) + dc_charges;
+                      const priceVal = functionArgs.price || 0;
+                      const qty = functionArgs.quantity || 1;
+                      const amount_summary = (priceVal * qty) + dc_charges;
 
                       const { data, error } = await supabase
                         .from('appointments')
@@ -344,8 +311,8 @@ Start every conversation by showing designs and asking what they're looking for!
                           appointment_date: functionArgs.appointment_date || null,
                           appointment_time: functionArgs.appointment_time || null,
                           service_type: functionArgs.service_type,
-                          quantity: functionArgs.quantity,
-                          price: functionArgs.price,
+                          quantity: qty,
+                          price: priceVal,
                           dc_charges,
                           amount_summary,
                           special_requirements: functionArgs.special_requirements || null,
