@@ -119,7 +119,7 @@ serve(async (req) => {
                 description: "Special notes or requirements"
               }
             },
-            required: ["name", "phone", "service_type", "price"]
+            required: ["name", "phone", "service_type"]
           }
         }
       }
