@@ -298,7 +298,9 @@ Help customers explore designs, understand services, and book appointments seaml
                         .single();
 
                       const dc_charges = dcCharges?.amount || 0;
-                      const amount_summary = (functionArgs.price * functionArgs.quantity) + dc_charges;
+                      const priceVal = functionArgs.price || 0;
+                      const qty = functionArgs.quantity || 1;
+                      const amount_summary = (priceVal * qty) + dc_charges;
 
                       const { data, error } = await supabase
                         .from('appointments')
