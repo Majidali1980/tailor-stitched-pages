@@ -45,6 +45,12 @@ export default function SearchConsole() {
   const perf = useAction();
   const audit = useAction();
   const coverage = useAction();
+  const siteAudit = useAction();
+
+  const runOverview = async () => {
+    await coverage.run("index-coverage");
+    await siteAudit.run("site-image-audit", { limitPages: 20 });
+  };
 
   const [queue, setQueue] = useState<string>(
     ["/", "/services", "/blog", "/gallery", "/booking"].map((p) => SITE + p).join("\n"),
@@ -77,8 +83,9 @@ export default function SearchConsole() {
         <p className="text-muted-foreground">SEO health, indexing, sitemap and image audit tools.</p>
       </div>
 
-      <Tabs defaultValue="sitemap" className="w-full">
+      <Tabs defaultValue="overview" className="w-full">
         <TabsList className="flex-wrap">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="sitemap">Sitemap</TabsTrigger>
           <TabsTrigger value="verify">Verification</TabsTrigger>
           <TabsTrigger value="indexing">Indexing Queue</TabsTrigger>
@@ -86,6 +93,141 @@ export default function SearchConsole() {
           <TabsTrigger value="audit">Image Audit</TabsTrigger>
           <TabsTrigger value="coverage">Index Coverage</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="overview">
+          <Card>
+            <CardHeader><CardTitle>SEO overview — URLs & images at a glance</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Runs a full audit: inspects every URL in <code>/sitemap.xml</code> against Google's index, then scans images across the top pages for SEO issues.
+              </p>
+              <Button onClick={runOverview} disabled={coverage.loading || siteAudit.loading}>
+                {(coverage.loading || siteAudit.loading) && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                Run full audit
+              </Button>
+
+              {coverage.data?.results && (
+                <div>
+                  <h3 className="font-semibold text-sm mb-2">URLs — indexing status</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold">{coverage.data.total}</div>
+                      <div className="text-xs text-muted-foreground">Total URLs in sitemap</div>
+                    </div>
+                    <div className="rounded border border-green-600/40 bg-green-600/10 p-3">
+                      <div className="text-2xl font-bold text-green-400">{coverage.data.indexedCount}</div>
+                      <div className="text-xs text-muted-foreground">Indexed on Google</div>
+                    </div>
+                    <div className="rounded border border-red-600/40 bg-red-600/10 p-3">
+                      <div className="text-2xl font-bold text-red-400">{coverage.data.notIndexedCount}</div>
+                      <div className="text-xs text-muted-foreground">Not indexed</div>
+                    </div>
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold">
+                        {coverage.data.total ? Math.round((coverage.data.indexedCount / coverage.data.total) * 100) : 0}%
+                      </div>
+                      <div className="text-xs text-muted-foreground">Coverage rate</div>
+                    </div>
+                  </div>
+
+                  {coverage.data.notIndexedCount > 0 && (() => {
+                    const groups: Record<string, any[]> = {};
+                    coverage.data.notIndexed.forEach((r: any) => {
+                      const k = r.coverageState || r.indexingState || r.error || "Unknown reason";
+                      (groups[k] ??= []).push(r);
+                    });
+                    return (
+                      <div className="mt-4 space-y-2">
+                        <h4 className="text-sm font-semibold text-red-400">Not-indexed URLs by reason</h4>
+                        {Object.entries(groups).map(([reason, items]) => (
+                          <div key={reason} className="border rounded p-2">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Badge variant="outline">{items.length}</Badge>
+                              <span className="text-sm font-medium">{reason}</span>
+                            </div>
+                            <ul className="text-xs font-mono text-muted-foreground space-y-0.5 max-h-40 overflow-auto">
+                              {items.map((r: any, i: number) => (
+                                <li key={i} className="truncate">{r.url.replace(SITE, "") || "/"}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
+
+              {siteAudit.data?.totals && (
+                <div>
+                  <h3 className="font-semibold text-sm mb-2 mt-4">Images — SEO status</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold">{siteAudit.data.totals.totalImages}</div>
+                      <div className="text-xs text-muted-foreground">Images scanned ({siteAudit.data.totals.totalPages} pages)</div>
+                    </div>
+                    <div className="rounded border border-green-600/40 bg-green-600/10 p-3">
+                      <div className="text-2xl font-bold text-green-400">{siteAudit.data.totals.ok}</div>
+                      <div className="text-xs text-muted-foreground">Fully optimised</div>
+                    </div>
+                    <div className="rounded border border-amber-600/40 bg-amber-600/10 p-3">
+                      <div className="text-2xl font-bold text-amber-400">{siteAudit.data.totals.withIssues}</div>
+                      <div className="text-xs text-muted-foreground">With issues (may hurt indexing)</div>
+                    </div>
+                    <div className="rounded border border-red-600/40 bg-red-600/10 p-3">
+                      <div className="text-2xl font-bold text-red-400">{siteAudit.data.totals.broken}</div>
+                      <div className="text-xs text-muted-foreground">Broken (HTTP 4xx/5xx)</div>
+                    </div>
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold text-amber-400">{siteAudit.data.totals.missingAlt}</div>
+                      <div className="text-xs text-muted-foreground">Missing/weak alt text</div>
+                    </div>
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold text-amber-400">{siteAudit.data.totals.oversized}</div>
+                      <div className="text-xs text-muted-foreground">Oversized (&gt;300 KB)</div>
+                    </div>
+                    <div className="rounded border p-3">
+                      <div className="text-2xl font-bold text-amber-400">{siteAudit.data.totals.nonOptimised}</div>
+                      <div className="text-xs text-muted-foreground">Non-optimised format (JPG/PNG)</div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-2">
+                    <h4 className="text-sm font-semibold">Problem images by page</h4>
+                    {siteAudit.data.perPage
+                      .filter((p: any) => p.images?.some((i: any) => i.issues.length > 0))
+                      .map((p: any, i: number) => {
+                        const bad = p.images.filter((im: any) => im.issues.length > 0);
+                        return (
+                          <div key={i} className="border rounded p-2">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Badge variant="outline">{bad.length}</Badge>
+                              <span className="text-sm font-mono">{p.page}</span>
+                            </div>
+                            <ul className="text-xs space-y-1 max-h-48 overflow-auto">
+                              {bad.map((im: any, j: number) => (
+                                <li key={j} className="flex gap-2">
+                                  <span className="font-mono text-muted-foreground truncate max-w-md">{im.url.replace(SITE, "")}</span>
+                                  <span className="text-amber-400">{im.issues.join(" • ")}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      })}
+                    {siteAudit.data.totals.withIssues === 0 && (
+                      <p className="text-sm text-green-400">✓ No image issues detected.</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {!coverage.data && !siteAudit.data && (
+                <p className="text-sm text-muted-foreground">Click <strong>Run full audit</strong> to see categorized URL indexing + image SEO status.</p>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="coverage">
           <Card>
