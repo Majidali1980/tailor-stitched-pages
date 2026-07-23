@@ -158,6 +158,45 @@ Deno.serve(async (req) => {
       return json({ ok: true, path, total: parsed.length, audited: results.length, results });
     }
 
+    if (action === "index-coverage") {
+      const siteUrl = payload?.siteUrl ?? SITE_URL;
+      let urls: string[] = payload?.urls ?? [];
+      if (!urls.length) {
+        try {
+          const res = await fetch(`${SITE_ORIGIN}/sitemap.xml`);
+          const xml = await res.text();
+          urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+        } catch (e) {
+          return json({ error: `failed to load sitemap: ${(e as Error).message}` }, 500);
+        }
+      }
+      const results: any[] = [];
+      // sequential to avoid gateway rate limits
+      for (const inspectionUrl of urls) {
+        const r = await gsc(`/v1/urlInspection/index:inspect`, {
+          method: "POST",
+          body: JSON.stringify({ inspectionUrl, siteUrl }),
+        });
+        const idx = (r.body as any)?.inspectionResult?.indexStatusResult ?? {};
+        results.push({
+          url: inspectionUrl,
+          verdict: idx.verdict ?? "UNKNOWN",
+          coverageState: idx.coverageState ?? null,
+          lastCrawlTime: idx.lastCrawlTime ?? null,
+          robotsTxtState: idx.robotsTxtState ?? null,
+          indexingState: idx.indexingState ?? null,
+          pageFetchState: idx.pageFetchState ?? null,
+          googleCanonical: idx.googleCanonical ?? null,
+          userCanonical: idx.userCanonical ?? null,
+          referringUrls: idx.referringUrls ?? null,
+          error: r.ok ? null : (r.body as any)?.error ?? `HTTP ${r.status}`,
+        });
+      }
+      const indexed = results.filter((r) => r.verdict === "PASS");
+      const notIndexed = results.filter((r) => r.verdict !== "PASS");
+      return json({ ok: true, total: results.length, indexedCount: indexed.length, notIndexedCount: notIndexed.length, indexed, notIndexed, results });
+    }
+
     return json({ error: "Unknown action" }, 400);
   } catch (e) {
     return json({ error: String((e as Error).message ?? e) }, 500);
