@@ -94,10 +94,30 @@ export default function SearchConsole() {
               <p className="text-sm text-muted-foreground">
                 Inspects every URL in <code>/sitemap.xml</code> against Google's index and groups them into indexed vs not-indexed. Sequential; may take a minute for large sitemaps.
               </p>
-              <Button onClick={() => coverage.run("index-coverage")} disabled={coverage.loading}>
-                {coverage.loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                Scan all sitemap URLs
-              </Button>
+              <div className="rounded border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+                <strong>Note:</strong> Google's Indexing API is restricted to Job Posting / Livestream sites, so we can't push arbitrary pages to the index programmatically. The workflow below is the fastest legit path:
+                <ol className="list-decimal ml-5 mt-1 space-y-0.5">
+                  <li>Resubmit sitemap (nudges Google to re-crawl).</li>
+                  <li>Scan to find pages still not indexed.</li>
+                  <li>Use the <em>Inspect in GSC</em> link on each row to open Search Console and click "Request Indexing" (~10/day quota).</li>
+                </ol>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <Button
+                  onClick={async () => {
+                    await sitemap.run("submit-sitemap");
+                    await coverage.run("index-coverage");
+                  }}
+                  disabled={coverage.loading || sitemap.loading}
+                >
+                  {(coverage.loading || sitemap.loading) && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  Resubmit sitemap + scan all URLs
+                </Button>
+                <Button variant="outline" onClick={() => coverage.run("index-coverage")} disabled={coverage.loading}>
+                  {coverage.loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  Scan only
+                </Button>
+              </div>
               {coverage.data?.results && (
                 <div className="space-y-4 mt-3">
                   <div className="flex gap-2 flex-wrap">
@@ -124,13 +144,44 @@ export default function SearchConsole() {
 
                   <div>
                     <h3 className="font-semibold text-sm mb-2 text-red-400">Not indexed ({coverage.data.notIndexedCount})</h3>
+                    <div className="flex gap-2 mb-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          coverage.data.notIndexed.forEach((r: any, i: number) => {
+                            setTimeout(() => {
+                              window.open(
+                                `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(SITE + "/")}&id=${encodeURIComponent(r.url)}`,
+                                "_blank",
+                              );
+                            }, i * 300);
+                          });
+                        }}
+                      >Open all in GSC Inspect</Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          const text = coverage.data.notIndexed.map((r: any) => r.url).join("\n");
+                          navigator.clipboard.writeText(text);
+                          toast.success(`Copied ${coverage.data.notIndexedCount} URLs`);
+                        }}
+                      >Copy URLs</Button>
+                    </div>
                     <div className="space-y-1">
                       {coverage.data.notIndexed.map((r: any, i: number) => (
                         <div key={i} className="flex items-center gap-2 text-sm border rounded p-2">
                           <XCircle className="h-4 w-4 text-red-500 shrink-0" />
                           <span className="font-mono text-xs truncate flex-1">{r.url.replace(SITE, "") || "/"}</span>
                           <Badge variant="outline">{r.verdict}</Badge>
-                          <span className="text-xs text-muted-foreground truncate max-w-[200px]">{r.coverageState ?? r.error ?? ""}</span>
+                          <span className="text-xs text-muted-foreground truncate max-w-[180px]">{r.coverageState ?? r.error ?? ""}</span>
+                          <a
+                            href={`https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(SITE + "/")}&id=${encodeURIComponent(r.url)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-xs text-primary underline shrink-0"
+                          >Inspect in GSC</a>
                         </div>
                       ))}
                     </div>
