@@ -197,6 +197,73 @@ Deno.serve(async (req) => {
       return json({ ok: true, total: results.length, indexedCount: indexed.length, notIndexedCount: notIndexed.length, indexed, notIndexed, results });
     }
 
+    if (action === "site-image-audit") {
+      let urls: string[] = payload?.urls ?? [];
+      const limitPages = Number(payload?.limitPages ?? 15);
+      if (!urls.length) {
+        try {
+          const res = await fetch(`${SITE_ORIGIN}/sitemap.xml`);
+          const xml = await res.text();
+          urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+        } catch (e) {
+          return json({ error: `failed to load sitemap: ${(e as Error).message}` }, 500);
+        }
+      }
+      urls = urls.slice(0, limitPages);
+      const perPage: any[] = [];
+      const all: any[] = [];
+      for (const pageUrl of urls) {
+        try {
+          const path = pageUrl.replace(SITE_ORIGIN, "") || "/";
+          const res = await fetch(pageUrl);
+          const html = await res.text();
+          const imgs = [...html.matchAll(/<img\b[^>]*>/gi)].map((m) => m[0]);
+          const parsed = imgs.map((tag) => {
+            const src = tag.match(/\bsrc=["']([^"']+)["']/i)?.[1] ?? "";
+            const alt = tag.match(/\balt=["']([^"']*)["']/i)?.[1];
+            return { src, alt: alt ?? null, page: path };
+          }).filter((i) => i.src && !i.src.startsWith("data:"));
+
+          const audited = await Promise.all(parsed.slice(0, 20).map(async (img) => {
+            const url = img.src.startsWith("http") ? img.src : `${SITE_ORIGIN}${img.src.startsWith("/") ? "" : "/"}${img.src}`;
+            let size: number | null = null;
+            let contentType: string | null = null;
+            let httpStatus: number | null = null;
+            try {
+              const h = await fetch(url, { method: "HEAD" });
+              httpStatus = h.status;
+              size = Number(h.headers.get("content-length")) || null;
+              contentType = h.headers.get("content-type");
+            } catch { /* ignore */ }
+            const issues: string[] = [];
+            if (httpStatus && httpStatus >= 400) issues.push(`broken (HTTP ${httpStatus})`);
+            if (!img.alt || img.alt.trim().length < 3) issues.push("missing/weak alt text");
+            if (size && size > 300_000) issues.push(`oversized (${Math.round(size / 1024)} KB)`);
+            if (contentType && !/webp|avif|svg/i.test(contentType) && /jpeg|png/i.test(contentType) && (size ?? 0) > 100_000) {
+              issues.push("non-optimised format");
+            }
+            const rec = { ...img, url, size, contentType, httpStatus, issues };
+            all.push(rec);
+            return rec;
+          }));
+          perPage.push({ page: path, total: parsed.length, audited: audited.length, images: audited });
+        } catch (e) {
+          perPage.push({ page: pageUrl, error: String((e as Error).message ?? e) });
+        }
+      }
+      const totals = {
+        totalPages: perPage.length,
+        totalImages: all.length,
+        ok: all.filter((i) => i.issues.length === 0).length,
+        missingAlt: all.filter((i) => i.issues.some((x: string) => x.includes("alt"))).length,
+        oversized: all.filter((i) => i.issues.some((x: string) => x.includes("oversized"))).length,
+        nonOptimised: all.filter((i) => i.issues.some((x: string) => x.includes("non-optimised"))).length,
+        broken: all.filter((i) => i.issues.some((x: string) => x.includes("broken"))).length,
+        withIssues: all.filter((i) => i.issues.length > 0).length,
+      };
+      return json({ ok: true, totals, perPage, all });
+    }
+
     return json({ error: "Unknown action" }, 400);
   } catch (e) {
     return json({ error: String((e as Error).message ?? e) }, 500);
