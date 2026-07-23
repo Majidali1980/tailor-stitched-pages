@@ -59,6 +59,14 @@ export default function AdminSidebar() {
                   </NavLink>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={isActive("/admin/search-console")}>
+                  <NavLink to="/admin/search-console" className="flex items-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    <span>Search Console</span>
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

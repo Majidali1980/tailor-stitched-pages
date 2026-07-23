@@ -4,6 +4,7 @@ import AdminSidebar from "@/components/admin/AdminSidebar";
 import RequireAdmin from "@/components/admin/RequireAdmin";
 import AdminDashboard from "./admin/Dashboard";
 import ResourcePage from "./admin/ResourcePage";
+import SearchConsole from "./admin/SearchConsole";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { LogOut } from "lucide-react";
@@ -28,6 +29,7 @@ function AdminShell() {
           <div className="flex-1 min-w-0">
             <Routes>
               <Route index element={<AdminDashboard />} />
+              <Route path="search-console" element={<SearchConsole />} />
               <Route path=":resource" element={<ResourcePage />} />
             </Routes>
           </div>
