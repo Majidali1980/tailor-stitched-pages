@@ -84,7 +84,75 @@ export default function SearchConsole() {
           <TabsTrigger value="indexing">Indexing Queue</TabsTrigger>
           <TabsTrigger value="images">Image Search</TabsTrigger>
           <TabsTrigger value="audit">Image Audit</TabsTrigger>
+          <TabsTrigger value="coverage">Index Coverage</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="coverage">
+          <Card>
+            <CardHeader><CardTitle>Full site index coverage</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Inspects every URL in <code>/sitemap.xml</code> against Google's index and groups them into indexed vs not-indexed. Sequential; may take a minute for large sitemaps.
+              </p>
+              <Button onClick={() => coverage.run("index-coverage")} disabled={coverage.loading}>
+                {coverage.loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                Scan all sitemap URLs
+              </Button>
+              {coverage.data?.results && (
+                <div className="space-y-4 mt-3">
+                  <div className="flex gap-2 flex-wrap">
+                    <Badge className="bg-green-600">Indexed: {coverage.data.indexedCount}</Badge>
+                    <Badge className="bg-amber-600">Not indexed: {coverage.data.notIndexedCount}</Badge>
+                    <Badge variant="outline">Total: {coverage.data.total}</Badge>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        const csv = "url,verdict,coverageState,indexingState,lastCrawlTime,googleCanonical\n" +
+                          coverage.data.results.map((r: any) =>
+                            [r.url, r.verdict, r.coverageState ?? "", r.indexingState ?? "", r.lastCrawlTime ?? "", r.googleCanonical ?? ""]
+                              .map((v: string) => `"${String(v).replace(/"/g, '""')}"`).join(",")
+                          ).join("\n");
+                        const blob = new Blob([csv], { type: "text/csv" });
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(blob);
+                        a.download = "index-coverage.csv";
+                        a.click();
+                      }}
+                    >Export CSV</Button>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-sm mb-2 text-red-400">Not indexed ({coverage.data.notIndexedCount})</h3>
+                    <div className="space-y-1">
+                      {coverage.data.notIndexed.map((r: any, i: number) => (
+                        <div key={i} className="flex items-center gap-2 text-sm border rounded p-2">
+                          <XCircle className="h-4 w-4 text-red-500 shrink-0" />
+                          <span className="font-mono text-xs truncate flex-1">{r.url.replace(SITE, "") || "/"}</span>
+                          <Badge variant="outline">{r.verdict}</Badge>
+                          <span className="text-xs text-muted-foreground truncate max-w-[200px]">{r.coverageState ?? r.error ?? ""}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-sm mb-2 text-green-400">Indexed ({coverage.data.indexedCount})</h3>
+                    <div className="space-y-1">
+                      {coverage.data.indexed.map((r: any, i: number) => (
+                        <div key={i} className="flex items-center gap-2 text-sm border rounded p-2">
+                          <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />
+                          <span className="font-mono text-xs truncate flex-1">{r.url.replace(SITE, "") || "/"}</span>
+                          <span className="text-xs text-muted-foreground truncate max-w-[220px]">{r.coverageState ?? ""}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="sitemap">
           <Card>
