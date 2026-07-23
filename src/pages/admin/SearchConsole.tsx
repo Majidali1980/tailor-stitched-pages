@@ -45,6 +45,12 @@ export default function SearchConsole() {
   const perf = useAction();
   const audit = useAction();
   const coverage = useAction();
+  const siteAudit = useAction();
+
+  const runOverview = async () => {
+    await coverage.run("index-coverage");
+    await siteAudit.run("site-image-audit", { limitPages: 20 });
+  };
 
   const [queue, setQueue] = useState<string>(
     ["/", "/services", "/blog", "/gallery", "/booking"].map((p) => SITE + p).join("\n"),
