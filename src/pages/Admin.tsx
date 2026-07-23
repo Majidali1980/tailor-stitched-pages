@@ -29,6 +29,7 @@ function AdminShell() {
           <div className="flex-1 min-w-0">
             <Routes>
               <Route index element={<AdminDashboard />} />
+              <Route path="search-console" element={<SearchConsole />} />
               <Route path=":resource" element={<ResourcePage />} />
             </Routes>
           </div>
