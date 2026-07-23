@@ -228,6 +228,8 @@ export default function SearchConsole() {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="coverage">
           <Card>
             <CardHeader><CardTitle>Full site index coverage</CardTitle></CardHeader>
             <CardContent className="space-y-3">
