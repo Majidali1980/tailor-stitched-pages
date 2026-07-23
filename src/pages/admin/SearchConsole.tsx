@@ -275,8 +275,42 @@ export default function SearchConsole() {
               </div>
               <div className="space-y-2 pt-4 border-t">
                 <label className="text-sm font-medium">Priority queue (one URL per line)</label>
-                <Textarea value={queue} onChange={(e) => setQueue(e.target.value)} rows={6} className="font-mono text-xs" />
-                <Button onClick={inspectAll} variant="secondary">Inspect all</Button>
+                <Textarea value={queue} onChange={(e) => setQueue(e.target.value)} rows={8} className="font-mono text-xs" />
+                <div className="flex gap-2 flex-wrap">
+                  <Button onClick={inspectAll} variant="secondary" disabled={batchLoading}>
+                    {batchLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                    Inspect all ({queue.split("\n").filter((s) => s.trim()).length})
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={async () => {
+                      const res = await fetch("/sitemap.xml");
+                      const xml = await res.text();
+                      const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+                      setQueue(urls.join("\n"));
+                    }}
+                  >
+                    Load all sitemap URLs
+                  </Button>
+                  {batch.length > 0 && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        const csv = "url,verdict,coverageState\n" + batch.map((b) => {
+                          const r = b.data?.body?.inspectionResult?.indexStatusResult ?? {};
+                          return [b.url, r.verdict ?? "", r.coverageState ?? ""].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",");
+                        }).join("\n");
+                        const blob = new Blob([csv], { type: "text/csv" });
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(blob);
+                        a.download = "indexing-queue.csv";
+                        a.click();
+                      }}
+                    >
+                      Export CSV
+                    </Button>
+                  )}
+                </div>
                 {batch.length > 0 && (
                   <div className="space-y-1 mt-3">
                     {batch.map((b, i) => {
