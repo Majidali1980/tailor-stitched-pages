@@ -4,6 +4,7 @@ import AdminSidebar from "@/components/admin/AdminSidebar";
 import RequireAdmin from "@/components/admin/RequireAdmin";
 import AdminDashboard from "./admin/Dashboard";
 import ResourcePage from "./admin/ResourcePage";
+import SearchConsole from "./admin/SearchConsole";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { LogOut } from "lucide-react";
