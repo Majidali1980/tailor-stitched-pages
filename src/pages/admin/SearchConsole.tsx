@@ -44,6 +44,7 @@ export default function SearchConsole() {
   const inspect = useAction();
   const perf = useAction();
   const audit = useAction();
+  const coverage = useAction();
 
   const [queue, setQueue] = useState<string>(
     ["/", "/services", "/blog", "/gallery", "/booking"].map((p) => SITE + p).join("\n"),
