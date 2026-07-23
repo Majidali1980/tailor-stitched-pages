@@ -52,9 +52,12 @@ export default function SearchConsole() {
   const [days, setDays] = useState(28);
   const [auditPath, setAuditPath] = useState("/");
 
+  const [batch, setBatch] = useState<any[]>([]);
+  const [batchLoading, setBatchLoading] = useState(false);
   const inspectAll = async () => {
     const urls = queue.split("\n").map((s) => s.trim()).filter(Boolean);
-    inspect.data && (inspect.data.results = []);
+    setBatchLoading(true);
+    setBatch([]);
     const results: any[] = [];
     for (const u of urls) {
       const { data } = await supabase.functions.invoke("gsc-tools", {
@@ -62,11 +65,9 @@ export default function SearchConsole() {
       });
       results.push({ url: u, data });
     }
-    (inspect as any).run("noop");
-    // Manually set state via a hidden action wrapper isn't possible; use toast + show inline below
     setBatch(results);
+    setBatchLoading(false);
   };
-  const [batch, setBatch] = useState<any[]>([]);
 
   return (
     <div className="p-6 space-y-6">
