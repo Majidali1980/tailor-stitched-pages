@@ -94,10 +94,30 @@ export default function SearchConsole() {
               <p className="text-sm text-muted-foreground">
                 Inspects every URL in <code>/sitemap.xml</code> against Google's index and groups them into indexed vs not-indexed. Sequential; may take a minute for large sitemaps.
               </p>
-              <Button onClick={() => coverage.run("index-coverage")} disabled={coverage.loading}>
-                {coverage.loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                Scan all sitemap URLs
-              </Button>
+              <div className="rounded border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+                <strong>Note:</strong> Google's Indexing API is restricted to Job Posting / Livestream sites, so we can't push arbitrary pages to the index programmatically. The workflow below is the fastest legit path:
+                <ol className="list-decimal ml-5 mt-1 space-y-0.5">
+                  <li>Resubmit sitemap (nudges Google to re-crawl).</li>
+                  <li>Scan to find pages still not indexed.</li>
+                  <li>Use the <em>Inspect in GSC</em> link on each row to open Search Console and click "Request Indexing" (~10/day quota).</li>
+                </ol>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <Button
+                  onClick={async () => {
+                    await sitemap.run("submit-sitemap");
+                    await coverage.run("index-coverage");
+                  }}
+                  disabled={coverage.loading || sitemap.loading}
+                >
+                  {(coverage.loading || sitemap.loading) && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  Resubmit sitemap + scan all URLs
+                </Button>
+                <Button variant="outline" onClick={() => coverage.run("index-coverage")} disabled={coverage.loading}>
+                  {coverage.loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                  Scan only
+                </Button>
+              </div>
               {coverage.data?.results && (
                 <div className="space-y-4 mt-3">
                   <div className="flex gap-2 flex-wrap">
