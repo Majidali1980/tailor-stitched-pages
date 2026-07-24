@@ -217,30 +217,46 @@ export default function SearchConsole() {
 
                   <div className="mt-4 space-y-2">
                     <h4 className="text-sm font-semibold">Problem images by page</h4>
-                    {siteAudit.data.perPage
-                      .filter((p: any) => p.images?.some((i: any) => i.issues.length > 0))
-                      .map((p: any, i: number) => {
-                        const bad = p.images.filter((im: any) => im.issues.length > 0);
-                        return (
-                          <div key={i} className="border rounded p-2">
-                            <div className="flex items-center gap-2 mb-1">
-                              <Badge variant="outline">{bad.length}</Badge>
-                              <span className="text-sm font-mono">{p.page}</span>
+                    {(() => {
+                      const q = overviewSearch.toLowerCase();
+                      const pages = siteAudit.data.perPage
+                        .map((p: any) => {
+                          const bad = (p.images || [])
+                            .filter((im: any) => im.issues.length > 0)
+                            .filter((im: any) => !q || im.url?.toLowerCase().includes(q) || im.src?.toLowerCase().includes(q) || p.page?.toLowerCase().includes(q));
+                          return { ...p, bad };
+                        })
+                        .filter((p: any) => p.bad.length > 0);
+                      return (
+                        <>
+                          {overviewSearch && (
+                            <p className="text-xs text-muted-foreground">Showing {pages.length} page(s) with matching problem images.</p>
+                          )}
+                          {pages.length === 0 && !overviewSearch && (
+                            <p className="text-sm text-green-400">✓ No image issues detected.</p>
+                          )}
+                          {pages.length === 0 && overviewSearch && (
+                            <p className="text-sm text-muted-foreground">No matching images.</p>
+                          )}
+                          {pages.map((p: any, i: number) => (
+                            <div key={i} className="border rounded p-2">
+                              <div className="flex items-center gap-2 mb-1">
+                                <Badge variant="outline">{p.bad.length}</Badge>
+                                <span className="text-sm font-mono">{p.page}</span>
+                              </div>
+                              <ul className="text-xs space-y-1 max-h-48 overflow-auto">
+                                {p.bad.map((im: any, j: number) => (
+                                  <li key={j} className="flex gap-2">
+                                    <span className="font-mono text-muted-foreground truncate max-w-md">{im.url.replace(SITE, "")}</span>
+                                    <span className="text-amber-400">{im.issues.join(" • ")}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
-                            <ul className="text-xs space-y-1 max-h-48 overflow-auto">
-                              {bad.map((im: any, j: number) => (
-                                <li key={j} className="flex gap-2">
-                                  <span className="font-mono text-muted-foreground truncate max-w-md">{im.url.replace(SITE, "")}</span>
-                                  <span className="text-amber-400">{im.issues.join(" • ")}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        );
-                      })}
-                    {siteAudit.data.totals.withIssues === 0 && (
-                      <p className="text-sm text-green-400">✓ No image issues detected.</p>
-                    )}
+                          ))}
+                        </>
+                      );
+                    })()}
                   </div>
                 </div>
               )}
