@@ -58,6 +58,7 @@ export default function SearchConsole() {
   const [inspectUrl, setInspectUrl] = useState(SITE + "/");
   const [days, setDays] = useState(28);
   const [auditPath, setAuditPath] = useState("/");
+  const [overviewSearch, setOverviewSearch] = useState("");
 
   const [batch, setBatch] = useState<any[]>([]);
   const [batchLoading, setBatchLoading] = useState(false);
