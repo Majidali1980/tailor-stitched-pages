@@ -58,6 +58,7 @@ export default function SearchConsole() {
   const [inspectUrl, setInspectUrl] = useState(SITE + "/");
   const [days, setDays] = useState(28);
   const [auditPath, setAuditPath] = useState("/");
+  const [overviewSearch, setOverviewSearch] = useState("");
 
   const [batch, setBatch] = useState<any[]>([]);
   const [batchLoading, setBatchLoading] = useState(false);
@@ -106,6 +107,20 @@ export default function SearchConsole() {
                 Run full audit
               </Button>
 
+              {(coverage.data?.results || siteAudit.data?.totals) && (
+                <div className="flex gap-2 items-center">
+                  <Input
+                    placeholder="Find URL or image filename..."
+                    value={overviewSearch}
+                    onChange={(e) => setOverviewSearch(e.target.value)}
+                    className="max-w-md"
+                  />
+                  {overviewSearch && (
+                    <Button variant="ghost" size="sm" onClick={() => setOverviewSearch("")}>Clear</Button>
+                  )}
+                </div>
+              )}
+
               {coverage.data?.results && (
                 <div>
                   <h3 className="font-semibold text-sm mb-2">URLs — indexing status</h3>
@@ -131,14 +146,22 @@ export default function SearchConsole() {
                   </div>
 
                   {coverage.data.notIndexedCount > 0 && (() => {
+                    const q = overviewSearch.toLowerCase();
+                    const filtered = coverage.data.notIndexed.filter((r: any) =>
+                      !q || r.url?.toLowerCase().includes(q)
+                    );
                     const groups: Record<string, any[]> = {};
-                    coverage.data.notIndexed.forEach((r: any) => {
+                    filtered.forEach((r: any) => {
                       const k = r.coverageState || r.indexingState || r.error || "Unknown reason";
                       (groups[k] ??= []).push(r);
                     });
                     return (
                       <div className="mt-4 space-y-2">
                         <h4 className="text-sm font-semibold text-red-400">Not-indexed URLs by reason</h4>
+                        {overviewSearch && (
+                          <p className="text-xs text-muted-foreground">Showing {filtered.length} of {coverage.data.notIndexed.length} not-indexed URLs.</p>
+                        )}
+                        {filtered.length === 0 && <p className="text-sm text-muted-foreground">No matching URLs.</p>}
                         {Object.entries(groups).map(([reason, items]) => (
                           <div key={reason} className="border rounded p-2">
                             <div className="flex items-center gap-2 mb-1">
@@ -194,30 +217,46 @@ export default function SearchConsole() {
 
                   <div className="mt-4 space-y-2">
                     <h4 className="text-sm font-semibold">Problem images by page</h4>
-                    {siteAudit.data.perPage
-                      .filter((p: any) => p.images?.some((i: any) => i.issues.length > 0))
-                      .map((p: any, i: number) => {
-                        const bad = p.images.filter((im: any) => im.issues.length > 0);
-                        return (
-                          <div key={i} className="border rounded p-2">
-                            <div className="flex items-center gap-2 mb-1">
-                              <Badge variant="outline">{bad.length}</Badge>
-                              <span className="text-sm font-mono">{p.page}</span>
+                    {(() => {
+                      const q = overviewSearch.toLowerCase();
+                      const pages = siteAudit.data.perPage
+                        .map((p: any) => {
+                          const bad = (p.images || [])
+                            .filter((im: any) => im.issues.length > 0)
+                            .filter((im: any) => !q || im.url?.toLowerCase().includes(q) || im.src?.toLowerCase().includes(q) || p.page?.toLowerCase().includes(q));
+                          return { ...p, bad };
+                        })
+                        .filter((p: any) => p.bad.length > 0);
+                      return (
+                        <>
+                          {overviewSearch && (
+                            <p className="text-xs text-muted-foreground">Showing {pages.length} page(s) with matching problem images.</p>
+                          )}
+                          {pages.length === 0 && !overviewSearch && (
+                            <p className="text-sm text-green-400">✓ No image issues detected.</p>
+                          )}
+                          {pages.length === 0 && overviewSearch && (
+                            <p className="text-sm text-muted-foreground">No matching images.</p>
+                          )}
+                          {pages.map((p: any, i: number) => (
+                            <div key={i} className="border rounded p-2">
+                              <div className="flex items-center gap-2 mb-1">
+                                <Badge variant="outline">{p.bad.length}</Badge>
+                                <span className="text-sm font-mono">{p.page}</span>
+                              </div>
+                              <ul className="text-xs space-y-1 max-h-48 overflow-auto">
+                                {p.bad.map((im: any, j: number) => (
+                                  <li key={j} className="flex gap-2">
+                                    <span className="font-mono text-muted-foreground truncate max-w-md">{im.url.replace(SITE, "")}</span>
+                                    <span className="text-amber-400">{im.issues.join(" • ")}</span>
+                                  </li>
+                                ))}
+                              </ul>
                             </div>
-                            <ul className="text-xs space-y-1 max-h-48 overflow-auto">
-                              {bad.map((im: any, j: number) => (
-                                <li key={j} className="flex gap-2">
-                                  <span className="font-mono text-muted-foreground truncate max-w-md">{im.url.replace(SITE, "")}</span>
-                                  <span className="text-amber-400">{im.issues.join(" • ")}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        );
-                      })}
-                    {siteAudit.data.totals.withIssues === 0 && (
-                      <p className="text-sm text-green-400">✓ No image issues detected.</p>
-                    )}
+                          ))}
+                        </>
+                      );
+                    })()}
                   </div>
                 </div>
               )}
