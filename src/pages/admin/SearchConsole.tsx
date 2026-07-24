@@ -107,6 +107,20 @@ export default function SearchConsole() {
                 Run full audit
               </Button>
 
+              {(coverage.data?.results || siteAudit.data?.totals) && (
+                <div className="flex gap-2 items-center">
+                  <Input
+                    placeholder="Find URL or image filename..."
+                    value={overviewSearch}
+                    onChange={(e) => setOverviewSearch(e.target.value)}
+                    className="max-w-md"
+                  />
+                  {overviewSearch && (
+                    <Button variant="ghost" size="sm" onClick={() => setOverviewSearch("")}>Clear</Button>
+                  )}
+                </div>
+              )}
+
               {coverage.data?.results && (
                 <div>
                   <h3 className="font-semibold text-sm mb-2">URLs — indexing status</h3>
