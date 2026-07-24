@@ -146,14 +146,22 @@ export default function SearchConsole() {
                   </div>
 
                   {coverage.data.notIndexedCount > 0 && (() => {
+                    const q = overviewSearch.toLowerCase();
+                    const filtered = coverage.data.notIndexed.filter((r: any) =>
+                      !q || r.url?.toLowerCase().includes(q)
+                    );
                     const groups: Record<string, any[]> = {};
-                    coverage.data.notIndexed.forEach((r: any) => {
+                    filtered.forEach((r: any) => {
                       const k = r.coverageState || r.indexingState || r.error || "Unknown reason";
                       (groups[k] ??= []).push(r);
                     });
                     return (
                       <div className="mt-4 space-y-2">
                         <h4 className="text-sm font-semibold text-red-400">Not-indexed URLs by reason</h4>
+                        {overviewSearch && (
+                          <p className="text-xs text-muted-foreground">Showing {filtered.length} of {coverage.data.notIndexed.length} not-indexed URLs.</p>
+                        )}
+                        {filtered.length === 0 && <p className="text-sm text-muted-foreground">No matching URLs.</p>}
                         {Object.entries(groups).map(([reason, items]) => (
                           <div key={reason} className="border rounded p-2">
                             <div className="flex items-center gap-2 mb-1">
