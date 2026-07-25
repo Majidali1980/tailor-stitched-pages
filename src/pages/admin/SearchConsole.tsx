@@ -802,3 +802,393 @@ function SubmitForIndexing() {
   );
 }
 
+
+// ============ ALERTS TAB ============
+function AlertsTab() {
+  const [loading, setLoading] = useState(false);
+  const [alerts, setAlerts] = useState<any>(null);
+  const [snapshots, setSnapshots] = useState<any[]>([]);
+  const [savingSnap, setSavingSnap] = useState(false);
+
+  const loadSnapshots = async () => {
+    const { data } = await supabase.functions.invoke("gsc-tools", { body: { action: "list-snapshots" } });
+    setSnapshots(data?.snapshots ?? []);
+  };
+  const checkAlerts = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("gsc-tools", { body: { action: "alerts-check" } });
+    if (error) toast.error(error.message); else setAlerts(data);
+    setLoading(false);
+  };
+  const saveSnapshot = async () => {
+    setSavingSnap(true);
+    const { data, error } = await supabase.functions.invoke("gsc-tools", { body: { action: "save-snapshot" } });
+    if (error) toast.error(error.message);
+    else { toast.success(`Snapshot saved — ${data?.indexed_count}/${data?.total} indexed`); await loadSnapshots(); }
+    setSavingSnap(false);
+  };
+  useEffect(() => { loadSnapshots(); checkAlerts(); }, []);
+
+  return (
+    <Card>
+      <CardHeader><CardTitle><Bell className="h-4 w-4 inline mr-2" />Indexing error alerts</CardTitle></CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          Compares your last two coverage snapshots and flags newly failing URLs, crawl-issue spikes and coverage drops.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={saveSnapshot} disabled={savingSnap}>
+            {savingSnap && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Save new snapshot
+          </Button>
+          <Button variant="outline" onClick={checkAlerts} disabled={loading}>
+            {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Re-check alerts
+          </Button>
+        </div>
+
+        {alerts && !alerts.hasAlerts && (
+          <div className="rounded border border-green-600/40 bg-green-600/10 p-3 text-sm text-green-300 flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4" />
+            {alerts.message ?? "No new indexing errors detected between the last two snapshots."}
+          </div>
+        )}
+
+        {alerts?.hasAlerts && (
+          <>
+            {alerts.spike && (
+              <div className="rounded border border-red-600/50 bg-red-600/10 p-3 text-sm text-red-300 flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+                <div>
+                  <div className="font-semibold">Indexing error spike detected</div>
+                  <div className="text-xs">
+                    {alerts.newlyFailing.length} new failures · errors changed by {alerts.errorDelta >= 0 ? "+" : ""}{alerts.errorDelta} · indexed changed by {alerts.coverageDelta >= 0 ? "+" : ""}{alerts.coverageDelta}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="rounded border border-red-600/40 bg-red-600/10 p-3"><div className="text-2xl font-bold text-red-400">{alerts.newlyFailing.length}</div><div className="text-xs">Newly failing</div></div>
+              <div className="rounded border p-3"><div className="text-2xl font-bold text-amber-400">{alerts.stillFailing.length}</div><div className="text-xs">Still failing</div></div>
+              <div className="rounded border border-green-600/40 bg-green-600/10 p-3"><div className="text-2xl font-bold text-green-400">{alerts.recovered.length}</div><div className="text-xs">Recovered</div></div>
+              <div className="rounded border p-3"><div className="text-xs text-muted-foreground">Current vs previous</div><div className="text-xs mt-1">{new Date(alerts.currentDate).toLocaleDateString()}<br/>vs {new Date(alerts.previousDate).toLocaleDateString()}</div></div>
+            </div>
+
+            {alerts.newlyFailing.length > 0 && (
+              <div>
+                <h4 className="text-sm font-semibold text-red-400 mb-2">Newly failing URLs</h4>
+                <div className="space-y-1">
+                  {alerts.newlyFailing.map((r: any, i: number) => (
+                    <div key={i} className="flex items-center gap-2 text-sm border rounded p-2">
+                      <XCircle className="h-4 w-4 text-red-500 shrink-0" />
+                      <span className="font-mono text-xs truncate flex-1">{r.url.replace(SITE, "") || "/"}</span>
+                      <Badge variant="outline">{r.coverageState ?? r.verdict}</Badge>
+                      <span className="text-xs text-muted-foreground">was: {r.previousVerdict}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        <div>
+          <h4 className="text-sm font-semibold mb-2">Snapshot history</h4>
+          {snapshots.length === 0 && <p className="text-xs text-muted-foreground">No snapshots yet — click "Save new snapshot".</p>}
+          <div className="space-y-1">
+            {snapshots.map((s) => (
+              <div key={s.id} className="flex items-center gap-2 text-sm border rounded p-2">
+                <span className="text-xs text-muted-foreground w-40">{new Date(s.created_at).toLocaleString()}</span>
+                <Badge className="bg-green-600">{s.indexed_count} indexed</Badge>
+                <Badge className="bg-amber-600">{s.not_indexed_count} not indexed</Badge>
+                <span className="text-xs text-muted-foreground">of {s.total}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============ 404 & REDIRECTS TAB ============
+function NotFoundTab() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<any>(null);
+  const [days, setDays] = useState(90);
+
+  const run = async () => {
+    setLoading(true);
+    const { data: res, error } = await supabase.functions.invoke("gsc-tools", { body: { action: "list-404s", payload: { days } } });
+    if (error) toast.error(error.message); else setData(res);
+    setLoading(false);
+  };
+
+  const redirectsFile = data?.not_found?.map((r: any) => {
+    const from = r.url.replace(SITE, "");
+    const to = r.suggestion.replace(SITE, "");
+    return `${from}  ${to}  301`;
+  }).join("\n") ?? "";
+
+  return (
+    <Card>
+      <CardHeader><CardTitle><FileWarning className="h-4 w-4 inline mr-2" />404 pages & suggested redirects</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          Pulls top pages from Search Console (last {days} days), HEAD-checks each, and suggests the closest live URL to redirect to based on slug similarity.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {[28, 90, 180].map((d) => (
+            <Button key={d} size="sm" variant={days === d ? "default" : "outline"} onClick={() => setDays(d)}>Last {d} days</Button>
+          ))}
+          <Button onClick={run} disabled={loading}>
+            {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Scan for 404s
+          </Button>
+        </div>
+
+        {data && (
+          <>
+            <div className="flex gap-3">
+              <div className="rounded border p-3"><div className="text-2xl font-bold">{data.totalChecked}</div><div className="text-xs text-muted-foreground">URLs checked</div></div>
+              <div className={`rounded border p-3 ${data.notFoundCount > 0 ? "border-red-600/40 bg-red-600/10" : "border-green-600/40 bg-green-600/10"}`}>
+                <div className={`text-2xl font-bold ${data.notFoundCount > 0 ? "text-red-400" : "text-green-400"}`}>{data.notFoundCount}</div>
+                <div className="text-xs text-muted-foreground">Broken (404/410)</div>
+              </div>
+            </div>
+
+            {data.not_found?.length > 0 && (
+              <>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-semibold">Copy-paste redirect list</h4>
+                    <div className="flex gap-1">
+                      <Button size="sm" variant="outline" onClick={() => { navigator.clipboard.writeText(redirectsFile); toast.success("Copied"); }}>Copy plain</Button>
+                      <Button size="sm" variant="outline" onClick={() => {
+                        const nginx = data.not_found.map((r: any) => `  rewrite ^${r.url.replace(SITE, "")}$ ${r.suggestion.replace(SITE, "")} permanent;`).join("\n");
+                        navigator.clipboard.writeText(nginx); toast.success("nginx rules copied");
+                      }}>Copy nginx</Button>
+                      <Button size="sm" variant="outline" onClick={() => {
+                        const json = JSON.stringify(data.not_found.map((r: any) => ({ source: r.url.replace(SITE, ""), destination: r.suggestion.replace(SITE, ""), permanent: true })), null, 2);
+                        navigator.clipboard.writeText(json); toast.success("JSON copied");
+                      }}>Copy JSON (Vercel)</Button>
+                    </div>
+                  </div>
+                  <textarea readOnly value={redirectsFile} onFocus={(e) => e.currentTarget.select()} className="w-full h-32 text-xs font-mono bg-background border rounded p-2" />
+                  <p className="text-xs text-muted-foreground mt-1">Format: <code>from  to  301</code></p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold mb-2">Details</h4>
+                  <div className="space-y-1">
+                    {data.not_found.map((r: any, i: number) => (
+                      <div key={i} className="border rounded p-2 text-sm">
+                        <div className="flex items-center gap-2">
+                          <XCircle className="h-4 w-4 text-red-500 shrink-0" />
+                          <span className="font-mono text-xs truncate flex-1">{r.url.replace(SITE, "")}</span>
+                          <Badge variant="destructive">{r.status}</Badge>
+                          <Badge variant="outline">{r.clicks} clicks</Badge>
+                          <Badge variant="outline">{r.impressions} impr</Badge>
+                        </div>
+                        <div className="text-xs mt-1 pl-6">
+                          → <span className="font-mono text-green-400">{r.suggestion.replace(SITE, "")}</span>
+                          {r.alternatives?.length > 0 && <span className="text-muted-foreground"> · alts: {r.alternatives.map((a: string) => a.replace(SITE, "")).join(", ")}</span>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============ SITEMAP WORKFLOW TAB ============
+function SitemapWorkflowTab() {
+  const [loading, setLoading] = useState(false);
+  const [submissions, setSubmissions] = useState<any[]>([]);
+  const [lastResult, setLastResult] = useState<any>(null);
+
+  const load = async () => {
+    const { data } = await supabase.functions.invoke("gsc-tools", { body: { action: "list-sitemap-log" } });
+    setSubmissions(data?.submissions ?? []);
+  };
+  useEffect(() => { load(); }, []);
+
+  const refresh = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("gsc-tools", { body: { action: "refresh-sitemap" } });
+    if (error) toast.error(error.message);
+    else {
+      setLastResult(data);
+      if (data?.ok) toast.success(`Sitemap resubmitted (${data.record?.url_count ?? "?"} URLs)`);
+      else toast.error(`Submission failed: HTTP ${data?.record?.http_status}`);
+      await load();
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Card>
+      <CardHeader><CardTitle><RefreshCw className="h-4 w-4 inline mr-2" />Sitemap refresh & resubmit</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          After publishing new stitching pages, click <strong>Refresh & resubmit</strong>. It counts URLs in the live <code>/sitemap.xml</code>, pushes it to Google Search Console, and logs the result below.
+        </p>
+        <div className="rounded border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+          <strong>Tip:</strong> New service and blog pages are added to <code>public/sitemap.xml</code> in code. After a deploy, click here to notify Google.
+        </div>
+
+        <div className="flex gap-2">
+          <Button onClick={refresh} disabled={loading}>
+            {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Refresh & resubmit sitemap
+          </Button>
+          <Button variant="outline" onClick={load}>Reload log</Button>
+        </div>
+
+        {lastResult && (
+          <div className={`rounded border p-3 text-sm ${lastResult.ok ? "border-green-600/40 bg-green-600/10 text-green-300" : "border-red-600/40 bg-red-600/10 text-red-300"}`}>
+            {lastResult.ok ? <CheckCircle2 className="h-4 w-4 inline mr-1" /> : <XCircle className="h-4 w-4 inline mr-1" />}
+            {lastResult.record?.message} — {lastResult.record?.url_count ?? "?"} URLs
+          </div>
+        )}
+
+        <div>
+          <h4 className="text-sm font-semibold mb-2">Submission log (last 50)</h4>
+          {submissions.length === 0 && <p className="text-xs text-muted-foreground">No submissions logged yet.</p>}
+          <div className="space-y-1">
+            {submissions.map((s) => (
+              <div key={s.id} className="flex items-center gap-2 text-sm border rounded p-2">
+                {s.status === "success" ? <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" /> : <XCircle className="h-4 w-4 text-red-500 shrink-0" />}
+                <span className="text-xs text-muted-foreground w-40">{new Date(s.created_at).toLocaleString()}</span>
+                <Badge variant={s.status === "success" ? "default" : "destructive"}>{s.status}</Badge>
+                <Badge variant="outline">HTTP {s.http_status ?? "?"}</Badge>
+                {s.url_count != null && <Badge variant="outline">{s.url_count} URLs</Badge>}
+                <span className="text-xs text-muted-foreground truncate flex-1" title={s.message}>{s.message}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============ URL INSPECTOR TAB ============
+function UrlInspectorTab() {
+  const [path, setPath] = useState("/");
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<any>(null);
+
+  const run = async () => {
+    if (!path.trim()) return;
+    setLoading(true);
+    const { data: res, error } = await supabase.functions.invoke("gsc-tools", {
+      body: { action: "inspect-full", payload: { inspectionUrl: path.trim() } },
+    });
+    if (error) toast.error(error.message); else setData(res);
+    setLoading(false);
+  };
+
+  const verdictColor = (v?: string) => v === "PASS" ? "bg-green-600" : v === "NEUTRAL" ? "bg-amber-600" : v === "FAIL" ? "bg-red-600" : "bg-muted";
+
+  return (
+    <Card>
+      <CardHeader><CardTitle><Search className="h-4 w-4 inline mr-2" />URL Inspection — index status + live fetch</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <p className="text-sm text-muted-foreground">
+          Runs Google's URL Inspection API for a single path and does a live server fetch to compare current rendered metadata against what Google has indexed.
+        </p>
+        <div className="flex gap-2">
+          <Input value={path} onChange={(e) => setPath(e.target.value)} placeholder="/services/bridal-dress-stitching or full URL" />
+          <Button onClick={run} disabled={loading}>
+            {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Inspect
+          </Button>
+        </div>
+
+        {data && (
+          <div className="space-y-4 mt-3">
+            <div className="text-xs font-mono text-muted-foreground truncate">Inspected: {data.inspectionUrl}</div>
+
+            {/* Index status */}
+            {data.indexStatus && (
+              <div className="border rounded p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <h4 className="text-sm font-semibold">Google index status</h4>
+                  <Badge className={verdictColor(data.indexStatus.verdict)}>{data.indexStatus.verdict}</Badge>
+                </div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                  <div><span className="text-muted-foreground">Coverage:</span> {data.indexStatus.coverageState ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Indexing:</span> {data.indexStatus.indexingState ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Robots:</span> {data.indexStatus.robotsTxtState ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Page fetch:</span> {data.indexStatus.pageFetchState ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Last crawl:</span> {data.indexStatus.lastCrawlTime ? new Date(data.indexStatus.lastCrawlTime).toLocaleString() : "never"}</div>
+                  <div><span className="text-muted-foreground">Crawled as:</span> {data.indexStatus.crawledAs ?? "—"}</div>
+                  <div className="col-span-2 truncate"><span className="text-muted-foreground">Google canonical:</span> {data.indexStatus.googleCanonical ?? "—"}</div>
+                  <div className="col-span-2 truncate"><span className="text-muted-foreground">User canonical:</span> {data.indexStatus.userCanonical ?? "—"}</div>
+                </div>
+              </div>
+            )}
+
+            {/* Live fetch */}
+            {data.live && (
+              <div className="border rounded p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <h4 className="text-sm font-semibold">Live fetch (right now)</h4>
+                  {data.live.httpStatus && <Badge className={data.live.httpStatus < 400 ? "bg-green-600" : "bg-red-600"}>HTTP {data.live.httpStatus}</Badge>}
+                  {data.live.responseTimeMs != null && <Badge variant="outline">{data.live.responseTimeMs} ms</Badge>}
+                  {data.live.bytes != null && <Badge variant="outline">{Math.round(data.live.bytes / 1024)} KB</Badge>}
+                </div>
+                {data.live.error && <div className="text-xs text-red-400">Error: {data.live.error}</div>}
+                <div className="grid grid-cols-1 gap-1 text-xs">
+                  <div><span className="text-muted-foreground">Title:</span> {data.live.title ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Description:</span> {data.live.description ?? "—"}</div>
+                  <div className="truncate"><span className="text-muted-foreground">Canonical:</span> {data.live.canonical ?? "—"}</div>
+                  <div><span className="text-muted-foreground">Robots meta:</span> {data.live.robots ?? "—"}</div>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile & rich results */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {data.mobileUsability && (
+                <div className="border rounded p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h4 className="text-sm font-semibold">Mobile usability</h4>
+                    <Badge className={verdictColor(data.mobileUsability.verdict)}>{data.mobileUsability.verdict}</Badge>
+                  </div>
+                  {data.mobileUsability.issues?.length > 0 ? (
+                    <ul className="text-xs text-red-400 list-disc ml-4">{data.mobileUsability.issues.map((i: any, k: number) => <li key={k}>{i.message ?? i.issueType}</li>)}</ul>
+                  ) : <p className="text-xs text-green-400">No issues.</p>}
+                </div>
+              )}
+              {data.richResults && (
+                <div className="border rounded p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h4 className="text-sm font-semibold">Rich results</h4>
+                    <Badge className={verdictColor(data.richResults.verdict)}>{data.richResults.verdict}</Badge>
+                  </div>
+                  {data.richResults.detectedItems?.length > 0 ? (
+                    <ul className="text-xs list-disc ml-4">{data.richResults.detectedItems.map((i: any, k: number) => <li key={k}>{i.richResultType} × {i.items?.length ?? 0}</li>)}</ul>
+                  ) : <p className="text-xs text-muted-foreground">None detected.</p>}
+                </div>
+              )}
+            </div>
+
+            {data.inspectionResultLink && (
+              <a href={data.inspectionResultLink} target="_blank" rel="noreferrer" className="text-xs text-primary underline">
+                Open full result in Google Search Console →
+              </a>
+            )}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
