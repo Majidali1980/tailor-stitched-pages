@@ -730,6 +730,26 @@ function SubmitForIndexing() {
 
         <div className="text-xs text-muted-foreground">Showing {filtered.length} of {urls.length} URLs</div>
 
+        <div className="rounded border p-2 bg-muted/30">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold">Copy-paste ready ({filtered.length} URLs)</span>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                navigator.clipboard.writeText(filtered.join("\n"));
+                toast.success(`Copied ${filtered.length} URLs to clipboard`);
+              }}
+            >Copy all</Button>
+          </div>
+          <textarea
+            readOnly
+            value={filtered.join("\n")}
+            onFocus={(e) => e.currentTarget.select()}
+            className="w-full h-40 text-xs font-mono bg-background border rounded p-2"
+          />
+        </div>
+
         <div className="space-y-1 max-h-[600px] overflow-auto border rounded p-2">
           {filtered.map((u) => {
             const done = !!submitted[u];
@@ -743,6 +763,15 @@ function SubmitForIndexing() {
                 />
                 {done ? <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" /> : <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />}
                 <span className="font-mono text-xs truncate flex-1" title={u}>{u.replace(SITE, "") || "/"}</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs shrink-0"
+                  onClick={() => {
+                    navigator.clipboard.writeText(u);
+                    toast.success("URL copied");
+                  }}
+                >Copy</Button>
                 <a
                   href={inspectUrl(u)}
                   target="_blank"
@@ -757,6 +786,7 @@ function SubmitForIndexing() {
             <p className="text-sm text-muted-foreground text-center py-6">No URLs match the current filter.</p>
           )}
         </div>
+
       </CardContent>
     </Card>
   );
