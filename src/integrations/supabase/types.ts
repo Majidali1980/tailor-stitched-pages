@@ -1307,6 +1307,69 @@ export type Database = {
           },
         ]
       }
+      seo_coverage_snapshots: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          indexed_count: number
+          not_indexed_count: number
+          results: Json
+          total: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          indexed_count?: number
+          not_indexed_count?: number
+          results?: Json
+          total?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          indexed_count?: number
+          not_indexed_count?: number
+          results?: Json
+          total?: number
+        }
+        Relationships: []
+      }
+      seo_sitemap_submissions: {
+        Row: {
+          created_at: string
+          http_status: number | null
+          id: string
+          message: string | null
+          sitemap_url: string
+          status: string
+          submitted_by: string | null
+          url_count: number | null
+        }
+        Insert: {
+          created_at?: string
+          http_status?: number | null
+          id?: string
+          message?: string | null
+          sitemap_url: string
+          status: string
+          submitted_by?: string | null
+          url_count?: number | null
+        }
+        Update: {
+          created_at?: string
+          http_status?: number | null
+          id?: string
+          message?: string | null
+          sitemap_url?: string
+          status?: string
+          submitted_by?: string | null
+          url_count?: number | null
+        }
+        Relationships: []
+      }
       service_charges: {
         Row: {
           amount: number
