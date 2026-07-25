@@ -264,6 +264,256 @@ Deno.serve(async (req) => {
       return json({ ok: true, totals, perPage, all });
     }
 
+    // ---- Snapshots + alerts ----
+    const supa = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    async function runCoverage(siteUrl: string) {
+      const res = await fetch(`${SITE_ORIGIN}/sitemap.xml`);
+      const xml = await res.text();
+      const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+      const results: any[] = [];
+      for (const inspectionUrl of urls) {
+        const r = await gsc(`/v1/urlInspection/index:inspect`, {
+          method: "POST",
+          body: JSON.stringify({ inspectionUrl, siteUrl }),
+        });
+        const idx = (r.body as any)?.inspectionResult?.indexStatusResult ?? {};
+        results.push({
+          url: inspectionUrl,
+          verdict: idx.verdict ?? "UNKNOWN",
+          coverageState: idx.coverageState ?? null,
+          lastCrawlTime: idx.lastCrawlTime ?? null,
+          pageFetchState: idx.pageFetchState ?? null,
+          indexingState: idx.indexingState ?? null,
+          error: r.ok ? null : `HTTP ${r.status}`,
+        });
+      }
+      const indexed = results.filter((r) => r.verdict === "PASS").length;
+      return { total: results.length, indexed_count: indexed, not_indexed_count: results.length - indexed, results };
+    }
+
+    if (action === "save-snapshot") {
+      const siteUrl = payload?.siteUrl ?? SITE_URL;
+      const snap = await runCoverage(siteUrl);
+      const { data, error } = await supa.from("seo_coverage_snapshots").insert({
+        ...snap,
+        created_by: uid,
+      }).select("id, created_at").single();
+      if (error) return json({ error: error.message }, 500);
+      return json({ ok: true, snapshot: data, ...snap });
+    }
+
+    if (action === "list-snapshots") {
+      const { data, error } = await supa
+        .from("seo_coverage_snapshots")
+        .select("id, created_at, total, indexed_count, not_indexed_count")
+        .order("created_at", { ascending: false })
+        .limit(30);
+      if (error) return json({ error: error.message }, 500);
+      return json({ ok: true, snapshots: data ?? [] });
+    }
+
+    if (action === "alerts-check") {
+      const { data, error } = await supa
+        .from("seo_coverage_snapshots")
+        .select("id, created_at, total, indexed_count, not_indexed_count, results")
+        .order("created_at", { ascending: false })
+        .limit(2);
+      if (error) return json({ error: error.message }, 500);
+      if (!data || data.length < 2) {
+        return json({ ok: true, hasAlerts: false, message: "Need at least 2 snapshots to compare. Save another snapshot to enable alerts.", snapshots: data ?? [] });
+      }
+      const [curr, prev] = data;
+      const prevMap = new Map((prev.results as any[]).map((r) => [r.url, r]));
+      const newlyFailing: any[] = [];
+      const stillFailing: any[] = [];
+      const recovered: any[] = [];
+      for (const r of curr.results as any[]) {
+        const p = prevMap.get(r.url);
+        if (r.verdict !== "PASS") {
+          if (!p || p.verdict === "PASS") newlyFailing.push({ ...r, previousVerdict: p?.verdict ?? "NEW" });
+          else stillFailing.push(r);
+        } else if (p && p.verdict !== "PASS") {
+          recovered.push(r);
+        }
+      }
+      const coverageDelta = (curr.indexed_count - prev.indexed_count);
+      const totalDelta = (curr.not_indexed_count - prev.not_indexed_count);
+      const spike = newlyFailing.length >= 3 || totalDelta >= 5;
+      return json({
+        ok: true,
+        hasAlerts: spike || newlyFailing.length > 0,
+        spike,
+        currentDate: curr.created_at,
+        previousDate: prev.created_at,
+        coverageDelta,
+        errorDelta: totalDelta,
+        newlyFailing,
+        stillFailing,
+        recovered,
+      });
+    }
+
+    if (action === "list-sitemap-log") {
+      const { data, error } = await supa
+        .from("seo_sitemap_submissions")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      if (error) return json({ error: error.message }, 500);
+      return json({ ok: true, submissions: data ?? [] });
+    }
+
+    if (action === "refresh-sitemap") {
+      // 1) count URLs in current sitemap
+      let urlCount: number | null = null;
+      try {
+        const smRes = await fetch(`${SITE_ORIGIN}/sitemap.xml`, { cache: "no-store" });
+        const xml = await smRes.text();
+        urlCount = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].length;
+      } catch { /* ignore */ }
+
+      // 2) push to GSC
+      const siteUrl = payload?.siteUrl ?? SITE_URL;
+      const sitemap = payload?.sitemap ?? `${SITE_ORIGIN}/sitemap.xml`;
+      const r = await gsc(
+        `/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/sitemaps/${encodeURIComponent(sitemap)}`,
+        { method: "PUT" },
+      );
+
+      // 3) log
+      const record = {
+        sitemap_url: sitemap,
+        status: r.ok ? "success" : "failed",
+        http_status: r.status,
+        url_count: urlCount,
+        message: r.ok ? "Submitted successfully" : (typeof r.body === "string" ? r.body : JSON.stringify(r.body)).slice(0, 500),
+        submitted_by: uid,
+      };
+      await supa.from("seo_sitemap_submissions").insert(record);
+      return json({ ok: r.ok, record, gateway: r });
+    }
+
+    if (action === "list-404s") {
+      const siteUrl = payload?.siteUrl ?? SITE_URL;
+      const days = Number(payload?.days ?? 90);
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - days);
+      const fmt = (d: Date) => d.toISOString().slice(0, 10);
+
+      // Top pages from GSC by clicks + impressions
+      const rr = await gsc(
+        `/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            startDate: fmt(start),
+            endDate: fmt(end),
+            dimensions: ["page"],
+            rowLimit: 500,
+          }),
+        },
+      );
+      const rows: any[] = (rr.body as any)?.rows ?? [];
+
+      // Existing sitemap URLs (candidates for redirects)
+      let sitemapUrls: string[] = [];
+      try {
+        const sm = await fetch(`${SITE_ORIGIN}/sitemap.xml`);
+        const xml = await sm.text();
+        sitemapUrls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+      } catch { /* ignore */ }
+
+      const slugify = (u: string) => (u.replace(/^https?:\/\/[^/]+/, "").replace(/\/$/, "") || "/").toLowerCase();
+      const tokens = (s: string) => s.split(/[-/_ ]+/).filter((t) => t && t.length > 1);
+      const similarity = (a: string, b: string) => {
+        const A = new Set(tokens(a));
+        const B = new Set(tokens(b));
+        if (!A.size || !B.size) return 0;
+        let inter = 0; A.forEach((t) => { if (B.has(t)) inter++; });
+        return inter / Math.max(A.size, B.size);
+      };
+
+      // HEAD each page, capture 404s
+      const not_found: any[] = [];
+      const checked: any[] = [];
+      for (const row of rows) {
+        const url: string = row.keys?.[0];
+        if (!url || !url.startsWith(SITE_ORIGIN)) continue;
+        let status: number | null = null;
+        try {
+          const h = await fetch(url, { method: "HEAD", redirect: "manual" });
+          status = h.status;
+        } catch { /* ignore */ }
+        const rec = { url, status, clicks: row.clicks, impressions: row.impressions, position: row.position };
+        checked.push(rec);
+        if (status && (status === 404 || status === 410)) {
+          const slug = slugify(url);
+          const scored = sitemapUrls
+            .map((s) => ({ url: s, score: similarity(slug, slugify(s)) }))
+            .filter((x) => x.score > 0)
+            .sort((a, b) => b.score - a.score);
+          const suggestion = scored[0] && scored[0].score >= 0.25 ? scored[0].url : `${SITE_ORIGIN}/`;
+          not_found.push({ ...rec, suggestion, alternatives: scored.slice(1, 4).map((x) => x.url) });
+        }
+      }
+      return json({ ok: true, totalChecked: checked.length, notFoundCount: not_found.length, not_found });
+    }
+
+    if (action === "inspect-full") {
+      const siteUrl = payload?.siteUrl ?? SITE_URL;
+      let inspectionUrl: string = payload?.inspectionUrl;
+      if (!inspectionUrl) return json({ error: "inspectionUrl required" }, 400);
+      if (inspectionUrl.startsWith("/")) inspectionUrl = SITE_ORIGIN + inspectionUrl;
+      if (!inspectionUrl.startsWith("http")) inspectionUrl = SITE_ORIGIN + "/" + inspectionUrl;
+
+      const r = await gsc(`/v1/urlInspection/index:inspect`, {
+        method: "POST",
+        body: JSON.stringify({ inspectionUrl, siteUrl }),
+      });
+
+      // Live fetch from our server (public rendered HTML)
+      let live: any = null;
+      try {
+        const startTs = Date.now();
+        const res = await fetch(inspectionUrl, { redirect: "manual" });
+        const html = await res.text();
+        const title = html.match(/<title[^>]*>([^<]*)<\/title>/i)?.[1] ?? null;
+        const desc = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i)?.[1] ?? null;
+        const canonical = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)?.[1] ?? null;
+        const robots = html.match(/<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)["']/i)?.[1] ?? null;
+        live = {
+          httpStatus: res.status,
+          contentType: res.headers.get("content-type"),
+          responseTimeMs: Date.now() - startTs,
+          bytes: html.length,
+          title,
+          description: desc,
+          canonical,
+          robots,
+        };
+      } catch (e) {
+        live = { error: String((e as Error).message ?? e) };
+      }
+
+      const ins = (r.body as any)?.inspectionResult ?? {};
+      return json({
+        ok: r.ok,
+        inspectionUrl,
+        indexStatus: ins.indexStatusResult ?? null,
+        mobileUsability: ins.mobileUsabilityResult ?? null,
+        richResults: ins.richResultsResult ?? null,
+        ampResult: ins.ampResult ?? null,
+        inspectionResultLink: ins.inspectionResultLink ?? null,
+        live,
+        raw: r.body,
+      });
+    }
+
     return json({ error: "Unknown action" }, 400);
   } catch (e) {
     return json({ error: String((e as Error).message ?? e) }, 500);
