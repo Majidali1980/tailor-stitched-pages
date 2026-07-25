@@ -87,6 +87,10 @@ export default function SearchConsole() {
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="flex-wrap">
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="alerts"><Bell className="h-3 w-3 mr-1" />Alerts</TabsTrigger>
+          <TabsTrigger value="notfound"><FileWarning className="h-3 w-3 mr-1" />404 & Redirects</TabsTrigger>
+          <TabsTrigger value="sitemap-workflow"><RefreshCw className="h-3 w-3 mr-1" />Sitemap Workflow</TabsTrigger>
+          <TabsTrigger value="inspector"><Search className="h-3 w-3 mr-1" />URL Inspector</TabsTrigger>
           <TabsTrigger value="submit">Submit for Indexing</TabsTrigger>
           <TabsTrigger value="sitemap">Sitemap</TabsTrigger>
           <TabsTrigger value="verify">Verification</TabsTrigger>
@@ -95,6 +99,12 @@ export default function SearchConsole() {
           <TabsTrigger value="audit">Image Audit</TabsTrigger>
           <TabsTrigger value="coverage">Index Coverage</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="alerts"><AlertsTab /></TabsContent>
+        <TabsContent value="notfound"><NotFoundTab /></TabsContent>
+        <TabsContent value="sitemap-workflow"><SitemapWorkflowTab /></TabsContent>
+        <TabsContent value="inspector"><UrlInspectorTab /></TabsContent>
+
 
         <TabsContent value="submit">
           <SubmitForIndexing />
