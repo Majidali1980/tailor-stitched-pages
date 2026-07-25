@@ -605,3 +605,160 @@ export default function SearchConsole() {
     </div>
   );
 }
+
+const SUBMITTED_KEY = "gsc-submitted-urls";
+
+function SubmitForIndexing() {
+  const [urls, setUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [submitted, setSubmitted] = useState<Record<string, boolean>>({});
+  const [filter, setFilter] = useState<"all" | "pending" | "submitted">("all");
+
+  useEffect(() => {
+    try {
+      setSubmitted(JSON.parse(localStorage.getItem(SUBMITTED_KEY) || "{}"));
+    } catch { /* ignore */ }
+    loadSitemap();
+  }, []);
+
+  const persist = (next: Record<string, boolean>) => {
+    setSubmitted(next);
+    localStorage.setItem(SUBMITTED_KEY, JSON.stringify(next));
+  };
+
+  const loadSitemap = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/sitemap.xml", { cache: "no-store" });
+      const xml = await res.text();
+      const list = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+      setUrls(list);
+    } catch (e) {
+      toast.error("Failed to load sitemap.xml");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return urls.filter((u) => {
+      if (q && !u.toLowerCase().includes(q)) return false;
+      if (filter === "pending" && submitted[u]) return false;
+      if (filter === "submitted" && !submitted[u]) return false;
+      return true;
+    });
+  }, [urls, search, submitted, filter]);
+
+  const submittedCount = Object.values(submitted).filter(Boolean).length;
+
+  const inspectUrl = (u: string) =>
+    `https://search.google.com/search-console/inspect?resource_id=${encodeURIComponent(SITE + "/")}&id=${encodeURIComponent(u)}`;
+
+  const openNext = (n: number) => {
+    const pending = filtered.filter((u) => !submitted[u]).slice(0, n);
+    if (pending.length === 0) {
+      toast.info("Nothing pending in current view.");
+      return;
+    }
+    pending.forEach((u, i) => {
+      setTimeout(() => window.open(inspectUrl(u), "_blank"), i * 400);
+    });
+    toast.success(`Opening ${pending.length} URL(s) in Google Search Console...`);
+  };
+
+  return (
+    <Card>
+      <CardHeader><CardTitle>Submit URLs for indexing</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <div className="rounded border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-200">
+          Google doesn't accept programmatic indexing for generic sites (Indexing API is Job Posting / Livestream only).
+          The fastest legit path is <strong>Request Indexing</strong> in Search Console (~10 URLs/day quota).
+          This page lists every URL from your sitemap — click <em>Inspect in GSC</em>, then click <strong>Request Indexing</strong> in the panel that opens.
+          Tick the checkbox to mark it as submitted so you can track progress across sessions.
+        </div>
+
+        <div className="flex flex-wrap gap-2 items-center">
+          <Button size="sm" variant="outline" onClick={loadSitemap} disabled={loading}>
+            {loading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />} Reload sitemap
+          </Button>
+          <Badge variant="outline">Total: {urls.length}</Badge>
+          <Badge className="bg-green-600">Submitted: {submittedCount}</Badge>
+          <Badge className="bg-amber-600">Pending: {urls.length - submittedCount}</Badge>
+        </div>
+
+        <div className="flex flex-wrap gap-2 items-center">
+          <Input
+            placeholder="Search URL..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="max-w-md"
+          />
+          <div className="flex gap-1">
+            {(["all", "pending", "submitted"] as const).map((f) => (
+              <Button key={f} size="sm" variant={filter === f ? "default" : "outline"} onClick={() => setFilter(f)}>
+                {f[0].toUpperCase() + f.slice(1)}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <Button size="sm" variant="secondary" onClick={() => openNext(10)}>
+            Open next 10 in GSC (daily quota)
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => openNext(filtered.length)}>
+            Open all shown ({filtered.filter((u) => !submitted[u]).length})
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              navigator.clipboard.writeText(filtered.join("\n"));
+              toast.success(`Copied ${filtered.length} URLs`);
+            }}
+          >Copy shown URLs</Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              if (confirm("Reset submitted checkmarks?")) persist({});
+            }}
+          >Reset checkmarks</Button>
+        </div>
+
+        <div className="text-xs text-muted-foreground">Showing {filtered.length} of {urls.length} URLs</div>
+
+        <div className="space-y-1 max-h-[600px] overflow-auto border rounded p-2">
+          {filtered.map((u) => {
+            const done = !!submitted[u];
+            return (
+              <div key={u} className="flex items-center gap-2 text-sm border rounded p-2">
+                <input
+                  type="checkbox"
+                  checked={done}
+                  onChange={(e) => persist({ ...submitted, [u]: e.target.checked })}
+                  className="h-4 w-4 shrink-0"
+                />
+                {done ? <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" /> : <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />}
+                <span className="font-mono text-xs truncate flex-1" title={u}>{u.replace(SITE, "") || "/"}</span>
+                <a
+                  href={inspectUrl(u)}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => persist({ ...submitted, [u]: true })}
+                  className="text-xs text-primary underline shrink-0"
+                >Inspect in GSC</a>
+              </div>
+            );
+          })}
+          {filtered.length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-6">No URLs match the current filter.</p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
