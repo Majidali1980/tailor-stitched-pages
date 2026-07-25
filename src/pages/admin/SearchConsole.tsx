@@ -87,6 +87,7 @@ export default function SearchConsole() {
       <Tabs defaultValue="overview" className="w-full">
         <TabsList className="flex-wrap">
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="submit">Submit for Indexing</TabsTrigger>
           <TabsTrigger value="sitemap">Sitemap</TabsTrigger>
           <TabsTrigger value="verify">Verification</TabsTrigger>
           <TabsTrigger value="indexing">Indexing Queue</TabsTrigger>
@@ -94,6 +95,11 @@ export default function SearchConsole() {
           <TabsTrigger value="audit">Image Audit</TabsTrigger>
           <TabsTrigger value="coverage">Index Coverage</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="submit">
+          <SubmitForIndexing />
+        </TabsContent>
+
 
         <TabsContent value="overview">
           <Card>
