@@ -65,6 +65,7 @@ const App = () => (
       <WhatsAppFloat />
       <TailorAssistant />
       <BrowserRouter>
+        <MetaPixelTracker />
         <Suspense fallback={<PageLoader />}>
           <Breadcrumbs />
           <main>
