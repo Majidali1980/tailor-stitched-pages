@@ -4,12 +4,20 @@
   <url>
     <loc>https://matailor.lovable.app/</loc>
     <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133977681-Gemini_Generated_Image_t2r4qut2r4qut2r4.jpg</image:loc>
+      <image:caption>Tailored to Perfection</image:caption>
+    </image:image>
+    <image:image>
       <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1784442285011-Gemini_Generated_Image_1ju8e71ju8e71ju8.png</image:loc>
       <image:caption>Eid Style, Tailored for You!</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1784441457024-Gemini_Generated_Image_f0umqff0umqff0um.png</image:loc>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785132872661-Gemini_Generated_Image_4b55q14b55q14b55.png</image:loc>
       <image:caption>Online Pakistani Dress Tailor For Ladies</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133570390-Gemini_Generated_Image_rwsqf0rwsqf0rwsq.jpg</image:loc>
+      <image:caption>Your Style, Tailored to Perfection.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://i.postimg.cc/m2dD2FgV/Untitled-design-6.png</image:loc>
@@ -352,6 +360,22 @@
     </image:image>
   </url>
   <url>
+    <loc>https://matailor.lovable.app/blog/expert-tailoring-for-collar-neck-suits-with-lace-sleeves-ma-tailor</loc>
+    <image:image>
+      <image:loc>https://i.postimg.cc/6qWr5MB5/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background.png</image:loc>
+      <image:caption>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:caption>
+      <image:title>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matailor.lovable.app/blog/elevate-your-style-a-fresh-take-on-the-classic-kurta</loc>
+    <image:image>
+      <image:loc>https://i.postimg.cc/xdR92Vww/Modern-Daily-Podcast-You-Tube-Thumbnail-1.png</image:loc>
+      <image:caption>Elevate Your Style: A Fresh Take on the Classic Kurta</image:caption>
+      <image:title>Elevate Your Style: A Fresh Take on the Classic Kurta</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://matailor.lovable.app/blog/bring-your-fabric-and-let-ma-tailor-craft-it-into-a-beautiful-stitched</loc>
     <image:image>
       <image:loc>https://i.postimg.cc/VLcc38Fb/Gemini-Generated-Image-3yo9823yo9823yo9.png</image:loc>
@@ -381,22 +405,6 @@
       <image:loc>https://i.postimg.cc/Bbk6qrqs/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background-1.png</image:loc>
       <image:caption> Elegant Red Floral Stitched Suit with Neat Finishing – MA Tailor Perfection</image:caption>
       <image:title> Elegant Red Floral Stitched Suit with Neat Finishing – MA Tailor Perfection</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://matailor.lovable.app/blog/expert-tailoring-for-collar-neck-suits-with-lace-sleeves-ma-tailor</loc>
-    <image:image>
-      <image:loc>https://i.postimg.cc/6qWr5MB5/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background.png</image:loc>
-      <image:caption>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:caption>
-      <image:title>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://matailor.lovable.app/blog/elevate-your-style-a-fresh-take-on-the-classic-kurta</loc>
-    <image:image>
-      <image:loc>https://i.postimg.cc/xdR92Vww/Modern-Daily-Podcast-You-Tube-Thumbnail-1.png</image:loc>
-      <image:caption>Elevate Your Style: A Fresh Take on the Classic Kurta</image:caption>
-      <image:title>Elevate Your Style: A Fresh Take on the Classic Kurta</image:title>
     </image:image>
   </url>
   <url>
