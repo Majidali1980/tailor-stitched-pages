@@ -130,6 +130,7 @@ const Index = () => {
       
       <div className="min-h-screen bg-black text-white font-montserrat">
         <h1 className="sr-only">Custom Tailoring & Online Stitching Services</h1>
+        <h2 className="sr-only">Online Tailor & Stitching Unit Near Me — Custom Suit Fitting with Door-to-Door Pickup</h2>
         <Navbar />
         <DynamicPromotionalBanner />
         <CinematicHero />
