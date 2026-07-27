@@ -3,3 +3,5 @@ Allow: /
 Disallow: /admin/
 
 Sitemap: https://matailor.lovable.app/sitemap.xml
+Sitemap: https://matailor.lovable.app/image-sitemap.xml
+Sitemap: https://matailor.lovable.app/sitemap-index.xml
