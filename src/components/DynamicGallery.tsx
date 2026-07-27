@@ -104,10 +104,24 @@ const DynamicGallery = () => {
     fetchAll();
   }, []);
 
-  // Filter items based on selected category
-  const filteredItems = activeCategory === "all" 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === activeCategory);
+  // Filter items based on selected category + search query
+  const filteredItems = useMemo(() => {
+    const base = activeCategory === 'all'
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === activeCategory);
+    const q = search.trim().toLowerCase();
+    if (!q) return base;
+    return base.filter((item) => {
+      const hay = [
+        item.caption ?? '',
+        item.category ?? '',
+        ...keywordsFor(item.category, item.caption),
+      ]
+        .join(' ')
+        .toLowerCase();
+      return hay.includes(q);
+    });
+  }, [galleryItems, activeCategory, search]);
 
   const handleImageClick = (imageUrl: string) => {
     console.log('Gallery image clicked:', imageUrl);
