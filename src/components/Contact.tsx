@@ -59,6 +59,10 @@ const Contact = () => {
       
       // Send email notification
       await emailjs.send('service_kqtecnn', 'template_tv45p3s', templateParams, 'H357zAP8V__yP5H8e');
+
+      // Meta Pixel — Lead (only after successful submit)
+      fbTrack('Lead');
+
       
       toast({
         title: "Message Sent",
