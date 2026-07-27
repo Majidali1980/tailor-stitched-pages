@@ -120,6 +120,9 @@ const SeoLandingPage = ({
         <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
         <script type="application/ld+json">{JSON.stringify(service)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+        {imageGalleryLd && (
+          <script type="application/ld+json">{JSON.stringify(imageGalleryLd)}</script>
+        )}
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
