@@ -233,7 +233,9 @@ const DynamicGallery = () => {
                         >
                           <img
                             src={item.image_url}
-                            alt={item.caption || 'Gallery item'}
+                            alt={altFor(item.category, item.caption)}
+                            title={titleFor(item.category, item.caption)}
+                            data-keywords={keywordsFor(item.category, item.caption).join(', ')}
                             loading="lazy"
                             decoding="async"
                             className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
