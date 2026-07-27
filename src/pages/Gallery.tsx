@@ -34,20 +34,35 @@ const GalleryPage = () => {
       'Custom girls stitching designs gallery - View premium dresses and stitching details crafted for girls in Pakistan',
     url: pageUrl,
     image: images.map((img) => img.image_url),
-    associatedMedia: images.map((img) => ({
-      '@type': 'ImageObject',
-      contentUrl: img.image_url,
-      url: img.image_url,
-      name: img.caption || 'Ma Tailor stitched design',
-      description: img.caption || 'Custom stitched design by Ma Tailor',
-      caption: img.caption || undefined,
-      keywords: img.category || undefined,
-      creditText: 'Ma Tailor',
-      creator: { '@type': 'Organization', name: 'Ma Tailor' },
-      copyrightNotice: '© Ma Tailor',
-      license: pageUrl,
-      acquireLicensePage: pageUrl,
-    })),
+    associatedMedia: images.map((img) => {
+      const caption = img.caption || 'Custom stitched design by Ma Tailor';
+      const kw = [
+        img.caption,
+        img.category,
+        'ladies tailor karachi',
+        'bridal dress stitching karachi',
+        'custom stitched dress pakistan',
+        'boutique tailor karachi',
+      ]
+        .filter(Boolean)
+        .join(', ');
+      return {
+        '@type': 'ImageObject',
+        contentUrl: img.image_url,
+        url: img.image_url,
+        name: caption,
+        description: caption,
+        caption,
+        keywords: kw,
+        representativeOfPage: false,
+        creditText: 'Ma Tailor',
+        creator: { '@type': 'Organization', name: 'Ma Tailor' },
+        author: { '@type': 'Organization', name: 'Ma Tailor' },
+        copyrightNotice: '© Ma Tailor',
+        license: pageUrl,
+        acquireLicensePage: pageUrl,
+      };
+    }),
   };
 
   const breadcrumbLd = {
