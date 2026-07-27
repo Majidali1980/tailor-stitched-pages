@@ -1,9 +1,60 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { ZoomIn, X } from 'lucide-react';
+import { ZoomIn, X, Search } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const BRAND = 'MA Tailor Karachi';
+const BASE_KEYWORDS = [
+  'ladies tailor karachi',
+  'stitching karachi',
+  'custom stitched dress pakistan',
+  'boutique tailor karachi',
+];
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  bridal: ['bridal dress stitching karachi', 'bridal lehenga', 'designer bridal suit', 'wedding dress'],
+  party: ['party wear dress', 'fancy dress stitching', 'designer party wear'],
+  formal: ['formal dresses', 'designer formal suit pakistan'],
+  casual: ['casual dresses', 'everyday shalwar kameez'],
+  lawn: ['lawn suit stitching', 'summer lawn dress pakistan'],
+  cotton: ['cotton suit designs', 'cotton shalwar kameez'],
+  wedding: ['wedding dress karachi', 'nikkah dress stitching'],
+  eid: ['eid collection', 'eid dress stitching pakistan'],
+  boutique: ['boutique dresses', 'boutique tailor karachi'],
+  designer: ['designer dresses pakistan', 'custom designer suit'],
+  maxi: ['maxi dress', 'long maxi stitching'],
+  gharara: ['gharara stitching', 'gharara dress design'],
+  sharara: ['sharara stitching', 'sharara dress design'],
+  abaya: ['abaya stitching', 'custom abaya karachi'],
+  embroidery: ['embroidery dress', 'hand embroidery stitching'],
+};
+
+function keywordsFor(category: string | null, caption: string | null): string[] {
+  const cat = (category || '').toLowerCase();
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) => cat.includes(k))?.[1] ?? [];
+  const capKw = caption ? [caption.toLowerCase()] : [];
+  return Array.from(new Set([...capKw, ...catKw, ...BASE_KEYWORDS]));
+}
+
+function altFor(category: string | null, caption: string | null): string {
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) =>
+      (category || '').toLowerCase().includes(k),
+    )?.[1]?.[0] ?? 'custom stitched dress';
+  return caption
+    ? `${caption} — ${catKw} by ${BRAND}`
+    : `${catKw} by ${BRAND}`;
+}
+
+function titleFor(category: string | null, caption: string | null): string {
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) =>
+      (category || '').toLowerCase().includes(k),
+    )?.[1]?.[0] ?? 'custom stitching';
+  return caption ? `${caption} | ${BRAND}` : `${catKw} | ${BRAND}`;
+}
 
 interface GalleryItem {
   id: string;
