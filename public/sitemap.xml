@@ -1,7 +1,288 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://matailor.lovable.app/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <url><loc>https://matailor.lovable.app/gallery</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://matailor.lovable.app/</loc><changefreq>daily</changefreq><priority>1.0</priority>    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133977681-Gemini_Generated_Image_t2r4qut2r4qut2r4.jpg</image:loc>
+      <image:caption>Tailored to Perfection</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1784442285011-Gemini_Generated_Image_1ju8e71ju8e71ju8.png</image:loc>
+      <image:caption>Eid Style, Tailored for You!</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785132872661-Gemini_Generated_Image_4b55q14b55q14b55.png</image:loc>
+      <image:caption>Online Pakistani Dress Tailor For Ladies</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133570390-Gemini_Generated_Image_rwsqf0rwsqf0rwsq.jpg</image:loc>
+      <image:caption>Your Style, Tailored to Perfection.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/m2dD2FgV/Untitled-design-6.png</image:loc>
+      <image:caption>Modern Kurta Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/VkxQJ8QZ/Untitled-design-9.png</image:loc>
+      <image:caption>Expert finishing ensuring a perfect fi</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/15Smmbts/Gemini-Generated-Image-p13lmop13lmop13l-1.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/5973PJyt/Untitled-design-9.png</image:loc>
+      <image:caption>Red Neck Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/rs0VYf5H/Untitled-design-3.png</image:loc>
+      <image:caption>Red Elegant Series</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SNPYczLB/Untitled-design-1.png</image:loc>
+      <image:caption>Dissecting a Masterpiece in Mint and Rose</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/L8YH4PfF/Gemini-Generated-Image-tq92eutq92eutq92.png</image:loc>
+      <image:caption>Black Floral Shalwar Kameez - Customer Favorite</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/zDTDdrzR/Untitled-design-4.png</image:loc>
+      <image:caption>The Pristine Blue Ensemble by MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/3Jh45Hz0/Chat-GPT-Image-Aug-27-2025-10-18-02-AM.png</image:loc>
+      <image:caption>Round Neck with Overlap</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/Pq0HBR9G/Gemini-Generated-Image-t9xcwht9xcwht9xc.png</image:loc>
+      <image:caption>Sea Green Traditional Outfit. MA Tailor </image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/90p1QrQP/Untitled-design-3.png</image:loc>
+      <image:caption>Perfect Outfit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/hvtBkQgw/Gemini-Generated-Image-vwp67pvwp67pvwp6.png</image:loc>
+      <image:caption>Traditional Pattern Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/kgrWZgm7/Untitled-design-10.png</image:loc>
+      <image:caption>Neck Design with Casual Dressing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/dVPvkk6m/ORIGINAL-6.png</image:loc>
+      <image:caption>Unpacking MA Tailor&apos;s Maroon Masterpiece</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/KYqBdtV2/Untitled-design-9.png</image:loc>
+      <image:caption>Elegant Navy  Custom Stitched by MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/6qgCZGps/Untitled-design.png</image:loc>
+      <image:caption>Elegant Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SRmC5KCg/Untitled-design-3.png</image:loc>
+      <image:caption>Simple Design with Fit Stitching</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/HW48mRg0/Untitled-design-7.png</image:loc>
+      <image:caption>Design to Perfection MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/5y6LM5qp/Untitled-design-4.png</image:loc>
+      <image:caption>Precision in Every Stitch: The Tailor&apos;s Eye</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/fysRrcTj/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background-1.png</image:loc>
+      <image:caption>Perfect Festival Collection</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/gallery</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/m2dD2FgV/Untitled-design-6.png</image:loc>
+      <image:caption>Modern Kurta Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/VkxQJ8QZ/Untitled-design-9.png</image:loc>
+      <image:caption>Expert finishing ensuring a perfect fi</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/15Smmbts/Gemini-Generated-Image-p13lmop13lmop13l-1.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/5973PJyt/Untitled-design-9.png</image:loc>
+      <image:caption>Red Neck Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/rs0VYf5H/Untitled-design-3.png</image:loc>
+      <image:caption>Red Elegant Series</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SNPYczLB/Untitled-design-1.png</image:loc>
+      <image:caption>Dissecting a Masterpiece in Mint and Rose</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/L8YH4PfF/Gemini-Generated-Image-tq92eutq92eutq92.png</image:loc>
+      <image:caption>Black Floral Shalwar Kameez - Customer Favorite</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/zDTDdrzR/Untitled-design-4.png</image:loc>
+      <image:caption>The Pristine Blue Ensemble by MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/3Jh45Hz0/Chat-GPT-Image-Aug-27-2025-10-18-02-AM.png</image:loc>
+      <image:caption>Round Neck with Overlap</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/Pq0HBR9G/Gemini-Generated-Image-t9xcwht9xcwht9xc.png</image:loc>
+      <image:caption>Sea Green Traditional Outfit. MA Tailor </image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/90p1QrQP/Untitled-design-3.png</image:loc>
+      <image:caption>Perfect Outfit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/hvtBkQgw/Gemini-Generated-Image-vwp67pvwp67pvwp6.png</image:loc>
+      <image:caption>Traditional Pattern Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/kgrWZgm7/Untitled-design-10.png</image:loc>
+      <image:caption>Neck Design with Casual Dressing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/dVPvkk6m/ORIGINAL-6.png</image:loc>
+      <image:caption>Unpacking MA Tailor&apos;s Maroon Masterpiece</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/KYqBdtV2/Untitled-design-9.png</image:loc>
+      <image:caption>Elegant Navy  Custom Stitched by MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/6qgCZGps/Untitled-design.png</image:loc>
+      <image:caption>Elegant Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SRmC5KCg/Untitled-design-3.png</image:loc>
+      <image:caption>Simple Design with Fit Stitching</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/HW48mRg0/Untitled-design-7.png</image:loc>
+      <image:caption>Design to Perfection MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/5y6LM5qp/Untitled-design-4.png</image:loc>
+      <image:caption>Precision in Every Stitch: The Tailor&apos;s Eye</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/fysRrcTj/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background-1.png</image:loc>
+      <image:caption>Perfect Festival Collection</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/yxj8Mfv8/Untitled-design-9.png</image:loc>
+      <image:caption>Perfect fits for every design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/pTtVpNSh/Untitled-design-13.png</image:loc>
+      <image:caption>Elegant Custom Stitching</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/43pVnYPb/Untitled-design-8.png</image:loc>
+      <image:caption>Seasonal Design </image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SNm4F8TK/Gemini-Generated-Image-t407mdt407mdt407.png</image:loc>
+      <image:caption>MA Tailor Stitching Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/gJrmngt0/Untitled-design-4.png</image:loc>
+      <image:caption>Elegant Design Series</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/L8Whc3rq/Untitled-design-13.png</image:loc>
+      <image:caption> Impeccable Stitching, Design, and Flawless Fit </image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/FK04V9P3/ORIGINAL-4.png</image:loc>
+      <image:caption>Elegant NEck Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/N0G03KHJ/Untitled-design-11.png</image:loc>
+      <image:caption>Casual Wear</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/NMt8wLY3/15-7.png</image:loc>
+      <image:caption>Marron Simple Suit with Designing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/vmGx4ddt/Untitled-design-6.png</image:loc>
+      <image:caption>Design to perfection MA Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/W1WT7371/Gemini-Generated-Image-s9t0zis9t0zis9t0.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/rs1qGNfB/Gemini-Generated-Image-oo51bcoo51bcoo51.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/P5qw240W/Untitled-design-5.png</image:loc>
+      <image:caption>Perfect Fit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/kgdbdCVy/Untitled-design-8.png</image:loc>
+      <image:caption>Peach Formal Collection</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/GtdQbF1y/Untitled-design-11.png</image:loc>
+      <image:caption>Winter Stitching Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/br4mQ908/Untitled-design.png</image:loc>
+      <image:caption>Collar Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/FRx0jwXN/Untitled-design-2.png</image:loc>
+      <image:caption>Elevate Your Style: A Fresh Take on the Classic Kurta</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/KYxYvryK/Untitled-design.png</image:loc>
+      <image:caption>Red Elegant Series</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/Y9crBFCw/Untitled-design-14.png</image:loc>
+      <image:caption>Fine lace detailing on the neckline and sleeves,</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/KvYyVfDZ/Untitled-design-11.png</image:loc>
+      <image:caption>crafted with love, finished with lace detailing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/pVgYWYdH/Untitled-design-11.png</image:loc>
+      <image:caption>MA Tailor’s navy floral kurti design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/D03NQ5Mh/Design-7.png</image:loc>
+      <image:caption>This suit is designed for impact, combining traditional embellishments with a contemporary silhouette.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/SQZFnBw7/Untitled-design-5.png</image:loc>
+      <image:caption>Collar Girls Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/JzqW43h2/Untitled-design-4.png</image:loc>
+      <image:caption>Elegent Fit Design</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/2y360HgT/Chat-GPT-Image-Aug-27-2025-10-03-14-AM.png</image:loc>
+      <image:caption>Navy Formal Wear</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/gallery/1774050782620-wmcx8b.png</image:loc>
+      <image:caption>Elegant Black Embroidered Suit: Round Neck &amp; Straight Pants</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/QdkW8z1Z/Untitled-design-7.png</image:loc>
+      <image:caption>Beautiful Design Kurta</image:caption>
+    </image:image>
+  </url>
   <url><loc>https://matailor.lovable.app/booking</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://matailor.lovable.app/services</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://matailor.lovable.app/reviews</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -26,38 +307,423 @@
   <url><loc>https://matailor.lovable.app/blog/tag/shalwar-kameez-stitching</loc><changefreq>weekly</changefreq><priority>0.5</priority></url>
   <url><loc>https://matailor.lovable.app/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://matailor.lovable.app/terms-of-use</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://matailor.lovable.app/services/abaya-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/blouse-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/bridal-dress-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/custom-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/formal-suit-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/gharara-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/lawn-suit-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/maxi-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/party-wear-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/services/sharara-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/analyzing-the-precision-stitching-of-a-modern-winter-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://matailor.lovable.app/services/abaya-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1621786030484-4c855eed6974?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Custom abaya stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1621786030484-4c855eed6974?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Modern open-front abaya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Kimono sleeve abaya</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Butterfly abaya side panels</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Abaya sleeve embroidery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Classic closed abaya with hijab</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Abaya hem finishing</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/blouse-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Custom blouse stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Fitted saree blouse</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Lehenga choli with embroidery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Blouse neckline detail</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Blouse back closure</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Padded blouse construction</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Short-shirt style blouse</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/bridal-dress-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030006870-c17f0895c144?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Pakistani bridal lehenga stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Pakistani bridal lehenga with hand embroidery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bridal gharara kali detail</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733975-b8d3e5b0f6a7?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Walima maxi with dabka work</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bridal dupatta finishing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-9c78f7f9e1a2?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Blouse fitting on mannequin</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bridal embroidery karigar work</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/custom-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Custom stitched Pakistani outfit by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Custom Pakistani dress from reference</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Reference-based pattern drafting</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030006870-c17f0895c144?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Custom bridal from Pinterest reference</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Custom party wear from Instagram post</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Fabric sourcing photo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Finished custom outfit</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/formal-suit-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733975-b8d3e5b0f6a7?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Formal shalwar kameez stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733975-b8d3e5b0f6a7?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Formal raw silk suit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Jamawar evening suit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Cotton silk office suit</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Formal suit neckline</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Cigarette pant finishing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Peplum formal look</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/gharara-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Bridal gharara stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Walima gharara kali flare</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Gharara knee band embroidery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bridal gharara with short kameez</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030006870-c17f0895c144?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Gharara detail with gota</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Gharara paired with peplum</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Gharara hem finishing</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/lawn-suit-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Pakistani lawn suit stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Printed lawn kameez neckline finishing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Lawn suit dupatta with lace border</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Stitched lawn 3-piece hanging in workshop</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1611042553365-9b101441c135?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bootcut trouser hem detail</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733981-8498408b3f5b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Printed lawn fabric cut on grain</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Piping detail on lawn kameez</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/maxi-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Custom nikah maxi stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Long walima maxi with dabka work</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Nikah maxi in pastel chiffon</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Engagement maxi hand embroidery</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Kali-cut maxi from behind</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Fishtail maxi trial fitting</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Chiffon maxi hem finishing</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/party-wear-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Pakistani party wear frock stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Peplum top with cigarette pants</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Short frock with sharara</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Cape-style party shirt</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>A-line party frock</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Party wear neckline finishing</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Party wear embroidery placement</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/services/sharara-stitching</loc><changefreq>weekly</changefreq><priority>0.9</priority>    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030006870-c17f0895c144?auto=format&amp;fit=crop&amp;w=1200&amp;q=80</image:loc>
+      <image:caption>Pakistani sharara stitched by Ma Tailor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1596993100471-c3905dafa78e?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Bridal sharara kali detail</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1594612173100-0d4c48db5f74?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Sharara paired with peplum kameez</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Mehndi sharara with gota</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Sharara waistband and closure</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1610030181087-540017dc9d61?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Sharara flare front view</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1614251055880-ee96e4803393?auto=format&amp;fit=crop&amp;w=900&amp;q=80</image:loc>
+      <image:caption>Sharara hem embroidery</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/analyzing-the-precision-stitching-of-a-modern-winter-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/rsBkQy7J/Red-Bold-Travel-Gujarati-Clothing-You-Tube-Thumbnail.png</image:loc>
+      <image:title>Analyzing the Precision Stitching of a Modern Winter Kurta</image:title>
+      <image:caption>Analyzing the Precision Stitching of a Modern Winter Kurta</image:caption>
+    </image:image>
+  </url>
   <url><loc>https://matailor.lovable.app/blog/bridal-dress-stitching-checklist</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/bring-your-fabric-and-let-ma-tailor-craft-it-into-a-beautiful-stitched</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/deconstructing-the-intricate-stitching-of-a-modern-kurta-set</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elegant-floral-kurta-stitching-with-contrast-details-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elegant-navy-floral-kurti-custom-stitched-by-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elegant-red-floral-stitched-suit-with-neat-finishing-ma-tailor-perfect</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elegant-winter-stitching-a-closer-look-at-this-stunning-outfit</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elegant-yellow-floral-kurti-custom-stitched-by-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/elevate-your-style-a-fresh-take-on-the-classic-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/expert-tailoring-for-collar-neck-suits-with-lace-sleeves-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/golden-glamour-deconstructing-the-intricate-stitching-of-a-festive-kur</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://matailor.lovable.app/blog/bring-your-fabric-and-let-ma-tailor-craft-it-into-a-beautiful-stitched</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/VLcc38Fb/Gemini-Generated-Image-3yo9823yo9823yo9.png</image:loc>
+      <image:title>Bring Your Fabric and Let MA Tailor Craft It into a Beautiful Stitched Plazo Design for Your Little Princess</image:title>
+      <image:caption>Bring Your Fabric and Let MA Tailor Craft It into a Beautiful Stitched Plazo Design for Your Little Princess</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/deconstructing-the-intricate-stitching-of-a-modern-kurta-set</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/m2qqqNTZ/Yellow-Women-Clothing-Review-Youtube-Thumbnail.png</image:loc>
+      <image:title>Deconstructing the Intricate Stitching of a Modern Kurta Set</image:title>
+      <image:caption>Deconstructing the Intricate Stitching of a Modern Kurta Set</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elegant-floral-kurta-stitching-with-contrast-details-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/GtWbcNLs/Pink-Modern-Aesthetic-Outfits-Youtube-Thumbnail.png</image:loc>
+      <image:title>Elegant Floral Kurta Stitching with Contrast Details | MA Tailor</image:title>
+      <image:caption>Elegant Floral Kurta Stitching with Contrast Details | MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elegant-navy-floral-kurti-custom-stitched-by-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/g0TG90Kx/Blue-Women-Clothing-Review-Youtube-Thumbnail-2.png</image:loc>
+      <image:title>Elegant Navy Floral Kurti – Custom Stitched by MA Tailor</image:title>
+      <image:caption>Elegant Navy Floral Kurti – Custom Stitched by MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elegant-red-floral-stitched-suit-with-neat-finishing-ma-tailor-perfect</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/Bbk6qrqs/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background-1.png</image:loc>
+      <image:title> Elegant Red Floral Stitched Suit with Neat Finishing – MA Tailor Perfection</image:title>
+      <image:caption> Elegant Red Floral Stitched Suit with Neat Finishing – MA Tailor Perfection</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elegant-winter-stitching-a-closer-look-at-this-stunning-outfit</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/65hP4QjK/MA-TAILOR-ONLINE-SHOP-2.png</image:loc>
+      <image:title>Elegant Winter Stitching: A Closer Look at This Stunning Outfit</image:title>
+      <image:caption>Elegant Winter Stitching: A Closer Look at This Stunning Outfit</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elegant-yellow-floral-kurti-custom-stitched-by-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/tJj4WxK1/Blue-Women-Clothing-Review-Youtube-Thumbnail-1.png</image:loc>
+      <image:title>Elegant Yellow Floral Kurti – Custom Stitched by MA Tailor</image:title>
+      <image:caption>Elegant Yellow Floral Kurti – Custom Stitched by MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/elevate-your-style-a-fresh-take-on-the-classic-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/xdR92Vww/Modern-Daily-Podcast-You-Tube-Thumbnail-1.png</image:loc>
+      <image:title>Elevate Your Style: A Fresh Take on the Classic Kurta</image:title>
+      <image:caption>Elevate Your Style: A Fresh Take on the Classic Kurta</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/expert-tailoring-for-collar-neck-suits-with-lace-sleeves-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/6qWr5MB5/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background.png</image:loc>
+      <image:title>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:title>
+      <image:caption>Expert Tailoring for Collar Neck Suits with Lace Sleeves | MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/golden-glamour-deconstructing-the-intricate-stitching-of-a-festive-kur</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/BnRtTPH6/MA-TAILOR-ONLINE-SHOP-1.png</image:loc>
+      <image:title>Golden Glamour: Deconstructing the Intricate Stitching of a Festive Kurta</image:title>
+      <image:caption>Golden Glamour: Deconstructing the Intricate Stitching of a Festive Kurta</image:caption>
+    </image:image>
+  </url>
   <url><loc>https://matailor.lovable.app/blog/how-to-hire-pakistani-tailor-online</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/legance-in-every-stitch-the-art-of-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/perfectly-stitched-suit-with-elegant-neck-and-front-design-by-ma-tailo</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/perfectly-stitched-suit-with-elegant-neck-and-front-design-by-ma-tailo-2</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://matailor.lovable.app/blog/legance-in-every-stitch-the-art-of-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/g2dpPyfd/Blue-Women-Clothing-Review-Youtube-Thumbnail.png</image:loc>
+      <image:title> legance in Every Stitch – The Art of MA Tailor</image:title>
+      <image:caption> legance in Every Stitch – The Art of MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/zfhvDffk/Black-Gold-Elegant-Jewelry-Logo.png</image:loc>
+      <image:title>MA Tailor — AI Image Disclaimer &amp; Privacy Policy (Detailed Blog Post)</image:title>
+      <image:caption>MA Tailor — AI Image Disclaimer &amp; Privacy Policy (Detailed Blog Post)</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/perfectly-stitched-suit-with-elegant-neck-and-front-design-by-ma-tailo</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/KYycz7tX/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background.png</image:loc>
+      <image:title> Perfectly Stitched Suit with Elegant Neck and Front Design by MA Tailor</image:title>
+      <image:caption> Perfectly Stitched Suit with Elegant Neck and Front Design by MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/perfectly-stitched-suit-with-elegant-neck-and-front-design-by-ma-tailo-2</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/fysRrcTj/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background-1.png</image:loc>
+      <image:title>Perfectly Stitched Suit with Elegant Neck and Front Design by MA Tailor</image:title>
+      <image:caption>Perfectly Stitched Suit with Elegant Neck and Front Design by MA Tailor</image:caption>
+    </image:image>
+  </url>
   <url><loc>https://matailor.lovable.app/blog/shalwar-kameez-stitching-guide</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/the-art-of-detail-unpacking-the-stitching-of-a-charming-floral-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/the-art-of-elegance-dissecting-a-masterpiece-in-mint-and-rose</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/the-art-of-subtlety-deconstructing-the-elegance-of-a-modern-kurta-desi</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/the-elegance-of-bespoke-unpacking-ma-tailors-maroon-masterpiece</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/ultimate-guide-silk-gota-work-suits-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://matailor.lovable.app/blog/urban-chic-unveiled-the-pristine-blue-ensemble-by-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://matailor.lovable.app/blog/the-art-of-detail-unpacking-the-stitching-of-a-charming-floral-kurta</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/X7w7XfK1/MA-TAILOR-ONLINE-SHOP.png</image:loc>
+      <image:title>The Art of Detail: Unpacking the Stitching of a Charming Floral Kurta</image:title>
+      <image:caption>The Art of Detail: Unpacking the Stitching of a Charming Floral Kurta</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/the-art-of-elegance-dissecting-a-masterpiece-in-mint-and-rose</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/Bb5zF1Vw/Pink-and-Gold-Gradient-Decorative-Woman-Wonderful-Indian-You-Tube-Thumbnail.png</image:loc>
+      <image:title>The Art of Elegance: Dissecting a Masterpiece in Mint and Rose</image:title>
+      <image:caption>The Art of Elegance: Dissecting a Masterpiece in Mint and Rose</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/the-art-of-subtlety-deconstructing-the-elegance-of-a-modern-kurta-desi</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/9MjTtqTZ/Red-and-Black-Retro-Landscape-You-Tube-Thumbnail-background.png</image:loc>
+      <image:title>The Art of Subtlety: Deconstructing the Elegance of a Modern Kurta Design</image:title>
+      <image:caption>The Art of Subtlety: Deconstructing the Elegance of a Modern Kurta Design</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/the-elegance-of-bespoke-unpacking-ma-tailors-maroon-masterpiece</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/QCJ7QKYX/Yellow-and-Black-Photo-Garba-Night-Outfit-You-Tube-Thumbnail-1.png</image:loc>
+      <image:title>The Elegance of Bespoke: Unpacking MA Tailor&apos;s Maroon Masterpiece</image:title>
+      <image:caption>The Elegance of Bespoke: Unpacking MA Tailor&apos;s Maroon Masterpiece</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/ultimate-guide-silk-gota-work-suits-ma-tailor</loc><lastmod>2026-06-04</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/Jz06C4qQ/Blue-and-White-Modern-Tips-For-Styling-Denim-Clothing-You-Tube-Thumbnail.png</image:loc>
+      <image:title>The Ultimate Guide to Silk &amp; Gota Work Suits by MA Tailor</image:title>
+      <image:caption>The Ultimate Guide to Silk &amp; Gota Work Suits by MA Tailor</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://matailor.lovable.app/blog/urban-chic-unveiled-the-pristine-blue-ensemble-by-ma-tailor</loc><lastmod>2026-07-19</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>    <image:image>
+      <image:loc>https://i.postimg.cc/mksZps5R/Yellow-and-Black-Photo-Garba-Night-Outfit-You-Tube-Thumbnail.png</image:loc>
+      <image:title> Urban Chic Unveiled: The Pristine Blue Ensemble by MA Tailor</image:title>
+      <image:caption> Urban Chic Unveiled: The Pristine Blue Ensemble by MA Tailor</image:caption>
+    </image:image>
+  </url>
 </urlset>
