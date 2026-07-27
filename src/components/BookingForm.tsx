@@ -233,12 +233,21 @@ const BookingForm = () => {
             <h2 className="text-[#D4AF37] text-sm font-medium flex items-center gap-2 uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" /> Client Identity
             </h2>
-            <input type="text" required placeholder="Full Name" value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={fieldInput} />
-            <input type="tel" required placeholder="Phone Number (03XX XXXXXXX)" value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={fieldInput} />
-            <input type="email" placeholder="Email (Optional)" value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={fieldInput} />
+            <div>
+              <label htmlFor="bk-name" className="sr-only">Full Name</label>
+              <input id="bk-name" name="name" type="text" autoComplete="name" required placeholder="Full Name" value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={fieldInput} />
+            </div>
+            <div>
+              <label htmlFor="bk-phone" className="sr-only">Phone Number</label>
+              <input id="bk-phone" name="phone" type="tel" autoComplete="tel" required placeholder="Phone Number (03XX XXXXXXX)" value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={fieldInput} />
+            </div>
+            <div>
+              <label htmlFor="bk-email" className="sr-only">Email (Optional)</label>
+              <input id="bk-email" name="email" type="email" autoComplete="email" placeholder="Email (Optional)" value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={fieldInput} />
+            </div>
           </div>
 
           {/* Service builder */}
