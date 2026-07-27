@@ -106,7 +106,7 @@ const Blog = () => {
     return (
       <>
         <Helmet>
-          <title>Ma Tailor Blog – Fashion Tips & Stitching Trends 2025</title>
+          <title>Fashion Tips, Fabric Guides & Custom Tailoring Blog</title>
         </Helmet>
         <div className="min-h-screen bg-black text-white font-montserrat">
           <Navbar />
