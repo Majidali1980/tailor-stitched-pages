@@ -52,24 +52,7 @@ const BlogPost = () => {
       if (error) throw error;
       setPost(data);
       
-      // Update page title and meta description
-      if (data?.meta_title) {
-        document.title = data.meta_title;
-      } else if (data?.title) {
-        document.title = `${data.title} - MA Tailor Blog`;
-      }
-      
-      if (data?.meta_description) {
-        const metaTag = document.querySelector('meta[name="description"]');
-        if (metaTag) {
-          metaTag.setAttribute('content', data.meta_description);
-        } else {
-          const newMetaTag = document.createElement('meta');
-          newMetaTag.name = 'description';
-          newMetaTag.content = data.meta_description;
-          document.head.appendChild(newMetaTag);
-        }
-      }
+      // Title/description are managed by react-helmet-async below to avoid duplicate meta tags.
     } catch (error) {
       console.error('Error fetching blog post:', error);
       toast({
