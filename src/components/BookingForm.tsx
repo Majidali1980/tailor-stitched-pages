@@ -336,7 +336,7 @@ const BookingForm = () => {
                 <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
                   {uploadedImages.map((image) => (
                     <div key={image.id} className="relative group aspect-square rounded-xl overflow-hidden border border-stone-800 bg-stone-900">
-                      <img src={image.url} alt={image.name} className="w-full h-full object-cover" />
+                      <img src={image.url} alt={image.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                         <button type="button" onClick={() => setSelectedImage(image.url)} className="bg-[#D4AF37] text-black p-2 rounded-full"><Eye className="h-4 w-4" /></button>
                         <button type="button" onClick={() => removeImage(image.id)} className="bg-red-500 text-white p-2 rounded-full"><X className="h-4 w-4" /></button>
