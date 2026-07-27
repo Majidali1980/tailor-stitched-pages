@@ -109,6 +109,16 @@ const Career = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Helmet>
+        <title>Careers at Ma Tailor – Tailoring & Fashion Jobs Pakistan</title>
+        <meta name="description" content="Join Ma Tailor's team. Explore stitching, tailoring and fashion career opportunities in Pakistan and apply online." />
+        <link rel="canonical" href="https://matailor.lovable.app/career" />
+        <meta property="og:title" content="Careers at Ma Tailor" />
+        <meta property="og:description" content="Explore tailoring and fashion jobs at Ma Tailor and apply online." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://matailor.lovable.app/career" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       <Navbar />
       <main className="flex-grow pt-20">
         <section className="py-16 bg-gradient-to-b from-primary/5 to-transparent">
