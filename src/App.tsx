@@ -65,7 +65,9 @@ const App = () => (
       <TailorAssistant />
       <BrowserRouter>
         <Suspense fallback={<PageLoader />}>
+          <Breadcrumbs />
           <main>
+
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<About />} />
