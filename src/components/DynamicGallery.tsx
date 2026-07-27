@@ -184,6 +184,24 @@ const DynamicGallery = () => {
             </p>
           </div>
 
+          <div className="max-w-xl mx-auto mb-8">
+            <label htmlFor="gallery-search" className="sr-only">
+              Search gallery designs
+            </label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" aria-hidden="true" />
+              <input
+                id="gallery-search"
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search: bridal, party wear, lawn, maxi, sharara, embroidery…"
+                aria-label="Search gallery by keyword"
+                className="w-full bg-gray-900 border border-gray-700 focus:border-gold text-white placeholder-gray-500 rounded-full py-3 pl-11 pr-4 outline-none font-montserrat text-sm"
+              />
+            </div>
+          </div>
+
           <Tabs value={activeCategory} className="w-full" onValueChange={setActiveCategory}>
             <div className="flex justify-center mb-12 overflow-x-auto">
               <TabsList className="bg-gray-900 p-1">
