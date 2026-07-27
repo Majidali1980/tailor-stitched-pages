@@ -9,12 +9,12 @@ import { serviceLandingPages } from '@/data/serviceLandingPages';
 import { supabase } from '@/integrations/supabase/client';
 
 const Services = () => {
-  const [dbPages, setDbPages] = useState<{ slug: string; service_name: string | null; intro: string | null }[] | null>(null);
+  const [dbPages, setDbPages] = useState<{ slug: string; service_name: string | null; intro: string | null; hero_image_url: string | null; hero_image_alt: string | null }[] | null>(null);
 
   useEffect(() => {
     supabase
       .from('service_pages')
-      .select('slug,service_name,intro,display_order,is_active')
+      .select('slug,service_name,intro,hero_image_url,hero_image_alt,display_order,is_active')
       .eq('is_active', true)
       .order('display_order', { ascending: true })
       .then(({ data }) => setDbPages((data as any) ?? []));
@@ -26,6 +26,8 @@ const Services = () => {
         slug,
         name: cfg.serviceName,
         intro: cfg.intro,
+        image: cfg.heroImage?.src,
+        imageAlt: cfg.heroImage?.alt,
       }));
     }
     return dbPages.map((r) => {
@@ -34,25 +36,59 @@ const Services = () => {
         slug: r.slug,
         name: r.service_name || fb?.serviceName || r.slug,
         intro: r.intro || fb?.intro || '',
+        image: r.hero_image_url || fb?.heroImage?.src,
+        imageAlt: r.hero_image_alt || fb?.heroImage?.alt,
       };
     });
   })();
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Ma Tailor Services",
-    "description": "Professional tailoring and stitching services for girls in Pakistan - Custom stitching, alterations, and bulk orders",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Ma Tailor",
-      "telephone": "+92-307-0125273",
-      "url": "https://matailor.lovable.app"
+  const pageUrl = 'https://matailor.lovable.app/services';
+
+  const serviceLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Ma Tailor Services',
+    description:
+      'Professional tailoring and stitching services for girls in Pakistan - Custom stitching, alterations, and bulk orders',
+    provider: {
+      '@type': 'LocalBusiness',
+      name: 'Ma Tailor',
+      telephone: '+92-307-0125273',
+      url: 'https://matailor.lovable.app',
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Pakistan"
-    }
+    areaServed: ['Pakistan', 'United States', 'United Kingdom', 'Canada', 'United Arab Emirates'],
+    url: pageUrl,
+  };
+
+  const itemListLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Ma Tailor Stitching Services',
+    itemListElement: entries.map((e, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://matailor.lovable.app/services/${e.slug}`,
+      name: e.name,
+      ...(e.image && {
+        image: {
+          '@type': 'ImageObject',
+          contentUrl: e.image,
+          url: e.image,
+          name: e.imageAlt || e.name,
+          description: e.intro || e.name,
+          creditText: 'Ma Tailor',
+        },
+      }),
+    })),
+  };
+
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://matailor.lovable.app/' },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: pageUrl },
+    ],
   };
 
   return (
@@ -61,16 +97,16 @@ const Services = () => {
         <title>Our Tailoring & Stitching Services | Custom Suits & Alterations</title>
         <meta name="description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
         <meta name="keywords" content="tailoring services Pakistan, custom stitching services, girls dress stitching, bulk orders tailoring, dress alterations Pakistan, professional tailor services" />
-        <link rel="canonical" href="https://matailor.lovable.app/services" />
-        
+        <link rel="canonical" href={pageUrl} />
+
         <meta property="og:title" content="Our Tailoring & Stitching Services | Custom Suits & Alterations" />
         <meta property="og:description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://matailor.lovable.app/services" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
+        <meta property="og:url" content={pageUrl} />
+
+        <script type="application/ld+json">{JSON.stringify(serviceLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">

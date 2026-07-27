@@ -45,6 +45,11 @@ const SeoLandingPage = ({
     ],
   };
 
+  const allImages = [
+    ...(heroImage ? [heroImage] : []),
+    ...images,
+  ];
+
   const service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -60,7 +65,31 @@ const SeoLandingPage = ({
     areaServed: ['Pakistan', 'United States', 'United Kingdom', 'Canada', 'United Arab Emirates'],
     description: metaDescription,
     url,
+    ...(allImages.length && { image: allImages.map((i) => i.src) }),
   };
+
+  const imageGalleryLd = allImages.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ImageGallery',
+        name: `${serviceName} — Portfolio`,
+        url,
+        image: allImages.map((i) => i.src),
+        associatedMedia: allImages.map((i) => ({
+          '@type': 'ImageObject',
+          contentUrl: i.src,
+          url: i.src,
+          name: i.alt || serviceName,
+          description: i.caption || i.alt || serviceName,
+          caption: i.caption || undefined,
+          creditText: 'Ma Tailor',
+          creator: { '@type': 'Organization', name: 'Ma Tailor' },
+          copyrightNotice: '© Ma Tailor',
+          license: url,
+          acquireLicensePage: url,
+        })),
+      }
+    : null;
 
   const faqLd = {
     '@context': 'https://schema.org',
@@ -91,6 +120,9 @@ const SeoLandingPage = ({
         <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
         <script type="application/ld+json">{JSON.stringify(service)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+        {imageGalleryLd && (
+          <script type="application/ld+json">{JSON.stringify(imageGalleryLd)}</script>
+        )}
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
