@@ -58,13 +58,13 @@ const Services = () => {
   return (
     <>
       <Helmet>
-        <title>Our Services - Ma Tailor | Custom Girls Stitching Pakistan</title>
-        <meta name="description" content="Professional tailoring and stitching services for girls in Pakistan. Custom stitching, alterations, and bulk orders with perfect fit and elegant designs." />
+        <title>Our Tailoring & Stitching Services | Custom Suits & Alterations</title>
+        <meta name="description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
         <meta name="keywords" content="tailoring services Pakistan, custom stitching services, girls dress stitching, bulk orders tailoring, dress alterations Pakistan, professional tailor services" />
         <link rel="canonical" href="https://matailor.lovable.app/services" />
         
-        <meta property="og:title" content="Our Services - Ma Tailor | Custom Girls Stitching Pakistan" />
-        <meta property="og:description" content="Professional tailoring and stitching services with perfect fit and elegant designs." />
+        <meta property="og:title" content="Our Tailoring & Stitching Services | Custom Suits & Alterations" />
+        <meta property="og:description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/services" />
         

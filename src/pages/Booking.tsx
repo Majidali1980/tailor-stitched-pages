@@ -26,13 +26,13 @@ const BookingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Book Online Stitching Appointment – Ma Tailor Pakistan</title>
-        <meta name="description" content="Book your stitching appointment online with Ma Tailor. Custom tailoring for girls with fast delivery and expert fitting." />
+        <title>Book Custom Tailoring Online | Tailor & Stitching Services</title>
+        <meta name="description" content="Book your custom tailoring or stitching appointment online. Professional custom fits, door-to-door service, and quick turnaround." />
         <meta name="keywords" content="book stitching appointment online, online tailor Pakistan, custom tailoring service booking, ladies tailor appointment, girls stitching booking" />
         <link rel="canonical" href="https://matailor.lovable.app/booking" />
         
-        <meta property="og:title" content="Book Online Stitching Appointment – Ma Tailor Pakistan" />
-        <meta property="og:description" content="Book your stitching appointment online. Custom tailoring with fast delivery." />
+        <meta property="og:title" content="Book Custom Tailoring Online | Tailor & Stitching Services" />
+        <meta property="og:description" content="Book your custom tailoring or stitching appointment online. Professional custom fits, door-to-door service, and quick turnaround." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/booking" />
         
