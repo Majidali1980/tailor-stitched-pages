@@ -8,6 +8,7 @@ import WhatsAppFloat from "./components/WhatsAppFloat";
 import BottomNav from "./components/BottomNav";
 import TailorAssistant from "./components/TailorAssistant";
 import Breadcrumbs from "./components/Breadcrumbs";
+import MetaPixelTracker from "./components/MetaPixelTracker";
 import Index from "./pages/Index";
 
 
