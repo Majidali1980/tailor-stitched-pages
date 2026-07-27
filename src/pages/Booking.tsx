@@ -42,7 +42,8 @@ const BookingPage = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Book Your Online Stitching Appointment - Ma Tailor</h1>
+        <h1 className="sr-only">Book Your Custom Stitching Appointment Online</h1>
+        <h2 className="sr-only">Online Tailor Booking — Custom Suit Fitting at Your Nearest Stitching Unit</h2>
         <Navbar />
         <BookingForm />
         <TailorAssistant />

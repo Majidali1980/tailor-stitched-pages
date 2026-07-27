@@ -74,7 +74,8 @@ const Services = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Ma Tailor Services - Custom Girls Stitching Pakistan</h1>
+        <h1 className="sr-only">Our Tailoring, Alteration & Stitching Services</h1>
+        <h2 className="sr-only">Online Tailor, Stitching Unit Near Me & Custom Suit Fitting</h2>
         <Navbar />
         <ServicesComponent />
 

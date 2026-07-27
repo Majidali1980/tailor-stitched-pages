@@ -25,6 +25,57 @@
     
     <link rel="canonical" href="https://matailor.lovable.app/" />
     <link rel="icon" href="/logo.png" type="image/png">
+
+    <!-- LocalBusiness / Tailor schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "ClothingStore"],
+      "@id": "https://matailor.lovable.app/#business",
+      "name": "MA Tailor",
+      "description": "MA Tailor offers custom tailoring, alterations, and online stitching services with door-to-door pickup and delivery.",
+      "url": "https://matailor.lovable.app",
+      "logo": "https://matailor.lovable.app/logo.png",
+      "image": "https://matailor.lovable.app/logo.png",
+      "telephone": "+92-307-0125273",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Karachi",
+        "addressRegion": "Sindh",
+        "addressCountry": "PK"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Karachi" },
+        { "@type": "Country", "name": "Pakistan" }
+      ],
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        "opens": "10:00",
+        "closes": "20:00"
+      }],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Tailoring" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Alterations" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Online Stitching" } }
+      ],
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://matailor.lovable.app/booking",
+          "inLanguage": "en",
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform","http://schema.org/MobileWebPlatform"]
+        },
+        "result": { "@type": "Reservation", "name": "Stitching Appointment" }
+      },
+      "sameAs": [
+        "https://www.facebook.com/matailor",
+        "https://www.instagram.com/matailor"
+      ]
+    }
+    </script>
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7217348742748729"
