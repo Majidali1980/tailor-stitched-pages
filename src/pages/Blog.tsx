@@ -128,13 +128,13 @@ const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>Ma Tailor Blog – Fashion Tips & Stitching Trends 2025</title>
-        <meta name="description" content="Discover girls stitching trends 2025, custom tailoring tips, and Pakistani stitched fashion ideas on Ma Tailor blog." />
+        <title>Fashion Tips, Fabric Guides & Custom Tailoring Blog</title>
+        <meta name="description" content="Expert guides on clothing fit, fabric selection, and modern fashion trends." />
         <meta name="keywords" content="girls stitching trends 2025, custom tailoring tips, Pakistani stitched fashion ideas, dress design trends, tailoring advice Pakistan" />
         <link rel="canonical" href="https://matailor.lovable.app/blog" />
         
-        <meta property="og:title" content="Ma Tailor Blog – Fashion Tips & Stitching Trends" />
-        <meta property="og:description" content="Fashion tips, stitching trends, and custom tailoring advice" />
+        <meta property="og:title" content="Fashion Tips, Fabric Guides & Custom Tailoring Blog" />
+        <meta property="og:description" content="Expert guides on clothing fit, fabric selection, and modern fashion trends." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/blog" />
         
