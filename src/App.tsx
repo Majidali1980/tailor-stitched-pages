@@ -7,7 +7,9 @@ import { lazy, Suspense } from "react";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import BottomNav from "./components/BottomNav";
 import TailorAssistant from "./components/TailorAssistant";
+import Breadcrumbs from "./components/Breadcrumbs";
 import Index from "./pages/Index";
+
 
 // Lazy load all non-homepage routes
 const About = lazy(() => import("./pages/About"));
