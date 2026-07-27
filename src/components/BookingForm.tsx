@@ -178,7 +178,7 @@ const BookingForm = () => {
   const fieldInput = "w-full min-h-12 bg-stone-900/60 border border-stone-800 rounded-xl p-3 text-stone-100 placeholder:text-stone-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/40 transition-colors";
 
   return (
-    <section className="py-16 md:py-24 bg-[#0a0a0a] text-stone-200" style={sans}>
+    <section id="booking-form" className="py-16 md:py-24 bg-[#0a0a0a] text-stone-200 scroll-mt-20" style={sans}>
       <div className="max-w-6xl mx-auto px-4">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-min animate-fade-in">
 
