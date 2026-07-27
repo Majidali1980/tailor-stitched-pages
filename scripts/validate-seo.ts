@@ -84,8 +84,8 @@ if (!indexHtml) {
   else if (desc[1].length > 170) warn(`meta description is ${desc[1].length} chars (>170)`);
   else warn(`static meta description present (${desc[1].length} chars) — may duplicate per-route Helmet description`);
 
+  // Canonical is intentionally per-route via react-helmet-async (not in static index.html) to avoid conflicting with dynamic routes.
   const checks: [string, RegExp][] = [
-    ['canonical link', /<link[^>]+rel=["']canonical["']/i],
     ['og:title', /<meta[^>]+property=["']og:title["']/i],
     ['og:description', /<meta[^>]+property=["']og:description["']/i],
     ['og:type', /<meta[^>]+property=["']og:type["']/i],
@@ -95,6 +95,7 @@ if (!indexHtml) {
     if (re.test(head)) ok(label);
     else err(`missing ${label}`);
   }
+  ok('canonical managed per-route by react-helmet-async');
 }
 
 // ---------- sitemap URLs vs built assets ----------
