@@ -15,6 +15,12 @@ const AIDesignStudio = () => {
           content="Use AI to design your perfect Pakistani and Indian stitched dress. Get instant previews, styling suggestions, and expert consultation from our AI fashion designer." 
         />
         <meta name="keywords" content="AI fashion design, custom dress design, Pakistani dress designer, Indian outfit creator, stitching design tool" />
+        <link rel="canonical" href="https://matailor.lovable.app/ai-design-studio" />
+        <meta property="og:title" content="AI Design Studio – Ma Tailor" />
+        <meta property="og:description" content="Design your perfect Pakistani or Indian stitched outfit with our AI design studio." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://matailor.lovable.app/ai-design-studio" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       <div className="min-h-screen bg-background">
