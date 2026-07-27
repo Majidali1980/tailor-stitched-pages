@@ -2,6 +2,7 @@
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import BookingForm from '@/components/BookingForm';
+import BookingHero from '@/components/BookingHero';
 import Footer from '@/components/Footer';
 import TailorAssistant from '@/components/TailorAssistant';
 
