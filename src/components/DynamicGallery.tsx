@@ -1,9 +1,60 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { ZoomIn, X } from 'lucide-react';
+import { ZoomIn, X, Search } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const BRAND = 'MA Tailor Karachi';
+const BASE_KEYWORDS = [
+  'ladies tailor karachi',
+  'stitching karachi',
+  'custom stitched dress pakistan',
+  'boutique tailor karachi',
+];
+const CATEGORY_KEYWORDS: Record<string, string[]> = {
+  bridal: ['bridal dress stitching karachi', 'bridal lehenga', 'designer bridal suit', 'wedding dress'],
+  party: ['party wear dress', 'fancy dress stitching', 'designer party wear'],
+  formal: ['formal dresses', 'designer formal suit pakistan'],
+  casual: ['casual dresses', 'everyday shalwar kameez'],
+  lawn: ['lawn suit stitching', 'summer lawn dress pakistan'],
+  cotton: ['cotton suit designs', 'cotton shalwar kameez'],
+  wedding: ['wedding dress karachi', 'nikkah dress stitching'],
+  eid: ['eid collection', 'eid dress stitching pakistan'],
+  boutique: ['boutique dresses', 'boutique tailor karachi'],
+  designer: ['designer dresses pakistan', 'custom designer suit'],
+  maxi: ['maxi dress', 'long maxi stitching'],
+  gharara: ['gharara stitching', 'gharara dress design'],
+  sharara: ['sharara stitching', 'sharara dress design'],
+  abaya: ['abaya stitching', 'custom abaya karachi'],
+  embroidery: ['embroidery dress', 'hand embroidery stitching'],
+};
+
+function keywordsFor(category: string | null, caption: string | null): string[] {
+  const cat = (category || '').toLowerCase();
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) => cat.includes(k))?.[1] ?? [];
+  const capKw = caption ? [caption.toLowerCase()] : [];
+  return Array.from(new Set([...capKw, ...catKw, ...BASE_KEYWORDS]));
+}
+
+function altFor(category: string | null, caption: string | null): string {
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) =>
+      (category || '').toLowerCase().includes(k),
+    )?.[1]?.[0] ?? 'custom stitched dress';
+  return caption
+    ? `${caption} — ${catKw} by ${BRAND}`
+    : `${catKw} by ${BRAND}`;
+}
+
+function titleFor(category: string | null, caption: string | null): string {
+  const catKw =
+    Object.entries(CATEGORY_KEYWORDS).find(([k]) =>
+      (category || '').toLowerCase().includes(k),
+    )?.[1]?.[0] ?? 'custom stitching';
+  return caption ? `${caption} | ${BRAND}` : `${catKw} | ${BRAND}`;
+}
 
 interface GalleryItem {
   id: string;
@@ -21,6 +72,7 @@ const DynamicGallery = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [search, setSearch] = useState('');
   const [categories, setCategories] = useState<{ value: string; label: string }[]>([
     { value: "all", label: "All" },
   ]);
@@ -52,10 +104,24 @@ const DynamicGallery = () => {
     fetchAll();
   }, []);
 
-  // Filter items based on selected category
-  const filteredItems = activeCategory === "all" 
-    ? galleryItems 
-    : galleryItems.filter(item => item.category === activeCategory);
+  // Filter items based on selected category + search query
+  const filteredItems = useMemo(() => {
+    const base = activeCategory === 'all'
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === activeCategory);
+    const q = search.trim().toLowerCase();
+    if (!q) return base;
+    return base.filter((item) => {
+      const hay = [
+        item.caption ?? '',
+        item.category ?? '',
+        ...keywordsFor(item.category, item.caption),
+      ]
+        .join(' ')
+        .toLowerCase();
+      return hay.includes(q);
+    });
+  }, [galleryItems, activeCategory, search]);
 
   const handleImageClick = (imageUrl: string) => {
     console.log('Gallery image clicked:', imageUrl);
@@ -118,6 +184,24 @@ const DynamicGallery = () => {
             </p>
           </div>
 
+          <div className="max-w-xl mx-auto mb-8">
+            <label htmlFor="gallery-search" className="sr-only">
+              Search gallery designs
+            </label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" aria-hidden="true" />
+              <input
+                id="gallery-search"
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search: bridal, party wear, lawn, maxi, sharara, embroidery…"
+                aria-label="Search gallery by keyword"
+                className="w-full bg-gray-900 border border-gray-700 focus:border-gold text-white placeholder-gray-500 rounded-full py-3 pl-11 pr-4 outline-none font-montserrat text-sm"
+              />
+            </div>
+          </div>
+
           <Tabs value={activeCategory} className="w-full" onValueChange={setActiveCategory}>
             <div className="flex justify-center mb-12 overflow-x-auto">
               <TabsList className="bg-gray-900 p-1">
@@ -149,7 +233,9 @@ const DynamicGallery = () => {
                         >
                           <img
                             src={item.image_url}
-                            alt={item.caption || 'Gallery item'}
+                            alt={altFor(item.category, item.caption)}
+                            title={titleFor(item.category, item.caption)}
+                            data-keywords={keywordsFor(item.category, item.caption).join(', ')}
                             loading="lazy"
                             decoding="async"
                             className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
