@@ -37,6 +37,7 @@ const ContactPage = () => {
         <meta property="og:description" content="Contact us for online stitching services. Call or WhatsApp +92 307 0125273." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/contact" />
+        <link rel="canonical" href="https://matailor.lovable.app/contact" />
         
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
