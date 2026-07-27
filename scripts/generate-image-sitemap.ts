@@ -5,7 +5,7 @@
  * content plus the static service landing pages.
  */
 
-import { writeFileSync, existsSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { serviceLandingPages } from '../src/data/serviceLandingPages';
 
