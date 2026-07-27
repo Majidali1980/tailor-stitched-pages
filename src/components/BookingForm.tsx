@@ -175,7 +175,7 @@ const BookingForm = () => {
 
   // Shared classes
   const card = "bg-[#111111] border border-stone-800/80 rounded-3xl";
-  const fieldInput = "w-full bg-stone-900/60 border border-stone-800 rounded-xl p-3 text-stone-100 placeholder:text-stone-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/40 transition-colors";
+  const fieldInput = "w-full min-h-12 bg-stone-900/60 border border-stone-800 rounded-xl p-3 text-stone-100 placeholder:text-stone-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/40 transition-colors";
 
   return (
     <section className="py-16 md:py-24 bg-[#0a0a0a] text-stone-200" style={sans}>
