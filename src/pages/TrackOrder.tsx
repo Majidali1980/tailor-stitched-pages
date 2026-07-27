@@ -97,6 +97,12 @@ const TrackOrder = () => {
       <Helmet>
         <title>Track Your Order - Ma Tailor Pakistan</title>
         <meta name="description" content="Track your Ma Tailor order status and parcel delivery." />
+        <link rel="canonical" href="https://matailor.lovable.app/track-order" />
+        <meta property="og:title" content="Track Your Order – Ma Tailor" />
+        <meta property="og:description" content="Track your Ma Tailor stitching order and parcel delivery status." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://matailor.lovable.app/track-order" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
