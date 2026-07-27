@@ -5,7 +5,7 @@
  * content plus the static service landing pages.
  */
 
-import { writeFileSync, existsSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { serviceLandingPages } from '../src/data/serviceLandingPages';
 
@@ -172,16 +172,54 @@ function renderSitemapIndex(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <sitemap>\n    <loc>${BASE_URL}/sitemap.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n  <sitemap>\n    <loc>${BASE_URL}/image-sitemap.xml</loc>\n    <lastmod>${today}</lastmod>\n  </sitemap>\n</sitemapindex>\n`;
 }
 
+function injectImagesIntoSitemap(sitemap: string, pages: PageImages[]): string {
+  const byUrl = new Map(pages.map((p) => [p.pageUrl, p.images] as const));
+  let out = sitemap;
+  if (!/xmlns:image=/.test(out)) {
+    out = out.replace(
+      /<urlset\s+xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/,
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"`,
+    );
+  }
+  // Strip previously-injected image blocks so we regenerate cleanly
+  out = out.replace(/\s*<image:image>[\s\S]*?<\/image:image>/g, '');
+
+  out = out.replace(/<url>([\s\S]*?)<\/url>/g, (match, inner) => {
+    const locMatch = inner.match(/<loc>([^<]+)<\/loc>/);
+    if (!locMatch) return match;
+    const url = locMatch[1].trim();
+    const imgs = byUrl.get(url);
+    if (!imgs || !imgs.length) return match;
+    const imgXml = imgs
+      .map((i) => {
+        const parts = [`      <image:loc>${xmlEscape(i.loc)}</image:loc>`];
+        if (i.title)
+          parts.push(`      <image:title>${xmlEscape(i.title)}</image:title>`);
+        if (i.caption)
+          parts.push(`      <image:caption>${xmlEscape(i.caption)}</image:caption>`);
+        return `    <image:image>\n${parts.join('\n')}\n    </image:image>`;
+      })
+      .join('\n');
+    return `<url>${inner}${imgXml}\n  </url>`;
+  });
+
+  return out;
+}
+
 async function main() {
   const pages = await collect();
   const totalImages = pages.reduce((n, p) => n + p.images.length, 0);
   writeFileSync(resolve('public/image-sitemap.xml'), renderImageSitemap(pages));
   writeFileSync(resolve('public/sitemap-index.xml'), renderSitemapIndex());
-  if (!existsSync(resolve('public/sitemap.xml'))) {
+  const sitemapPath = resolve('public/sitemap.xml');
+  if (existsSync(sitemapPath)) {
+    const current = readFileSync(sitemapPath, 'utf8');
+    writeFileSync(sitemapPath, injectImagesIntoSitemap(current, pages));
+  } else {
     console.warn('warning: public/sitemap.xml missing — index will 404 that entry');
   }
   console.log(
-    `image-sitemap.xml written (${pages.length} pages, ${totalImages} images); sitemap-index.xml written`,
+    `image-sitemap.xml written (${pages.length} pages, ${totalImages} images); sitemap.xml enriched with per-URL image entries; sitemap-index.xml written`,
   );
 }
 
