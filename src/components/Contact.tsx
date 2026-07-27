@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { fbTrack } from '@/lib/metaPixel';
 import emailjs from 'emailjs-com';
 import { Phone, Mail, Facebook, Instagram, MapPin, Star, ExternalLink } from 'lucide-react';
 import VisitorCounter from './VisitorCounter';
@@ -58,6 +59,10 @@ const Contact = () => {
       
       // Send email notification
       await emailjs.send('service_kqtecnn', 'template_tv45p3s', templateParams, 'H357zAP8V__yP5H8e');
+
+      // Meta Pixel — Lead (only after successful submit)
+      fbTrack('Lead');
+
       
       toast({
         title: "Message Sent",
