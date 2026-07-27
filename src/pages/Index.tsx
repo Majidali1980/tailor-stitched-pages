@@ -113,18 +113,18 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Ladies Tailor Karachi | MA Tailor Online Stitching</title>
-        <meta name="description" content="MA Tailor: premium online ladies tailor in Karachi. Designer, bridal & custom stitching with home measurement service." />
+        <title>Custom Tailoring & Online Stitching Services | MA Tailor</title>
+        <meta name="description" content="Professional custom stitching and tailoring services. Get door-to-door pickup and delivery for perfectly fitted clothes." />
         <meta name="keywords" content="ladies tailor Karachi, best ladies tailor Karachi, online tailoring service Karachi, designer tailor Karachi, bridal stitching Karachi, home measurement tailor Karachi, custom stitching Karachi, Pakistani dress tailor" />
         <link rel="canonical" href="https://matailor.lovable.app/" />
-        <meta property="og:title" content="Ladies Tailor Karachi | MA Tailor Online Stitching" />
-        <meta property="og:description" content="Premium online ladies tailor in Karachi — designer, bridal & custom stitching with home measurement." />
+        <meta property="og:title" content="Custom Tailoring & Online Stitching Services | MA Tailor" />
+        <meta property="og:description" content="Professional custom stitching and tailoring services. Get door-to-door pickup and delivery for perfectly fitted clothes." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/" />
         <meta property="og:image" content="https://matailor.lovable.app/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ladies Tailor Karachi | MA Tailor Online Stitching" />
-        <meta name="twitter:description" content="Premium online ladies tailor in Karachi — designer, bridal & custom stitching with home measurement." />
+        <meta name="twitter:title" content="Custom Tailoring & Online Stitching Services | MA Tailor" />
+        <meta name="twitter:description" content="Professional custom stitching and tailoring services. Get door-to-door pickup and delivery for perfectly fitted clothes." />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
       
