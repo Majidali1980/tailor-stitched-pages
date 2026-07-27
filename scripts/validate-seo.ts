@@ -79,10 +79,10 @@ if (!indexHtml) {
   else ok(`<title>: "${titleMatch[1]}"`);
 
   const desc = head.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i);
-  if (!desc) err('missing <meta name="description">');
+  if (!desc) ok('no static meta description (managed per-route by react-helmet-async to avoid duplicates)');
   else if (/Lovable Generated Project/i.test(desc[1])) err('default template meta description');
   else if (desc[1].length > 170) warn(`meta description is ${desc[1].length} chars (>170)`);
-  else ok(`meta description (${desc[1].length} chars)`);
+  else warn(`static meta description present (${desc[1].length} chars) — may duplicate per-route Helmet description`);
 
   const checks: [string, RegExp][] = [
     ['canonical link', /<link[^>]+rel=["']canonical["']/i],
