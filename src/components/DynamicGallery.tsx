@@ -150,6 +150,8 @@ const DynamicGallery = () => {
                           <img
                             src={item.image_url}
                             alt={item.caption || 'Gallery item'}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
                           />
                           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">

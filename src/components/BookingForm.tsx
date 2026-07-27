@@ -175,10 +175,10 @@ const BookingForm = () => {
 
   // Shared classes
   const card = "bg-[#111111] border border-stone-800/80 rounded-3xl";
-  const fieldInput = "w-full bg-stone-900/60 border border-stone-800 rounded-xl p-3 text-stone-100 placeholder:text-stone-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/40 transition-colors";
+  const fieldInput = "w-full min-h-12 bg-stone-900/60 border border-stone-800 rounded-xl p-3 text-stone-100 placeholder:text-stone-600 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/40 transition-colors";
 
   return (
-    <section className="py-16 md:py-24 bg-[#0a0a0a] text-stone-200" style={sans}>
+    <section id="booking-form" className="py-16 md:py-24 bg-[#0a0a0a] text-stone-200 scroll-mt-20" style={sans}>
       <div className="max-w-6xl mx-auto px-4">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 auto-rows-min animate-fade-in">
 
@@ -233,12 +233,21 @@ const BookingForm = () => {
             <h2 className="text-[#D4AF37] text-sm font-medium flex items-center gap-2 uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" /> Client Identity
             </h2>
-            <input type="text" required placeholder="Full Name" value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={fieldInput} />
-            <input type="tel" required placeholder="Phone Number (03XX XXXXXXX)" value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={fieldInput} />
-            <input type="email" placeholder="Email (Optional)" value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={fieldInput} />
+            <div>
+              <label htmlFor="bk-name" className="sr-only">Full Name</label>
+              <input id="bk-name" name="name" type="text" autoComplete="name" required placeholder="Full Name" value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })} className={fieldInput} />
+            </div>
+            <div>
+              <label htmlFor="bk-phone" className="sr-only">Phone Number</label>
+              <input id="bk-phone" name="phone" type="tel" autoComplete="tel" required placeholder="Phone Number (03XX XXXXXXX)" value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className={fieldInput} />
+            </div>
+            <div>
+              <label htmlFor="bk-email" className="sr-only">Email (Optional)</label>
+              <input id="bk-email" name="email" type="email" autoComplete="email" placeholder="Email (Optional)" value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })} className={fieldInput} />
+            </div>
           </div>
 
           {/* Service builder */}
@@ -327,7 +336,7 @@ const BookingForm = () => {
                 <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
                   {uploadedImages.map((image) => (
                     <div key={image.id} className="relative group aspect-square rounded-xl overflow-hidden border border-stone-800 bg-stone-900">
-                      <img src={image.url} alt={image.name} className="w-full h-full object-cover" />
+                      <img src={image.url} alt={image.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                         <button type="button" onClick={() => setSelectedImage(image.url)} className="bg-[#D4AF37] text-black p-2 rounded-full"><Eye className="h-4 w-4" /></button>
                         <button type="button" onClick={() => removeImage(image.id)} className="bg-red-500 text-white p-2 rounded-full"><X className="h-4 w-4" /></button>

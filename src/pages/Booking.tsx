@@ -2,6 +2,7 @@
 import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import BookingForm from '@/components/BookingForm';
+import BookingHero from '@/components/BookingHero';
 import Footer from '@/components/Footer';
 import TailorAssistant from '@/components/TailorAssistant';
 
@@ -45,6 +46,7 @@ const BookingPage = () => {
         <h1 className="sr-only">Book Your Custom Stitching Appointment Online</h1>
         <h2 className="sr-only">Online Tailor Booking — Custom Suit Fitting at Your Nearest Stitching Unit</h2>
         <Navbar />
+        <BookingHero />
         <BookingForm />
         <TailorAssistant />
         <Footer />
