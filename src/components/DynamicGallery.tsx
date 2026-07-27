@@ -72,6 +72,7 @@ const DynamicGallery = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [search, setSearch] = useState('');
   const [categories, setCategories] = useState<{ value: string; label: string }[]>([
     { value: "all", label: "All" },
   ]);
