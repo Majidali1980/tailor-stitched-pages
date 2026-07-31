@@ -144,8 +144,85 @@ if (supabaseReachable) {
     if (missingImgs.length)
       err(`${missingImgs.length}/${gallery.length} gallery image(s) missing from image-sitemap.xml (e.g. ${missingImgs[0].image_url})`);
     else ok(`all ${gallery.length} active gallery images present in image-sitemap.xml`);
+
+    // ---------- gallery image URLs must resolve (HTTP 200) ----------
+    console.log('\ngallery image reachability');
+    if (process.env.SKIP_IMAGE_URL_CHECK === '1') {
+      warn('gallery image HTTP checks skipped via SKIP_IMAGE_URL_CHECK=1');
+    } else {
+      const urls = [...new Set(gallery.map((g) => g.image_url).filter(Boolean))];
+      const CONCURRENCY = 8;
+      const TIMEOUT_MS = 20_000;
+      const RETRY_TIMEOUT_MS = 45_000;
+      // Hard failures (404 / 5xx / any non-200 status) block the build.
+      const broken: { url: string; status: number }[] = [];
+      // Network timeouts on slow hosts are reported as warnings, not build failures.
+      const unreachable: { url: string; reason: string }[] = [];
+
+      const request = async (url: string, method: 'HEAD' | 'GET', timeout: number) => {
+        const c = new AbortController();
+        const t = setTimeout(() => c.abort(), timeout);
+        try {
+          const r = await fetch(url, {
+            method,
+            signal: c.signal,
+            redirect: 'follow',
+            // Range keeps the GET fallback cheap on large images.
+            headers: method === 'GET' ? { Range: 'bytes=0-0' } : undefined,
+          });
+          return r.status;
+        } finally {
+          clearTimeout(t);
+        }
+      };
+
+      const probe = async (url: string) => {
+        try {
+          let status = await request(url, 'HEAD', TIMEOUT_MS);
+          // Some CDNs/storage backends reject HEAD — confirm with a ranged GET.
+          if ([403, 405, 501].includes(status)) status = await request(url, 'GET', RETRY_TIMEOUT_MS);
+          if (status !== 200 && status !== 206) broken.push({ url, status });
+        } catch {
+          // Retry once with a ranged GET and a longer budget before giving up.
+          try {
+            const status = await request(url, 'GET', RETRY_TIMEOUT_MS);
+            if (status !== 200 && status !== 206) broken.push({ url, status });
+          } catch (e) {
+            unreachable.push({ url, reason: (e as Error).message });
+          }
+        }
+      };
+
+      let cursor = 0;
+      await Promise.all(
+        Array.from({ length: Math.min(CONCURRENCY, urls.length) }, async () => {
+          while (cursor < urls.length) await probe(urls[cursor++]);
+        }),
+      );
+
+      if (broken.length) {
+        const notFound = broken.filter((b) => b.status === 404);
+        err(
+          `${broken.length}/${urls.length} gallery image URL(s) do not return 200` +
+            (notFound.length ? ` — ${notFound.length} are 404 (broken images)` : ''),
+        );
+        broken.slice(0, 10).forEach((b) => console.log(`      → HTTP ${b.status}  ${b.url}`));
+        if (broken.length > 10) console.log(`      → …and ${broken.length - 10} more`);
+      }
+      if (unreachable.length) {
+        warn(`${unreachable.length}/${urls.length} gallery image URL(s) timed out (slow host, not a 404)`);
+        unreachable.slice(0, 5).forEach((u) => console.log(`      → ${u.reason}  ${u.url}`));
+      }
+      if (!broken.length && !unreachable.length) {
+        ok(`all ${urls.length} gallery image URLs return HTTP 200`);
+      } else if (!broken.length) {
+        ok(`${urls.length - unreachable.length}/${urls.length} gallery image URLs return HTTP 200`);
+      }
+
+    }
   }
 }
+
 
 // ---------- summary ----------
 console.log(
