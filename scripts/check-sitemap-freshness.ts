@@ -144,8 +144,60 @@ if (supabaseReachable) {
     if (missingImgs.length)
       err(`${missingImgs.length}/${gallery.length} gallery image(s) missing from image-sitemap.xml (e.g. ${missingImgs[0].image_url})`);
     else ok(`all ${gallery.length} active gallery images present in image-sitemap.xml`);
+
+    // ---------- gallery image URLs must resolve (HTTP 200) ----------
+    console.log('\ngallery image reachability');
+    if (process.env.SKIP_IMAGE_URL_CHECK === '1') {
+      warn('gallery image HTTP checks skipped via SKIP_IMAGE_URL_CHECK=1');
+    } else {
+      const urls = [...new Set(gallery.map((g) => g.image_url).filter(Boolean))];
+      const CONCURRENCY = 10;
+      const TIMEOUT_MS = 15_000;
+      const broken: { url: string; status: number | string }[] = [];
+
+      const probe = async (url: string) => {
+        const attempt = async (method: 'HEAD' | 'GET') => {
+          const c = new AbortController();
+          const t = setTimeout(() => c.abort(), TIMEOUT_MS);
+          try {
+            const r = await fetch(url, { method, signal: c.signal, redirect: 'follow' });
+            return r.status;
+          } finally {
+            clearTimeout(t);
+          }
+        };
+        try {
+          let status = await attempt('HEAD');
+          // Some CDNs/storage backends reject HEAD — confirm with GET.
+          if (status === 405 || status === 403 || status === 501) status = await attempt('GET');
+          if (status !== 200) broken.push({ url, status });
+        } catch (e) {
+          broken.push({ url, status: (e as Error).message });
+        }
+      };
+
+      let cursor = 0;
+      await Promise.all(
+        Array.from({ length: Math.min(CONCURRENCY, urls.length) }, async () => {
+          while (cursor < urls.length) await probe(urls[cursor++]);
+        }),
+      );
+
+      if (broken.length) {
+        const notFound = broken.filter((b) => b.status === 404);
+        err(
+          `${broken.length}/${urls.length} gallery image URL(s) do not return 200` +
+            (notFound.length ? ` (${notFound.length} are 404)` : ''),
+        );
+        broken.slice(0, 10).forEach((b) => console.log(`      → ${b.status}  ${b.url}`));
+        if (broken.length > 10) console.log(`      → …and ${broken.length - 10} more`);
+      } else {
+        ok(`all ${urls.length} gallery image URLs return HTTP 200`);
+      }
+    }
   }
 }
+
 
 // ---------- summary ----------
 console.log(
