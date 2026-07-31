@@ -194,6 +194,8 @@ const Services = () => {
     },
   }));
 
+  const serviceGraphLd = { '@context': 'https://schema.org', '@graph': serviceNodes.map(({ ['@context']: _c, ...n }) => n) };
+
   // Explicit service-area list so search engines can map each suburb page
   const areaListLd = {
     '@context': 'https://schema.org',
@@ -282,9 +284,7 @@ const Services = () => {
         <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
         <script type="application/ld+json">{JSON.stringify(areaListLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
-        {serviceNodes.map((n) => (
-          <script key={n['@id']} type="application/ld+json">{JSON.stringify(n)}</script>
-        ))}
+        <script type="application/ld+json">{JSON.stringify(serviceGraphLd)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
