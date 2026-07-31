@@ -280,7 +280,11 @@ const Services = () => {
 
         <script type="application/ld+json">{JSON.stringify(shopLd)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(areaListLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+        {serviceNodes.map((n) => (
+          <script key={n['@id']} type="application/ld+json">{JSON.stringify(n)}</script>
+        ))}
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
