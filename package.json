@@ -9,7 +9,8 @@
     "prebuild": "bunx tsx scripts/generate-image-sitemap.ts",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "postbuild": "bunx tsx scripts/prerender-blog.ts && bunx tsx scripts/validate-seo.ts && bunx tsx scripts/check-robots-sitemap.ts",
+    "postbuild": "bunx tsx scripts/prerender-blog.ts && bunx tsx scripts/validate-seo.ts && bunx tsx scripts/check-sitemap-freshness.ts && bunx tsx scripts/check-robots-sitemap.ts",
+    "check:sitemaps": "bunx tsx scripts/check-sitemap-freshness.ts",
     "validate:seo": "bunx tsx scripts/validate-seo.ts",
     "lint": "eslint .",
     "preview": "vite preview"
