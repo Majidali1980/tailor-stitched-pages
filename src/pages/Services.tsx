@@ -55,7 +55,7 @@ const Services = () => {
   }, []);
 
   const entries = (() => {
-    if (!dbPages) {
+    if (!dbPages || dbPages.length === 0) {
       return Object.entries(serviceLandingPages).map(([slug, cfg]) => ({
         slug,
         name: cfg.serviceName,
@@ -114,9 +114,111 @@ const Services = () => {
       { '@type': 'Country', name: 'Canada' },
       { '@type': 'Country', name: 'United Arab Emirates' },
     ],
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${STUDIO.lat},${STUDIO.lng}`,
+    currenciesAccepted: 'PKR',
+    paymentAccepted: 'Cash, Bank Transfer, JazzCash, EasyPaisa',
+    knowsAbout: [
+      'tailor shop',
+      'ladies tailor shop near me',
+      'custom stitching',
+      'bridal dress stitching',
+      'shalwar kameez stitching',
+      'dress alterations',
+    ],
     makesOffer: entries.map((e) => ({
       '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: e.name, serviceType: e.name, url: `${SITE_URL}/services/${e.slug}` },
+      itemOffered: { '@id': `${SITE_URL}/services/${e.slug}#service` },
+    })),
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Tailor shop services in Karachi',
+      itemListElement: entries.map((e) => ({
+        '@type': 'Offer',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'PKR',
+          valueAddedTaxIncluded: true,
+        },
+        availability: 'https://schema.org/InStock',
+        url: `${SITE_URL}/services/${e.slug}`,
+        itemOffered: { '@id': `${SITE_URL}/services/${e.slug}#service` },
+      })),
+    },
+  };
+
+  // One detailed Service node per stitching category, each tied to the shop
+  // and to every Karachi area we cover — strong "tailor shop near me" signal.
+  const serviceNodes = entries.map((e) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${SITE_URL}/services/${e.slug}#service`,
+    name: e.name,
+    serviceType: e.name,
+    category: 'Tailoring & Stitching',
+    url: `${SITE_URL}/services/${e.slug}`,
+    description: e.intro || `${e.name} at Ma Tailor, a ladies tailor shop in Karachi.`,
+    ...(e.image && { image: e.image }),
+    provider: { '@id': `${pageUrl}#shop` },
+    areaServed: [
+      ...KARACHI_AREAS.map((a) => ({
+        '@type': 'Place',
+        name: `${a.name}, Karachi`,
+        url: `${SITE_URL}/tailor-near-me/${a.slug}`,
+      })),
+      { '@type': 'City', name: 'Karachi' },
+      { '@type': 'Country', name: 'Pakistan' },
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'United Kingdom' },
+      { '@type': 'Country', name: 'Canada' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+    ],
+    availableChannel: [
+      {
+        '@type': 'ServiceChannel',
+        name: 'Visit the shop',
+        serviceLocation: { '@id': `${pageUrl}#shop` },
+      },
+      {
+        '@type': 'ServiceChannel',
+        name: 'Pick & drop / online order',
+        serviceUrl: `${SITE_URL}/booking`,
+        availableLanguage: ['en', 'ur'],
+      },
+    ],
+    offers: {
+      '@type': 'Offer',
+      url: `${SITE_URL}/services/${e.slug}`,
+      priceCurrency: 'PKR',
+      availability: 'https://schema.org/InStock',
+      areaServed: { '@type': 'City', name: 'Karachi' },
+    },
+  }));
+
+  const serviceGraphLd = { '@context': 'https://schema.org', '@graph': serviceNodes.map(({ ['@context']: _c, ...n }) => n) };
+
+  // Explicit service-area list so search engines can map each suburb page
+  const areaListLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Karachi areas served by our tailor shop',
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    numberOfItems: KARACHI_AREAS.length,
+    itemListElement: KARACHI_AREAS.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: `Tailor shop near ${a.name}, Karachi`,
+      url: `${SITE_URL}/tailor-near-me/${a.slug}`,
+      item: {
+        '@type': 'Place',
+        name: `${a.name}, Karachi`,
+        url: `${SITE_URL}/tailor-near-me/${a.slug}`,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Karachi',
+          addressRegion: STUDIO.region,
+          addressCountry: STUDIO.country,
+        },
+      },
     })),
   };
 
@@ -124,11 +226,13 @@ const Services = () => {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Stitching services at our tailor shop',
+    numberOfItems: entries.length,
     itemListElement: entries.map((e, i) => ({
       '@type': 'ListItem',
       position: i + 1,
       url: `${SITE_URL}/services/${e.slug}`,
       name: e.name,
+      item: { '@id': `${SITE_URL}/services/${e.slug}#service` },
       ...(e.image && {
         image: {
           '@type': 'ImageObject',
@@ -151,6 +255,7 @@ const Services = () => {
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
   };
+
 
   return (
     <>
@@ -177,7 +282,9 @@ const Services = () => {
 
         <script type="application/ld+json">{JSON.stringify(shopLd)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(areaListLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceGraphLd)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
