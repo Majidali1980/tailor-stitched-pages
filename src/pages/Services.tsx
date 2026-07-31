@@ -55,7 +55,7 @@ const Services = () => {
   }, []);
 
   const entries = (() => {
-    if (!dbPages) {
+    if (!dbPages || dbPages.length === 0) {
       return Object.entries(serviceLandingPages).map(([slug, cfg]) => ({
         slug,
         name: cfg.serviceName,
