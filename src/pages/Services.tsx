@@ -152,15 +152,6 @@ const Services = () => {
     })),
   };
 
-  const breadcrumbLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: 'Tailor Shop Services', item: pageUrl },
-    ],
-  };
-
   return (
     <>
       <Helmet>
@@ -187,7 +178,6 @@ const Services = () => {
         <script type="application/ld+json">{JSON.stringify(shopLd)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-black text-white font-montserrat">
