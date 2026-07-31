@@ -201,7 +201,7 @@ const LocalAreaPage = ({ area }: Props) => {
                 <div className="flex gap-3">
                   <Truck className="h-5 w-5 text-gold shrink-0 mt-0.5" aria-hidden="true" />
                   <span>
-                    Serving {area.name} — {area.distance.toLowerCase()}. Pick &amp; drop available.
+                    Serving {area.name} — {area.distance}. Pick &amp; drop available.
                   </span>
                 </div>
               </address>
