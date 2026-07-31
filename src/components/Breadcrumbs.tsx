@@ -19,6 +19,12 @@ const LABELS: Record<string, string> = {
   blog: 'Blog',
   category: 'Category',
   tag: 'Tag',
+  'tailor-near-me': 'Tailor Near Me',
+  dha: 'DHA',
+  pechs: 'PECHS',
+  'gulshan-e-iqbal': 'Gulshan-e-Iqbal',
+  'gulistan-e-johar': 'Gulistan-e-Johar',
+  'scheme-33': 'Scheme 33',
 };
 
 const humanize = (seg: string) =>

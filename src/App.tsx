@@ -35,6 +35,8 @@ const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
 const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
+const TailorNearMe = lazy(() => import("./pages/TailorNearMe"));
+const TailorNearMeArea = lazy(() => import("./pages/TailorNearMeArea"));
 const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
 const SpecialDiscountOffers = lazy(() => import("./pages/SpecialDiscountOffers"));
 const SpecialDiscountOfferDetail = lazy(() => import("./pages/SpecialDiscountOfferDetail"));
@@ -98,6 +100,8 @@ const App = () => (
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
+              <Route path="/tailor-near-me" element={<TailorNearMe />} />
+              <Route path="/tailor-near-me/:area" element={<TailorNearMeArea />} />
               <Route path="/special-discount-offers" element={<SpecialDiscountOffers />} />
               <Route path="/special-discount-offers/:slug" element={<SpecialDiscountOfferDetail />} />
               <Route path="*" element={<NotFound />} />
