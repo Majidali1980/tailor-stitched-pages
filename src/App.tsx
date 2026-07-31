@@ -100,6 +100,8 @@ const App = () => (
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
+              <Route path="/tailor-near-me" element={<TailorNearMe />} />
+              <Route path="/tailor-near-me/:area" element={<TailorNearMeArea />} />
               <Route path="/special-discount-offers" element={<SpecialDiscountOffers />} />
               <Route path="/special-discount-offers/:slug" element={<SpecialDiscountOfferDetail />} />
               <Route path="*" element={<NotFound />} />
