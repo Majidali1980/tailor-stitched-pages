@@ -4,9 +4,43 @@ import Footer from '@/components/Footer';
 import ServicesComponent from '@/components/Services';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MapPin, Phone, Clock, Scissors, Ruler, Truck } from 'lucide-react';
 import { serviceLandingPages } from '@/data/serviceLandingPages';
 import { supabase } from '@/integrations/supabase/client';
+import { STUDIO, KARACHI_AREAS, SITE_URL } from '@/data/karachiAreas';
+
+const FAQS = [
+  {
+    q: 'What does your tailor shop actually do?',
+    a: 'Ma Tailor is a ladies tailor shop in Karachi offering custom stitching, bridal and party wear, shalwar kameez, abaya, blouse and kids stitching, plus alterations and bulk orders. Every order is cut to your own measurements — no ready-made sizing.',
+  },
+  {
+    q: 'Where is your tailor shop located?',
+    a: `Our stitching shop is at ${STUDIO.street}, ${STUDIO.locality}, ${STUDIO.region}. We serve DHA, Clifton, Gulshan-e-Iqbal, Bahadurabad, PECHS, North Nazimabad and the rest of Karachi with pick & drop.`,
+  },
+  {
+    q: 'How do I find a good tailor shop near me in Karachi?',
+    a: 'Check fit guarantees, turnaround time, and real customer work. Ma Tailor offers a perfect-fit guarantee, photos of past orders in the gallery, and free re-fitting if the stitching needs adjustment. You can also browse our area pages to see the nearest coverage to you.',
+  },
+  {
+    q: 'How long does stitching take at your shop?',
+    a: 'Standard stitching takes 5–7 days. Express service delivers in 24–48 hours for an added charge, and bridal work is booked 3–4 weeks in advance because of the hand embroidery involved.',
+  },
+  {
+    q: 'Do you offer pick and drop instead of visiting the shop?',
+    a: 'Yes. Pick & drop across Karachi is Rs. 350 flat. You can also order online from the USA, UK, Canada or UAE by sending your measurements on WhatsApp — we stitch and ship.',
+  },
+  {
+    q: 'How much does stitching cost at your tailor shop?',
+    a: 'Pricing depends on the design, fabric and hand-work involved, so we quote on request. Send a picture of the design on WhatsApp at ' + STUDIO.phoneDisplay + ' and you get a firm quote the same day.',
+  },
+];
+
+const HIGHLIGHTS = [
+  { icon: Ruler, title: 'Measurement-first stitching', text: 'Every garment is cut to your own body measurements with a perfect-fit guarantee and free re-fitting.' },
+  { icon: Scissors, title: 'All stitching under one roof', text: 'Bridal, party wear, shalwar kameez, abaya, blouse, kids wear, alterations and bulk orders — one shop, one standard.' },
+  { icon: Truck, title: 'Pick & drop + online orders', text: 'Rs. 350 flat pick & drop across Karachi, and worldwide shipping for overseas customers.' },
+];
 
 const Services = () => {
   const [dbPages, setDbPages] = useState<{ slug: string; service_name: string | null; intro: string | null; hero_image_url: string | null; hero_image_alt: string | null }[] | null>(null);
@@ -42,32 +76,58 @@ const Services = () => {
     });
   })();
 
-  const pageUrl = 'https://matailor.lovable.app/services';
+  const pageUrl = `${SITE_URL}/services`;
+  const metaTitle = 'Tailor Shop in Karachi | Ladies Stitching & Alterations — Ma Tailor';
+  const metaDescription =
+    'Ma Tailor is a ladies tailor shop in Karachi for custom stitching, bridal wear, shalwar kameez, abaya and alterations. Perfect-fit guarantee, Rs. 350 pick & drop, express 24–48 hr service.';
 
-  const serviceLd = {
+  const shopLd = {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Ma Tailor Services',
-    description:
-      'Professional tailoring and stitching services for girls in Pakistan - Custom stitching, alterations, and bulk orders',
-    provider: {
-      '@type': 'LocalBusiness',
-      name: 'Ma Tailor',
-      telephone: '+92-307-0125273',
-      url: 'https://matailor.lovable.app',
-    },
-    areaServed: ['Pakistan', 'United States', 'United Kingdom', 'Canada', 'United Arab Emirates'],
+    '@type': 'ClothingStore',
+    '@id': `${pageUrl}#shop`,
+    name: 'Ma Tailor — Tailor Shop in Karachi',
+    alternateName: ['Ma Tailor Stitching Shop', 'Ladies Tailor Shop Karachi'],
+    description: metaDescription,
     url: pageUrl,
+    telephone: STUDIO.phone,
+    priceRange: STUDIO.priceRange,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: STUDIO.street,
+      addressLocality: STUDIO.locality,
+      addressRegion: STUDIO.region,
+      postalCode: STUDIO.postalCode,
+      addressCountry: STUDIO.country,
+    },
+    geo: { '@type': 'GeoCoordinates', latitude: STUDIO.lat, longitude: STUDIO.lng },
+    openingHoursSpecification: STUDIO.openingHours.map((o) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: o.days,
+      opens: o.opens,
+      closes: o.closes,
+    })),
+    areaServed: [
+      ...KARACHI_AREAS.map((a) => ({ '@type': 'Place', name: `${a.name}, Karachi` })),
+      { '@type': 'Country', name: 'Pakistan' },
+      { '@type': 'Country', name: 'United States' },
+      { '@type': 'Country', name: 'United Kingdom' },
+      { '@type': 'Country', name: 'Canada' },
+      { '@type': 'Country', name: 'United Arab Emirates' },
+    ],
+    makesOffer: entries.map((e) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: e.name, serviceType: e.name, url: `${SITE_URL}/services/${e.slug}` },
+    })),
   };
 
   const itemListLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Ma Tailor Stitching Services',
+    name: 'Stitching services at our tailor shop',
     itemListElement: entries.map((e, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `https://matailor.lovable.app/services/${e.slug}`,
+      url: `${SITE_URL}/services/${e.slug}`,
       name: e.name,
       ...(e.image && {
         image: {
@@ -82,43 +142,119 @@ const Services = () => {
     })),
   };
 
-  const breadcrumbLd = {
+  const faqLd = {
     '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://matailor.lovable.app/' },
-      { '@type': 'ListItem', position: 2, name: 'Services', item: pageUrl },
-    ],
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
   };
 
   return (
     <>
       <Helmet>
-        <title>Our Tailoring & Stitching Services | Custom Suits & Alterations</title>
-        <meta name="description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
-        <meta name="keywords" content="tailoring services Pakistan, custom stitching services, girls dress stitching, bulk orders tailoring, dress alterations Pakistan, professional tailor services" />
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta
+          name="keywords"
+          content="tailor shop, tailor shop near me, ladies tailor shop Karachi, stitching shop Karachi, tailoring shop Pakistan, female tailor near me, custom stitching services, dress alterations Karachi, online tailor shop"
+        />
         <link rel="canonical" href={pageUrl} />
+        <meta name="geo.region" content="PK-SD" />
+        <meta name="geo.placename" content="Karachi" />
+        <meta name="geo.position" content={`${STUDIO.lat};${STUDIO.lng}`} />
+        <meta name="ICBM" content={`${STUDIO.lat}, ${STUDIO.lng}`} />
 
-        <meta property="og:title" content="Our Tailoring & Stitching Services | Custom Suits & Alterations" />
-        <meta property="og:description" content="Explore custom suit stitching, ladies wear, alterations, and online tailor services tailored to your exact measurements." />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={pageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
 
-        <script type="application/ld+json">{JSON.stringify(serviceLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(shopLd)}</script>
         <script type="application/ld+json">{JSON.stringify(itemListLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
       </Helmet>
-      
+
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Our Tailoring, Alteration & Stitching Services</h1>
-        <h2 className="sr-only">Online Tailor, Stitching Unit Near Me & Custom Suit Fitting</h2>
         <Navbar />
+
+        {/* Keyword-targeted intro */}
+        <section className="pt-28 md:pt-32 pb-14 bg-gradient-to-b from-gray-900 to-black">
+          <div className="container mx-auto px-4 max-w-4xl text-center">
+            <p className="text-gold font-montserrat text-xs md:text-sm tracking-[0.25em] uppercase mb-4">
+              Mahmoodabad, Karachi · Pick &amp; Drop Citywide
+            </p>
+            <h1 className="text-3xl md:text-5xl font-playfair font-bold mb-5 leading-tight">
+              Tailor Shop in Karachi for <span className="text-gold">Ladies Stitching &amp; Alterations</span>
+            </h1>
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed">
+              Looking for a tailor shop near you that actually gets the fit right? Ma Tailor is a ladies tailoring
+              shop in Karachi where every dress is cut to your own measurements — bridal and party wear, shalwar
+              kameez, abaya, blouse, kids stitching, and alterations. Visit the shop, book pick &amp; drop for
+              Rs. 350, or order online from the USA, UK, Canada and UAE.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-3 mt-8">
+              <Link
+                to="/booking"
+                className="inline-flex items-center justify-center min-h-[48px] bg-gold hover:bg-gold-dark text-black px-7 rounded-full font-semibold transition-all hover:scale-105"
+              >
+                Book Your Stitching
+              </Link>
+              <Link
+                to="/tailor-near-me"
+                className="inline-flex items-center justify-center min-h-[48px] border border-gold/60 hover:border-gold text-gold px-7 rounded-full font-semibold transition-all"
+              >
+                Find a Tailor Near Me
+              </Link>
+            </div>
+
+            <address className="not-italic mt-10 grid gap-3 sm:grid-cols-3 text-sm text-gray-300">
+              <span className="flex items-center justify-center gap-2">
+                <MapPin className="h-4 w-4 text-gold shrink-0" aria-hidden="true" />
+                {STUDIO.street}, {STUDIO.locality}
+              </span>
+              <a href={`tel:${STUDIO.phone}`} className="flex items-center justify-center gap-2 hover:text-gold transition-colors">
+                <Phone className="h-4 w-4 text-gold shrink-0" aria-hidden="true" />
+                {STUDIO.phoneDisplay}
+              </a>
+              <span className="flex items-center justify-center gap-2">
+                <Clock className="h-4 w-4 text-gold shrink-0" aria-hidden="true" />
+                Mon – Sat, 11:00 AM – 9:00 PM
+              </span>
+            </address>
+          </div>
+        </section>
+
+        {/* Why this shop */}
+        <section className="py-14 bg-black">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold text-center mb-10">
+              Why Customers Choose Our Stitching Shop
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {HIGHLIGHTS.map(({ icon: Icon, title, text }) => (
+                <div key={title} className="p-6 rounded-xl border border-gold/25 bg-gray-900/40">
+                  <Icon className="h-6 w-6 text-gold mb-3" aria-hidden="true" />
+                  <h3 className="text-lg font-semibold mb-2">{title}</h3>
+                  <p className="text-sm text-gray-300 leading-relaxed">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <ServicesComponent />
 
         <section className="py-16 bg-gradient-to-b from-black to-gray-900">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gold mb-3">Explore Every Stitching Service</h2>
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold text-gold mb-3">Every Stitching Service in Our Shop</h2>
               <p className="text-gray-300 max-w-2xl mx-auto">Dedicated pages with pricing guidance, timelines, FAQs and past work for each stitching category.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -134,6 +270,51 @@ const Services = () => {
                   </h3>
                   <p className="text-sm text-gray-400">{e.intro ? `${e.intro.slice(0, 120)}…` : ''}</p>
                 </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Local coverage — internal links to the near-me cluster */}
+        <section className="py-14 bg-black">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold text-center mb-3">
+              Areas Our Tailor Shop Serves in Karachi
+            </h2>
+            <p className="text-gray-300 text-center max-w-2xl mx-auto mb-8">
+              Not close to Mahmoodabad? We collect and deliver across the city — pick your area to see local
+              timings, landmarks and directions.
+            </p>
+            <ul className="flex flex-wrap justify-center gap-2">
+              {KARACHI_AREAS.map((a) => (
+                <li key={a.slug}>
+                  <Link
+                    to={`/tailor-near-me/${a.slug}`}
+                    className="inline-flex items-center min-h-[44px] px-4 rounded-full border border-gold/30 text-sm text-gray-200 hover:border-gold hover:text-gold transition-colors"
+                  >
+                    Tailor in {a.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-16 bg-gradient-to-b from-black to-gray-900">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold text-center mb-10">
+              Tailor Shop FAQs
+            </h2>
+            <div className="space-y-4">
+              {FAQS.map((f) => (
+                <details key={f.q} className="group rounded-xl border border-gold/25 bg-black/50 p-5">
+                  <summary className="cursor-pointer list-none font-semibold text-white group-open:text-gold flex items-start justify-between gap-4">
+                    <h3 className="text-base font-semibold">{f.q}</h3>
+                    <ArrowRight className="h-4 w-4 text-gold shrink-0 mt-1 transition-transform group-open:rotate-90" aria-hidden="true" />
+                  </summary>
+                  <p className="mt-3 text-sm text-gray-300 leading-relaxed">{f.a}</p>
+                </details>
               ))}
             </div>
           </div>
