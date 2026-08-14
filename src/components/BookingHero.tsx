@@ -18,16 +18,17 @@ const BookingHero = () => {
           <Scissors className="h-3.5 w-3.5" /> MA Tailor · Custom Fit
         </span>
 
-        <h2
+        <h1
           id="booking-hero-title"
           className="font-playfair text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-4"
         >
-          Book Your <span className="text-[#D4AF37]">Custom Fit</span> in 2 Minutes
-        </h2>
+          Book Your <span className="text-[#D4AF37]">Tailoring</span> Appointment
+        </h1>
 
         <p className="text-stone-300 text-base md:text-lg max-w-2xl mx-auto mb-8">
-          Fill the quick form, confirm on WhatsApp, and our master tailors take it from there — measurements, stitching, and doorstep delivery.
+          Fill the quick form, confirm on WhatsApp, and our master tailors take it from there — measurements, stitching, and doorstep delivery in Karachi.
         </p>
+
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
           <button
