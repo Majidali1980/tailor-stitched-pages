@@ -77,9 +77,9 @@ const Services = () => {
   })();
 
   const pageUrl = `${SITE_URL}/services`;
-  const metaTitle = 'Tailor Shop in Karachi | Ladies Stitching & Alterations — Ma Tailor';
+  const metaTitle = 'Tailoring Services — Stitching, Alterations & Custom Suits | Ma Tailor';
   const metaDescription =
-    'Ma Tailor is a ladies tailor shop in Karachi for custom stitching, bridal wear, shalwar kameez, abaya and alterations. Perfect-fit guarantee, Rs. 350 pick & drop, express 24–48 hr service.';
+    "From custom stitching to alterations and formal wear, explore Ma Tailor's full range of tailoring services in Karachi. Quality craftsmanship, every time.";
 
   const shopLd = {
     '@context': 'https://schema.org',
