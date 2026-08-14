@@ -27,15 +27,18 @@ const BookingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Book Custom Tailoring Online | Tailor & Stitching Services</title>
-        <meta name="description" content="Book your custom tailoring or stitching appointment online. Professional custom fits, door-to-door service, and quick turnaround." />
+        <title>Book a Tailoring Appointment Online | Ma Tailor Karachi</title>
+        <meta name="description" content="Schedule your tailoring or stitching appointment in minutes. Choose your service, pick a time, and get fitted by Ma Tailor's expert team." />
         <meta name="keywords" content="book stitching appointment online, online tailor Pakistan, custom tailoring service booking, ladies tailor appointment, girls stitching booking" />
         <link rel="canonical" href="https://matailor.lovable.app/booking" />
         
-        <meta property="og:title" content="Book Custom Tailoring Online | Tailor & Stitching Services" />
-        <meta property="og:description" content="Book your custom tailoring or stitching appointment online. Professional custom fits, door-to-door service, and quick turnaround." />
+        <meta property="og:title" content="Book a Tailoring Appointment Online | Ma Tailor Karachi" />
+        <meta property="og:description" content="Schedule your tailoring or stitching appointment in minutes. Choose your service, pick a time, and get fitted by Ma Tailor's expert team." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/booking" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Book a Tailoring Appointment Online | Ma Tailor Karachi" />
+        <meta name="twitter:description" content="Schedule your tailoring or stitching appointment in minutes. Choose your service, pick a time, and get fitted by Ma Tailor's expert team." />
         
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
@@ -43,8 +46,6 @@ const BookingPage = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Book Your Custom Stitching Appointment Online</h1>
-        <h2 className="sr-only">Online Tailor Booking — Custom Suit Fitting at Your Nearest Stitching Unit</h2>
         <Navbar />
         <BookingHero />
         <BookingForm />

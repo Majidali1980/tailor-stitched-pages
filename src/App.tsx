@@ -33,6 +33,7 @@ const ServiceLanding = lazy(() => import("./pages/ServiceLanding"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
+const OnlineTailorKarachi = lazy(() => import("./pages/OnlineTailorKarachi"));
 const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const TailorNearMe = lazy(() => import("./pages/TailorNearMe"));
@@ -98,6 +99,7 @@ const App = () => (
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/track-order" element={<TrackOrder />} />
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
+              <Route path="/online-tailor-karachi" element={<OnlineTailorKarachi />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/tailor-near-me" element={<TailorNearMe />} />
