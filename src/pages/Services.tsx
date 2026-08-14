@@ -357,6 +357,37 @@ const Services = () => {
           </div>
         </section>
 
+        {/* Core service sections — one H2 each */}
+        <section className="py-14 bg-black" aria-label="Our core tailoring services">
+          <div className="container mx-auto px-4 max-w-4xl space-y-10">
+            <article>
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-3">Custom Stitching</h2>
+              <p className="text-gray-300 leading-relaxed">
+                Every outfit is cut from scratch to your own measurements — shalwar kameez, maxis, ghararas,
+                shararas, abayas, blouses and kids wear. Send us your fabric and a reference design, and our
+                master tailors in Karachi handle the pattern, cutting, stitching and finishing with a
+                perfect-fit guarantee and free re-fitting if anything needs adjusting.
+              </p>
+            </article>
+            <article>
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-3">Alterations &amp; Repairs</h2>
+              <p className="text-gray-300 leading-relaxed">
+                Bring in a dress that no longer fits and we resize, reshape and repair it — taking in seams,
+                shortening lengths, replacing zips and linings, and restoring embroidery. Most alterations are
+                ready within 2–3 days, with express options and Rs. 350 pick &amp; drop anywhere in Karachi.
+              </p>
+            </article>
+            <article>
+              <h2 className="text-2xl md:text-3xl font-playfair font-bold text-gold mb-3">Formal &amp; Occasion Wear</h2>
+              <p className="text-gray-300 leading-relaxed">
+                Bridal outfits, walima and mehndi dresses, party wear and formal suits are stitched with
+                structured linings, hand-finished detailing and multiple fittings so the drape is right on the
+                day. Bridal work is booked 3–4 weeks in advance because of the hand embroidery involved.
+              </p>
+            </article>
+          </div>
+        </section>
+
         <ServicesComponent />
 
         <section className="py-16 bg-gradient-to-b from-black to-gray-900">
