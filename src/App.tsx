@@ -99,6 +99,7 @@ const App = () => (
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/track-order" element={<TrackOrder />} />
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
+              <Route path="/online-tailor-karachi" element={<OnlineTailorKarachi />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/tailor-near-me" element={<TailorNearMe />} />
