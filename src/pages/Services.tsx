@@ -297,14 +297,15 @@ const Services = () => {
               Mahmoodabad, Karachi · Pick &amp; Drop Citywide
             </p>
             <h1 className="text-3xl md:text-5xl font-playfair font-bold mb-5 leading-tight">
-              Tailor Shop in Karachi for <span className="text-gold">Ladies Stitching &amp; Alterations</span>
+              Our <span className="text-gold">Tailoring Services</span>
             </h1>
             <p className="text-gray-300 text-base md:text-lg leading-relaxed">
-              Looking for a tailor shop near you that actually gets the fit right? Ma Tailor is a ladies tailoring
-              shop in Karachi where every dress is cut to your own measurements — bridal and party wear, shalwar
-              kameez, abaya, blouse, kids stitching, and alterations. Visit the shop, book pick &amp; drop for
-              Rs. 350, or order online from the USA, UK, Canada and UAE.
+              From custom stitching to alterations and formal wear, Ma Tailor is a ladies tailor shop in Karachi
+              where every dress is cut to your own measurements — bridal and party wear, shalwar kameez, abaya,
+              blouse, kids stitching, and repairs. Visit the shop, book pick &amp; drop for Rs. 350, or order
+              online from the USA, UK, Canada and UAE.
             </p>
+
 
             <div className="flex flex-wrap justify-center gap-3 mt-8">
               <Link
