@@ -3,10 +3,6 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://matailor.lovable.app/</loc><changefreq>daily</changefreq><priority>1.0</priority>
       <image:image>
-      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133977681-Gemini_Generated_Image_t2r4qut2r4qut2r4.jpg</image:loc>
-      <image:caption>Tailored to Perfection</image:caption>
-    </image:image>
-    <image:image>
       <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1784442285011-Gemini_Generated_Image_1ju8e71ju8e71ju8.png</image:loc>
       <image:caption>Eid Style, Tailored for You!</image:caption>
     </image:image>
@@ -15,8 +11,8 @@
       <image:caption>Online Pakistani Dress Tailor For Ladies</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785133570390-Gemini_Generated_Image_rwsqf0rwsqf0rwsq.jpg</image:loc>
-      <image:caption>Your Style, Tailored to Perfection.</image:caption>
+      <image:loc>https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1786681867577-Gemini_Generated_Image_6inhzs6inhzs6inh.jfif</image:loc>
+      <image:caption>JASHAN E AZADI MUBARAK</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://i.postimg.cc/m2dD2FgV/Untitled-design-6.png</image:loc>
