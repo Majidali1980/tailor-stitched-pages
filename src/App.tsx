@@ -41,6 +41,7 @@ const TailorNearMeArea = lazy(() => import("./pages/TailorNearMeArea"));
 const BlogTaxonomy = lazy(() => import("./pages/BlogTaxonomy"));
 const SpecialDiscountOffers = lazy(() => import("./pages/SpecialDiscountOffers"));
 const SpecialDiscountOfferDetail = lazy(() => import("./pages/SpecialDiscountOfferDetail"));
+const DigitalServices = lazy(() => import("./pages/DigitalServices"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Admin = lazy(() => import("./pages/Admin"));
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
@@ -106,6 +107,7 @@ const App = () => (
               <Route path="/tailor-near-me/:area" element={<TailorNearMeArea />} />
               <Route path="/special-discount-offers" element={<SpecialDiscountOffers />} />
               <Route path="/special-discount-offers/:slug" element={<SpecialDiscountOfferDetail />} />
+              <Route path="/digital-services" element={<DigitalServices />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

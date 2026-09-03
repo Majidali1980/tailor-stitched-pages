@@ -5,6 +5,7 @@ import CinematicHero from '@/components/CinematicHero';
 import BentoShowcase from '@/components/BentoShowcase';
 import { Helmet } from 'react-helmet-async';
 import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
+import DigitalServicesBanner from '@/components/DigitalServicesBanner';
 import { supabase } from '@/integrations/supabase/client';
 
 // Lazy load below-fold components
@@ -174,15 +175,18 @@ const Index = () => {
         <DynamicPromotionalBanner />
         <CinematicHero />
         <Suspense fallback={<SectionFallback />}>
+          <DigitalServicesBanner variant="compact" />
           <BentoShowcase />
           <HeroCarousel />
           {orderedKeys.map((key) => {
             const Comp = SECTION_COMPONENTS[key];
             return Comp ? <Comp key={key} /> : null;
           })}
+          <DigitalServicesBanner />
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
+          <DigitalServicesBanner variant="compact" />
           <NewsletterSubscription />
           <Footer />
         </Suspense>
