@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import {
   Globe, Video, Image as ImageIcon, Hash, PenLine, Sparkles,
-  Mail, Phone, ExternalLink, Check,
+  Mail, Phone, ExternalLink, Check, MessageCircle,
 } from 'lucide-react';
 
 const Footer = lazy(() => import('@/components/Footer'));
@@ -68,8 +68,8 @@ const FAQS = [
 ];
 
 const DigitalServices = () => {
-  const title = 'Website Development & Social Media Content Services | Majid Ali';
-  const description = 'Website development, social media content, promotional images, hooks, hashtags, captions and reels/TikTok video editing. Get a same-day quote on WhatsApp.';
+  const title = 'Website Development & Social Media Services Karachi | Majid Ali';
+  const description = 'Professional website development and social media content services in Karachi. Custom websites, posts, reels, TikTok videos, promotional images, hooks, hashtags and captions. Get a same-day quote on WhatsApp.';
   const url = 'https://matailor.lovable.app/digital-services';
 
   const jsonLd = {
@@ -117,9 +117,14 @@ const DigitalServices = () => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
+        <meta property="og:image" content="https://matailor.lovable.app/og-digital-services.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Website development and social media content services by Majid Ali in Karachi" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://matailor.lovable.app/og-digital-services.jpg" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
@@ -134,7 +139,7 @@ const DigitalServices = () => {
             </span>
             <h1 className="font-playfair text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-5">
               Website Development &{' '}
-              <span className="text-gold">Social Media Content</span> That Grows Your Brand
+              <span className="text-gold">Social Media Content Services</span> in Karachi
             </h1>
             <p className="text-gray-300 text-base md:text-lg max-w-3xl mx-auto mb-8">
               We design and develop websites, and create social media content — posts with images, promotional
@@ -263,6 +268,18 @@ const DigitalServices = () => {
         <Suspense fallback={<div className="min-h-[100px]" />}>
           <Footer />
         </Suspense>
+
+        {/* Prominent WhatsApp CTA */}
+        <a
+          href={`https://wa.me/923343233883?text=${encodeURIComponent('Hi, I am interested in your website / social media services.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Majid Ali on WhatsApp"
+          className="fixed right-4 bottom-24 z-[60] inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3 font-montserrat font-semibold text-black shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-[#128C7E] hover:text-white animate-bounce-slow"
+        >
+          <MessageCircle className="h-5 w-5" />
+          <span className="hidden sm:inline">Chat on WhatsApp</span>
+        </a>
       </div>
     </>
   );
