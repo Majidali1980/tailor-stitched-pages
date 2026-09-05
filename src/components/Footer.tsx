@@ -86,7 +86,19 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
+
+            <h3 className="text-lg font-playfair font-bold text-gold mt-6 mb-3">Order From Abroad</h3>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+              <li><Link to="/online-tailor-uk" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor UK</Link></li>
+              <li><Link to="/online-tailor-usa" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor USA</Link></li>
+              <li><Link to="/online-tailor-canada" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor Canada</Link></li>
+              <li><Link to="/online-tailor-india" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor India</Link></li>
+              <li><Link to="/online-tailor-bangladesh" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor Bangladesh</Link></li>
+              <li><Link to="/pakistani-tailor-online" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Pakistani Tailor Online</Link></li>
+            </ul>
           </div>
+          
+
           
           <div>
             <h3 className="text-lg font-playfair font-bold text-gold mb-4">Business Hours</h3>

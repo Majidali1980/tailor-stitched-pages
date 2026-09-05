@@ -79,7 +79,7 @@ const Services = () => {
   const pageUrl = `${SITE_URL}/services`;
   const metaTitle = 'Tailoring Services — Stitching, Alterations & Custom Suits | Ma Tailor';
   const metaDescription =
-    "From custom stitching to alterations and formal wear, explore Ma Tailor's full range of tailoring services in Karachi. Quality craftsmanship, every time.";
+    "From custom stitching to alterations and formal wear, explore Ma Tailor's tailoring services in Karachi — with worldwide delivery to the UK, USA and Canada.";
 
   const shopLd = {
     '@context': 'https://schema.org',

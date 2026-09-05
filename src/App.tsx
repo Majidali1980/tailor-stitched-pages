@@ -34,6 +34,7 @@ const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const PakistaniTailorOnline = lazy(() => import("./pages/PakistaniTailorOnline"));
 const OnlineTailorKarachi = lazy(() => import("./pages/OnlineTailorKarachi"));
+const CountryLanding = lazy(() => import("./pages/CountryLanding"));
 const BridalDressStitching = lazy(() => import("./pages/BridalDressStitching"));
 const ShalwarKameezStitching = lazy(() => import("./pages/ShalwarKameezStitching"));
 const TailorNearMe = lazy(() => import("./pages/TailorNearMe"));
@@ -101,6 +102,11 @@ const App = () => (
               <Route path="/track-order" element={<TrackOrder />} />
               <Route path="/pakistani-tailor-online" element={<PakistaniTailorOnline />} />
               <Route path="/online-tailor-karachi" element={<OnlineTailorKarachi />} />
+              <Route path="/online-tailor-uk" element={<CountryLanding countryKey="uk" />} />
+              <Route path="/online-tailor-usa" element={<CountryLanding countryKey="usa" />} />
+              <Route path="/online-tailor-canada" element={<CountryLanding countryKey="canada" />} />
+              <Route path="/online-tailor-india" element={<CountryLanding countryKey="india" />} />
+              <Route path="/online-tailor-bangladesh" element={<CountryLanding countryKey="bangladesh" />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/tailor-near-me" element={<TailorNearMe />} />
