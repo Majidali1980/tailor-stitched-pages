@@ -148,7 +148,7 @@ const Index = () => {
   };
 
   const title = 'Ma Tailor — Custom Stitching & Tailoring in Karachi | Book Online';
-  const description = 'Get custom-fit stitching and alterations from expert tailors in Karachi. Easy online booking, fast turnaround. Book your fitting today.';
+  const description = 'Custom-fit stitching and alterations by expert tailors in Karachi. Book online from Pakistan, the UK, USA, Canada, India or Bangladesh — worldwide delivery.';
 
   return (
     <>
