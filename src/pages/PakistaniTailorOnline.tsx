@@ -70,6 +70,13 @@ const PakistaniTailorOnline = () => (
         a: 'Yes. Ma Tailor is an established Pakistani tailoring brand with verified customer reviews from Pakistan, USA, UK, Canada and UAE. We share progress photos before dispatch, use tracked international couriers, and accept secure payment in PKR, USD or GBP. Your measurement profile is stored privately and only used for your future orders.',
       },
     ]}
+    relatedServices={[
+      { label: 'Online Tailor UK', to: '/online-tailor-uk', description: 'Stitching delivered to London, Birmingham and Manchester with GBP pricing.' },
+      { label: 'Online Tailor USA', to: '/online-tailor-usa', description: 'Custom Pakistani stitching shipped across the United States in USD.' },
+      { label: 'Online Tailor Canada', to: '/online-tailor-canada', description: 'Toronto, Mississauga and Calgary deliveries with CAD pricing.' },
+      { label: 'Online Tailor India', to: '/online-tailor-india', description: 'Salwar kameez and bridal stitching for customers in India.' },
+      { label: 'Online Tailor Bangladesh', to: '/online-tailor-bangladesh', description: 'Stitching and delivery to Dhaka, Chattogram and Sylhet.' },
+    ]}
   />
 );
 
