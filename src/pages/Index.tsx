@@ -7,26 +7,27 @@ import { Helmet } from 'react-helmet-async';
 import DynamicPromotionalBanner from '@/components/DynamicPromotionalBanner';
 import DigitalServicesBanner from '@/components/DigitalServicesBanner';
 import { supabase } from '@/integrations/supabase/client';
+import { lazyWithRetry } from '@/lib/lazyWithRetry';
 
 // Lazy load below-fold components
-const HeroCarousel = lazy(() => import('@/components/HeroCarousel'));
-const HomepageCarousel = lazy(() => import('@/components/HomepageCarousel'));
-const NotificationBar = lazy(() => import('@/components/NotificationBar'));
-const LatestDesignsCarousel = lazy(() => import('@/components/LatestDesignsCarousel'));
+const HeroCarousel = lazyWithRetry(() => import('@/components/HeroCarousel'), 'HeroCarousel');
+const HomepageCarousel = lazyWithRetry(() => import('@/components/HomepageCarousel'), 'HomepageCarousel');
+const NotificationBar = lazyWithRetry(() => import('@/components/NotificationBar'), 'NotificationBar');
+const LatestDesignsCarousel = lazyWithRetry(() => import('@/components/LatestDesignsCarousel'), 'LatestDesignsCarousel');
 
-const HeroSectionServices = lazy(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })));
-const StitchedDressCarousel = lazy(() => import('@/components/StitchedDressCarousel'));
-const GalleryCategoriesShowcase = lazy(() => import('@/components/GalleryCategoriesShowcase'));
+const HeroSectionServices = lazyWithRetry(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })), 'HeroSectionServices');
+const StitchedDressCarousel = lazyWithRetry(() => import('@/components/StitchedDressCarousel'), 'StitchedDressCarousel');
+const GalleryCategoriesShowcase = lazyWithRetry(() => import('@/components/GalleryCategoriesShowcase'), 'GalleryCategoriesShowcase');
 
-const HeroSectionLittleStitch = lazy(() => import('@/components/HeroSectionLittleStitch').then(m => ({ default: m.HeroSectionLittleStitch })));
-const AnimatedDesignPromo = lazy(() => import('@/components/AnimatedDesignPromo'));
-const ProductShowcase = lazy(() => import('@/components/ProductShowcase'));
-const SocialMediaButtons = lazy(() => import('@/components/SocialMediaButtons'));
-const SocialMediaFeed = lazy(() => import('@/components/SocialMediaFeed'));
-const NewsletterSubscription = lazy(() => import('@/components/NewsletterSubscription'));
-const Footer = lazy(() => import('@/components/Footer'));
-const WhatsAppFloat = lazy(() => import('@/components/WhatsAppFloat'));
-const TailorAssistant = lazy(() => import('@/components/TailorAssistant'));
+const HeroSectionLittleStitch = lazyWithRetry(() => import('@/components/HeroSectionLittleStitch').then(m => ({ default: m.HeroSectionLittleStitch })), 'HeroSectionLittleStitch');
+const AnimatedDesignPromo = lazyWithRetry(() => import('@/components/AnimatedDesignPromo'), 'AnimatedDesignPromo');
+const ProductShowcase = lazyWithRetry(() => import('@/components/ProductShowcase'), 'ProductShowcase');
+const SocialMediaButtons = lazyWithRetry(() => import('@/components/SocialMediaButtons'), 'SocialMediaButtons');
+const SocialMediaFeed = lazyWithRetry(() => import('@/components/SocialMediaFeed'), 'SocialMediaFeed');
+const NewsletterSubscription = lazyWithRetry(() => import('@/components/NewsletterSubscription'), 'NewsletterSubscription');
+const Footer = lazyWithRetry(() => import('@/components/Footer'), 'Footer');
+const WhatsAppFloat = lazyWithRetry(() => import('@/components/WhatsAppFloat'), 'WhatsAppFloat');
+const TailorAssistant = lazyWithRetry(() => import('@/components/TailorAssistant'), 'TailorAssistant');
 
 
 const SectionFallback = () => <div className="min-h-[100px]" />;
