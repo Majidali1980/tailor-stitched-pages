@@ -155,12 +155,14 @@ const CountryLandingPage = ({ data }: Props) => {
         <section className="px-4 py-12 border-b border-gold/10">
           <div className="max-w-5xl mx-auto">
             <h2 className="font-playfair text-2xl md:text-3xl text-gold mb-2">
-              Indicative stitching prices in {data.currencyCode}
+              Guide stitching prices in {data.currencyCode}
             </h2>
             <p className="text-gray-400 text-sm mb-6">
-              Stitching charges only — fabric is yours. Final quote depends on the cut, lining and hand work, so send a
-              picture on WhatsApp for an exact price.
+              These figures are for your idea only, not a final quote. The price is discussed and confirmed once you
+              share your stitching details (cut, lining, finishing and hand work) on WhatsApp. Stitching charges only —
+              the fabric is yours.
             </p>
+
             <div className="overflow-x-auto rounded-xl border border-gold/20">
               <table className="w-full text-sm">
                 <thead className="bg-white/5 text-gold">
