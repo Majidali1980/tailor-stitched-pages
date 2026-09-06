@@ -119,50 +119,50 @@ const CountryLandingPage = ({ data }: Props) => {
           </div>
         </section>
 
-        {/* Shipping + turnaround */}
+        {/* Delivery terms */}
         <section className="px-4 py-12 border-b border-gold/10">
           <div className="max-w-5xl mx-auto">
             <h2 className="font-playfair text-2xl md:text-3xl text-gold mb-6">
-              Delivery to {data.country}: cost, time and customs
+              How your order reaches you in {data.country}
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-xl border border-gold/20 bg-white/5 p-5">
                 <Truck className="h-6 w-6 text-gold mb-2" />
-                <h3 className="font-semibold text-white mb-1">Courier</h3>
-                <p className="text-gray-300 text-sm">{data.shipping.courier}</p>
-              </div>
-              <div className="rounded-xl border border-gold/20 bg-white/5 p-5">
-                <Clock className="h-6 w-6 text-gold mb-2" />
-                <h3 className="font-semibold text-white mb-1">Delivery time</h3>
-                <p className="text-gray-300 text-sm">{data.shipping.time}</p>
+                <h3 className="font-semibold text-white mb-1">Courier chosen by you</h3>
+                <p className="text-gray-300 text-sm">{data.delivery.courierChoice}</p>
               </div>
               <div className="rounded-xl border border-gold/20 bg-white/5 p-5">
                 <CreditCard className="h-6 w-6 text-gold mb-2" />
-                <h3 className="font-semibold text-white mb-1">Shipping cost</h3>
-                <p className="text-gray-300 text-sm">{data.shipping.cost}</p>
+                <h3 className="font-semibold text-white mb-1">Charges borne by the customer</h3>
+                <p className="text-gray-300 text-sm">{data.delivery.charges}</p>
               </div>
               <div className="rounded-xl border border-gold/20 bg-white/5 p-5">
                 <Check className="h-6 w-6 text-gold mb-2" />
                 <h3 className="font-semibold text-white mb-1">Customs &amp; duty</h3>
-                <p className="text-gray-300 text-sm">{data.shipping.duty}</p>
+                <p className="text-gray-300 text-sm">{data.delivery.customs}</p>
+              </div>
+              <div className="rounded-xl border border-gold/20 bg-white/5 p-5">
+                <Clock className="h-6 w-6 text-gold mb-2" />
+                <h3 className="font-semibold text-white mb-1">Ready for hand-over</h3>
+                <p className="text-gray-300 text-sm">{data.delivery.handover}</p>
               </div>
             </div>
-            <p className="text-gray-400 text-sm mt-5">
-              <strong className="text-gold">Total turnaround:</strong> {data.turnaround}
-            </p>
           </div>
         </section>
+
 
         {/* Prices */}
         <section className="px-4 py-12 border-b border-gold/10">
           <div className="max-w-5xl mx-auto">
             <h2 className="font-playfair text-2xl md:text-3xl text-gold mb-2">
-              Indicative stitching prices in {data.currencyCode}
+              Guide stitching prices in {data.currencyCode}
             </h2>
             <p className="text-gray-400 text-sm mb-6">
-              Stitching charges only — fabric is yours. Final quote depends on the cut, lining and hand work, so send a
-              picture on WhatsApp for an exact price.
+              These figures are for your idea only, not a final quote. The price is discussed and confirmed once you
+              share your stitching details (cut, lining, finishing and hand work) on WhatsApp. Stitching charges only —
+              the fabric is yours.
             </p>
+
             <div className="overflow-x-auto rounded-xl border border-gold/20">
               <table className="w-full text-sm">
                 <thead className="bg-white/5 text-gold">
