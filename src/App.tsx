@@ -105,8 +105,6 @@ const App = () => (
               <Route path="/online-tailor-uk" element={<CountryLanding countryKey="uk" />} />
               <Route path="/online-tailor-usa" element={<CountryLanding countryKey="usa" />} />
               <Route path="/online-tailor-canada" element={<CountryLanding countryKey="canada" />} />
-              <Route path="/online-tailor-india" element={<CountryLanding countryKey="india" />} />
-              <Route path="/online-tailor-bangladesh" element={<CountryLanding countryKey="bangladesh" />} />
               <Route path="/bridal-dress-stitching" element={<BridalDressStitching />} />
               <Route path="/shalwar-kameez-stitching" element={<ShalwarKameezStitching />} />
               <Route path="/tailor-near-me" element={<TailorNearMe />} />
