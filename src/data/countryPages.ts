@@ -90,11 +90,11 @@ export const COUNTRY_PAGES: Record<string, CountryPage> = {
     demonym: 'British',
     currencyCode: 'GBP',
     currencySymbol: '£',
-    metaTitle: 'Online Tailor UK — Pakistani Custom Stitching for UK Customers',
+    metaTitle: 'Online Tailor UK | Pakistani Custom Stitching from Karachi',
     metaDescription:
-      'Online tailor for UK customers. Custom shalwar kameez, bridal and party stitching by Karachi master tailors. Send measurements from home, indicative GBP guide prices, courier of your choice.',
+      'Custom Pakistani stitching for UK customers — shalwar kameez, bridal and party wear made to your measurements by Karachi master tailors. Order on WhatsApp, GBP guide prices.',
     metaKeywords:
-      'online tailor for Pakistani clothes UK, Pakistani stitching UK, shalwar kameez stitching UK, Asian tailor online UK, bridal stitching London, custom stitching UK, Pakistani dressmaker Birmingham, ladies tailor online UK',
+      'online tailor UK, Pakistani tailor UK, Pakistani stitching UK, custom shalwar kameez UK, shalwar kameez stitching UK, Asian tailor online UK, bridal stitching London, Pakistani dressmaker Birmingham, Pakistani tailor Manchester, ladies tailor online UK, desi stitching UK, Pakistani clothes stitching UK',
     h1: 'Online Tailor for the UK — Pakistani Custom Stitching from Karachi',
     heroKicker: 'Serving London · Birmingham · Manchester · Bradford · Glasgow',
     intro:
@@ -169,11 +169,11 @@ export const COUNTRY_PAGES: Record<string, CountryPage> = {
     demonym: 'American',
     currencyCode: 'USD',
     currencySymbol: '$',
-    metaTitle: 'Custom Shalwar Kameez Stitching for USA | Online Pakistani Tailor',
+    metaTitle: 'Pakistani Tailor USA | Custom Shalwar Kameez Stitching',
     metaDescription:
-      'Order custom shalwar kameez, bridal and party wear stitched in Pakistan for USA customers. Remote measurements over WhatsApp, indicative USD guide prices, courier of your choice.',
+      'Custom Pakistani stitching for USA customers — shalwar kameez, bridal and party wear made to your measurements in Karachi. Remote fittings on WhatsApp, USD guide prices.',
     metaKeywords:
-      'custom shalwar kameez stitching USA, Pakistani tailor online USA, desi stitching service America, Pakistani clothes stitching New York, online tailor Houston, Pakistani tailor Chicago, ladies tailor online USA',
+      'Pakistani tailor USA, online tailor USA, custom shalwar kameez stitching USA, shalwar kameez USA, desi stitching service USA, Pakistani clothes stitching New York, online tailor Houston, Pakistani tailor Chicago, Pakistani tailor Dallas, Pakistani dressmaker USA, ladies tailor online USA, Asian tailor USA',
     h1: 'Custom Shalwar Kameez & Pakistani Stitching for the USA',
     heroKicker: 'For customers in New York · Houston · Chicago · Dallas · Bay Area',
     intro:
@@ -248,11 +248,11 @@ export const COUNTRY_PAGES: Record<string, CountryPage> = {
     demonym: 'Canadian',
     currencyCode: 'CAD',
     currencySymbol: 'C$',
-    metaTitle: 'Pakistani Tailor Online Canada — Custom Stitching from Karachi',
+    metaTitle: 'Pakistani Tailor Canada | Custom Stitching from Karachi',
     metaDescription:
-      'Pakistani tailor online for Canada. Custom shalwar kameez, bridal and party stitching for Toronto, Mississauga, Calgary and Vancouver. Remote measurements, indicative CAD guide prices.',
+      'Custom Pakistani stitching for Canada — shalwar kameez, bridal and party wear for Toronto, Mississauga, Calgary and Vancouver. Measurements on WhatsApp, CAD guide prices.',
     metaKeywords:
-      'Pakistani tailor online Canada, stitching services Toronto, shalwar kameez stitching Mississauga, desi tailor Calgary, Pakistani dress stitching Vancouver, custom stitching Canada, ladies tailor online Canada',
+      'Pakistani tailor Canada, online tailor Canada, Pakistani stitching Canada, custom shalwar kameez Canada, shalwar kameez stitching Mississauga, Pakistani tailor Toronto, desi tailor Calgary, Pakistani dress stitching Vancouver, custom stitching Canada, Pakistani dressmaker Canada, ladies tailor online Canada, Asian tailor Canada',
     h1: 'Pakistani Tailor Online for Canada — Stitched in Karachi',
     heroKicker: 'Toronto · Mississauga · Brampton · Calgary · Vancouver · Montreal',
     intro:
