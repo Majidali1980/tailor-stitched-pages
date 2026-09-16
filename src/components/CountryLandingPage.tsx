@@ -12,8 +12,11 @@ interface Props {
   data: CountryPage;
 }
 
+const OG_LOCALE: Record<string, string> = { GB: 'en_GB', US: 'en_US', CA: 'en_CA' };
+
 const CountryLandingPage = ({ data }: Props) => {
   const url = `${SITE_URL}/${data.slug}`;
+  const ogLocale = OG_LOCALE[data.countryCode] ?? 'en_US';
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi Ma Tailor, I am in ${data.country} and would like to order custom stitching.`,
   )}`;
@@ -87,9 +90,13 @@ const CountryLandingPage = ({ data }: Props) => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
         <meta property="og:image" content={`${SITE_URL}/logo.png`} />
+        <meta property="og:image:alt" content={`${data.h1} — Ma Tailor`} />
+        <meta property="og:locale" content={ogLocale} />
+        <meta property="og:site_name" content="Ma Tailor" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={data.metaTitle} />
         <meta name="twitter:description" content={data.metaDescription} />
+        <meta name="twitter:image" content={`${SITE_URL}/logo.png`} />
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
