@@ -12,8 +12,11 @@ interface Props {
   data: CountryPage;
 }
 
+const OG_LOCALE: Record<string, string> = { GB: 'en_GB', US: 'en_US', CA: 'en_CA' };
+
 const CountryLandingPage = ({ data }: Props) => {
   const url = `${SITE_URL}/${data.slug}`;
+  const ogLocale = OG_LOCALE[data.countryCode] ?? 'en_US';
   const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi Ma Tailor, I am in ${data.country} and would like to order custom stitching.`,
   )}`;
