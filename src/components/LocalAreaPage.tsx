@@ -45,8 +45,8 @@ interface Props {
 
 const LocalAreaPage = ({ area }: Props) => {
   const url = `${SITE_URL}/tailor-near-me/${area.slug}`;
-  const title = `Ladies Tailor Near Me in ${area.name}, Karachi | Ma Tailor`;
-  const metaDescription = `Looking for a ladies tailor near you in ${area.name}, Karachi? Ma Tailor stitches shalwar kameez, bridal and party wear with free pick & drop. Call ${STUDIO.phoneDisplay}.`;
+  const title = `Tailor in ${area.name}, Karachi | Home Pickup & Delivery`;
+  const metaDescription = `MA Tailor stitches shalwar kameez, bridal and party wear for ${area.name}, Karachi with home pickup and delivery. Book online or WhatsApp for a free quote.`;
   const h1 = `Ladies Tailor Near Me in ${area.name}, Karachi`;
   const faqs = areaFaqs(area);
 

@@ -110,8 +110,8 @@ const Career = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Helmet>
-        <title>Careers at Ma Tailor – Tailoring & Fashion Jobs Pakistan</title>
-        <meta name="description" content="Join Ma Tailor's team. Explore stitching, tailoring and fashion career opportunities in Pakistan and apply online." />
+        <title>Tailor Jobs in Karachi | Careers at MA Tailor</title>
+        <meta name="description" content="Looking for tailor or stitching jobs in Karachi? Join MA Tailor's studio team — cutters, stitchers and finishers. See open roles and apply online today." />
         <link rel="canonical" href="https://matailor.lovable.app/career" />
         <meta property="og:title" content="Careers at Ma Tailor" />
         <meta property="og:description" content="Explore tailoring and fashion jobs at Ma Tailor and apply online." />

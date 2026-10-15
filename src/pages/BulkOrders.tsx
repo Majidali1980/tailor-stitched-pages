@@ -8,8 +8,8 @@ const BulkOrdersPage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Helmet>
-        <title>Bulk Stitching Orders – Wholesale Tailoring | Ma Tailor</title>
-        <meta name="description" content="Bulk stitching and wholesale tailoring for boutiques, uniforms and events. Get a custom quote from Ma Tailor for large-volume orders." />
+        <title>Bulk Stitching Orders in Karachi | Wholesale Tailor - MA Tailor</title>
+        <meta name="description" content="Bulk stitching for boutiques, uniforms and events from 10 pieces per size. Free sample before production in Karachi. Get a bulk quote from MA Tailor today." />
         <link rel="canonical" href="https://matailor.lovable.app/bulk-orders" />
         <meta property="og:title" content="Bulk Stitching Orders – Ma Tailor" />
         <meta property="og:description" content="Wholesale tailoring and bulk stitching for boutiques, uniforms and events." />

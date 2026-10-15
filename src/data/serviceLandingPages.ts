@@ -264,8 +264,8 @@ export const serviceLandingPages: Record<string, Config> = {
   },
 
   'sharara-stitching': {
-    title: 'Sharara Stitching Online | Custom Sharara Tailor for Weddings | Ma Tailor',
-    metaDescription: 'Custom sharara stitching by Ma Tailor. Bridal, family and mehndi shararas with structured kali flare, hand embroidery and inner lining. Ships worldwide.',
+    title: 'Sharara Stitching in Karachi | Bridal & Party Wear - MA Tailor',
+    metaDescription: 'Bridal, mehndi and party sharara stitching in Karachi by MA Tailor. Full kali flare, lined and hand-finished. Book home pickup or WhatsApp for a free quote.',
     metaKeywords: 'sharara stitching, sharara tailor online, wedding sharara, mehndi sharara stitching, Pakistani sharara tailor, kali sharara',
     h1: 'Sharara Stitching — Flare, Structure & Perfect Fall',
     serviceName: 'Sharara Stitching',
