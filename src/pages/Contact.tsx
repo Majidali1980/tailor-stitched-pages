@@ -34,7 +34,7 @@ const ContactPage = () => {
         <meta property="og:title" content="Contact MA Tailor | Custom Stitching Services" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="og:description" content="Contact us for online stitching services. Call or WhatsApp +92 307 0125273." />
+        <meta property="og:description" content="Contact MA Tailor in Mahmoodabad, Karachi. Call or WhatsApp +92 307 0125273 for stitching quotes and home pickup." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/contact" />
         <link rel="canonical" href="https://matailor.lovable.app/contact" />

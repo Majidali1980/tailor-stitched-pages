@@ -47,7 +47,7 @@ const LocalAreaPage = ({ area }: Props) => {
   const url = `${SITE_URL}/tailor-near-me/${area.slug}`;
   const title = `Tailor in ${area.name}, Karachi | Home Pickup & Delivery`;
   const metaDescription = `MA Tailor stitches shalwar kameez, bridal and party wear for ${area.name}, Karachi with home pickup and delivery. Book online or WhatsApp for a free quote.`;
-  const h1 = `Ladies Tailor Near Me in ${area.name}, Karachi`;
+  const h1 = `Tailor in ${area.name}, Karachi — Ladies Stitching with Home Pickup`;
   const faqs = areaFaqs(area);
 
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(area.mapQuery)}&output=embed`;
@@ -169,6 +169,21 @@ const LocalAreaPage = ({ area }: Props) => {
             </div>
           </div>
         </header>
+
+        {area.about && (
+          <section className="container mx-auto px-4 pt-12 max-w-5xl">
+            <h2 className="font-playfair text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Tailor service at home in {area.name}
+            </h2>
+            <p className="font-montserrat text-muted-foreground leading-relaxed mb-5">{area.about}</p>
+            <p className="font-montserrat text-sm text-muted-foreground">
+              Nearby: {area.landmarks.join(' · ')}
+            </p>
+            <Button asChild size="lg" className="min-h-[48px] mt-5">
+              <Link to="/booking">Book home pickup in {area.name}</Link>
+            </Button>
+          </section>
+        )}
 
         {/* Address + map */}
         <section className="container mx-auto px-4 py-12 max-w-5xl">
