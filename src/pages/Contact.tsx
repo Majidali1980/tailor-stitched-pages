@@ -29,12 +29,12 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Ma Tailor – Online Stitching Shop Pakistan</title>
-        <meta name="description" content="Contact Ma Tailor for online stitching and tailoring services in Pakistan. Call or WhatsApp +92 307 0125273." />
+        <title>Contact MA Tailor Karachi | WhatsApp & Call +92 307 0125273</title>
+        <meta name="description" content="Contact MA Tailor in Mahmoodabad, Karachi. Call or WhatsApp +92 307 0125273 for stitching quotes, home pickup and order updates. Open Mon–Sat, 11am–9pm." />
         <meta property="og:title" content="Contact MA Tailor | Custom Stitching Services" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="og:description" content="Contact us for online stitching services. Call or WhatsApp +92 307 0125273." />
+        <meta property="og:description" content="Contact MA Tailor in Mahmoodabad, Karachi. Call or WhatsApp +92 307 0125273 for stitching quotes and home pickup." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/contact" />
         <link rel="canonical" href="https://matailor.lovable.app/contact" />

@@ -7,10 +7,10 @@ const AboutPage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Helmet>
-        <title>About MA Tailor | Online Pakistani Stitching Studio</title>
-        <meta name="description" content="Learn about MA Tailor – a Pakistani stitching studio delivering custom ladies suits worldwide with perfect fit and elegant craftsmanship." />
+        <title>About MA Tailor | Ladies Tailor Studio in Karachi</title>
+        <meta name="description" content="Meet MA Tailor, a ladies stitching studio in Mahmoodabad, Karachi. Custom suits, bridal wear and alterations with a perfect fit. See how we work and book." />
         <link rel="canonical" href="https://matailor.lovable.app/about" />
-        <meta property="og:title" content="About MA Tailor | Online Pakistani Stitching Studio" />
+        <meta property="og:title" content="About MA Tailor | Ladies Tailor Studio in Karachi" />
         <meta property="og:description" content="Pakistani stitching studio delivering custom ladies suits worldwide with perfect fit and elegant craftsmanship." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/about" />

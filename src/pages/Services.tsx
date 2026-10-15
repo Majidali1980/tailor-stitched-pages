@@ -77,9 +77,9 @@ const Services = () => {
   })();
 
   const pageUrl = `${SITE_URL}/services`;
-  const metaTitle = 'Tailoring Services — Stitching, Alterations & Custom Suits | Ma Tailor';
+  const metaTitle = 'Tailoring Services in Karachi | Ladies & Gents Stitching - MA Tailor';
   const metaDescription =
-    "From custom stitching to alterations and formal wear, explore Ma Tailor's tailoring services in Karachi — with worldwide delivery to the UK, USA and Canada.";
+    'Ladies and gents stitching, bridal wear and alterations in Karachi from MA Tailor. Perfect fit, home pickup and drop across the city. Get a free quote on WhatsApp.';
 
   const shopLd = {
     '@context': 'https://schema.org',

@@ -3,10 +3,10 @@ import SeoLandingPage from '@/components/SeoLandingPage';
 const ShalwarKameezStitching = () => (
   <SeoLandingPage
     slug="shalwar-kameez-stitching"
-    title="Shalwar Kameez Stitching – Custom Tailoring Online | Ma Tailor"
-    metaDescription="Custom shalwar kameez stitching online by Ma Tailor. Perfect fit, premium finishing & worldwide delivery – everyday, party and formal styles for women."
+    title="Shalwar Kameez Stitching in Karachi | Custom Fit - MA Tailor"
+    metaDescription="Custom shalwar kameez stitching in Karachi by MA Tailor — everyday, party and formal suits cut to your measurements. Book home pickup or get a free quote today."
     metaKeywords="shalwar kameez stitching USA, shalwar kameez stitching UK, shalwar kameez stitching Canada, custom shalwar kameez USA, ladies shalwar kameez tailor UK, Pakistani suit stitching Canada, online shalwar kameez tailor USA, shalwar kameez maker UK, stitched shalwar kameez Canada, Pakistani everyday wear stitching USA"
-    h1="Shalwar Kameez Stitching – Custom Fit, Online"
+    h1="Shalwar Kameez Stitching in Karachi – Custom Fit"
     serviceName="Shalwar Kameez Stitching"
     intro="From everyday cotton suits to embroidered party wear, Ma Tailor stitches shalwar kameez that actually fits. Order online from anywhere in the world."
     highlights={[
