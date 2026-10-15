@@ -25,6 +25,7 @@ const ProductShowcase = lazyWithRetry(() => import('@/components/ProductShowcase
 const SocialMediaButtons = lazyWithRetry(() => import('@/components/SocialMediaButtons'), 'SocialMediaButtons');
 const SocialMediaFeed = lazyWithRetry(() => import('@/components/SocialMediaFeed'), 'SocialMediaFeed');
 const NewsletterSubscription = lazyWithRetry(() => import('@/components/NewsletterSubscription'), 'NewsletterSubscription');
+const HomeServiceFaq = lazyWithRetry(() => import('@/components/HomeServiceFaq'), 'HomeServiceFaq');
 const Footer = lazyWithRetry(() => import('@/components/Footer'), 'Footer');
 const WhatsAppFloat = lazyWithRetry(() => import('@/components/WhatsAppFloat'), 'WhatsAppFloat');
 const TailorAssistant = lazyWithRetry(() => import('@/components/TailorAssistant'), 'TailorAssistant');
@@ -170,7 +171,7 @@ const Index = () => {
       </Helmet>
       
       <div className="min-h-screen bg-black text-white font-montserrat">
-        <h1 className="sr-only">Custom Tailoring & Online Stitching Services</h1>
+        <h1 className="sr-only">MA Tailor — Online Tailor in Karachi with Home Pickup</h1>
         <h2 className="sr-only">Online Tailor & Stitching Unit Near Me — Custom Suit Fitting with Door-to-Door Pickup</h2>
         <Navbar />
         <DynamicPromotionalBanner />
@@ -188,6 +189,7 @@ const Index = () => {
           <SocialMediaButtons />
           <SocialMediaFeed />
           <DigitalServicesBanner variant="compact" />
+          <HomeServiceFaq />
           <NewsletterSubscription />
           <Footer />
         </Suspense>
