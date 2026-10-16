@@ -45,7 +45,7 @@ const PakistaniTailorOnline = () => (
       { label: 'Custom bridal dress stitching', to: '/bridal-dress-stitching', description: 'Hand-finished lehengas, ghararas and walima maxis stitched for the big day.' },
       { label: 'Shalwar kameez stitching online', to: '/shalwar-kameez-stitching', description: 'Everyday and party shalwar kameez tailored to your exact measurements.' },
       { label: 'Online Tailor UK', to: '/online-tailor-uk', description: 'Custom stitching for UK customers with guide prices in GBP.' },
-      { label: 'Online Tailor USA', to: '/online-tailor-usa', description: 'Custom Pakistani stitching for US customers with guide prices in USD.' },
+      { label: 'Online Tailor USA', to: '/online-tailor-usa', description: 'Custom Pakistani stitching for US customers with guide prices in USD (for idea only).' },
       { label: 'Online Tailor Canada', to: '/online-tailor-canada', description: 'Custom stitching for Canadian customers with guide prices in CAD.' },
     ]}
     relatedReads={[
