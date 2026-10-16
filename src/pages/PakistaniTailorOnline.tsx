@@ -3,32 +3,40 @@ import SeoLandingPage from '@/components/SeoLandingPage';
 const PakistaniTailorOnline = () => (
   <SeoLandingPage
     slug="pakistani-tailor-online"
-    title="Pakistani Tailor Online – Custom Stitching Worldwide | Ma Tailor"
-    metaDescription="Hire a trusted Pakistani tailor online. Custom stitched shalwar kameez, bridal & party wear with perfect fit and worldwide shipping. Order from Ma Tailor today."
-    metaKeywords="Pakistani tailor online USA, Pakistani tailor online UK, Pakistani tailor online Canada, hire Pakistani tailor USA, custom stitching UK, online Pakistani tailoring Canada, Pakistani master tailor overseas, tailor for shalwar kameez USA, Pakistani dressmaker UK, custom Pakistani outfits Canada"
-    h1="Pakistani Tailor Online – Custom Stitching, Delivered Worldwide"
-    serviceName="Pakistani Tailor Online"
-    intro="Ma Tailor brings authentic Pakistani tailoring to your doorstep – wherever you are. Share your measurements, pick a design, and receive a perfectly stitched outfit ready to wear."
+    title="Pakistani Tailor Online | Stitching Delivered Across Pakistan"
+    metaDescription="MA Tailor is an online tailor in Pakistan for ladies suits, bridal and party wear. Send fabric, share measurements, get a perfect fit. Get a free quote today."
+    metaKeywords="online tailor in Pakistan, Pakistani tailor online, online stitching service Pakistan, ma tailor, ladies tailor online Pakistan, custom stitching Pakistan, Pakistani tailor USA, Pakistani tailor UK, Pakistani tailor Canada"
+    h1="Online Tailor in Pakistan – Custom Stitching by MA Tailor"
+    serviceName="Online Tailor in Pakistan"
+    intro="MA Tailor is an online tailor based in Mahmoodabad, Karachi. Customers across Pakistan – and overseas in the UK, USA and Canada – send us their fabric, share measurements on WhatsApp and receive a custom-stitched outfit that fits. No shop visits, no guesswork: just clear communication with a master tailor from the first message to the final hand-over."
     highlights={[
-      'Authentic Pakistani master tailors',
-      'Worldwide shipping to USA, UK, Canada & UAE',
-      'Custom measurements with size-chart guidance',
-      'Stitching for shalwar kameez, gharara, lehenga & more',
-      'Premium finishing and inner lining',
-      'Easy reorders – we save your size profile',
+      'Experienced Karachi master tailors for ladies wear',
+      'Home pickup and drop inside Karachi',
+      'Customers across Pakistan, UK, USA and Canada',
+      'Guided measurements on WhatsApp or video call',
+      'Shalwar kameez, gharara, sharara, lehenga, maxi and bridal',
+      'Your size profile is saved for easy reorders',
     ]}
     sections={[
       {
-        heading: 'Why Choose a Pakistani Tailor Online',
-        body: 'Pakistani stitching is known worldwide for its precision, intricate detailing and traditional craftsmanship. By ordering online from Ma Tailor, you get the skill of Lahore and Karachi master tailors without leaving your home. Whether you live in New York, London, Toronto or Dubai, your outfit is stitched in Pakistan and shipped directly to you.',
+        heading: 'Why Choose an Online Tailor in Pakistan',
+        body: 'Finding a reliable tailor is hard, and visiting a shop two or three times for one suit takes time most people do not have. An online tailor removes those trips. With MA Tailor you talk directly to the person cutting your fabric, you share reference pictures of the design you want, and you get progress updates on WhatsApp. Pakistani stitching is known for neat finishing, careful necklines and well-balanced kameez lengths – we bring that same craft to you wherever you live.',
       },
       {
-        heading: 'How Online Ordering Works',
-        body: '1. Choose a design from our gallery or share your own.\n2. Submit your measurements using our simple guide.\n3. We stitch your outfit with premium finishing.\n4. Your parcel is shipped via tracked courier worldwide.',
+        heading: 'How It Works – 4 Simple Steps',
+        body: '1. Message us on WhatsApp or use the booking form and tell us what you want stitched.\n2. Share your measurements using our measurement guide, or send a well-fitting outfit for reference.\n3. Send your fabric – in Karachi we collect it from your home; outside Karachi you send it through a courier of your choice.\n4. We confirm the design and final price, stitch your outfit, share photos, and hand it over for return delivery.',
       },
       {
         heading: 'Outfits We Stitch',
-        body: 'Shalwar kameez, kurta sets, anarkali frocks, maxis, ghararas, shararas, lehengas, party wear, formal wear, and bridal couture. Every piece is hand-finished and quality-checked before dispatch.',
+        body: 'Shalwar kameez, kurta sets, anarkali frocks, maxis, ghararas, shararas, lehengas, party wear, formal wear and bridal couture. Every piece is finished and checked before hand-over. Stitching prices shown on the site are only a guide – the final price is agreed once you share the stitching details such as cut, lining and hand work.',
+      },
+      {
+        heading: 'Delivery and Payment Terms',
+        body: 'Inside Karachi we offer home pickup and drop. For other cities and for overseas orders, the parcel is sent through a courier company chosen by the customer, and all courier, customs and duty charges until the parcel is received are paid by the customer. We do not quote delivery times or customs rules for other countries. Payment is accepted only through bank transfer or TapTap Send.',
+      },
+      {
+        heading: 'Ready to Start?',
+        body: 'Book your order online on the booking page, or browse all our tailoring services to choose your outfit. You can also message MA Tailor on WhatsApp for a free quote.',
       },
     ]}
     relatedServices={[
@@ -43,34 +51,31 @@ const PakistaniTailorOnline = () => (
       { label: 'Shalwar kameez stitching: cuts, fabrics & fit guide', to: '/blog/shalwar-kameez-stitching-guide' },
       { label: 'Browse all tailoring tips', to: '/blog/category/tailoring-tips' },
     ]}
+    relatedLinksExtra={undefined}
     faqs={[
       {
-        q: 'How do I hire a Pakistani tailor online from the USA, UK or Canada?',
-        a: 'Pick a design from our gallery (or share your own reference), submit your measurements through our guided form, and confirm your order. We stitch your outfit in Pakistan and ship it via tracked international courier to your door. Most overseas orders are delivered within 3–4 weeks end-to-end. You can pay in PKR, USD or GBP – prices auto-convert at checkout.',
+        q: 'How do I order from an online tailor in Pakistan?',
+        a: 'Message MA Tailor on WhatsApp or fill in the booking form, share your design and measurements, and send your fabric. We confirm the details and final price before cutting, then stitch and hand over your outfit.',
       },
       {
-        q: 'How do I take my measurements for an online Pakistani tailor?',
-        a: 'You have three easy options:\n• Use our illustrated measurement guide – it covers bust, waist, hip, shoulder, sleeve, kameez length, trouser length and neckline depth.\n• Send measurements from an outfit that already fits you well – just lay it flat and measure across.\n• Book a free WhatsApp video call and our team will walk you through every measurement live.\nAccurate measurements are the single biggest factor in a perfect-fit result.',
+        q: 'How do I take my measurements?',
+        a: 'Use our illustrated measurement guide, send measurements from an outfit that already fits you well, or ask for a WhatsApp video call and our team will guide you through each measurement.',
       },
       {
-        q: 'How long does stitching and worldwide shipping take?',
-        a: 'Standard stitching turnaround is 10–14 working days from the day measurements are confirmed. Bridal and heavy embroidered formals take 3–4 weeks. International shipping via DHL/FedEx adds 4–7 working days to USA, UK, Canada, UAE and Australia. You get a tracking number the moment your parcel is dispatched.',
+        q: 'How is the parcel delivered outside Karachi or abroad?',
+        a: 'Inside Karachi we provide home pickup and drop. Outside Karachi and overseas, the parcel is sent through a courier company chosen by you. All courier, customs and duty charges until the parcel is received are paid by the customer. We do not know the customs rules of other countries.',
       },
       {
-        q: 'Can I send my own fabric to a Pakistani tailor online?',
-        a: 'Yes. You can courier fabric to our Pakistan address and we will stitch on a labour-only basis. Alternatively, we can source matching fabric for you from Lahore and Karachi markets – just share a colour, fabric type (lawn, chiffon, organza, silk) and budget, and we will send photos for your approval before cutting.',
+        q: 'How much does stitching cost?',
+        a: 'Prices shown on the website are for your idea only. The final stitching price is discussed and agreed once you share the stitching details such as cut, lining, finishing and hand work.',
       },
       {
-        q: 'What if the stitching does not fit properly?',
-        a: 'For local Pakistan customers, we offer free minor alterations within 7 days of delivery. For overseas customers, we provide remote-fit support: send us photos and we will guide you through quick adjustments at a local tailor, or accept the outfit back for full alteration with shared shipping. Because we save your size profile, repeat orders fit perfectly from the first try.',
+        q: 'How can I pay?',
+        a: 'Payment is accepted only through bank account transfer or TapTap Send.',
       },
       {
-        q: 'Do you stitch men’s and kids’ Pakistani outfits too?',
-        a: 'Our core specialty is women’s and girls’ stitching – shalwar kameez, frocks, ghararas, lehengas, maxis and bridal couture. We also stitch coordinated kids’ outfits for weddings and family events on request. For men’s stitching, please contact us directly to confirm availability.',
-      },
-      {
-        q: 'Is it safe to order custom stitching online from Pakistan?',
-        a: 'Yes. Ma Tailor is an established Pakistani tailoring brand with verified customer reviews from Pakistan, USA, UK, Canada and UAE. We share progress photos before dispatch, use tracked international couriers, and accept secure payment in PKR, USD or GBP. Your measurement profile is stored privately and only used for your future orders.',
+        q: 'Can I send my own fabric?',
+        a: 'Yes. We stitch your fabric. In Karachi we can collect it from your home; from other cities or abroad you can send it through your chosen courier.',
       },
     ]}
   />
