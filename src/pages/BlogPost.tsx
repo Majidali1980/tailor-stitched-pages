@@ -27,6 +27,21 @@ interface BlogPost {
   meta_description: string | null;
 }
 
+// Old/retired blog URLs -> new destinations (client-side 301 equivalent)
+const BLOG_REDIRECTS: Record<string, string> = {
+  design_16: '/blog',
+  'ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post': '/privacy-policy',
+};
+
+const RELATED_SERVICES = [
+  { label: 'Online tailor in Karachi', to: '/online-tailor-karachi' },
+  { label: 'Shalwar kameez stitching', to: '/shalwar-kameez-stitching' },
+  { label: 'Bridal dress stitching', to: '/bridal-dress-stitching' },
+  { label: 'All tailoring services', to: '/services' },
+  { label: 'Tailor near me in Karachi', to: '/tailor-near-me' },
+  { label: 'Pakistani tailor online', to: '/pakistani-tailor-online' },
+];
+
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -35,9 +50,13 @@ const BlogPost = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (slug) {
-      fetchBlogPost();
+    if (!slug) return;
+    const target = BLOG_REDIRECTS[slug];
+    if (target) {
+      navigate(target, { replace: true });
+      return;
     }
+    fetchBlogPost();
   }, [slug]);
 
   const fetchBlogPost = async () => {
@@ -244,6 +263,23 @@ const BlogPost = () => {
             className="prose prose-invert prose-gold max-w-none text-gray-300 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
           />
+
+          {/* Related services */}
+          <aside className="mt-12 border border-gold/20 bg-white/5 rounded-lg p-6" aria-labelledby="related-services">
+            <h2 id="related-services" className="text-2xl font-playfair font-bold text-gold mb-4">Related services</h2>
+            <ul className="grid sm:grid-cols-2 gap-3 mb-6">
+              {RELATED_SERVICES.map((s) => (
+                <li key={s.to}>
+                  <Link to={s.to} className="flex items-center min-h-[48px] px-4 rounded-md border border-gold/20 hover:border-gold text-white">
+                    {s.label} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link to="/booking" className="inline-flex items-center justify-center min-h-[48px] px-8 rounded-full bg-gold text-black font-semibold">
+              Book Now — Home Pickup
+            </Link>
+          </aside>
 
           {/* Action Buttons */}
           <div className="mt-12 pt-8 border-t border-gray-700">

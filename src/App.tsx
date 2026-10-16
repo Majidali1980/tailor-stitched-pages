@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Helmet } from "react-helmet-async";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 import BottomNav from "./components/BottomNav";
 import TailorAssistant from "./components/TailorAssistant";
@@ -90,8 +91,8 @@ const App = () => (
               <Route path="/blog/tag/:tag" element={<BlogTaxonomy mode="tag" />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/admin/blog-seo-audit" element={<BlogSeoAudit />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin/*" element={<Admin />} />
+              <Route path="/admin/login" element={<><Helmet><meta name="robots" content="noindex, nofollow" /></Helmet><AdminLogin /></>} />
+              <Route path="/admin/*" element={<><Helmet><meta name="robots" content="noindex, nofollow" /></Helmet><Admin /></>} />
               <Route path="/ai-design-studio" element={<AIDesignStudio />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />

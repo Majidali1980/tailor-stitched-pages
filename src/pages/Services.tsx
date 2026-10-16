@@ -439,6 +439,29 @@ const Services = () => {
           </div>
         </section>
 
+        {/* Tailor service at home */}
+        <section className="py-14 bg-black" aria-labelledby="home-service">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 id="home-service" className="text-2xl md:text-3xl font-playfair font-bold text-gold text-center mb-6">
+              Tailor Service at Home in Karachi
+            </h2>
+            <p className="text-gray-300 mb-6 text-center">
+              Skip the shop visits. MA Tailor collects your fabric from your doorstep, takes or guides your measurements,
+              and delivers the finished outfit back to your home — across Mahmoodabad, DHA, Clifton, PECHS, Gulshan-e-Iqbal,
+              Saddar, Bahadurabad and North Nazimabad.
+            </p>
+            <ul className="grid sm:grid-cols-3 gap-4 mb-8">
+              {['Home fabric pickup & drop', 'Measurements on WhatsApp or at home', 'Free quote before stitching'].map((t) => (
+                <li key={t} className="border border-gold/20 bg-white/5 rounded-lg p-4 text-center text-white">{t}</li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link to="/booking" className="inline-flex items-center min-h-[48px] px-8 rounded-full bg-gold text-black font-semibold">Book home pickup</Link>
+              <Link to="/tailor-near-me" className="inline-flex items-center min-h-[48px] px-8 rounded-full border border-gold text-gold">Find your area</Link>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="py-16 bg-gradient-to-b from-black to-gray-900">
           <div className="container mx-auto px-4 max-w-3xl">
