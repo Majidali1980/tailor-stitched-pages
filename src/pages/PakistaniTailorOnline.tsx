@@ -40,6 +40,8 @@ const PakistaniTailorOnline = () => (
       },
     ]}
     relatedServices={[
+      { label: 'Book your order online', to: '/booking', description: 'Book home pickup in Karachi or start an order from anywhere.' },
+      { label: 'All tailoring services', to: '/services', description: 'Stitching, alterations, bridal and formal wear in Karachi.' },
       { label: 'Custom bridal dress stitching', to: '/bridal-dress-stitching', description: 'Hand-finished lehengas, ghararas and walima maxis stitched for the big day.' },
       { label: 'Shalwar kameez stitching online', to: '/shalwar-kameez-stitching', description: 'Everyday and party shalwar kameez tailored to your exact measurements.' },
       { label: 'Online Tailor UK', to: '/online-tailor-uk', description: 'Custom stitching for UK customers with guide prices in GBP.' },
@@ -51,7 +53,6 @@ const PakistaniTailorOnline = () => (
       { label: 'Shalwar kameez stitching: cuts, fabrics & fit guide', to: '/blog/shalwar-kameez-stitching-guide' },
       { label: 'Browse all tailoring tips', to: '/blog/category/tailoring-tips' },
     ]}
-    relatedLinksExtra={undefined}
     faqs={[
       {
         q: 'How do I order from an online tailor in Pakistan?',
