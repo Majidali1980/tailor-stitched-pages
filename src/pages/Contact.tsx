@@ -30,7 +30,7 @@ const ContactPage = () => {
     <>
       <Helmet>
         <title>Contact MA Tailor Karachi | WhatsApp & Call +92 307 0125273</title>
-        <meta name="description" content="Contact MA Tailor in Mahmoodabad, Karachi. Call or WhatsApp +92 307 0125273 for stitching quotes, home pickup and order updates. Open Mon–Sat, 11am–9pm." />
+        <meta name="description" content="Contact MA Tailor in Mahmoodabad, Karachi. Call or WhatsApp +92 307 0125273 for stitching quotes, home pickup and order updates. Open 7 days, 10am–9pm." />
         <meta property="og:title" content="Contact MA Tailor | Custom Stitching Services" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
