@@ -54,13 +54,17 @@ const Footer = () => {
                 <li><Link to="/services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Services</Link></li>
                 <li><Link to="/about" className="font-montserrat text-gray-400 hover:text-gold transition-colors">About Us</Link></li>
                 <li><Link to="/booking" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Booking</Link></li>
+                <li><Link to="/blog" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Blog</Link></li>
+                <li><Link to="/track-order" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Track Order</Link></li>
               </ul>
-              
+
               <ul className="space-y-2">
                 <li><Link to="/contact" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Contact</Link></li>
                 <li><Link to="/reviews" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Reviews</Link></li>
                 <li><Link to="/faq" className="font-montserrat text-gray-400 hover:text-gold transition-colors">FAQ</Link></li>
-                <li><Link to="/career" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Career</Link></li>
+                <li><Link to="/career" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Join Our Team</Link></li>
+                <li><Link to="/digital-services" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Digital Services</Link></li>
+                <li><Link to="/special-discount-offers" className="font-montserrat text-gold hover:text-gold-light transition-colors">Special Offers</Link></li>
               </ul>
 
               <ul className="space-y-2">
@@ -70,7 +74,6 @@ const Footer = () => {
                 <li><Link to="/tailor-near-me" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Tailor Near Me</Link></li>
                 <li><Link to="/tailor-near-me/saddar" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Tailor in Saddar</Link></li>
                 <li><Link to="/tailor-near-me/bahadurabad" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Tailor in Bahadurabad</Link></li>
-                <li><Link to="/special-discount-offers" className="font-montserrat text-gold hover:text-gold-light transition-colors">Special Offers</Link></li>
                 <li>
                   <a href="https://ma-tailor.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-montserrat text-gray-400 hover:text-gold transition-colors flex items-center gap-1">
                     <ExternalLink className="h-3 w-3" /> Website
@@ -94,18 +97,18 @@ const Footer = () => {
               <li><Link to="/online-tailor-uk" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor UK</Link></li>
               <li><Link to="/online-tailor-usa" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor USA</Link></li>
               <li><Link to="/online-tailor-canada" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor Canada</Link></li>
+              <li><Link to="/online-tailor-karachi" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Online Tailor Karachi</Link></li>
               <li><Link to="/pakistani-tailor-online" className="font-montserrat text-gray-400 hover:text-gold transition-colors">Pakistani Tailor Online</Link></li>
             </ul>
           </div>
-          
 
-          
+
+
           <div>
             <h3 className="text-lg font-playfair font-bold text-gold mb-4">Business Hours</h3>
             <ul className="space-y-2 mb-6">
-              <li className="font-montserrat text-gray-400">Monday - Friday: 10:00 AM - 8:00 PM</li>
-              <li className="font-montserrat text-gray-400">Saturday: 10:00 AM - 6:00 PM</li>
-              <li className="font-montserrat text-gray-400">Sunday: Closed</li>
+              <li className="font-montserrat text-gray-400">Monday - Sunday: 10:00 AM - 9:00 PM</li>
+              <li className="font-montserrat text-gray-400">Open 7 days a week</li>
             </ul>
             <div className="mb-6">
               <p className="font-montserrat text-gray-400 italic">
@@ -145,7 +148,7 @@ const Footer = () => {
               Made with ♥ by{' '}
               <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
               <a href="https://www.fiverr.com/users/alimajid0302198" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Fiverr</a> | {' '}
-              <a href="https://preview--ma-digital-hub-portfolio.lovable.app/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">MA Digital Hub</a>
+              <a href="https://majidali.lovable.app/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">MA Digital Hub</a>
             </p>
           </div>
         </div>
