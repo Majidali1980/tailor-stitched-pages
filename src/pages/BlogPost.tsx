@@ -8,6 +8,7 @@ import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import { BLOG_REDIRECTS as sharedRedirects } from '@/lib/blogRedirects';
 import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {
@@ -28,10 +29,7 @@ interface BlogPost {
 }
 
 // Old/retired blog URLs -> new destinations (client-side 301 equivalent)
-const BLOG_REDIRECTS: Record<string, string> = {
-  design_16: '/blog',
-  'ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post': '/privacy-policy',
-};
+const BLOG_REDIRECTS = sharedRedirects;
 
 const RELATED_SERVICES = [
   { label: 'Online tailor in Karachi', to: '/online-tailor-karachi' },
