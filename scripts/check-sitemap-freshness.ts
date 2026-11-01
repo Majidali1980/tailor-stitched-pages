@@ -15,6 +15,7 @@
 
 import { existsSync, readFileSync, statSync } from 'fs';
 import { resolve, join } from 'path';
+import { BLOG_REDIRECTS } from '../src/lib/blogRedirects';
 
 const BASE_URL = 'https://matailor.lovable.app';
 const SUPABASE_URL = 'https://nqbvlbtvmesjhgstznhe.supabase.co';
