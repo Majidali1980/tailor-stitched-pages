@@ -28,10 +28,7 @@ interface BlogPost {
 }
 
 // Old/retired blog URLs -> new destinations (client-side 301 equivalent)
-const BLOG_REDIRECTS: Record<string, string> = {
-  design_16: '/blog',
-  'ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post': '/privacy-policy',
-};
+const BLOG_REDIRECTS = sharedRedirects;
 
 const RELATED_SERVICES = [
   { label: 'Online tailor in Karachi', to: '/online-tailor-karachi' },
