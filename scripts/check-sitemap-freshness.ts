@@ -123,6 +123,9 @@ if (supabaseReachable) {
     if (!rows) return;
     for (const r of rows) {
       if (!r.slug) continue;
+      // Slugs that redirect (see BLOG_REDIRECTS) intentionally have no
+      // sitemap entry — their target page is listed instead.
+      if (prefix === '/blog/' && BLOG_REDIRECTS[r.slug]) continue;
       const url = `${BASE_URL}${prefix}${r.slug}`;
       if (!locs.has(url)) missing.push(`${table}: ${url}`);
     }
