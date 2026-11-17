@@ -14,6 +14,8 @@ const HeroCarousel = lazyWithRetry(() => import('@/components/HeroCarousel'), 'H
 const HomepageCarousel = lazyWithRetry(() => import('@/components/HomepageCarousel'), 'HomepageCarousel');
 const NotificationBar = lazyWithRetry(() => import('@/components/NotificationBar'), 'NotificationBar');
 const LatestDesignsCarousel = lazyWithRetry(() => import('@/components/LatestDesignsCarousel'), 'LatestDesignsCarousel');
+const NewDesignsCarousel = lazyWithRetry(() => import('@/components/NewDesignsCarousel'), 'NewDesignsCarousel');
+const ReelsSection = lazyWithRetry(() => import('@/components/ReelsSection'), 'ReelsSection');
 
 const HeroSectionServices = lazyWithRetry(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })), 'HeroSectionServices');
 const StitchedDressCarousel = lazyWithRetry(() => import('@/components/StitchedDressCarousel'), 'StitchedDressCarousel');
@@ -180,6 +182,8 @@ const Index = () => {
           <DigitalServicesBanner variant="compact" />
           <BentoShowcase />
           <HeroCarousel />
+          <NewDesignsCarousel />
+          <ReelsSection />
           {orderedKeys.map((key) => {
             const Comp = SECTION_COMPONENTS[key];
             return Comp ? <Comp key={key} /> : null;
