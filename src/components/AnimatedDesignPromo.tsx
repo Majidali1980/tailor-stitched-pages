@@ -17,7 +17,7 @@ const AnimatedDesignPromo = () => {
   }, []);
 
   return (
-    <section className={`py-12 overflow-hidden relative transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <section className={`py-8 overflow-hidden relative transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div className="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black opacity-95 z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">
