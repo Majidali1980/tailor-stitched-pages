@@ -40,9 +40,9 @@ const GalleryCategoriesShowcase = () => {
   if (!categories.length) return null;
 
   return (
-    <section className="py-20 bg-black text-white">
+    <section className="py-12 bg-black text-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-3">
             Shop by <span className="text-gold">Category</span>
           </h2>
@@ -66,7 +66,7 @@ const GalleryCategoriesShowcase = () => {
                     src={preview}
                     alt={cat.label}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="absolute inset-0 w-full h-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black" />
