@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
  * fetch — the Supabase `hero_section` slides are intentionally ignored (they
  * kept replacing the hero with the old carousel). NO text overlay at all:
  * the images already carry their own text. Only the two CTA buttons stay.
- * Images are object-contain (no cropping), no ken-burns zoom.
+ * Images are object-cover, full-bleed width to width (owner's choice, 17 Nov
+ * 2026 — some top/bottom crop on portrait images is the accepted trade-off).
  */
 const SLIDES = [
   {
@@ -52,7 +53,7 @@ const CinematicHero = () => {
             <img
               src={s.src}
               alt={s.alt}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               fetchPriority={i === 0 ? 'high' : 'auto'}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
