@@ -30,18 +30,18 @@ export const HeroSectionServices = () => {
   return <section className="w-full">
       <div className="w-full">
         <div className="flex flex-col gap-0">
-          {heroItems.map(item => <div key={item.id} className="relative w-full overflow-hidden group">
+          {heroItems.map(item => <div key={item.id} className="relative w-full overflow-hidden group bg-black">
               {item.link ? <Link to={item.link} className="block w-full">
                   <img 
                     src={item.image_url} 
                     alt="Hero section" 
-                    className="object-cover transition-transform duration-300 group-hover:scale-105" 
+                    className="object-contain bg-black transition-transform duration-300 group-hover:scale-105" 
                     style={{ width: item.image_width, height: item.image_height }}
                   />
                 </Link> : <img 
                   src={item.image_url} 
                   alt="Hero section" 
-                  className="object-cover" 
+                  className="object-contain bg-black" 
                   style={{ width: item.image_width, height: item.image_height }}
                 />}
             </div>)}
