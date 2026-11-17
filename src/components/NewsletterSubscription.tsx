@@ -65,7 +65,7 @@ const NewsletterSubscription = () => {
   };
 
   return (
-    <section className="py-16 bg-black border-t border-gray-800">
+    <section className="py-12 bg-black border-t border-gray-800">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
           <div className="flex justify-center mb-6">
@@ -78,7 +78,7 @@ const NewsletterSubscription = () => {
             Subscribe to Our <span className="text-gold">Newsletter</span>
           </h3>
           
-          <p className="text-gray-300 font-montserrat mb-8 text-lg">
+          <p className="text-gray-300 font-montserrat mb-6 text-lg">
             Get the latest updates on new designs, exclusive offers, and fashion tips delivered to your inbox
           </p>
 
