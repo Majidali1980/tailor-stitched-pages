@@ -18,6 +18,56 @@ interface HeroSlide {
 
 const ROTATION_MS = 6000;
 
+interface HeroCopyProps {
+  title: string;
+  description: string | null;
+  button1_text: string | null;
+  button1_link: string | null;
+  button2_text: string | null;
+  button2_link: string | null;
+}
+
+/** Left-aligned headline + subhead + CTAs over the slide, anchored above the dots. */
+const HeroCopy = ({ title, description, button1_text, button1_link, button2_text, button2_link }: HeroCopyProps) => (
+  <div className="absolute inset-x-0 bottom-24 z-10 px-6 sm:px-10 lg:px-16 text-left">
+    <p className="text-[#c9a84c] text-[11px] sm:text-sm font-montserrat font-semibold tracking-[0.3em] mb-2 sm:mb-3">
+      LADIES TAILOR — KARACHI
+    </p>
+    <h1 className="font-playfair text-4xl sm:text-6xl lg:text-7xl text-white leading-[1.05] max-w-3xl">
+      {title}
+    </h1>
+    {description && (
+      <p className="mt-3 sm:mt-4 text-white/80 text-sm sm:text-lg max-w-xl leading-relaxed">
+        {description}
+      </p>
+    )}
+    {(button1_text || button2_text) && (
+      <div className="mt-5 sm:mt-6 flex flex-wrap gap-3 sm:gap-4">
+        {button1_text && button1_link && (
+          <a
+            href={button1_link}
+            target={button1_link.startsWith('http') ? '_blank' : undefined}
+            rel={button1_link.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 bg-[#c9a84c] hover:bg-[#b89540] text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            {button1_text}
+          </a>
+        )}
+        {button2_text && button2_link && (
+          <a
+            href={button2_link}
+            target={button2_link.startsWith('http') ? '_blank' : undefined}
+            rel={button2_link.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-[#c9a84c] text-[#c9a84c] hover:bg-[#c9a84c] hover:text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-black/30"
+          >
+            {button2_text}
+          </a>
+        )}
+      </div>
+    )}
+  </div>
+);
+
 const CinematicHero = () => {
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [current, setCurrent] = useState(0);
@@ -47,7 +97,18 @@ const CinematicHero = () => {
     >
       <div className="absolute inset-0 z-0">
         {slides.length === 0 && (
-          <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
+          <div className="absolute inset-0">
+            <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+            <HeroCopy
+              title="Your Style, Our Stitching"
+              description="Custom ladies stitching, bridal wear and alterations — perfect fit, home pickup and drop. Book online or WhatsApp today."
+              button1_text="Book a Tailor"
+              button1_link="/booking"
+              button2_text="WhatsApp Us"
+              button2_link="https://wa.me/923070125273"
+            />
+          </div>
         )}
         {slides.map((s, i) => (
           <div
@@ -85,32 +146,18 @@ const CinematicHero = () => {
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d]" />
             )}
-            {/* subtle bottom vignette only, so image stays visible */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0d0d0d]/80 to-transparent" />
+            {/* stronger bottom vignette for headline legibility */}
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
 
-            {(s.button1_text || s.button2_text) && (
-              <div className="absolute inset-x-0 bottom-14 sm:bottom-20 z-10 flex flex-wrap justify-center gap-3 sm:gap-4 px-4">
-                {s.button1_text && s.button1_link && (
-                  <a
-                    href={s.button1_link}
-                    target={s.button1_link.startsWith('http') ? '_blank' : undefined}
-                    rel={s.button1_link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 bg-[#c9a84c] hover:bg-[#b89540] text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 shadow-lg"
-                  >
-                    {s.button1_text}
-                  </a>
-                )}
-                {s.button2_text && s.button2_link && (
-                  <a
-                    href={s.button2_link}
-                    target={s.button2_link.startsWith('http') ? '_blank' : undefined}
-                    rel={s.button2_link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-[#c9a84c] text-[#c9a84c] hover:bg-[#c9a84c] hover:text-black font-montserrat font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-black/30"
-                  >
-                    {s.button2_text}
-                  </a>
-                )}
-              </div>
+            {(s.title || s.button1_text || s.button2_text) && (
+              <HeroCopy
+                title={s.title}
+                description={s.description}
+                button1_text={s.button1_text}
+                button1_link={s.button1_link}
+                button2_text={s.button2_text}
+                button2_link={s.button2_link}
+              />
             )}
           </div>
         ))}
