@@ -9,7 +9,7 @@ const DigitalServicesBanner = ({ variant = 'wide' }: DigitalServicesBannerProps)
   if (variant === 'compact') {
     return (
       <section className="w-full py-4">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <Link
             to="/digital-services"
             className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-gold/40 bg-gradient-to-r from-black via-[#141414] to-black px-6 py-5 hover:border-gold transition-colors"
@@ -29,7 +29,7 @@ const DigitalServicesBanner = ({ variant = 'wide' }: DigitalServicesBannerProps)
 
   return (
     <section className="w-full py-6">
-      <div className="container mx-auto px-4">
+      <div className="w-full px-4 sm:px-6 lg:px-10">
         <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-gradient-to-br from-[#1a1a1a] via-black to-[#1a1a1a] p-6 md:p-8 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-4 py-1 font-montserrat text-xs uppercase tracking-widest text-gold mb-4">
             <Sparkles className="h-3.5 w-3.5" /> Digital Growth Studio
