@@ -55,7 +55,7 @@ const HomepageCarousel = () => {
 
   return (
     <section className="w-full py-6">
-      <div className="container mx-auto px-4">
+      <div className="w-full px-4 sm:px-6 lg:px-10">
         <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-6 text-gold">
           Featured Collections
         </h2>
