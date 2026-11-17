@@ -61,7 +61,7 @@ const ProductShowcase = () => {
 
   if (loading) {
     return (
-      <section className="py-16 bg-black">
+      <section className="py-12 bg-black">
         <div className="container mx-auto px-4 flex justify-center items-center h-64">
           <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin" />
         </div>
@@ -72,9 +72,9 @@ const ProductShowcase = () => {
   if (products.length === 0) return null;
 
   return (
-    <section className="py-16 bg-gradient-to-b from-black via-gray-950 to-black">
+    <section className="py-12 bg-gradient-to-b from-black via-gray-950 to-black">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-3">
             <span className="gold-gradient-text">Our Products</span>
           </h2>
@@ -94,8 +94,8 @@ const ProductShowcase = () => {
                 className="group bg-gray-900/60 border border-gray-800 rounded-xl overflow-hidden cursor-pointer hover:border-gold/40 transition-colors"
                 onClick={() => navigate(`/product/${product.id}`)}
               >
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <img src={product.images[0] || '/placeholder.svg'} alt={product.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <div className="relative aspect-[3/4] overflow-hidden bg-black">
+                  <img src={product.images[0] || '/placeholder.svg'} alt={product.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   {/* Stock badge */}
                   <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-semibold flex items-center gap-1 ${inStock ? 'bg-emerald-500/90 text-white' : 'bg-red-500/90 text-white'}`}>
