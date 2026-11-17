@@ -91,7 +91,7 @@ const LatestDesignsCarousel = () => {
   if (loading) {
     return (
       <section className="py-12 md:py-16 bg-gray-900 text-white">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center">
             <div className="animate-pulse text-gold text-lg">Loading Latest Designs...</div>
           </div>
@@ -107,7 +107,7 @@ const LatestDesignsCarousel = () => {
   return (
     <>
       <section className="py-12 md:py-16 bg-gray-900 text-white">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
               Latest <span className="text-gold">Designs</span>
@@ -118,7 +118,7 @@ const LatestDesignsCarousel = () => {
           </div>
 
           <Carousel 
-            className="w-full max-w-6xl mx-auto"
+            className="w-full"
             plugins={[
               Autoplay({
                 delay: 3000,
