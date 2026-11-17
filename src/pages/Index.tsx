@@ -133,7 +133,7 @@ const Index = () => {
       "closes": "21:00"
     }],
     "priceRange": "$$",
-    "image": "https://matailor.lovable.app/og-image.jpg",
+    "image": "https://matailor.lovable.app/logo.png",
     "sameAs": ["https://www.facebook.com/matailor", "https://www.instagram.com/matailor"],
     "makesOffer": SERVICE_LIST.map((name) => ({
       "@type": "Offer",
@@ -163,7 +163,7 @@ const Index = () => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/" />
-        <meta property="og:image" content="https://matailor.lovable.app/og-image.jpg" />
+        <meta property="og:image" content="https://matailor.lovable.app/logo.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -188,7 +188,6 @@ const Index = () => {
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
-          <DigitalServicesBanner variant="compact" />
           <HomeServiceFaq />
           <NewsletterSubscription />
           <Footer />
