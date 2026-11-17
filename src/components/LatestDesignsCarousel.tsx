@@ -90,7 +90,7 @@ const LatestDesignsCarousel = () => {
 
   if (loading) {
     return (
-      <section className="py-24 bg-gray-900 text-white">
+      <section className="py-12 md:py-16 bg-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-pulse text-gold text-lg">Loading Latest Designs...</div>
@@ -106,9 +106,9 @@ const LatestDesignsCarousel = () => {
 
   return (
     <>
-      <section className="py-24 bg-gray-900 text-white">
+      <section className="py-12 md:py-16 bg-gray-900 text-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-5xl font-playfair font-bold mb-4">
               Latest <span className="text-gold">Designs</span>
             </h2>
@@ -142,7 +142,7 @@ const LatestDesignsCarousel = () => {
                         <img
                           src={design.image_url}
                           alt={design.title}
-                          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
+                          className="w-full h-full object-contain bg-black transition-all duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100">
