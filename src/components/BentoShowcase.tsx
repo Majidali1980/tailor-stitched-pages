@@ -22,8 +22,8 @@ const BentoShowcase = () => {
 
   return (
     <section className="w-full bg-[#0d0d0d] text-[#f0d78c]" style={{ fontFamily: 'Fira Sans, sans-serif' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-20 lg:py-28">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-4 sm:gap-5 md:gap-6 md:h-[640px] lg:h-[720px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-4 sm:gap-5 md:gap-6 md:h-[560px] lg:h-[620px]">
 
 
 
@@ -97,7 +97,7 @@ const BentoShowcase = () => {
                 src={lookbookImage}
                 alt="Latest lookbook"
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 group-hover:opacity-70 transition-all duration-[2000ms] ease-out"
+                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 group-hover:opacity-70 transition-all duration-[2000ms] ease-out"
               />
             ) : (
               <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-[#0d0d0d] to-[#1a1a1a]" />
