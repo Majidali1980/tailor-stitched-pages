@@ -42,9 +42,9 @@ const SocialMediaFeed = () => {
   }, []);
 
   return (
-    <section className="py-16 bg-gray-900 border-t border-gray-800">
+    <section className="py-12 bg-gray-900 border-t border-gray-800">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-playfair font-bold text-white mb-4">
             Follow Our <span className="text-gold">Latest Updates</span>
           </h2>
@@ -131,7 +131,7 @@ const SocialMediaFeed = () => {
           </div>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-8">
           <p className="text-gray-400 font-montserrat">
             Join our community and never miss an update on our latest collections
           </p>
