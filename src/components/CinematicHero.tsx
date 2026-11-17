@@ -57,13 +57,13 @@ const CinematicHero = () => {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-[#0d0d0d] mt-20 sm:mt-24 md:mt-32 lg:mt-36 h-[55vh] min-h-[340px] sm:h-[70vh] sm:min-h-[480px] md:h-[80vh] md:min-h-[560px] lg:h-[92vh] lg:min-h-[640px]"
+      className="relative w-full overflow-hidden bg-[#0d0d0d] mt-20 sm:mt-24 md:mt-32 lg:mt-36 h-[55vh] min-h-[340px] sm:h-[65vh] sm:min-h-[420px] md:h-[70vh] md:min-h-[480px] lg:h-[78vh] lg:min-h-[540px]"
     >
       <div className="absolute inset-0 z-0">
         <img
           src="https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1794083891058-Mayoon%20Wedding%20Stitching%20Elegance.png"
           alt="Your Style, Our Stitching"
-          className="w-full h-full object-cover object-center animate-ken-burns"
+          className="w-full h-full object-contain"
           fetchPriority="high"
           loading="eager"
         />
