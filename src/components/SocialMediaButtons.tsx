@@ -10,13 +10,13 @@ const SocialMediaButtons = () => {
   };
 
   return (
-    <section className="py-12 bg-gray-900 border-t border-gray-800">
+    <section className="py-8 bg-gray-900 border-t border-gray-800">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <h3 className="text-2xl font-playfair font-bold mb-6 text-white">
+          <h3 className="text-2xl font-playfair font-bold mb-4 text-white">
             Follow Us on <span className="text-gold">Social Media</span>
           </h3>
-          <p className="text-gray-300 font-montserrat mb-8 max-w-md mx-auto">
+          <p className="text-gray-300 font-montserrat mb-6 max-w-md mx-auto">
             Stay connected with us for the latest designs, updates, and exclusive offers
           </p>
           
