@@ -36,20 +36,20 @@ export const HeroSectionLittleStitch = () => {
       <div className="w-full">
         <div className="flex flex-col gap-0">
           {heroItems.map((item) => (
-            <div key={item.id} className="relative w-full overflow-hidden group">
+            <div key={item.id} className="relative w-full overflow-hidden group bg-black">
               {item.link ? (
                 <Link to={item.link} className="block w-full">
                   <img
                     src={item.image_url}
                     alt="Hero section"
-                    className="w-full h-[500px] md:h-[600px] lg:h-[700px] object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-[400px] md:h-[480px] lg:h-[540px] object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
               ) : (
                 <img
                   src={item.image_url}
                   alt="Hero section"
-                  className="w-full h-[500px] md:h-[600px] lg:h-[700px] object-cover"
+                  className="w-full h-[400px] md:h-[480px] lg:h-[540px] object-contain"
                 />
               )}
             </div>
