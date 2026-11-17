@@ -76,7 +76,7 @@ export default {
 			fontFamily: {
 				'playfair': ['"DM Serif Display"', '"Playfair Display"', 'serif'],
 				'serif-display': ['"DM Serif Display"', 'serif'],
-				'montserrat': ['"Fira Sans"', 'Montserrat', 'sans-serif'],
+				'montserrat': ['"Montserrat"', '"Fira Sans"', 'sans-serif'],
 				'sans-body': ['"Fira Sans"', 'sans-serif'],
 			},
 			borderRadius: {
