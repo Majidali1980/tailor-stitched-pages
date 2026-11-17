@@ -25,7 +25,7 @@ const HomeServiceFaq = ({ showFaq = true }: Props) => {
     { icon: Truck, title: 'Delivered to you', text: 'Your finished, pressed outfit comes back to your home, with free minor alterations if anything needs adjusting.' },
   ];
   return (
-    <section className="py-16 md:py-20 bg-black text-white" aria-labelledby="home-service-heading">
+    <section className="py-12 md:py-14 bg-black text-white" aria-labelledby="home-service-heading">
       {showFaq && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
@@ -47,7 +47,7 @@ const HomeServiceFaq = ({ showFaq = true }: Props) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap gap-3 mb-12">
+        <div className="flex flex-wrap gap-3 mb-8">
           <Link to="/booking" className="inline-flex items-center min-h-[48px] px-6 rounded-md bg-gold text-black font-semibold font-montserrat">Book home pickup</Link>
           <Link to="/tailor-near-me" className="inline-flex items-center min-h-[48px] px-6 rounded-md border border-gold text-gold font-montserrat">Find your area</Link>
         </div>
