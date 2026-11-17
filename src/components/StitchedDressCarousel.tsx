@@ -83,7 +83,7 @@ const StitchedDressCarousel = () => {
   if (loading) {
     return (
       <section className="py-12 bg-black text-white">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center">
             <div className="animate-pulse text-gold text-lg">Loading Stitched Dresses...</div>
           </div>
@@ -99,7 +99,7 @@ const StitchedDressCarousel = () => {
   return (
     <>
       <section className="py-12 bg-black text-white">
-        <div className="container mx-auto px-4">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4">
               Stitched <span className="text-gold">Dress</span>
