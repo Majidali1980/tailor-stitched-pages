@@ -8,7 +8,7 @@ interface DigitalServicesBannerProps {
 const DigitalServicesBanner = ({ variant = 'wide' }: DigitalServicesBannerProps) => {
   if (variant === 'compact') {
     return (
-      <section className="w-full py-6">
+      <section className="w-full py-4">
         <div className="container mx-auto px-4">
           <Link
             to="/digital-services"
@@ -28,16 +28,16 @@ const DigitalServicesBanner = ({ variant = 'wide' }: DigitalServicesBannerProps)
   }
 
   return (
-    <section className="w-full py-8">
+    <section className="w-full py-6">
       <div className="container mx-auto px-4">
-        <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-gradient-to-br from-[#1a1a1a] via-black to-[#1a1a1a] p-8 md:p-12 text-center">
+        <div className="relative overflow-hidden rounded-2xl border border-gold/40 bg-gradient-to-br from-[#1a1a1a] via-black to-[#1a1a1a] p-6 md:p-8 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-4 py-1 font-montserrat text-xs uppercase tracking-widest text-gold mb-4">
             <Sparkles className="h-3.5 w-3.5" /> Digital Growth Studio
           </span>
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-3">
             Website Development & Social Media Content
           </h2>
-          <p className="font-montserrat text-gray-300 max-w-2xl mx-auto mb-6">
+          <p className="font-montserrat text-gray-300 max-w-2xl mx-auto mb-4">
             We build fast, SEO-ready websites and produce scroll-stopping content — reels, TikTok videos,
             promotional images, hooks, captions and hashtag sets that actually grow your brand.
           </p>
