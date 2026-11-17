@@ -55,7 +55,7 @@ const PromotionalBanner = ({
 
   return (
     <div className={`w-full py-3 px-4 relative ${variantStyles[variant]}`}>
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+      <div className="w-full px-4 sm:px-6 lg:px-10 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
         <div className="text-center md:text-left">
           <h3 className="font-playfair font-bold text-lg md:text-xl">
             {title}
