@@ -43,7 +43,7 @@ const HeroCarousel = () => {
 
   if (loading) {
     return (
-      <section className="w-full h-[600px] bg-gray-900 animate-pulse">
+      <section className="w-full h-[420px] sm:h-[480px] md:h-[540px] bg-gray-900 animate-pulse">
         <div className="w-full h-full bg-gray-800 rounded-lg"></div>
       </section>
     );
@@ -72,11 +72,11 @@ const HeroCarousel = () => {
           <CarouselContent>
             {carouselItems.map((item) => (
               <CarouselItem key={item.id}>
-                <div className="relative w-full h-[600px] overflow-hidden">
+                <div className="relative w-full h-[420px] sm:h-[480px] md:h-[540px] overflow-hidden bg-black">
                   <img
                     src={item.image_url}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
