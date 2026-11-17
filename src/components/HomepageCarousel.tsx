@@ -54,9 +54,9 @@ const HomepageCarousel = () => {
   }
 
   return (
-    <section className="w-full py-8">
+    <section className="w-full py-6">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-8 text-gold">
+        <h2 className="text-3xl md:text-4xl font-playfair font-bold text-center mb-6 text-gold">
           Featured Collections
         </h2>
         <div className="relative w-full">
@@ -76,11 +76,11 @@ const HomepageCarousel = () => {
             <CarouselContent>
               {carouselItems.map((item) => (
                 <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="relative group overflow-hidden rounded-lg h-[400px]">
+                  <div className="relative group overflow-hidden rounded-lg h-[400px] bg-black">
                     <img
                       src={item.image_url}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-6">
