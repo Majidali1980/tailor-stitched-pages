@@ -82,7 +82,7 @@ const StitchedDressCarousel = () => {
 
   if (loading) {
     return (
-      <section className="py-16 bg-black text-white">
+      <section className="py-12 bg-black text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="animate-pulse text-gold text-lg">Loading Stitched Dresses...</div>
@@ -98,9 +98,9 @@ const StitchedDressCarousel = () => {
 
   return (
     <>
-      <section className="py-16 bg-black text-white">
+      <section className="py-12 bg-black text-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4">
               Stitched <span className="text-gold">Dress</span>
             </h2>
@@ -129,13 +129,13 @@ const StitchedDressCarousel = () => {
                   <CarouselItem key={dress.id} className="w-full">
                     <div className="relative w-full">
                       <div 
-                        className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden group cursor-pointer"
+                        className="relative w-full h-[420px] md:h-[500px] lg:h-[560px] overflow-hidden bg-black group cursor-pointer"
                         onClick={() => handleImageClick(dress.image_url)}
                       >
                         <img
                           src={dress.image_url}
                           alt={dress.title}
-                          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+                          className="w-full h-full object-contain transition-all duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
