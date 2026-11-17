@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Scissors } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 
 const WHATSAPP_URL = 'https://wa.me/923070125273?text=Hello%20MA%20Tailor%2C%20I%27d%20like%20to%20book%20a%20consultation.';
@@ -22,12 +23,12 @@ const BentoShowcase = () => {
   return (
     <section className="w-full bg-[#0d0d0d] text-[#f0d78c]" style={{ fontFamily: 'Fira Sans, sans-serif' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-20 lg:py-28">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 sm:gap-4 md:gap-5 lg:gap-6 md:h-[720px] lg:h-[850px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-4 sm:gap-5 md:gap-6 md:h-[640px] lg:h-[720px]">
 
 
 
           {/* Services */}
-          <div className="sm:col-span-2 md:col-span-2 md:row-span-1 group relative overflow-hidden bg-[#1a1a1a] border border-[#c9a84c]/10 p-6 sm:p-8 md:p-10 flex flex-col justify-end min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
+          <div className="sm:col-span-2 md:col-span-2 md:row-span-1 group relative overflow-hidden bg-[#1a1a1a] border border-[#c9a84c]/20 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col justify-end min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
             <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-25 transition-opacity duration-700">
               <svg className="w-24 h-24 text-[#c9a84c]" fill="none" stroke="currentColor" strokeWidth="0.5" viewBox="0 0 24 24">
                 <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
@@ -48,7 +49,7 @@ const BentoShowcase = () => {
           </div>
 
           {/* AI Design Studio */}
-          <div className="md:col-span-1 group relative overflow-hidden bg-gradient-to-br from-[#c9a84c] to-[#9c7d2e] border border-white/5 p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
+          <div className="md:col-span-1 group relative overflow-hidden bg-gradient-to-br from-[#c9a84c] to-[#9c7d2e] border border-[#c9a84c]/20 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col justify-between min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
             <div className="relative z-10">
               <span className="inline-block px-3 py-1 bg-[#0d0d0d] text-[10px] uppercase tracking-widest mb-6 font-bold text-[#c9a84c]">
                 Virtual Atelier
@@ -69,8 +70,8 @@ const BentoShowcase = () => {
           </div>
 
           {/* Bespoke Quotes */}
-          <div className="md:col-span-1 bg-[#151515] border border-[#c9a84c]/20 p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center group hover:border-[#c9a84c]/50 transition-colors min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
-            <div className="text-3xl sm:text-4xl font-playfair text-[#c9a84c] mb-3 sm:mb-4">✂</div>
+          <div className="md:col-span-1 bg-[#151515] border border-[#c9a84c]/20 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col items-center justify-center text-center group hover:border-[#c9a84c]/50 transition-colors min-h-[220px] sm:min-h-[240px] md:min-h-[260px]">
+            <Scissors className="w-8 h-8 sm:w-10 sm:h-10 text-[#c9a84c] mb-3 sm:mb-4" strokeWidth={1.5} />
             <h3 className="text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-3">Bespoke Quotes</h3>
 
             <p className="text-xs text-[#f0d78c]/50 mb-8">
@@ -89,7 +90,7 @@ const BentoShowcase = () => {
           {/* Lookbook */}
           <Link
             to="/gallery"
-            className="sm:col-span-2 md:col-span-2 group relative overflow-hidden bg-[#1a1a1a] cursor-pointer min-h-[240px] sm:min-h-[260px] md:min-h-[280px] block"
+            className="sm:col-span-2 md:col-span-2 group relative overflow-hidden bg-[#1a1a1a] border border-[#c9a84c]/20 rounded-2xl cursor-pointer min-h-[240px] sm:min-h-[260px] md:min-h-[280px] block"
           >
             {lookbookImage ? (
               <img
@@ -112,7 +113,7 @@ const BentoShowcase = () => {
           </Link>
 
           {/* Concierge / WhatsApp */}
-          <div className="sm:col-span-2 md:col-span-2 bg-gradient-to-r from-[#1a1a1a] to-[#0d0d0d] border-t border-[#c9a84c]/10 p-6 sm:p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+          <div className="sm:col-span-2 md:col-span-2 bg-gradient-to-r from-[#1a1a1a] to-[#0d0d0d] border border-[#c9a84c]/20 rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
             <div className="flex-1">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-playfair mb-2 sm:mb-3 md:mb-4 text-[#f0d78c]">Bespoke Concierge</h3>
 
