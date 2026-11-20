@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
  * kept replacing the hero with the old carousel). NO text overlay at all:
  * the images already carry their own text. Only the two CTA buttons stay.
  * Images are object-cover, full-bleed width to width (owner's choice, 17 Nov
- * 2026 — some top/bottom crop on portrait images is the accepted trade-off).
+ * 2026 — top of the image is anchored (object-top, 20 Nov 2026) so the head/face stays
+ * visible and only the hem crops on portrait images).
  */
 const SLIDES = [
   {
@@ -39,7 +40,7 @@ const CinematicHero = () => {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-[#0d0d0d] pt-20 sm:pt-24 md:pt-32 lg:pt-36 h-[55vh] min-h-[340px] sm:h-[65vh] sm:min-h-[420px] md:h-[70vh] md:min-h-[480px] lg:h-[78vh] lg:min-h-[540px]"
+      className="relative w-full overflow-hidden bg-[#0d0d0d] mt-20 sm:mt-24 md:mt-32 lg:mt-36 h-[55vh] min-h-[340px] sm:h-[65vh] sm:min-h-[420px] md:h-[70vh] md:min-h-[480px] lg:h-[78vh] lg:min-h-[540px]"
     >
       <div className="absolute inset-0 z-0">
         {SLIDES.map((s, i) => (
@@ -53,7 +54,7 @@ const CinematicHero = () => {
             <img
               src={s.src}
               alt={s.alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-top"
               fetchPriority={i === 0 ? 'high' : 'auto'}
               loading={i === 0 ? 'eager' : 'lazy'}
             />
