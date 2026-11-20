@@ -16,60 +16,60 @@ type FaqCategory = { title: string; items: FaqItem[] };
 
 const categories: FaqCategory[] = [
   {
-    title: 'Process',
+    title: 'Ordering Process',
     items: [
-      { q: "What's the difference between made-to-measure and bespoke suits?", a: "Made-to-measure adjusts an existing base pattern to your measurements, while bespoke builds a unique pattern from scratch with multiple fittings and full customization of every detail." },
-      { q: "How many fittings will I need?", a: "Made-to-measure usually requires one fitting plus a final pickup. Bespoke typically involves 2–4 fittings, including a basted (rough) fitting, a forward fitting, and a final fitting." },
-      { q: "Can I order a custom suit online without visiting in person?", a: "Yes. We provide a guided self-measurement video, a measurement form, and a virtual consultation. For best results, we recommend having a tailor or experienced friend assist with measurements." },
-      { q: "How do I take accurate measurements at home?", a: "Use a soft measuring tape, wear a fitted shirt, and follow our step-by-step video. Key measurements include chest, waist, hips, shoulder width, sleeve length, jacket length, and inseam." },
-      { q: "Can you copy a suit I already own and love?", a: "Yes. Ship us the garment or send detailed photos with measurements. We'll replicate the fit, silhouette, and details in your chosen fabric." },
+      { q: "How do I place a stitching order online?", a: "Share your design on WhatsApp (+92 307 0125273) or use the booking form on this website. Send a photo or sketch of the design, your fabric details, and your measurements. We confirm the design, timeline and delivery before starting work." },
+      { q: "How do I send my measurements?", a: "Use our guided self-measurement form with a soft measuring tape, or book a home measurement visit in Karachi. If you are unsure, request a video call on WhatsApp and we will walk you through each measurement step by step." },
+      { q: "Can I send my own fabric?", a: "Yes — most of our clients send their own fabric. We stitch lawn, chiffon, silk, velvet, net, organza, jamawar, cotton and more. You can courier the fabric to our Mahmoodabad studio or drop it off in person." },
+      { q: "Can you stitch a dress from a photo or a designer's picture?", a: "Yes. Share a clear photo of the design and we will stitch it to your measurements, matching the neckline, sleeves, cut and detailing as closely as possible." },
+      { q: "How do I track my order?", a: "Use the Track Order page with your order number, or message us on WhatsApp for a progress update and photos at each stage of stitching." },
     ],
   },
   {
-    title: 'Fit & Style',
+    title: 'Fit & Measurements',
     items: [
-      { q: "Why does a custom suit fit better than off-the-rack?", a: "Off-the-rack suits are cut for an average body shape. A custom suit accounts for your exact shoulders, posture, chest-to-waist drop, and arm length, so it sits cleanly without pulling or excess fabric." },
-      { q: "Which lapel style should I choose?", a: "Notch lapels are versatile for business and daily wear. Peak lapels add formality and elongate the torso. Shawl lapels are reserved for tuxedos and black-tie events." },
-      { q: "Can you tailor suits for unusual body types?", a: "Absolutely. Custom tailoring is ideal for athletic builds, tall or petite frames, uneven shoulders, or any posture that off-the-rack ignores." },
-      { q: "Should I get a two-piece or three-piece suit?", a: "A two-piece is more versatile for everyday business wear. A three-piece (with waistcoat) adds formality and works well for weddings, events, and a more classic look." },
-      { q: "What trouser 'break' should I choose?", a: "No break gives a modern, cropped look. A slight or quarter break is the most versatile. A full break is traditional and dressier but can pool at the shoe." },
+      { q: "How do I take accurate measurements at home?", a: "Use a soft measuring tape over fitted clothing, stand straight, and follow our step-by-step measurement guide. Key measurements are bust, waist, hips, shoulder, sleeve length, shirt length and trouser length." },
+      { q: "What if my measurements change after ordering?", a: "We build extra seam allowance into every garment so it can be taken in or let out later. Tell us as soon as possible and we will adjust the fit before the final finishing." },
+      { q: "Do you offer fittings?", a: "Yes. Fittings are available at our Mahmoodabad studio in Karachi, and overseas clients can book a WhatsApp video fitting to approve the fit before dispatch." },
+      { q: "Can you copy a dress I already own and love?", a: "Yes. Send us the garment or clear photos with measurements and we will replicate the fit, cut and detailing in your chosen fabric." },
+      { q: "What is the difference between standard size and custom stitching?", a: "Standard sizes follow fixed charts. Custom stitching is drafted to your exact measurements, posture and style preferences, so the dress fits only you." },
     ],
   },
   {
-    title: 'Fabric & Details',
+    title: 'Fabrics & Stitching',
     items: [
-      { q: "Which fabric weight is right for my climate?", a: "Lightweight wools (Super 110s–130s, 7–9 oz) suit warm climates. Mid-weight (10–12 oz) works year-round. Heavier flannel and tweed (13 oz+) are best for cold weather." },
-      { q: "Wool vs. synthetic blends — which is better?", a: "Pure wool breathes better, drapes more elegantly, and lasts longer. Blends with polyester are cheaper and more wrinkle-resistant but feel less premium and trap heat." },
-      { q: "What lining options do you offer?", a: "Standard viscose linings, breathable Bemberg cupro for warmer climates, and bold patterned linings for personality. Half-lined jackets are available for hot weather." },
-      { q: "Can I customize buttons, stitching, and monograms?", a: "Yes. Choose horn, mother-of-pearl, or covered buttons; pick stitching colors for buttonholes and lapels; and add a personal monogram inside the jacket." },
-      { q: "What's the difference between half-canvas and full-canvas construction?", a: "Half-canvas uses a canvas layer in the chest and lapels with fused construction below. Full-canvas runs canvas through the entire jacket, giving the best drape and longevity — and is what we recommend for premium suits." },
+      { q: "Which fabrics do you stitch?", a: "We stitch lawn, chiffon, georgette, silk, raw silk, velvet, net, organza, jamawar, cotton, cambric and more — from everyday wear to heavy bridal fabrics." },
+      { q: "Do you provide the fabric or should I send my own?", a: "MA Tailor is a stitching service, so most clients send their own fabric. If you need help sourcing, message us on WhatsApp and we will guide you on suitable fabric for your design." },
+      { q: "Can you do embroidery, lace and embellishment work?", a: "Yes. We do dabka, zari, sequin and thread embroidery, lace application, piping, tassels and gota work, hand-applied by skilled karigars." },
+      { q: "How do you finish seams, hems and necklines?", a: "All garments are finished with overlocked seams, neat hems, piped edges where required, and reinforced stitching at stress points so the dress holds its shape." },
+      { q: "How should I wash and care for my stitched clothes?", a: "Dry-clean heavily embellished and bridal outfits. For everyday lawn and cotton, wash gently in cold water, dry in shade, and steam rather than ironing directly on embroidery." },
     ],
   },
   {
-    title: 'Pricing',
+    title: 'Bridal & Formal Wear',
     items: [
-      { q: "How much does a custom suit cost?", a: "Pricing depends on fabric and construction. Made-to-measure starts at a set base price, with premium mills (Loro Piana, Zegna, Holland & Sherry) increasing the cost. Full bespoke is priced higher due to additional hand-work and fittings." },
-      { q: "Why are custom suits more expensive than off-the-rack?", a: "You're paying for higher-grade fabric, individual pattern drafting, multiple fittings, and skilled hand-finishing. The result lasts years longer and fits only you." },
-      { q: "Is a custom suit worth it if I only wear suits occasionally?", a: "Yes — a well-made custom suit is a long-term investment. Even worn a few times a year, it will outlast and outperform several off-the-rack suits in fit, comfort, and durability." },
-      { q: "What's included in the price?", a: "The price includes consultation, fabric, full construction, all fittings, basic monogram, and a garment bag. Shipping and rush orders may incur additional charges." },
+      { q: "How early should I book bridal stitching?", a: "For a full bridal set (mehndi, baraat and walima) book 8–10 weeks before your first event. A single bridal lehenga, gharara or maxi usually needs 3–4 weeks, and formal wear needs 10–14 days." },
+      { q: "Do you stitch lehengas, ghararas, maxis and shararas?", a: "Yes — bridal couture is our specialty. We stitch lehengas, ghararas, shararas, maxis and anarkalis with proper canvas, lining, kalis and boning so the silhouette holds through long events." },
+      { q: "Can you stitch matching outfits for my family and bridesmaids?", a: "Yes. We regularly stitch coordinated outfits for mothers, sisters and bridesmaids. Share your colour palette and we will recommend cuts and embroidery that complement the bridal look." },
+      { q: "Can overseas brides order bridal stitching?", a: "Absolutely. Brides in the USA, UK, Canada, UAE and Australia order from us regularly. We stitch to your measurements, share progress photos, hold WhatsApp video fittings, and ship by insured tracked courier." },
     ],
   },
   {
-    title: 'Timeline',
+    title: 'Delivery & Timeline',
     items: [
-      { q: "How long does it take to make a custom suit?", a: "Made-to-measure typically takes 4–6 weeks. Bespoke suits take 8–12 weeks due to additional fittings and hand-work. Rush orders may be available for an additional fee." },
-      { q: "How should I care for my custom suit?", a: "Hang it on a wide wooden hanger, brush after each wear, steam (don't iron) to remove wrinkles, and rotate between suits so the fabric can rest for at least 24 hours between wears." },
-      { q: "How often should I dry-clean my suit?", a: "Only when truly needed — typically 2–4 times a year. Frequent dry-cleaning breaks down the fibers and shortens the suit's lifespan. Spot-clean and steam between cleanings." },
-      { q: "Will my custom suit hold its shape over time?", a: "Yes, especially with full-canvas construction. With proper care — rotation, brushing, and correct storage — a quality custom suit holds its shape for 8–10 years or more." },
+      { q: "How long does stitching take?", a: "Everyday wear takes 7–10 days, formal wear 10–14 days, and bridal wear 3–4 weeks. Timelines depend on the design and embroidery work, and we confirm your delivery date before starting." },
+      { q: "Do you deliver outside Karachi and worldwide?", a: "Yes. We deliver across Pakistan and ship worldwide to the USA, UK, Canada, UAE and Australia by tracked courier. Home pickup is available from our Mahmoodabad studio in Karachi." },
+      { q: "How is my order packed for delivery?", a: "Each outfit is pressed, wrapped in muslin, and packed flat so embroidery and pleats stay safe. Bridal pieces travel in a rigid box with the embroidery facing up." },
+      { q: "What are your working hours?", a: "Our studio is open Monday to Saturday, 10:00 AM to 8:00 PM. You can message us on WhatsApp anytime and we will reply during working hours." },
     ],
   },
   {
-    title: 'Revisions',
+    title: 'Revisions & Support',
     items: [
-      { q: "What happens if my suit doesn't fit perfectly on delivery?", a: "We schedule a final fitting on delivery. Any necessary adjustments — sleeve length, waist suppression, trouser hem — are done free of charge until you're happy with the fit." },
-      { q: "Do you offer free alterations after delivery?", a: "Yes. Adjustments for fit issues are free within the first 30 days. We also offer minor alterations later (for weight change, etc.) at a discounted rate." },
-      { q: "Can I return a custom suit if I'm not satisfied?", a: "Custom suits are made to your specifications and cannot be returned. However, we guarantee the fit — if something isn't right, we'll remake the affected piece at no cost." },
-      { q: "What if I gain or lose weight after ordering?", a: "We build extra fabric into the seams during construction so we can let out or take in the suit later. Most fit changes can be accommodated within reasonable weight fluctuations." },
+      { q: "What if my dress doesn't fit perfectly on delivery?", a: "Tell us at the first fitting and we will adjust it — sleeve length, waist, hem and other fit corrections are included until you are happy with the fit." },
+      { q: "Do you offer alterations after delivery?", a: "Yes. Minor alterations for fit are available after delivery, and we can also restyle or resize outfits later at a discounted rate." },
+      { q: "Can I change my design after ordering?", a: "Small changes are possible before cutting begins. Once the fabric is cut, major design changes may not be possible — so message us as early as you can." },
+      { q: "How can I contact MA Tailor?", a: "WhatsApp us on +92 307 0125273, use the contact form on this website, or visit our studio in Mahmoodabad, Karachi (Monday to Saturday, 10:00 AM to 8:00 PM)." },
     ],
   },
 ];
@@ -105,16 +105,16 @@ const FAQPage = () => {
   return (
     <div className="min-h-screen bg-black text-white font-montserrat">
       <Helmet>
-        <title>Custom Suit FAQ | MA Tailor – Questions Answered</title>
+        <title>Ladies Stitching FAQ | MA Tailor – Questions Answered</title>
         <meta
           name="description"
-          content="Answers to common custom suit questions: process, fit & style, fabric & details, pricing, timeline, and revisions from MA Tailor."
+          content="Answers to common ladies stitching questions: ordering, measurements, fabrics, bridal wear, delivery timelines and alterations from MA Tailor Karachi."
         />
         <link rel="canonical" href="https://matailor.lovable.app/faq" />
-        <meta property="og:title" content="Custom Suit FAQ | MA Tailor" />
+        <meta property="og:title" content="Ladies Stitching FAQ | MA Tailor" />
         <meta
           property="og:description"
-          content="Everything you need to know about ordering a custom suit — process, fit, fabric, pricing, timeline, and revisions."
+          content="Everything you need to know about ordering custom ladies stitching — measurements, fabrics, bridal wear, delivery and alterations."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://matailor.lovable.app/faq" />
@@ -127,11 +127,11 @@ const FAQPage = () => {
       <main className="container mx-auto px-4 pt-28 pb-20 max-w-4xl">
         <header className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl font-playfair font-bold mb-4">
-            Custom Suit FAQ
+            Ladies Stitching FAQ
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto">
-            Everything you need to know about ordering a bespoke or made-to-measure
-            suit — from your first fitting to final delivery.
+            Everything you need to know about ordering custom ladies stitching —
+            from your first measurement to final delivery.
           </p>
         </header>
 
@@ -141,7 +141,7 @@ const FAQPage = () => {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search questions (e.g. fabric, fittings, price)..."
+            placeholder="Search questions (e.g. fabric, measurements, bridal)..."
             aria-label="Search FAQ"
             className="pl-12 h-12 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-primary"
           />
