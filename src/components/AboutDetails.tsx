@@ -26,6 +26,9 @@ const AboutDetails: React.FC<AboutDetailsProps> = ({ open, onClose }) => {
               <p className="text-gray-300">
                 Our journey began with a small workshop and has grown into a full-service online tailoring solution, catering to clients across Pakistan and beyond.
               </p>
+              <p className="text-gray-300">
+                Today, MA Tailor serves clients across Karachi — DHA, PECHS Block 6, Falcon Complex, Clifton and Gulshan-e-Iqbal — as well as Pakistani families in the USA, UK, Canada, UAE and Australia who order stitched outfits online. Every garment is cut, stitched and finished in our Mahmoodabad studio, with progress photos shared at each stage.
+              </p>
             </div>
             
             <div className="space-y-4">
@@ -69,6 +72,13 @@ const AboutDetails: React.FC<AboutDetailsProps> = ({ open, onClose }) => {
             </div>
           </div>
           
+          <div className="pt-4">
+            <h3 className="text-xl font-playfair font-bold text-gold mb-4">Visit Our Studio</h3>
+            <p className="text-gray-300">
+              Our studio is in Mahmoodabad, Karachi, open Monday to Saturday, 10:00 AM to 8:00 PM. Home pickup and delivery is available across Karachi, and stitched orders ship worldwide to the USA, UK, Canada, UAE and Australia. WhatsApp us on +92 307 0125273 for a stitching quote or to book a fitting.
+            </p>
+          </div>
+
           <div className="bg-gradient-to-r from-gray-800 to-black p-4 rounded-lg">
             <p className="italic text-gold text-center">
               "Our goal is not just to stitch clothes, but to create garments that reflect your personal style and enhance your confidence."
