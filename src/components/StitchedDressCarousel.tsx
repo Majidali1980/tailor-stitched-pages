@@ -129,13 +129,13 @@ const StitchedDressCarousel = () => {
                   <CarouselItem key={dress.id} className="w-full">
                     <div className="relative w-full">
                       <div 
-                        className="relative w-full h-[420px] md:h-[500px] lg:h-[560px] overflow-hidden bg-black group cursor-pointer"
+                        className="relative w-full overflow-hidden bg-black group cursor-pointer"
                         onClick={() => handleImageClick(dress.image_url)}
                       >
                         <img
                           src={dress.image_url}
                           alt={dress.title}
-                          className="w-full h-full object-contain bg-black transition-all duration-300 group-hover:scale-105"
+                          className="w-full h-auto object-contain bg-black transition-all duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
