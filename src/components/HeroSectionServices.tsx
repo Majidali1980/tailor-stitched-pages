@@ -36,13 +36,13 @@ export const HeroSectionServices = () => {
                     src={item.image_url} 
                     alt="Hero section" 
                     className="object-contain bg-black transition-transform duration-300 group-hover:scale-105" 
-                    style={{ width: item.image_width, height: item.image_height }}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </Link> : <img 
                   src={item.image_url} 
                   alt="Hero section" 
                   className="object-contain bg-black" 
-                  style={{ width: item.image_width, height: item.image_height }}
+                  style={{ width: '100%', height: 'auto' }}
                 />}
             </div>)}
         </div>
