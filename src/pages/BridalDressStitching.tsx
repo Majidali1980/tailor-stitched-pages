@@ -3,12 +3,12 @@ import SeoLandingPage from '@/components/SeoLandingPage';
 const BridalDressStitching = () => (
   <SeoLandingPage
     slug="bridal-dress-stitching"
-    title="Bridal Dress Stitching – Custom Pakistani Bridal Wear | Ma Tailor"
-    metaDescription="Custom bridal dress stitching by Ma Tailor. Hand-finished lehengas, ghararas & maxis with perfect fit, intricate detailing and on-time delivery for your big day."
+    title="Bridal Dress Stitching – Custom Pakistani Bridal Wear | MA Tailor"
+    metaDescription="Custom bridal dress stitching by MA Tailor. Hand-finished lehengas, ghararas & maxis with perfect fit, intricate detailing and on-time delivery for your big day."
     metaKeywords="bridal dress stitching USA, bridal dress stitching UK, bridal dress stitching Canada, Pakistani bridal lehenga USA, custom bridal wear UK, wedding gharara stitching Canada, bridal couture overseas, Pakistani wedding dress tailor USA, bridal outfit stitching UK, walima dress stitching Canada"
     h1="Bridal Dress Stitching – Crafted For Your Big Day"
     serviceName="Bridal Dress Stitching"
-    intro="Your wedding outfit should fit like it was made for you – because it is. Ma Tailor specialises in custom bridal stitching for brides in Pakistan and around the world."
+    intro="Your wedding outfit should fit like it was made for you – because it is. MA Tailor specialises in custom bridal stitching for brides in Pakistan and around the world, from the first consultation to the final fitting."
     highlights={[
       'Hand-finished bridal couture',
       'Lehenga, gharara, maxi, anarkali & walima looks',
@@ -29,6 +29,18 @@ const BridalDressStitching = () => (
       {
         heading: 'Timeline & Booking',
         body: 'For full bridal sets we recommend booking 6–8 weeks before your event. For a single bridal piece, 3–4 weeks is usually enough. Rush orders may be accepted subject to availability.',
+      },
+      {
+        heading: 'Choosing Your Bridal Silhouette',
+        body: "Whether you dream of a flared lehenga, a classic gharara, a flowing maxi or a regal anarkali, we help you choose the silhouette that suits your height, frame and event. Our team advises on flare, kalis, cancan volume and train length so the outfit photographs beautifully and stays comfortable through long ceremonies.",
+      },
+      {
+        heading: 'Fabrics & Embroidery',
+        body: 'We work with raw silk, jamawar, organza, velvet, net and chiffon, and hand-apply dabka, zari, naqshi, sequins and thread embroidery. Each outfit is structured with canvas, inner lining and boning where needed, so heavy embroidery sits cleanly and the silhouette holds its shape.',
+      },
+      {
+        heading: 'Fittings & Progress Updates',
+        body: 'Every bridal order includes two or three fittings — at our Mahmoodabad studio or over WhatsApp video for overseas brides. We share progress photos at each stage, from cutting to embroidery placement to final pressing, so you always know exactly where your outfit is.',
       },
     ]}
     relatedServices={[
