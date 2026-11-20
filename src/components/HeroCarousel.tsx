@@ -76,7 +76,7 @@ const HeroCarousel = () => {
                   <img
                     src={item.image_url}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain bg-black"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
