@@ -33,8 +33,10 @@ const REELS: Reel[] = [
   {
     title: 'Bridal — Full Reel',
     url: 'https://www.facebook.com/reel/1084337354662759/',
-    embedUrl:
-      'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1084337354662759%2F&show_text=false&width=500',
+    // NOTE 20 Nov 2026: Facebook blocks embedding this reel ("can't be embedded
+    // because it may contain content owned by someone else"), so it renders as a
+    // link card below instead of a broken black player. External link still works.
+    embedUrl: '',
   },
   {
     title: 'Beige & Maroon — New Design Reel',
@@ -68,14 +70,25 @@ const ReelsSection = () => {
                   className="block relative aspect-[9/16] w-full max-w-[340px] mx-auto rounded-lg overflow-hidden mb-4 bg-black group"
                   title={`${reel.title} — Watch on Facebook`}
                 >
-                  <iframe
-                    src={reel.embedUrl}
-                    title={reel.title}
-                    className="absolute inset-0 w-full h-full border-0"
-                    scrolling="no"
-                    allowFullScreen={true}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
+                  {reel.embedUrl ? (
+                    <iframe
+                      src={reel.embedUrl}
+                      title={reel.title}
+                      className="absolute inset-0 w-full h-full border-0"
+                      scrolling="no"
+                      allowFullScreen={true}
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    />
+                  ) : (
+                    <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#1a1a1a]">
+                      <span className="bg-gold text-black p-4 rounded-full shadow-lg">
+                        <Play className="h-8 w-8" />
+                      </span>
+                      <span className="text-gray-300 font-montserrat text-sm px-4 text-center">
+                        Watch this reel on Facebook
+                      </span>
+                    </span>
+                  )}
                   <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <span className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
                       <Play className="h-6 w-6" />
