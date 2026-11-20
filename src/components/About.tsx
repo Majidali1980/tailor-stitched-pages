@@ -32,8 +32,12 @@ const About = () => {
               MA Tailor is a premier ladies online stitching shop specializing in all types of stitching for ladies' and girls' suits. With years of experience in the fashion industry, we take pride in delivering exceptional quality and craftsmanship.
             </p>
             
-            <p className="text-lg font-montserrat text-gray-300 mb-8">
+            <p className="text-lg font-montserrat text-gray-300 mb-6">
               Led by Tayaba Majid, our skilled team is dedicated to creating perfectly fitted garments tailored to each client's unique style and preferences. We combine traditional techniques with modern designs to create timeless pieces that make our clients feel confident and beautiful.
+            </p>
+
+            <p className="text-lg font-montserrat text-gray-300 mb-8">
+              From our studio in Mahmoodabad, Karachi, we serve clients across DHA, PECHS Block 6, Falcon Complex, Clifton, Gulshan-e-Iqbal and North Nazimabad — and ship stitched orders worldwide to the USA, UK, Canada, UAE and Australia. Every order includes home pickup and delivery in Karachi, progress updates on WhatsApp, and a final quality check before dispatch. Our studio is open Monday to Saturday, 10:00 AM to 8:00 PM.
             </p>
             
             <div className="space-y-4 mb-8">
@@ -48,6 +52,14 @@ const About = () => {
               <div className="flex items-center">
                 <div className="h-1 w-8 bg-gold mr-3"></div>
                 <p className="font-montserrat text-white">Customer Satisfaction Guaranteed</p>
+              </div>
+              <div className="flex items-center">
+                <div className="h-1 w-8 bg-gold mr-3"></div>
+                <p className="font-montserrat text-white">Worldwide Delivery – USA, UK, Canada, UAE & Australia</p>
+              </div>
+              <div className="flex items-center">
+                <div className="h-1 w-8 bg-gold mr-3"></div>
+                <p className="font-montserrat text-white">Home Pickup & Delivery in Karachi</p>
               </div>
             </div>
             
