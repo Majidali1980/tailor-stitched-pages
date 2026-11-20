@@ -1,4 +1,6 @@
 import { ExternalLink, Play } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 // HOW TO ADD ANOTHER REEL LATER:
 // 1. Copy the reel URL — Facebook (https://www.facebook.com/reel/<id>/)
@@ -14,6 +16,8 @@ import { ExternalLink, Play } from 'lucide-react';
 //      TikTok — "https://www.tiktok.com/embed/v2/<video-id>".
 // 3. Push to GitHub and redeploy — no admin panel or database change needed.
 //
+// LAYOUT (20 Nov 2026, owner request): auto-playing carousel, moving
+// left-to-right (3s per slide, loops, pauses on hover) — NOT a grid of cards.
 // MIX (20 Nov 2026): the 10 top-viewed reels — the 3 Facebook dress reels
 // already on the site + the 7 most-viewed TikTok videos (@matailor1234,
 // checked 20 Nov: top video 3,685 views, next 274 / 266 / 263 / 262 / 259 / 259).
@@ -113,64 +117,88 @@ const ReelsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-          {REELS.map((reel) => (
-            <div key={reel.url} className="fancy-border p-1 h-full">
-              <div className="bg-black p-4 rounded-lg h-full flex flex-col">
-                <a
-                  href={reel.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block relative aspect-[9/16] w-full max-w-[340px] mx-auto rounded-lg overflow-hidden mb-4 bg-black group"
-                  title={`${reel.title} — Watch on ${reel.platform === 'tiktok' ? 'TikTok' : 'Facebook'}`}
+        <div className="relative w-full">
+          <Carousel
+            className="w-full"
+            plugins={[
+              Autoplay({
+                delay: 3000,
+                stopOnInteraction: false,
+                stopOnMouseEnter: true,
+              }),
+            ]}
+            opts={{
+              align: 'start',
+              loop: true,
+            }}
+          >
+            <CarouselContent className="-ml-4 md:-ml-6">
+              {REELS.map((reel) => (
+                <CarouselItem
+                  key={reel.url}
+                  className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
                 >
-                  {reel.embedUrl ? (
-                    <iframe
-                      src={reel.embedUrl}
-                      title={reel.title}
-                      className="absolute inset-0 w-full h-full border-0"
-                      scrolling="no"
-                      allowFullScreen={true}
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    />
-                  ) : (
-                    <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#1a1a1a]">
-                      <span className="bg-gold text-black p-4 rounded-full shadow-lg">
-                        <Play className="h-8 w-8" />
-                      </span>
-                      <span className="text-gray-300 font-montserrat text-sm px-4 text-center">
-                        Watch this reel on Facebook
-                      </span>
-                    </span>
-                  )}
-                  <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
-                      <Play className="h-6 w-6" />
-                    </span>
-                  </span>
-                </a>
-                <div className="flex-grow flex flex-col items-center text-center">
-                  <a
-                    href={reel.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg font-playfair font-semibold text-gold mb-3 line-clamp-2 hover:text-gold-light transition-colors duration-200"
-                  >
-                    {reel.title}
-                  </a>
-                  <a
-                    href={reel.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center gap-2 bg-gold text-black font-montserrat font-bold text-sm px-5 py-2.5 rounded-full hover:bg-gold-light transition-colors duration-200"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    Watch on {reel.platform === 'tiktok' ? 'TikTok' : 'Facebook'}
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+                  <div className="fancy-border p-1 h-full">
+                    <div className="bg-black p-4 rounded-lg h-full flex flex-col">
+                      <a
+                        href={reel.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block relative aspect-[9/16] w-full max-w-[340px] mx-auto rounded-lg overflow-hidden mb-4 bg-black group"
+                        title={`${reel.title} — Watch on ${reel.platform === 'tiktok' ? 'TikTok' : 'Facebook'}`}
+                      >
+                        {reel.embedUrl ? (
+                          <iframe
+                            src={reel.embedUrl}
+                            title={reel.title}
+                            className="absolute inset-0 w-full h-full border-0"
+                            scrolling="no"
+                            allowFullScreen={true}
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                          />
+                        ) : (
+                          <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#1a1a1a]">
+                            <span className="bg-gold text-black p-4 rounded-full shadow-lg">
+                              <Play className="h-8 w-8" />
+                            </span>
+                            <span className="text-gray-300 font-montserrat text-sm px-4 text-center">
+                              Watch this reel on Facebook
+                            </span>
+                          </span>
+                        )}
+                        <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <span className="bg-gold text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
+                            <Play className="h-6 w-6" />
+                          </span>
+                        </span>
+                      </a>
+                      <div className="flex-grow flex flex-col items-center text-center">
+                        <a
+                          href={reel.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-lg font-playfair font-semibold text-gold mb-3 line-clamp-2 hover:text-gold-light transition-colors duration-200"
+                        >
+                          {reel.title}
+                        </a>
+                        <a
+                          href={reel.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-auto inline-flex items-center gap-2 bg-gold text-black font-montserrat font-bold text-sm px-5 py-2.5 rounded-full hover:bg-gold-light transition-colors duration-200"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          Watch on {reel.platform === 'tiktok' ? 'TikTok' : 'Facebook'}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2 md:left-4 bg-gold text-black hover:bg-gold/90 h-10 w-10 md:h-12 md:w-12" />
+            <CarouselNext className="right-2 md:right-4 bg-gold text-black hover:bg-gold/90 h-10 w-10 md:h-12 md:w-12" />
+          </Carousel>
         </div>
       </div>
     </section>
