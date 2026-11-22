@@ -158,7 +158,6 @@ const Index = () => {
     <>
       <Helmet>
         <title>{title}</title>
-        <meta name="description" content={description} />
         <meta name="keywords" content="ladies tailor Karachi, best ladies tailor Karachi, online tailoring service Karachi, designer tailor Karachi, bridal stitching Karachi, home measurement tailor Karachi, custom stitching Karachi, Pakistani dress tailor" />
         <link rel="canonical" href="https://matailor.lovable.app/" />
         <meta property="og:title" content={title} />
