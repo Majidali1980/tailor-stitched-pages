@@ -148,6 +148,8 @@ const Footer = () => {
               Made with ♥ by{' '}
               <a href="https://www.facebook.com/share/16TyxwjKRy/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Facebook</a> | {' '}
               <a href="https://www.fiverr.com/users/alimajid0302198" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Fiverr</a> | {' '}
+              <a href="https://www.behance.net/majidali133" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Behance</a> | {' '}
+              <a href="https://www.upwork.com/freelancers/~01a992e3c7800022a4" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">Upwork</a> | {' '}
               <a href="https://majidali.lovable.app/" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">MA Digital Hub</a>
             </p>
           </div>
