@@ -132,7 +132,7 @@ if (supabaseReachable) {
     ok(`${table}: ${rows.length} URL(s) checked`);
   };
 
-  await checkRoutes('blog', 'blog?select=slug', '/blog/');
+  await checkRoutes('blog', 'blog?select=slug&is_published=eq.true', '/blog/');
   await checkRoutes('service_pages', 'service_pages?select=slug&is_active=eq.true', '/services/');
   await checkRoutes('discount_offers', 'discount_offers?select=slug&is_active=eq.true', '/special-discount-offers/');
 

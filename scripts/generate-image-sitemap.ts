@@ -8,6 +8,7 @@
 import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { serviceLandingPages } from '../src/data/serviceLandingPages';
+import { BLOG_REDIRECTS } from '../src/lib/blogRedirects';
 
 const BASE_URL = 'https://matailor.lovable.app';
 const SUPABASE_URL = 'https://nqbvlbtvmesjhgstznhe.supabase.co';
@@ -51,7 +52,7 @@ async function collect(): Promise<PageImages[]> {
       'gallery?select=image_url,caption&is_active=eq.true&image_url=not.is.null',
     ),
     fetchJson<{ slug: string; title: string; featured_image_url: string | null }>(
-      'blog?select=slug,title,featured_image_url&featured_image_url=not.is.null',
+      'blog?select=slug,title,featured_image_url&is_published=eq.true&featured_image_url=not.is.null',
     ),
     fetchJson<{ title: string | null; image_url: string | null }>(
       'hero_section?select=title,image_url&is_active=eq.true&image_url=not.is.null',
@@ -96,7 +97,7 @@ async function collect(): Promise<PageImages[]> {
 
   // Blog posts
   for (const b of blog) {
-    if (!b.featured_image_url) continue;
+    if (!b.featured_image_url || BLOG_REDIRECTS[b.slug]) continue;
     pages.push({
       pageUrl: `${BASE_URL}/blog/${b.slug}`,
       images: [{ loc: b.featured_image_url, caption: b.title, title: b.title }],
@@ -206,14 +207,51 @@ function injectImagesIntoSitemap(sitemap: string, pages: PageImages[]): string {
   return out;
 }
 
+async function collectContentUrls(): Promise<string[]> {
+  const [blog, services, offers] = await Promise.all([
+    fetchJson<{ slug: string }>('blog?select=slug&is_published=eq.true'),
+    fetchJson<{ slug: string }>('service_pages?select=slug&is_active=eq.true'),
+    fetchJson<{ slug: string }>('discount_offers?select=slug&is_active=eq.true'),
+  ]);
+
+  return [
+    ...blog
+      .filter((row) => row.slug && !BLOG_REDIRECTS[row.slug])
+      .map((row) => `${BASE_URL}/blog/${row.slug}`),
+    ...services
+      .filter((row) => Boolean(row.slug))
+      .map((row) => `${BASE_URL}/services/${row.slug}`),
+    ...offers
+      .filter((row) => Boolean(row.slug))
+      .map((row) => `${BASE_URL}/special-discount-offers/${row.slug}`),
+  ];
+}
+
+function addMissingContentUrls(sitemap: string, urls: string[]): string {
+  const existing = new Set(
+    [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim()),
+  );
+  const missing = [...new Set(urls)].filter((url) => !existing.has(url));
+  if (!missing.length) return sitemap;
+
+  const additions = missing
+    .map(
+      (url) =>
+        `  <url>\n    <loc>${xmlEscape(url)}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`,
+    )
+    .join('\n');
+  return sitemap.replace(/<\/urlset>/i, `${additions}\n</urlset>`);
+}
+
 async function main() {
   const pages = await collect();
+  const contentUrls = await collectContentUrls();
   const totalImages = pages.reduce((n, p) => n + p.images.length, 0);
   writeFileSync(resolve('public/image-sitemap.xml'), renderImageSitemap(pages));
   writeFileSync(resolve('public/sitemap-index.xml'), renderSitemapIndex());
   const sitemapPath = resolve('public/sitemap.xml');
   if (existsSync(sitemapPath)) {
-    const current = readFileSync(sitemapPath, 'utf8');
+    const current = addMissingContentUrls(readFileSync(sitemapPath, 'utf8'), contentUrls);
     writeFileSync(sitemapPath, injectImagesIntoSitemap(current, pages));
   } else {
     console.warn('warning: public/sitemap.xml missing — index will 404 that entry');
