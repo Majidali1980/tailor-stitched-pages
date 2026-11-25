@@ -7,4 +7,5 @@
 export const BLOG_REDIRECTS: Record<string, string> = {
   design_16: '/blog',
   'ma-tailor-ai-image-disclaimer-privacy-policy-detailed-blog-post': '/privacy-policy',
+  'legance-in-every-stitch-the-art-of-ma-tailor': '/blog/elegance-in-every-stitch-the-art-of-ma-tailor',
 };
