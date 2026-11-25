@@ -104,7 +104,7 @@ if (!supabaseReachable) {
   for (const f of FILES) {
     if (!mtimes[f]) continue;
     if (mtimes[f] + 60_000 < latestChange)
-      err(`${f} is STALE — generated ${new Date(mtimes[f]).toISOString()} but ${latestSource} changed ${changed}. Run: bunx tsx scripts/generate-image-sitemap.ts`);
+      err(`${f} is STALE — generated ${new Date(mtimes[f]).toISOString()} but ${latestSource} changed ${changed}. Run: npx tsx scripts/generate-image-sitemap.ts`);
     else ok(`${f} newer than latest content change (${latestSource} @ ${changed})`);
   }
 }
@@ -235,6 +235,6 @@ console.log(
 if (errors.length) {
   console.log('\nALERT — sitemaps are out of date or incomplete:');
   errors.forEach((e) => console.log(`  - ${e}`));
-  console.log('\nFix: bunx tsx scripts/generate-image-sitemap.ts (regenerates all three files), then rebuild.');
+  console.log('\nFix: npx tsx scripts/generate-image-sitemap.ts (regenerates all three files), then rebuild.');
   process.exit(1);
 }
