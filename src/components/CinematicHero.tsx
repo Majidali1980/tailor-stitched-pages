@@ -12,17 +12,17 @@ import { useEffect, useState } from 'react';
 const SLIDES = [
   {
     id: 'bridal',
-    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1794083891058-Mayoon%20Wedding%20Stitching%20Elegance.png',
+    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/hero-mayoon.webp',
     alt: 'Bridal stitching by MA Tailor',
   },
   {
     id: 'eid',
-    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1784442285011-Gemini_Generated_Image_1ju8e71ju8e71ju8.png',
+    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/hero-gemini-1.webp',
     alt: 'Eid style tailoring by MA Tailor',
   },
   {
     id: 'pakistani-dress',
-    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/1785132872661-Gemini_Generated_Image_4b55q14b55q14b55.png',
+    src: 'https://nqbvlbtvmesjhgstznhe.supabase.co/storage/v1/object/public/admin-images/hero_section/hero-gemini-2.webp',
     alt: 'Online Pakistani dress tailor for ladies',
   },
 ];
