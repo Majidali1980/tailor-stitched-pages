@@ -1,5 +1,5 @@
 
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, Fragment } from 'react';
 import Navbar from '@/components/Navbar';
 import CinematicHero from '@/components/CinematicHero';
 import BentoShowcase from '@/components/BentoShowcase';
@@ -19,6 +19,7 @@ const ReelsSection = lazyWithRetry(() => import('@/components/ReelsSection'), 'R
 
 const HeroSectionServices = lazyWithRetry(() => import('@/components/HeroSectionServices').then(m => ({ default: m.HeroSectionServices })), 'HeroSectionServices');
 const StitchedDressCarousel = lazyWithRetry(() => import('@/components/StitchedDressCarousel'), 'StitchedDressCarousel');
+const SewingEssentials = lazyWithRetry(() => import('@/components/SewingEssentials'), 'SewingEssentials');
 const GalleryCategoriesShowcase = lazyWithRetry(() => import('@/components/GalleryCategoriesShowcase'), 'GalleryCategoriesShowcase');
 
 const HeroSectionLittleStitch = lazyWithRetry(() => import('@/components/HeroSectionLittleStitch').then(m => ({ default: m.HeroSectionLittleStitch })), 'HeroSectionLittleStitch');
@@ -185,7 +186,13 @@ const Index = () => {
           <ReelsSection />
           {orderedKeys.map((key) => {
             const Comp = SECTION_COMPONENTS[key];
-            return Comp ? <Comp key={key} /> : null;
+            if (!Comp) return null;
+            return (
+              <Fragment key={key}>
+                <Comp />
+                {key === 'stitched_dress' && <SewingEssentials />}
+              </Fragment>
+            );
           })}
           <DigitalServicesBanner />
           {/* Brand promotion banner — links to portfolio */}
