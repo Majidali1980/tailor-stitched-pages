@@ -188,6 +188,14 @@ const Index = () => {
             return Comp ? <Comp key={key} /> : null;
           })}
           <DigitalServicesBanner />
+          {/* Brand promotion banner — links to portfolio */}
+          <section className="w-full py-6">
+            <div className="w-full px-4 sm:px-6 lg:px-10">
+              <a href="https://majidaigc.base44.app" target="_blank" rel="noopener noreferrer" aria-label="Want to promote your brand? See our work">
+                <img src="/brand-promotion-banner.webp" alt="Want to promote your brand? We make reels and posters that get noticed. See our work at majidaigc.base44.app" className="w-full rounded-2xl border border-gold/40" loading="lazy" />
+              </a>
+            </div>
+          </section>
           <AnimatedDesignPromo />
           <SocialMediaButtons />
           <SocialMediaFeed />
