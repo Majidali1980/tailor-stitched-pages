@@ -131,6 +131,9 @@ const Footer = () => {
               All model images displayed on this website are AI-generated and used only to showcase outfit designs and stitching concepts. 
               The actual garments we create are handcrafted by our skilled tailors according to your measurements and preferences.
             </p>
+            <p className="font-montserrat text-sm text-gray-400 text-center max-w-3xl mx-auto mt-3">
+              As an Amazon Associate, MA Tailor earns from qualifying purchases made through links on this site.
+            </p>
           </div>
           
           <div className="text-center">
